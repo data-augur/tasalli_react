@@ -193,8 +193,8 @@ class ContactsList extends Component {
               sortable: false
             },
             {
-              Header: 'Name',
-              accessor: 'name',
+              Header: 'Brand',
+              accessor: 'brandName',
               filterable: true,
               className: 'font-bold'
               // className: "justify-center",
@@ -202,7 +202,14 @@ class ContactsList extends Component {
 
             {
               Header: 'Brand Id',
-              accessor: 'id',
+              accessor: 'brand_id',
+              filterable: true,
+              className: 'font-bold justify-center'
+              // className: "justify-center",
+            },
+            {
+              Header: 'Company',
+              accessor: 'companyName',
               filterable: true,
               className: 'font-bold justify-center'
               // className: "justify-center",

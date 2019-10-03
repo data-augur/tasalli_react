@@ -1,7 +1,11 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 
-export const GET_CONTACTS = '[CONTACTS APP] GET CONTACTS';
+export const GET_COMPANIES = '[COMPANIES APP] GET COMPANIES';
+export const ADD_COMPANY = '[COMPANIES APP] ADD COMPANY';
+export const UPDATE_COMPANY = '[COMPANIES APP] UPDATE COMPANY';
+export const REMOVE_COMPANY = '[COMPANIES APP] REMOVE COMPANY';
+
 export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
 export const TOGGLE_IN_SELECTED_CONTACTS =
   '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
@@ -14,9 +18,7 @@ export const OPEN_EDIT_CONTACT_DIALOG =
   '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
 export const CLOSE_EDIT_CONTACT_DIALOG =
   '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
-export const ADD_CONTACT = '[CONTACTS APP] ADD CONTACT';
-export const UPDATE_CONTACT = '[CONTACTS APP] UPDATE CONTACT';
-export const REMOVE_CONTACT = '[CONTACTS APP] REMOVE CONTACT';
+
 export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
 export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
 export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
@@ -35,14 +37,15 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //     url: 'http://localhost:4000/get-all-brand-users',
 //     headers
 //   });
-export const getContacts = () => dispatch => {
+
+export const getCompanies = () => dispatch => {
   axios
-    // .get('http://localhost:4000/get-all-brand-users')
-    .get('http://18.189.81.89:4000/get-all-brand-users')
+    .get('http://localhost:4000/get-all-companies')
+    // .get('http://18.189.81.89:4000/get-all-companies')
     .then(res => {
       console.log('res :', res);
       dispatch({
-        type: GET_CONTACTS,
+        type: GET_COMPANIES,
         payload: res.data
       });
     })
@@ -54,18 +57,18 @@ export const getContacts = () => dispatch => {
       //   });
     });
 };
-export const addContact = newContact => dispatch => {
+export const addCompany = newContact => dispatch => {
   console.log('newContact :', newContact);
   axios
-    // .post('http://localhost:4000/create-brand-user', newContact)
-    .post('http://18.189.81.89:4000/create-brand-user', newContact)
+    .post('http://localhost:4000/create-company', newContact)
+    // .post('http://18.189.81.89:4000/create-company', newContact)
     .then(res => {
       console.log('res :', res);
       dispatch({
-        type: ADD_CONTACT
+        type: ADD_COMPANY
       });
     })
-    .then(() => dispatch(getContacts()))
+    .then(() => dispatch(getCompanies()))
     .catch(err => {
       console.log('err', err);
       //   dispatch({
@@ -74,21 +77,21 @@ export const addContact = newContact => dispatch => {
       //   });
     });
 };
-export const updateContact = (updateInfo, id) => dispatch => {
+export const updateCompany = (updateInfo, id) => dispatch => {
   console.log('updateInfo :', updateInfo);
   axios
     .put(
-      // `http://localhost:4000/update-brand-user/${updateInfo.id}`,
-      `http://18.189.81.89:4000/update-brand-user/${updateInfo.id}`,
+      `http://localhost:4000/update-company/${updateInfo.id}`,
+      // `http://18.189.81.89:4000/update-company/${updateInfo.id}`,
       updateInfo
     )
     .then(res => {
       console.log('update req :', res);
       dispatch({
-        type: UPDATE_CONTACT
+        type: UPDATE_COMPANY
       });
     })
-    .then(() => dispatch(getContacts()))
+    .then(() => dispatch(getCompanies()))
     .catch(err => {
       console.log('err', err.response);
       //   dispatch({
@@ -97,17 +100,17 @@ export const updateContact = (updateInfo, id) => dispatch => {
       //   });
     });
 };
-export const removeContact = id => dispatch => {
+export const removeCompany = id => dispatch => {
   axios
-    // .delete(`http://localhost:4000/delete-brand-user/${id}`)
-    .delete(`http://18.189.81.89:4000/delete-brand-user/${id}`)
+    .delete(`http://localhost:4000/delete-company/${id}`)
+    // .delete(`http://18.189.81.89:4000/delete-company/${id}`)
     .then(res => {
       console.log('update req :', res);
       dispatch({
-        type: REMOVE_CONTACT
+        type: REMOVE_COMPANY
       });
     })
-    .then(() => dispatch(getContacts()))
+    .then(() => dispatch(getCompanies()))
     .catch(err => {
       console.log('err', err.response);
       //   dispatch({
@@ -255,7 +258,7 @@ export function removeContacts(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         })
-      ]).then(() => dispatch(getContacts(routeParams)))
+      ]).then(() => dispatch(getCompanies(routeParams)))
     );
   };
 }
@@ -274,7 +277,7 @@ export function toggleStarredContact(contactId) {
           type: TOGGLE_STARRED_CONTACT
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getContacts(routeParams)))
+      ]).then(() => dispatch(getCompanies(routeParams)))
     );
   };
 }
@@ -296,7 +299,7 @@ export function toggleStarredContacts(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getContacts(routeParams)))
+      ]).then(() => dispatch(getCompanies(routeParams)))
     );
   };
 }
@@ -318,7 +321,7 @@ export function setContactsStarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getContacts(routeParams)))
+      ]).then(() => dispatch(getCompanies(routeParams)))
     );
   };
 }
@@ -340,7 +343,7 @@ export function setContactsUnstarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getContacts(routeParams)))
+      ]).then(() => dispatch(getCompanies(routeParams)))
     );
   };
 }

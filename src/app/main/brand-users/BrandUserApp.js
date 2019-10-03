@@ -7,8 +7,8 @@ import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
 import ContactsList from './BrandUsersList';
-import ContactsHeader from './BrandAdminHeader';
-import ContactDialog from './BrandAdminDialog';
+import ContactsHeader from './BrandUserHeader';
+import ContactDialog from './BrandUserDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -21,15 +21,15 @@ const styles = theme => ({
   }
 });
 
-class ContactsApp extends Component {
+class BrandUserApp extends Component {
   componentDidMount() {
-    this.props.getContacts(this.props.match.params);
+    this.props.getBrandUsers(this.props.match.params);
     this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!_.isEqual(this.props.location, prevProps.location)) {
-      this.props.getContacts(this.props.match.params);
+      this.props.getBrandUsers(this.props.match.params);
     }
   }
 
@@ -71,7 +71,7 @@ class ContactsApp extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getContacts: Actions.getContacts,
+      getBrandUsers: Actions.getBrandUsers,
       getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
@@ -79,22 +79,22 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ contactsApp }) {
+function mapStateToProps({ brandUserApp }) {
   return {
-    contacts: contactsApp.contacts.entities,
-    selectedContactIds: contactsApp.contacts.selectedContactIds,
-    searchText: contactsApp.contacts.searchText,
-    user: contactsApp.user
+    contacts: brandUserApp.brandUser.entities,
+    selectedContactIds: brandUserApp.brandUser.selectedContactIds,
+    searchText: brandUserApp.brandUser.searchText,
+    user: brandUserApp.user
   };
 }
 
-export default withReducer('contactsApp', reducer)(
+export default withReducer('brandUserApp', reducer)(
   withStyles(styles, { withTheme: true })(
     withRouter(
       connect(
         mapStateToProps,
         mapDispatchToProps
-      )(ContactsApp)
+      )(BrandUserApp)
     )
   )
 );

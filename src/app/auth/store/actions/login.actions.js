@@ -9,8 +9,8 @@ export const LOGIN_ERROR = 'LOGIN_ERROR';
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
   axios
-    // .post('http://localhost:4000/admin-auth/login', userData)
-    .post('http://18.189.81.89:4000/admin-auth/login', userData)
+    .post('http://localhost:4000/admin-auth/login', userData)
+    // .post('http://18.189.81.89:4000/admin-auth/login', userData)
     .then(res => {
       console.log('res', res);
       // Save to localStorage

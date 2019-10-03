@@ -32,7 +32,7 @@ class ContactsList extends Component {
 
     render()
     {
-        const { contacts, user, searchText, selectedContactIds, selectAllContacts, deSelectAllContacts, toggleInSelectedContacts, openEditContactDialog, removeContacts, removeContact, toggleStarredContact, setContactsUnstarred, setContactsStarred} = this.props;
+        const { contacts, user, searchText, selectedContactIds, selectAllContacts, deSelectAllContacts, toggleInSelectedContacts, openEditContactDialog, removeContacts, removeBrandUser, toggleStarredContact, setContactsUnstarred, setContactsStarred} = this.props;
         const data = this.getFilteredArray(contacts, searchText);
         const {selectedContactsMenu} = this.state;
 
@@ -202,7 +202,7 @@ class ContactsList extends Component {
                                     <IconButton
                                         onClick={(ev) => {
                                             ev.stopPropagation();
-                                            removeContact(row.original.id);
+                                            removeBrandUser(row.original.id);
                                         }}
                                     >
                                         <Icon>delete</Icon>
@@ -223,14 +223,14 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch)
 {
     return bindActionCreators({
-        getContacts             : Actions.getContacts,
+        // getContacts             : Actions.getContacts,
         getUserData             : Actions.getUserData,
         toggleInSelectedContacts: Actions.toggleInSelectedContacts,
         selectAllContacts       : Actions.selectAllContacts,
         deSelectAllContacts     : Actions.deSelectAllContacts,
         openEditContactDialog   : Actions.openEditContactDialog,
         removeContacts          : Actions.removeContacts,
-        removeContact           : Actions.removeContact,
+        removeBrandUser           : Actions.removeBrandUser,
         toggleStarredContact    : Actions.toggleStarredContact,
         toggleStarredContacts   : Actions.toggleStarredContacts,
         setContactsStarred      : Actions.setContactsStarred,
@@ -238,13 +238,13 @@ function mapDispatchToProps(dispatch)
     }, dispatch);
 }
 
-function mapStateToProps({contactsApp})
+function mapStateToProps({brandUserApp})
 {
     return {
-        contacts          : contactsApp.contacts.entities,
-        selectedContactIds: contactsApp.contacts.selectedContactIds,
-        searchText        : contactsApp.contacts.searchText,
-        user              : contactsApp.user
+        contacts          : brandUserApp.brandUser.entities,
+        selectedContactIds: brandUserApp.brandUser.selectedContactIds,
+        searchText        : brandUserApp.brandUser.searchText,
+        user              : brandUserApp.user
     }
 }
 

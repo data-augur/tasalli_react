@@ -4,14 +4,19 @@ import { FuseUtils } from '@fuse/index';
 import { ExampleConfig } from 'app/main/example/ExampleConfig';
 import { LoginConfig } from 'app/main/login/LoginConfig';
 import { RegisterConfig } from 'app/main/register/RegisterConfig';
-import { BrandAdminAppConfig } from 'app/main/brand-admin/BrandAdminAppConfig';
+// import { BrandAdminAppConfig } from 'app/main/brand-admin/BrandAdminAppConfig';
+import { BrandUsersAppConfig } from 'app/main/brand-users/BrandUserAppConfig';
+import { CompaniesAppConfig } from 'app/main/company/CompaniesAppConfig';
+import { BrandsAppConfig } from 'app/main/brands/BrandsAppConfig';
 import { LogoutConfig } from 'app/main/logout/LogoutConfig';
 
 const routeConfigs = [
   ExampleConfig,
   LoginConfig,
   RegisterConfig,
-  BrandAdminAppConfig,
+  BrandUsersAppConfig,
+  BrandsAppConfig,
+  CompaniesAppConfig,
   LogoutConfig
 ];
 

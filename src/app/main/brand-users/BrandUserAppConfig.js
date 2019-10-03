@@ -1,5 +1,5 @@
-import BrandAdminApp from './BrandAdminApp';
-export const BrandAdminAppConfig = {
+import BrandUserApp from './BrandUserApp';
+export const BrandUsersAppConfig = {
   settings: {
     layout: {
       config: {}
@@ -8,7 +8,7 @@ export const BrandAdminAppConfig = {
   routes: [
     {
       path: '/brand-users',
-      component: BrandAdminApp
+      component: BrandUserApp
     }
   ]
 };

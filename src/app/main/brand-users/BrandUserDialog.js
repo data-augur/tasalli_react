@@ -127,9 +127,9 @@ class ContactDialog extends Component {
   render() {
     const {
       contactDialog,
-      addContact,
-      updateContact,
-      removeContact
+      addBrandUser,
+      updateBrandUser,
+      removeBrandUser
     } = this.props;
 
     return (
@@ -359,7 +359,7 @@ class ContactDialog extends Component {
               variant="contained"
               color="primary"
               onClick={() => {
-                addContact(this.state);
+                addBrandUser(this.state);
                 this.closeComposeDialog();
               }}
               disabled={!this.canBeSubmitted()}
@@ -373,7 +373,7 @@ class ContactDialog extends Component {
               variant="contained"
               color="primary"
               onClick={() => {
-                updateContact(this.state);
+                updateBrandUser(this.state);
                 this.closeComposeDialog();
               }}
               disabled={!this.canBeSubmitted()}
@@ -382,7 +382,7 @@ class ContactDialog extends Component {
             </Button>
             <IconButton
               onClick={() => {
-                removeContact(this.state.id);
+                removeBrandUser(this.state.id);
                 this.closeComposeDialog();
               }}
             >
@@ -400,17 +400,17 @@ function mapDispatchToProps(dispatch) {
     {
       closeEditContactDialog: Actions.closeEditContactDialog,
       closeNewContactDialog: Actions.closeNewContactDialog,
-      addContact: Actions.addContact,
-      updateContact: Actions.updateContact,
-      removeContact: Actions.removeContact
+      addBrandUser: Actions.addBrandUser,
+      updateBrandUser: Actions.updateBrandUser,
+      removeBrandUser: Actions.removeBrandUser
     },
     dispatch
   );
 }
 
-function mapStateToProps({ contactsApp }) {
+function mapStateToProps({ brandUserApp }) {
   return {
-    contactDialog: contactsApp.contacts.contactDialog
+    contactDialog: brandUserApp.brandUser.contactDialog
   };
 }
 

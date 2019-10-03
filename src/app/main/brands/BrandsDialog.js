@@ -101,11 +101,11 @@ class ContactDialog extends Component {
             </Typography>
           </Toolbar>
           <div className="flex flex-col items-center justify-center pb-24">
-            <Avatar
+            {/* <Avatar
               className="w-96 h-96"
               alt="contact avatar"
               src={this.state.avatar}
-            />
+            /> */}
             {contactDialog.type === 'edit' && (
               <Typography variant="h6" color="inherit" className="pt-8">
                 {this.state.name}

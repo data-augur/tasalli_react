@@ -106,7 +106,7 @@ class ContactDialog extends Component {
     return (
       name.length > 0 &&
       email.length > 0 &&
-      password.length > 0 &&
+      // password.length > 0 &&
       //   brandId.length > 0 &&
       gender.length > 0 &&
       role.length > 0
@@ -151,11 +151,11 @@ class ContactDialog extends Component {
             </Typography>
           </Toolbar>
           <div className="flex flex-col items-center justify-center pb-24">
-            <Avatar
+            {/* <Avatar
               className="w-96 h-96"
               alt="contact avatar"
               src={this.state.avatar}
-            />
+            /> */}
             {contactDialog.type === 'edit' && (
               <Typography variant="h6" color="inherit" className="pt-8">
                 {this.state.name}
@@ -200,23 +200,27 @@ class ContactDialog extends Component {
               required
             />
           </div>
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">lock</Icon>
-            </div>
 
-            <TextField
-              className="mb-24"
-              label="Password"
-              id="password"
-              name="password"
-              value={this.state.password}
-              onChange={this.handleChange}
-              variant="outlined"
-              fullWidth
-              required
-            />
-          </div>
+          {contactDialog.type === 'new' ? (
+            <div className="flex">
+              <div className="min-w-48 pt-20">
+                <Icon color="action">lock</Icon>
+              </div>
+
+              <TextField
+                className="mb-24"
+                label="Password"
+                id="password"
+                name="password"
+                value={this.state.password}
+                onChange={this.handleChange}
+                variant="outlined"
+                fullWidth
+                required
+              />
+            </div>
+          ) : null}
+
           <div className="flex">
             <div className="min-w-48 pt-20">
               <Icon color="action">phone</Icon>

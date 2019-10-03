@@ -223,7 +223,7 @@ class ContactsList extends Component {
                   <IconButton
                     onClick={ev => {
                       ev.stopPropagation();
-                      removeBrand(row.original.brand_id);
+                      removeBrand(row.original.id);
                     }}
                   >
                     <Icon>delete</Icon>

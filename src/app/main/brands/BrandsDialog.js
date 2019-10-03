@@ -20,6 +20,7 @@ import _ from '@lodash';
 const newContactState = {
   name: '',
   companyId: ''
+  // id: ''
 };
 
 class ContactDialog extends Component {

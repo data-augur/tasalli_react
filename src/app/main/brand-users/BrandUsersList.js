@@ -158,7 +158,7 @@ class ContactsList extends Component {
                         },
                         {
                             Header    : "Name",
-                            accessor  : "brand_User",
+                            accessor  : "name",
                             filterable: true,
                             className : "font-bold",
                             // className: "justify-center",

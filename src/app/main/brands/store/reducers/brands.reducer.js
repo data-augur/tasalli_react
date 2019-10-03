@@ -20,25 +20,25 @@ const brandReducer = function(state = initialState, action) {
     case Actions.GET_BRANDS: {
       return {
         ...state,
-        entities: _.keyBy(action.payload, 'brandName')
+        entities: _.keyBy(action.payload, 'id')
       };
     }
     case Actions.ADD_BRAND: {
       return {
         ...state,
-        entities: _.keyBy(action.payload, 'brandName')
+        entities: _.keyBy(action.payload, 'id')
       };
     }
     case Actions.UPDATE_BRAND: {
       return {
         ...state,
-        entities: _.keyBy(action.payload, 'brandName')
+        entities: _.keyBy(action.payload, 'id')
       };
     }
     case Actions.REMOVE_BRAND: {
       return {
         ...state,
-        entities: _.keyBy(action.payload, 'brandName')
+        entities: _.keyBy(action.payload, 'id')
       };
     }
     case Actions.SET_SEARCH_TEXT: {

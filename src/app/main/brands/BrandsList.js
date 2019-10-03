@@ -194,7 +194,7 @@ class ContactsList extends Component {
             },
             {
               Header: 'Brand',
-              accessor: 'brandName',
+              accessor: 'name',
               filterable: true,
               className: 'font-bold'
               // className: "justify-center",
@@ -202,7 +202,7 @@ class ContactsList extends Component {
 
             {
               Header: 'Brand Id',
-              accessor: 'brand_id',
+              accessor: 'id',
               filterable: true,
               className: 'font-bold justify-center'
               // className: "justify-center",
@@ -223,7 +223,7 @@ class ContactsList extends Component {
                   <IconButton
                     onClick={ev => {
                       ev.stopPropagation();
-                      removeBrand(row.original.id);
+                      removeBrand(row.original.brand_id);
                     }}
                   >
                     <Icon>delete</Icon>

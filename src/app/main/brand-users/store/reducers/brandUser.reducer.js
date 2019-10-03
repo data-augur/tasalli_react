@@ -20,25 +20,25 @@ const brandUserReducer = function(state = initialState, action) {
     case Actions.GET_BRAND_USERS: {
       return {
         ...state,
-        entities: _.keyBy(action.payload, 'brand_User')
+        entities: _.keyBy(action.payload, 'id')
       };
     }
     case Actions.ADD_BRAND_USER: {
       return {
         ...state,
-        entities: _.keyBy(action.payload, 'brand_User')
+        entities: _.keyBy(action.payload, 'id')
       };
     }
     case Actions.UPDATE_BRAND_USER: {
       return {
         ...state,
-        entities: _.keyBy(action.payload, 'brand_User')
+        entities: _.keyBy(action.payload, 'id')
       };
     }
     case Actions.REMOVE_BRAND_USER: {
       return {
         ...state,
-        entities: _.keyBy(action.payload, 'brand_User')
+        entities: _.keyBy(action.payload, 'id')
       };
     }
     case Actions.SET_SEARCH_TEXT: {

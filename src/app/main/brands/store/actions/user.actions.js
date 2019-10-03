@@ -30,8 +30,8 @@ axios.defaults.headers.common['Content-Type'] =
   'application/x-www-form-urlencoded';
 export const getUserData = () => dispatch => {
   axios
-    .get('http://localhost:4000/get-all-brands')
-    // .get('http://18.189.81.89:4000/get-all-brands')
+    // .get('http://localhost:4000/get-all-brands')
+    .get('http://18.189.81.89:4000/get-all-brands')
     .then(res => {
       console.log('res :', res);
       dispatch({

@@ -40,8 +40,8 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 
 export const getBrands = () => dispatch => {
   axios
-    .get('http://localhost:4000/get-all-brands')
-    // .get('http://18.189.81.89:4000/get-all-brands')
+    // .get('http://localhost:4000/get-all-brands')
+    .get('http://18.189.81.89:4000/get-all-brands')
     .then(res => {
       console.log('res :', res);
       dispatch({
@@ -60,8 +60,8 @@ export const getBrands = () => dispatch => {
 export const addBrand = newContact => dispatch => {
   console.log('newContact :', newContact);
   axios
-    .post('http://localhost:4000/create-brand', newContact)
-    // .post('http://18.189.81.89:4000/create-brand', newContact)
+    // .post('http://localhost:4000/create-brand', newContact)
+    .post('http://18.189.81.89:4000/create-brand', newContact)
     .then(res => {
       console.log('res :', res);
       dispatch({
@@ -81,8 +81,8 @@ export const updateBrand = (updateInfo, id) => dispatch => {
   console.log('updateInfo :', updateInfo);
   axios
     .put(
-      `http://localhost:4000/update-brand/${updateInfo.id}`,
-      // `http://18.189.81.89:4000/update-brand/${updateInfo.id}`,
+      // `http://localhost:4000/update-brand/${updateInfo.id}`,
+      `http://18.189.81.89:4000/update-brand/${updateInfo.id}`,
       updateInfo
     )
     .then(res => {
@@ -102,8 +102,8 @@ export const updateBrand = (updateInfo, id) => dispatch => {
 };
 export const removeBrand = id => dispatch => {
   axios
-    .delete(`http://localhost:4000/delete-brand/${id}`)
-    // .delete(`http://18.189.81.89:4000/delete-brand/${id}`)
+    // .delete(`http://localhost:4000/delete-brand/${id}`)
+    .delete(`http://18.189.81.89:4000/delete-brand/${id}`)
     .then(res => {
       console.log('update req :', res);
       dispatch({

@@ -33,7 +33,7 @@ export const getUserData = () => dispatch => {
     // .get('http://localhost:4000/get-all-brand-users')
     .get('http://18.189.81.89:4000/get-all-brand-users')
     .then(res => {
-      console.log('res :', res);
+      // console.log('res :', res);
       dispatch({
         type: GET_USER_DATA,
         payload: res.data

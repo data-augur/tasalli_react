@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import axios from 'axios';
 import {
   TextField,
   Button,
@@ -102,7 +103,17 @@ class ContactDialog extends Component {
   };
 
   canBeSubmitted() {
-    const { name, email, password, brandId, role, gender } = this.state;
+    const {
+      name,
+      email,
+      password,
+      brandId,
+      role,
+      gender
+      // brandsArr
+    } = this.state;
+    // console.log('this.state.brandsArr :', this.state.brandsArr);
+
     return (
       name.length > 0 &&
       email.length > 0 &&
@@ -112,26 +123,19 @@ class ContactDialog extends Component {
       role.length > 0
     );
   }
-  // const { name, email, password, brandId, role } = this.state;
-  // if (
-  //   name.length > 0 &&
-  //   email.length > 0 &&
-  //   password.length > 0 &&
-  //   brandId.isInteger &&
-  //   role.length > 0
-  // ) {
-  //   return true;
-  // } else {
-  //   return false;
-  // }
+
   render() {
+    const { brandsArr } = this.state;
+    // console.log('brandsArr', brandsArr);
     const {
       contactDialog,
       addBrandUser,
       updateBrandUser,
       removeBrandUser
+      // brands
     } = this.props;
-
+    // console.log('brands :', brands);
+    // console.log('props :', this.props.brands);
     return (
       <Dialog
         classes={{
@@ -240,38 +244,33 @@ class ContactDialog extends Component {
 
           <div className="flex">
             <div className="min-w-48 pt-20">
-              <Icon color="action">domain</Icon>
+              <Icon color="action">work</Icon>
             </div>
             <TextField
               className="mb-24"
-              label="Brand"
+              label="Select Brand"
               id="brandId"
               name="brandId"
+              select
               value={this.state.brandId}
               onChange={this.handleChange}
-              variant="outlined"
+              // defaultValue="Brand Admin"
+              // onChange={handleChange('currency')}
+              // helperText="Please select "
+              margin="normal"
               fullWidth
-              required
-            />
+              variant="outlined"
+            >
+              {this.props.brands.map(option => {
+                // console.log('option', option);
+                return (
+                  <option key={option.id} value={option.id}>
+                    {option.name}
+                  </option>
+                );
+              })}
+            </TextField>
           </div>
-          {/* <div className="flex">
-                        <div className="min-w-48 pt-20">
-                            <Icon color="action">work</Icon>
-                        </div>
-                        <TextField
-                            className="mb-24"
-                            label="job Title"
-                            id="role"
-                            name="role"
-                            value={this.state.role}
-                            onChange={this.handleChange}
-                            variant="outlined"
-                            helperText="brandAdmin/brandSupplier"
-                            fullWidth
-                            required
-                        />
-                    </div> */}
-
           <div className="flex">
             <div className="min-w-48 pt-20">
               <Icon color="action">work</Icon>
@@ -406,7 +405,8 @@ function mapDispatchToProps(dispatch) {
       closeNewContactDialog: Actions.closeNewContactDialog,
       addBrandUser: Actions.addBrandUser,
       updateBrandUser: Actions.updateBrandUser,
-      removeBrandUser: Actions.removeBrandUser
+      removeBrandUser: Actions.removeBrandUser,
+      getAllBrands: Actions.getAllBrands
     },
     dispatch
   );
@@ -414,7 +414,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ brandUserApp }) {
   return {
-    contactDialog: brandUserApp.brandUser.contactDialog
+    contactDialog: brandUserApp.brandUser.contactDialog,
+    brands: brandUserApp.brandUser.brands
   };
 }
 

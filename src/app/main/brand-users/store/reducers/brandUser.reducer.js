@@ -3,6 +3,7 @@ import _ from '@lodash';
 
 const initialState = {
   entities: [],
+  brands: [],
   searchText: '',
   selectedContactIds: [],
   routeParams: {},
@@ -39,6 +40,12 @@ const brandUserReducer = function(state = initialState, action) {
       return {
         ...state,
         entities: _.keyBy(action.payload, 'id')
+      };
+    }
+    case Actions.GET_ALL_BRANDS: {
+      return {
+        ...state,
+        brands: action.payload
       };
     }
     case Actions.SET_SEARCH_TEXT: {

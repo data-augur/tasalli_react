@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getUserData } from './user.actions';
 
 export const GET_BRAND_USERS = '[BRAND USERS APP] GET BRANDUSERS';
+export const GET_ALL_BRANDS = '[BRAND USERS APP] GET ALLBRANDS';
 export const ADD_BRAND_USER = '[BRAND USERS APP] Add BRANDUSER';
 export const UPDATE_BRAND_USER = '[BRAND USERS APP] UPDATE BRANDUSER';
 export const REMOVE_BRAND_USER = '[BRAND USERS APP] REMOVE BRANDUSER';
@@ -39,14 +40,14 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //     url: 'http://localhost:4000/get-all-brand-users',
 //     headers
 //   });
-export const getBrandUsers = () => dispatch => {
+export const getAllBrands = () => dispatch => {
   axios
-    // .get('http://localhost:4000/get-all-brand-users')
-    .get('http://18.189.81.89:4000/get-all-brand-users')
+    // .get('http://localhost:4000/get-all-brands')
+    .get('http://18.189.81.89:4000/get-all-brands')
     .then(res => {
-      console.log('get Brand Users :', res);
+      // console.log('res :', res);
       dispatch({
-        type: GET_BRAND_USERS,
+        type: GET_ALL_BRANDS,
         payload: res.data
       });
     })
@@ -58,13 +59,33 @@ export const getBrandUsers = () => dispatch => {
       //   });
     });
 };
+export const getBrandUsers = () => dispatch => {
+  axios
+    // .get('http://localhost:4000/get-all-brand-users')
+    .get('http://18.189.81.89:4000/get-all-brand-users')
+    .then(res => {
+      // console.log('get Brand Users :', res);
+      dispatch({
+        type: GET_BRAND_USERS,
+        payload: res.data
+      });
+    })
+    .then(() => dispatch(getAllBrands()))
+    .catch(err => {
+      console.log('err', err);
+      //   dispatch({
+      //     type: LOGIN_ERROR,
+      //     payload: err.response.data
+      //   });
+    });
+};
 export const addBrandUser = newContact => dispatch => {
-  console.log('newContact :', newContact);
+  // console.log('newContact :', newContact);
   axios
     // .post('http://localhost:4000/create-brand-user', newContact)
     .post('http://18.189.81.89:4000/create-brand-user', newContact)
     .then(res => {
-      console.log('res :', res);
+      // console.log('res :', res);
       dispatch({
         type: ADD_BRAND_USER
       });
@@ -79,7 +100,7 @@ export const addBrandUser = newContact => dispatch => {
     });
 };
 export const updateBrandUser = (updateInfo, id) => dispatch => {
-  console.log('updateInfo :', updateInfo);
+  // console.log('updateInfo :', updateInfo);
   axios
     .put(
       // `http://localhost:4000/update-brand-user/${updateInfo.id}`,
@@ -87,7 +108,7 @@ export const updateBrandUser = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-      console.log('update req :', res);
+      // console.log('update req :', res);
       dispatch({
         type: UPDATE_BRAND_USER
       });
@@ -106,7 +127,7 @@ export const removeBrandUser = id => dispatch => {
     // .delete(`http://localhost:4000/delete-brand-user/${id}`)
     .delete(`http://18.189.81.89:4000/delete-brand-user/${id}`)
     .then(res => {
-      console.log('update req :', res);
+      // console.log('update req :', res);
       dispatch({
         type: REMOVE_BRAND_USER
       });

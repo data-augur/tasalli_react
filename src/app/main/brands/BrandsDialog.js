@@ -134,21 +134,35 @@ class ContactDialog extends Component {
               fullWidth
             />
           </div>
+
           <div className="flex">
             <div className="min-w-48 pt-20">
-              <Icon color="action">domain</Icon>
+              <Icon color="action">work</Icon>
             </div>
             <TextField
               className="mb-24"
-              label="Company Id"
+              label="Select Company"
               id="companyId"
               name="companyId"
+              select
               value={this.state.companyId}
               onChange={this.handleChange}
-              variant="outlined"
+              // defaultValue="Brand Admin"
+              // onChange={handleChange('currency')}
+              // helperText="Please select "
+              margin="normal"
               fullWidth
-              required
-            />
+              variant="outlined"
+            >
+              {this.props.companies.map(option => {
+                // console.log('option', option);
+                return (
+                  <option key={option.id} value={option.id}>
+                    {option.name}
+                  </option>
+                );
+              })}
+            </TextField>
           </div>
         </DialogContent>
 
@@ -209,7 +223,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ brandsApp }) {
   return {
-    contactDialog: brandsApp.brands.contactDialog
+    contactDialog: brandsApp.brands.contactDialog,
+    companies: brandsApp.brands.companies
   };
 }
 

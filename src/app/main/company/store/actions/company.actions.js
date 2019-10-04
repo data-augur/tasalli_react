@@ -43,7 +43,7 @@ export const getCompanies = () => dispatch => {
     // .get('http://localhost:4000/get-all-companies')
     .get('http://18.189.81.89:4000/get-all-companies')
     .then(res => {
-      console.log('res :', res);
+      // console.log('res :', res);
       dispatch({
         type: GET_COMPANIES,
         payload: res.data
@@ -58,12 +58,12 @@ export const getCompanies = () => dispatch => {
     });
 };
 export const addCompany = newContact => dispatch => {
-  console.log('newContact :', newContact);
+  // console.log('newContact :', newContact);
   axios
     // .post('http://localhost:4000/create-company', newContact)
     .post('http://18.189.81.89:4000/create-company', newContact)
     .then(res => {
-      console.log('res :', res);
+      // console.log('res :', res);
       dispatch({
         type: ADD_COMPANY
       });
@@ -78,7 +78,7 @@ export const addCompany = newContact => dispatch => {
     });
 };
 export const updateCompany = (updateInfo, id) => dispatch => {
-  console.log('updateInfo :', updateInfo);
+  // console.log('updateInfo :', updateInfo);
   axios
     .put(
       // `http://localhost:4000/update-company/${updateInfo.id}`,
@@ -86,7 +86,7 @@ export const updateCompany = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-      console.log('update req :', res);
+      // console.log('update req :', res);
       dispatch({
         type: UPDATE_COMPANY
       });
@@ -105,7 +105,7 @@ export const removeCompany = id => dispatch => {
     // .delete(`http://localhost:4000/delete-company/${id}`)
     .delete(`http://18.189.81.89:4000/delete-company/${id}`)
     .then(res => {
-      console.log('update req :', res);
+      // console.log('update req :', res);
       dispatch({
         type: REMOVE_COMPANY
       });

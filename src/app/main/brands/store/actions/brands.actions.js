@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getUserData } from './user.actions';
 
 export const GET_BRANDS = '[BRANDS APP] GET BRANDS';
+export const GET_ALL_COMPANIES = '[BRANDS APP] GET COMPANIES';
 export const ADD_BRAND = '[BRANDS APP] ADD BRAND';
 export const UPDATE_BRAND = '[BRANDS APP] UPDATE BRAND';
 export const REMOVE_BRAND = '[BRANDS APP] REMOVE BRAND';
@@ -37,18 +38,37 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //     url: 'http://localhost:4000/get-all-brand-users',
 //     headers
 //   });
-
+export const getAllCompanies = () => dispatch => {
+  axios
+    // .get('http://localhost:4000/get-all-companies')
+    .get('http://18.189.81.89:4000/get-all-companies')
+    .then(res => {
+      // console.log('res :', res);
+      dispatch({
+        type: GET_ALL_COMPANIES,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      // console.log('err', err);
+      //   dispatch({
+      //     type: LOGIN_ERROR,
+      //     payload: err.response.data
+      //   });
+    });
+};
 export const getBrands = () => dispatch => {
   axios
     // .get('http://localhost:4000/get-all-brands')
     .get('http://18.189.81.89:4000/get-all-brands')
     .then(res => {
-      console.log('res :', res);
+      // console.log('res :', res);
       dispatch({
         type: GET_BRANDS,
         payload: res.data
       });
     })
+    .then(() => dispatch(getAllCompanies()))
     .catch(err => {
       console.log('err', err);
       //   dispatch({
@@ -63,7 +83,7 @@ export const addBrand = newContact => dispatch => {
     // .post('http://localhost:4000/create-brand', newContact)
     .post('http://18.189.81.89:4000/create-brand', newContact)
     .then(res => {
-      console.log('res :', res);
+      // console.log('res :', res);
       dispatch({
         type: ADD_BRAND
       });
@@ -86,7 +106,7 @@ export const updateBrand = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-      console.log('update req :', res);
+      // console.log('update req :', res);
       dispatch({
         type: UPDATE_BRAND
       });
@@ -105,7 +125,7 @@ export const removeBrand = id => dispatch => {
     // .delete(`http://localhost:4000/delete-brand/${id}`)
     .delete(`http://18.189.81.89:4000/delete-brand/${id}`)
     .then(res => {
-      console.log('update req :', res);
+      // console.log('update req :', res);
       dispatch({
         type: REMOVE_BRAND
       });

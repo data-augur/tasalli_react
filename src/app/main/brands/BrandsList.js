@@ -199,14 +199,6 @@ class ContactsList extends Component {
               className: 'font-bold'
               // className: "justify-center",
             },
-
-            {
-              Header: 'Brand Id',
-              accessor: 'id',
-              filterable: true,
-              className: 'font-bold justify-center'
-              // className: "justify-center",
-            },
             {
               Header: 'Company',
               accessor: 'companyName',

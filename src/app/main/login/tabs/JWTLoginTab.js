@@ -31,11 +31,12 @@ class JWTLoginTab extends Component {
   };
 
   onSubmit = model => {
-    const role = {
-      role: 'superAdmin'
-    };
-    const data = { ...model, ...role };
-    this.props.submitLogin(data);
+    // const role = {
+    //   role: 'superAdmin'
+    // };
+    // const data = { ...model, ...role };
+    console.log('model :', model);
+    this.props.submitLogin(model);
   };
 
   componentDidMount() {
@@ -135,6 +136,29 @@ class JWTLoginTab extends Component {
             }}
             validationErrors={{
               minLength: 'Min character length is 4'
+            }}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <Icon className="text-20" color="action">
+                    vpn_key
+                  </Icon>
+                </InputAdornment>
+              )
+            }}
+            variant="outlined"
+            required
+          />
+          <TextFieldFormsy
+            className="mb-16"
+            type="role"
+            name="role"
+            label="role"
+            validations={{
+              minLength: 8
+            }}
+            validationErrors={{
+              minLength: 'Min character length is 8'
             }}
             InputProps={{
               endAdornment: (

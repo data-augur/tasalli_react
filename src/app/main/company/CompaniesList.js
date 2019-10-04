@@ -217,7 +217,7 @@ class ContactsList extends Component {
             }
           ]}
           defaultPageSize={10}
-          noDataText="No contacts found"
+          noDataText="No company found"
         />
       </FuseAnimate>
     );

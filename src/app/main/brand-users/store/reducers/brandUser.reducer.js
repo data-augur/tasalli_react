@@ -1,5 +1,6 @@
 import * as Actions from '../actions';
 import _ from '@lodash';
+import * as authActions from '../../../../auth/store/actions';
 
 const initialState = {
   entities: [],
@@ -18,6 +19,23 @@ const initialState = {
 
 const brandUserReducer = function(state = initialState, action) {
   switch (action.type) {
+    case authActions.LOGOUT: {
+      return {
+        ...state,
+        entities: [],
+        brands: [],
+        searchText: '',
+        selectedContactIds: [],
+        routeParams: {},
+        contactDialog: {
+          type: 'new',
+          props: {
+            open: false
+          },
+          data: null
+        }
+      };
+    }
     case Actions.GET_BRAND_USERS: {
       return {
         ...state,

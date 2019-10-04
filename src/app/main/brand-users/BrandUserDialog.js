@@ -376,6 +376,7 @@ class ContactDialog extends Component {
               variant="contained"
               color="primary"
               onClick={() => {
+                delete this.state.password;
                 updateBrandUser(this.state);
                 this.closeComposeDialog();
               }}

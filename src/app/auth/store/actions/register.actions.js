@@ -88,8 +88,8 @@ export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 // Register User
 export const registerUser = (userData, history) => dispatch => {
   axios
-    // .post('http://localhost:4000/admin-auth/register', userData)
-    .post('http://18.189.81.89:4000/admin-auth/register', userData)
+    // .post('http://localhost:4000/su-admin/register', userData)
+    .post('http://18.189.81.89:4000/su-admin/register', userData)
     .then(err =>
       dispatch({
         type: REGISTER_SUCCESS

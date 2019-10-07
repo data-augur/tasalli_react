@@ -39,7 +39,7 @@ const navigationConfig = [
         title: 'Login',
         type: 'item',
         icon: 'whatshot',
-        url: '/login'
+        url: '/su-admin/login'
       },
       {
         id: 'logout-component',

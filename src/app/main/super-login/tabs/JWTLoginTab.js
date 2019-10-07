@@ -1,22 +1,25 @@
 import React, { Component } from 'react';
-import Formsy from 'formsy-react';
+import {
+  Button,
+  Divider,
+  Typography,
+  InputAdornment,
+  Icon
+} from '@material-ui/core';
 import { TextFieldFormsy } from '@fuse';
-import { Button, InputAdornment, Icon } from '@material-ui/core';
+import jwt_decode from 'jwt-decode';
+import jwt from 'jsonwebtoken';
+import Formsy from 'formsy-react';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 import * as authActions from 'app/auth/store/actions';
 
-class JWTRegisterTab extends Component {
+class JWTLoginTab extends Component {
   state = {
     canSubmit: false
   };
 
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.register.success) {
-      this.props.history.push('/login');
-    }
-  }
   form = React.createRef();
 
   disableButton = () => {
@@ -28,26 +31,59 @@ class JWTRegisterTab extends Component {
   };
 
   onSubmit = model => {
-    const role = {
-      role: 'superAdmin'
-    };
-    const data = { ...model, ...role };
-    // console.log('model :', model);
-    this.props.submitRegister(data);
+    // const role = {
+    //   role: 'superAdmin'
+    // };
+    // const data = { ...model, ...role };
+    console.log('model :', model);
+    this.props.submitLogin(model);
   };
 
+  componentDidMount() {
+    if (this.props.login.isAuthenticated) {
+      this.props.history.push('/');
+    }
+
+    // const token = localStorage.getItem('jwtToken');
+    // if (token) {
+    //   var bearer = token.split(' ');
+    //   console.log('bearer[1] :', bearer[1]);
+
+    //   try {
+    //     const decoded = jwt.verify(bearer[1], 'secret');
+    //     console.log('decoded :', decoded);
+    //     if (decoded) {
+    //       console.log('decoded :', decoded);
+    //       this.props.history.push('/');
+    //     }
+    //   } catch (err) {
+    //     if (err) {
+    //       console.log(err);
+    //       this.props.history.push('/login');
+    //     }
+    //   }
+    // }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.login.isAuthenticated) {
+      this.props.history.push('/');
+    }
+
+    if (nextProps.errors) {
+      this.setState({ errors: nextProps.errors });
+    }
+  }
   componentDidUpdate(prevProps, prevState) {
     if (
-      this.props.register.error &&
-      (this.props.register.error.username ||
-        this.props.register.error.password ||
-        this.props.register.error.email)
+      this.props.login.error &&
+      (this.props.login.error.email || this.props.login.error.password)
     ) {
       this.form.updateInputsWithError({
-        ...this.props.register.error
+        ...this.props.login.error
       });
 
-      this.props.register.error = null;
+      this.props.login.error = null;
       this.disableButton();
     }
 
@@ -70,10 +106,12 @@ class JWTRegisterTab extends Component {
             className="mb-16"
             type="text"
             name="email"
-            label="Email"
-            validations="isEmail"
+            label="Username/Email"
+            validations={{
+              minLength: 4
+            }}
             validationErrors={{
-              isEmail: 'Please enter a valid email'
+              minLength: 'Min character length is 4'
             }}
             InputProps={{
               endAdornment: (
@@ -93,30 +131,11 @@ class JWTRegisterTab extends Component {
             type="password"
             name="password"
             label="Password"
-            validations="equalsField:password-confirm"
-            validationErrors={{
-              equalsField: 'Passwords do not match'
+            validations={{
+              minLength: 4
             }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Icon className="text-20" color="action">
-                    vpn_key
-                  </Icon>
-                </InputAdornment>
-              )
-            }}
-            variant="outlined"
-            required
-          />
-          <TextFieldFormsy
-            className="mb-16"
-            type="password"
-            name="password-confirm"
-            label="Confirm Password"
-            validations="equalsField:password"
             validationErrors={{
-              equalsField: 'Passwords do not match'
+              minLength: 'Min character length is 4'
             }}
             InputProps={{
               endAdornment: (
@@ -136,13 +155,17 @@ class JWTRegisterTab extends Component {
             variant="contained"
             color="primary"
             className="w-full mx-auto mt-16 normal-case"
-            aria-label="REGISTER"
+            aria-label="LOG IN"
             disabled={!canSubmit}
             value="legacy"
           >
-            Register
+            Login
           </Button>
         </Formsy>
+
+        <div className="flex flex-col items-center pt-24">
+          <Divider className="mb-16 w-256" />
+        </div>
       </div>
     );
   }
@@ -151,7 +174,7 @@ class JWTRegisterTab extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      submitRegister: authActions.registerUser
+      submitLogin: authActions.loginUser
     },
     dispatch
   );
@@ -159,7 +182,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ auth }) {
   return {
-    register: auth.register,
+    login: auth.login,
     user: auth.user
   };
 }
@@ -168,5 +191,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(JWTRegisterTab)
+  )(JWTLoginTab)
 );

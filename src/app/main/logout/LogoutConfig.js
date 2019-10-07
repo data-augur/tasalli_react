@@ -11,7 +11,7 @@ export const LogoutConfig = {
       path: '/logout',
       component: () => {
         store.dispatch(logoutUser());
-        return <Redirect to="/su-admin/login" />;
+        return <Redirect to="/login" />;
       }
     }
   ]

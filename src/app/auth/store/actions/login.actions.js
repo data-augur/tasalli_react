@@ -33,6 +33,32 @@ export const loginUser = userData => dispatch => {
       });
     });
 };
+// Login - Get User Token
+export const loginBrandUser = userData => dispatch => {
+  axios
+    // .post('http://localhost:4000/admin-auth/login', userData)
+    .post('http://18.189.81.89:4000/admin-auth/login', userData)
+    .then(res => {
+      console.log('res', res);
+      // Save to localStorage
+      const { token } = res.data;
+      // Set token to ls
+      localStorage.setItem('jwtToken', token);
+      // Set token to Auth header
+      setAuthToken(token);
+      // Decode token to get user data
+      const decoded = jwt_decode(token);
+      // Set current user
+      dispatch(setCurrentUser(decoded));
+    })
+    .catch(err => {
+      console.log('err', err);
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: err.response.data
+      });
+    });
+};
 
 // Set logged in user
 export const setCurrentUser = decoded => {

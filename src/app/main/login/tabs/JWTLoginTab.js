@@ -149,29 +149,6 @@ class JWTLoginTab extends Component {
             variant="outlined"
             required
           />
-          <TextFieldFormsy
-            className="mb-16"
-            type="role"
-            name="role"
-            label="role"
-            validations={{
-              minLength: 8
-            }}
-            validationErrors={{
-              minLength: 'Min character length is 8'
-            }}
-            InputProps={{
-              endAdornment: (
-                <InputAdornment position="end">
-                  <Icon className="text-20" color="action">
-                    vpn_key
-                  </Icon>
-                </InputAdornment>
-              )
-            }}
-            variant="outlined"
-            required
-          />
 
           <Button
             type="submit"
@@ -197,7 +174,7 @@ class JWTLoginTab extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      submitLogin: authActions.loginUser
+      submitLogin: authActions.loginBrandUser
     },
     dispatch
   );

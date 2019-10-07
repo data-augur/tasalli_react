@@ -34,13 +34,13 @@ const navigationConfig = [
     type: 'group',
     icon: 'whatshot',
     children: [
-      {
-        id: 'login-component',
-        title: 'Login',
-        type: 'item',
-        icon: 'whatshot',
-        url: '/su-admin/login'
-      },
+      // {
+      //   id: 'login-component',
+      //   title: 'Login',
+      //   type: 'item',
+      //   icon: 'whatshot',
+      //   url: '/su-admin/login'
+      // },
       {
         id: 'logout-component',
         title: 'Logout',

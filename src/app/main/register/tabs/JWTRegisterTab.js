@@ -14,7 +14,7 @@ class JWTRegisterTab extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.register.success) {
-      this.props.history.push('/login');
+      this.props.history.push('/su-admin/login');
     }
   }
   form = React.createRef();

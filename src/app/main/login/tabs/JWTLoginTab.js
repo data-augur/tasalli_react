@@ -14,6 +14,8 @@ import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 import * as authActions from 'app/auth/store/actions';
+import axios from 'axios';
+import { Redirect } from 'react-router-dom';
 
 class JWTLoginTab extends Component {
   state = {
@@ -35,45 +37,37 @@ class JWTLoginTab extends Component {
     //   role: 'superAdmin'
     // };
     // const data = { ...model, ...role };
-    console.log('model :', model);
+    // console.log('model :', model);
     this.props.submitLogin(model);
   };
-
-  componentDidMount() {
-    if (this.props.login.isAuthenticated) {
-      this.props.history.push('/');
+  componentWillMount() {
+    // /verify-token
+    const token = localStorage.getItem('jwtToken');
+    if (token) {
+      axios
+        // .post('http://localhost:4000/admin-auth/verify-token', { token })
+        .post('http://18.189.81.89:4000/admin-auth/verify-token', { token })
+        .then(res => {
+          // Set current user
+          this.props.setCurrentUser(res.data);
+        })
+        .then(() => this.props.history.push('/dashboard'))
+        .catch(err => {
+          console.log('err', err);
+        });
     }
-
-    // const token = localStorage.getItem('jwtToken');
-    // if (token) {
-    //   var bearer = token.split(' ');
-    //   console.log('bearer[1] :', bearer[1]);
-
-    //   try {
-    //     const decoded = jwt.verify(bearer[1], 'secret');
-    //     console.log('decoded :', decoded);
-    //     if (decoded) {
-    //       console.log('decoded :', decoded);
-    //       this.props.history.push('/');
-    //     }
-    //   } catch (err) {
-    //     if (err) {
-    //       console.log(err);
-    //       this.props.history.push('/login');
-    //     }
-    //   }
-    // }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.login.isAuthenticated) {
-      this.props.history.push('/');
+      this.props.history.push('/dashboard');
     }
 
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
   }
+
   componentDidUpdate(prevProps, prevState) {
     if (
       this.props.login.error &&
@@ -174,7 +168,9 @@ class JWTLoginTab extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      submitLogin: authActions.loginBrandUser
+      submitLogin: authActions.loginBrandUser,
+      verifyToken: authActions.verifyToken,
+      setCurrentUser: authActions.setCurrentUser
     },
     dispatch
   );

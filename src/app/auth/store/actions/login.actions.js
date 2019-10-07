@@ -61,6 +61,24 @@ export const loginBrandUser = userData => dispatch => {
 };
 
 // Set logged in user
+export const verifyToken = token => dispatch => {
+  // console.log(token);
+  axios
+    // .post('http://localhost:4000/admin-auth/verify-token', { token })
+    .post('http://18.189.81.89:4000/admin-auth/verify-token', { token })
+    .then(res => {
+      // Set current user
+      // console.log('tokenInfo', res.data);
+      dispatch(setCurrentUser(res.data));
+    })
+    .catch(err => {
+      console.log('err', err);
+      dispatch({
+        type: LOGIN_ERROR,
+        payload: err.response.data
+      });
+    });
+};
 export const setCurrentUser = decoded => {
   return {
     type: SET_CURRENT_USER,

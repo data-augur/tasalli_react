@@ -71,7 +71,7 @@ function mapStateToProps(state) {
     user: state.auth.user,
     loginUserName: state.auth.login.isAuthenticated
       ? state.auth.login.user.role
-      : 'Super Admin',
+      : 'Admin Panel',
     loginUserEmail: state.auth.login.isAuthenticated
       ? state.auth.login.user.email
       : ''

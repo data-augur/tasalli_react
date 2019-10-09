@@ -34,5 +34,4 @@ const routes = [
   //   component: () => <Redirect to="/dashboard" />
   // }
 ];
-
 export default routes;

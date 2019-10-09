@@ -3,7 +3,7 @@ import * as Actions from '../actions';
 const initialState = {
   role: 'guest',
   data: {
-    displayName: 'Super Admin',
+    displayName: 'Admin Panel',
     photoURL: '',
     email: '',
     shortcuts: ['calendar', 'mail', 'contacts', 'todo']

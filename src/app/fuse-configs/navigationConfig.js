@@ -1,4 +1,28 @@
-const navigationConfig = [
+import jwt_decode from 'jwt-decode';
+import jwt from 'jsonwebtoken';
+
+let role = null;
+const token = localStorage.getItem('jwtToken');
+if (token) {
+  var bearer = token.split(' ');
+  // console.log('bearer[1]aaaaaaaa :', bearer[1]);
+
+  try {
+    const decoded = jwt.verify(bearer[1], 'secret');
+    // console.log('decoded :', decoded);
+    if (decoded) {
+      // console.log('decoded :', decoded);
+      role = decoded.role;
+      // this.props.history.push('/');
+    }
+  } catch (err) {
+    if (err) {
+      console.log(err);
+      this.props.history.push('/login');
+    }
+  }
+}
+const superAdminNavigationConfig = [
   {
     id: 'applications',
     title: 'Applications',
@@ -52,4 +76,55 @@ const navigationConfig = [
   }
 ];
 
+const companyAdminnavigationConfig = [
+  {
+    id: 'applications',
+    title: 'Applications',
+    type: 'group',
+    icon: 'whatshot',
+    children: [
+      {
+        id: 'brands-component',
+        title: 'Brands',
+        type: 'item',
+        icon: 'whatshot',
+        url: '/brands'
+      },
+      {
+        id: 'brand-admin-component',
+        title: 'Company Users',
+        type: 'item',
+        icon: 'whatshot',
+        url: '/brand-users'
+      }
+    ]
+  },
+  {
+    id: 'user auth',
+    title: 'User Management',
+    type: 'group',
+    icon: 'whatshot',
+    children: [
+      {
+        id: 'logout-component',
+        title: 'Logout',
+        type: 'item',
+        icon: 'whatshot',
+        url: '/logout'
+      }
+    ]
+  }
+];
+
+// console.log('role :', role);
+var navigationConfig =
+  role == 'superAdmin'
+    ? superAdminNavigationConfig
+    : role == 'brandAdmin'
+    ? companyAdminnavigationConfig
+    : role == 'companyAdmin'
+    ? companyAdminnavigationConfig
+    : superAdminNavigationConfig;
+
+// console.log('navigationConfig :', navigationConfig);
 export default navigationConfig;

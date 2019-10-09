@@ -182,6 +182,12 @@ class ContactsList extends Component {
                             // filterable: true
                         },
                         {
+                            Header    : "Company",
+                            accessor  : "company_Name",
+                            className : " justify-center",
+                            // filterable: true
+                        },
+                        {
                             Header    : "Gender",
                             accessor  : "gender",
                             filterable: true,

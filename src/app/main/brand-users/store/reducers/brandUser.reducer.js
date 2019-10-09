@@ -5,6 +5,7 @@ import * as authActions from '../../../../auth/store/actions';
 const initialState = {
   entities: [],
   brands: [],
+  companies: [],
   searchText: '',
   selectedContactIds: [],
   routeParams: {},
@@ -64,6 +65,12 @@ const brandUserReducer = function(state = initialState, action) {
       return {
         ...state,
         brands: action.payload
+      };
+    }
+    case Actions.GET_ALL_COMPANIES: {
+      return {
+        ...state,
+        companies: action.payload
       };
     }
     case Actions.SET_SEARCH_TEXT: {

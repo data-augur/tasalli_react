@@ -19,6 +19,10 @@ import { connect } from 'react-redux';
 import _ from '@lodash';
 const brandAdmins = [
   {
+    value: 'companyAdmin',
+    label: 'Company Admin'
+  },
+  {
     value: 'brandAdmin',
     label: 'Brand Admin'
   },
@@ -41,11 +45,12 @@ const newContactState = {
   name: '',
   password: '',
   email: '',
-  brandId: '',
+  brandId: null,
   role: '',
   phoneNumber: '',
   address: '',
-  gender: ''
+  gender: '',
+  companyId: null
 };
 
 class ContactDialog extends Component {
@@ -125,6 +130,7 @@ class ContactDialog extends Component {
   }
 
   render() {
+    // console.log('this.state.companyId :', this.state.companyId);
     const { brandsArr } = this.state;
     // console.log('brandsArr', brandsArr);
     const {
@@ -241,18 +247,17 @@ class ContactDialog extends Component {
               required
             />
           </div>
-
           <div className="flex">
             <div className="min-w-48 pt-20">
               <Icon color="action">work</Icon>
             </div>
             <TextField
               className="mb-24"
-              label="Select Brand"
-              id="brandId"
-              name="brandId"
+              label="Select Company"
+              id="companyId"
+              name="companyId"
               select
-              value={this.state.brandId}
+              value={this.state.companyId}
               onChange={this.handleChange}
               // defaultValue="Brand Admin"
               // onChange={handleChange('currency')}
@@ -261,7 +266,7 @@ class ContactDialog extends Component {
               fullWidth
               variant="outlined"
             >
-              {this.props.brands.map(option => {
+              {this.props.companies.map(option => {
                 // console.log('option', option);
                 return (
                   <option key={option.id} value={option.id}>
@@ -271,6 +276,38 @@ class ContactDialog extends Component {
               })}
             </TextField>
           </div>
+          {!this.state.companyId ? (
+            <div className="flex">
+              <div className="min-w-48 pt-20">
+                <Icon color="action">work</Icon>
+              </div>
+              <TextField
+                className="mb-24"
+                label="Select Brand"
+                id="brandId"
+                name="brandId"
+                select
+                value={this.state.brandId}
+                onChange={this.handleChange}
+                // defaultValue="Brand Admin"
+                // onChange={handleChange('currency')}
+                // helperText="Please select "
+                margin="normal"
+                fullWidth
+                variant="outlined"
+              >
+                {this.props.brands.map(option => {
+                  // console.log('option', option);
+                  return (
+                    <option key={option.id} value={option.id}>
+                      {option.name}
+                    </option>
+                  );
+                })}
+              </TextField>
+            </div>
+          ) : null}
+
           <div className="flex">
             <div className="min-w-48 pt-20">
               <Icon color="action">work</Icon>
@@ -416,7 +453,8 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({ brandUserApp }) {
   return {
     contactDialog: brandUserApp.brandUser.contactDialog,
-    brands: brandUserApp.brandUser.brands
+    brands: brandUserApp.brandUser.brands,
+    companies: brandUserApp.brandUser.companies
   };
 }
 

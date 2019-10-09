@@ -2,6 +2,7 @@ import axios from 'axios';
 import { getUserData } from './user.actions';
 
 export const GET_BRAND_USERS = '[BRAND USERS APP] GET BRANDUSERS';
+export const GET_ALL_COMPANIES = '[BRAND USERS APP] GET COMPANIES';
 export const GET_ALL_BRANDS = '[BRAND USERS APP] GET ALLBRANDS';
 export const ADD_BRAND_USER = '[BRAND USERS APP] Add BRANDUSER';
 export const UPDATE_BRAND_USER = '[BRAND USERS APP] UPDATE BRANDUSER';
@@ -40,6 +41,25 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //     url: 'http://localhost:4000/get-all-brand-users',
 //     headers
 //   });
+export const getAllCompanies = () => dispatch => {
+  axios
+    // .get('http://localhost:4000/get-all-companies')
+    .get('http://18.189.81.89:4000/get-all-companies')
+    .then(res => {
+      // console.log('res :', res);
+      dispatch({
+        type: GET_ALL_COMPANIES,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      // console.log('err', err);
+      //   dispatch({
+      //     type: LOGIN_ERROR,
+      //     payload: err.response.data
+      //   });
+    });
+};
 export const getAllBrands = () => dispatch => {
   axios
     // .get('http://localhost:4000/get-all-brands')
@@ -70,6 +90,7 @@ export const getBrandUsers = () => dispatch => {
         payload: res.data
       });
     })
+    .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getAllBrands()))
     .catch(err => {
       console.log('err', err);
@@ -90,6 +111,7 @@ export const addBrandUser = newContact => dispatch => {
         type: ADD_BRAND_USER
       });
     })
+    .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
       console.log('err', err);
@@ -113,6 +135,7 @@ export const updateBrandUser = (updateInfo, id) => dispatch => {
         type: UPDATE_BRAND_USER
       });
     })
+    .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
       console.log('err', err.response);
@@ -132,6 +155,7 @@ export const removeBrandUser = id => dispatch => {
         type: REMOVE_BRAND_USER
       });
     })
+    .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
       console.log('err', err.response);

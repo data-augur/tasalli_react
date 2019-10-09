@@ -21,7 +21,7 @@ const navigationConfig = [
       },
       {
         id: 'brand-admin-component',
-        title: 'Brand Users',
+        title: 'Company Users',
         type: 'item',
         icon: 'whatshot',
         url: '/brand-users'

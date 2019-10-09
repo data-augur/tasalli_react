@@ -23,13 +23,13 @@ const styles = theme => ({
 
 class BrandsApp extends Component {
   componentDidMount() {
-    this.props.getContacts(this.props.match.params);
+    this.props.getBrands(this.props.match.params);
     this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!_.isEqual(this.props.location, prevProps.location)) {
-      this.props.getContacts(this.props.match.params);
+      this.props.getBrands(this.props.match.params);
     }
   }
 
@@ -71,7 +71,7 @@ class BrandsApp extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getContacts: Actions.getBrands,
+      getBrands: Actions.getBrands,
       getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },

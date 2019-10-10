@@ -7,6 +7,7 @@ import { LoginConfig } from 'app/main/super-login/LoginConfig';
 import { RegisterConfig } from 'app/main/register/RegisterConfig';
 // import { BrandAdminAppConfig } from 'app/main/brand-admin/BrandAdminAppConfig';
 import { BrandUsersAppConfig } from 'app/main/brand-users/BrandUserAppConfig';
+import { AppUsersAppConfig } from 'app/main/app-users/AppUserAppConfig';
 import { CompaniesAppConfig } from 'app/main/company/CompaniesAppConfig';
 import { BrandsAppConfig } from 'app/main/brands/BrandsAppConfig';
 import { LogoutConfig } from 'app/main/logout/LogoutConfig';
@@ -16,6 +17,7 @@ const routeConfigs = [
   BrandUsersLoginConfig,
   LoginConfig,
   RegisterConfig,
+  AppUsersAppConfig,
   BrandUsersAppConfig,
   BrandsAppConfig,
   CompaniesAppConfig,

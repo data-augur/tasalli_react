@@ -44,11 +44,18 @@ const superAdminNavigationConfig = [
         url: '/brands'
       },
       {
-        id: 'brand-admin-component',
+        id: 'company-admin-component',
         title: 'Company Users',
         type: 'item',
         icon: 'whatshot',
         url: '/brand-users'
+      },
+      {
+        id: 'app-user-component',
+        title: 'App Users',
+        type: 'item',
+        icon: 'whatshot',
+        url: '/app-users'
       }
     ]
   },

@@ -3,6 +3,11 @@ import isEmpty from "../is-empty";
 
 const initialState = {
   isAuthenticated: false,
+  brandId: null,
+  companyId: null,
+  email: null,
+  name: null,
+  role: null,
   success: false,
   user: {},
   error: {

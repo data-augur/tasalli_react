@@ -6,11 +6,16 @@ const themesConfig = {
     default    : {
         palette: {
             type     : 'light',
-            primary  : fuseDark,
+            primary  : {
+                light: '#6cabd4',
+                main : '#387ca3',
+                dark : '#005074'
+            },
             secondary: {
-                light: lightBlue[400],
-                main : lightBlue[600],
-                dark : lightBlue[700]
+                light       : '#89f6cf',
+                main        : '#55c39e',
+                dark        : '#159270',
+                contrastText: '#fff'
             },
             error    : red
         },

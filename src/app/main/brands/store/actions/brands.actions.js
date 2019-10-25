@@ -60,7 +60,7 @@ export const getAllCompanies = () => dispatch => {
 export const getBrands = () => dispatch => {
   axios
     // .get('http://localhost:4000/get-all-brands')
-    .get('http://18.189.81.89:4000/get-all-brands')
+    .get('http://18.189.81.89:4000/get-all-brands')   //Admin brands  /${email}
     .then(res => {
       // console.log('res :', res);
       dispatch({

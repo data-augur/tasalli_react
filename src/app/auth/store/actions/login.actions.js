@@ -22,8 +22,13 @@ export const loginUser = userData => dispatch => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
+      const userInfo ={
+        ...decoded,
+        companyId: res.data.companyId,
+        brandId: res.data.brandId,
+      }
       // Set current user
-      dispatch(setCurrentUser(decoded));
+      dispatch(setCurrentUser(userInfo));
     })
     .catch(err => {
       console.log('err', err);
@@ -48,8 +53,14 @@ export const loginBrandUser = userData => dispatch => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
+      const userInfo ={
+        ...decoded,
+        companyId: res.data.companyId,
+        brandId: res.data.brandId,
+      }
+      console.log('userInfo', userInfo)
       // Set current user
-      dispatch(setCurrentUser(decoded));
+      dispatch(setCurrentUser(userInfo));
     })
     .catch(err => {
       console.log('err', err);

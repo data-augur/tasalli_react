@@ -58,10 +58,14 @@ class JWTLoginTab extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.login.isAuthenticated) {
-      this.props.history.push('/');
+    const token = localStorage.getItem('jwtToken');
+    if (token) { 
+      if (nextProps.login.isAuthenticated) {
+        this.props.history.push('/');
+      }
+    }else{
+      console.log('errrrrrrroorrss');
     }
-
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }

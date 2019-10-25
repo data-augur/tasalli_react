@@ -62,11 +62,17 @@ class JWTLoginTab extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.login.isAuthenticated) {
-      this.props.history.push('/dashboard');
-      window.location.reload();
+    const token = localStorage.getItem('jwtToken');
+    if (token) {                                            //Token Check
+      if (nextProps.login.isAuthenticated) {
+        this.props.history.push('/dashboard');
+        window.location.reload();
+      }
     }
-
+    else
+    {
+      console.log('Erroorss');
+    }
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });
     }
@@ -90,7 +96,7 @@ class JWTLoginTab extends Component {
 
   render() {
     const { canSubmit } = this.state;
-
+console.log('asda', this.props.login)
     return (
       <div className="w-full">
         <Formsy

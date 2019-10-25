@@ -12,8 +12,7 @@ reduxModule.__DO_NOT_USE__ActionTypes.REPLACE = '@@redux/INIT';
 const composeEnhancers =
   process.env.NODE_ENV !== 'production' &&
   typeof window === 'object' &&
-  window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ &&
-  window.chrome.browser
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
     ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({
         // Specify extension’s options like name, actionsBlacklist, actionsCreators, serialize...
       })

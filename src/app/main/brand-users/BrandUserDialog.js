@@ -222,6 +222,7 @@ class ContactDialog extends Component {
                 label="Password"
                 id="password"
                 name="password"
+                type="password"
                 value={this.state.password}
                 onChange={this.handleChange}
                 variant="outlined"
@@ -247,7 +248,7 @@ class ContactDialog extends Component {
               required
             />
           </div>
-          <div className="flex">
+          {/* <div className="flex">
             <div className="min-w-48 pt-20">
               <Icon color="action">work</Icon>
             </div>
@@ -275,7 +276,7 @@ class ContactDialog extends Component {
                 );
               })}
             </TextField>
-          </div>
+          </div> */}
           {!this.state.companyId ? (
             <div className="flex">
               <div className="min-w-48 pt-20">
@@ -314,7 +315,7 @@ class ContactDialog extends Component {
             </div>
             <TextField
               className="mb-24"
-              label="job Title"
+              label="Job Title"
               id="role"
               name="role"
               select
@@ -399,8 +400,17 @@ class ContactDialog extends Component {
               variant="contained"
               color="primary"
               onClick={() => {
-                addBrandUser(this.state);
-                this.closeComposeDialog();
+                if(this.state.role=='brandAdmin'||this.state.role=='brandSupplier')
+                {
+                  this.state.companyId=null;
+                }
+                else if(this.state.role=='companyAdmin')
+                {
+                  this.state.companyId= this.props.companyId;
+                }
+                console.log(this.props.login.companyId);
+                //addBrandUser(this.state);
+                //this.closeComposeDialog();
               }}
               disabled={!this.canBeSubmitted()}
             >
@@ -454,7 +464,9 @@ function mapStateToProps({ brandUserApp }) {
   return {
     contactDialog: brandUserApp.brandUser.contactDialog,
     brands: brandUserApp.brandUser.brands,
-    companies: brandUserApp.brandUser.companies
+    companies: brandUserApp.brandUser.companies,
+    login: brandUserApp.login,
+    user: brandUserApp.user
   };
 }
 

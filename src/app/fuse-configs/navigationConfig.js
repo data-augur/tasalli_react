@@ -95,11 +95,11 @@ const companyAdminnavigationConfig = [
         title: 'Brands',
         type: 'item',
         icon: 'whatshot',
-        url: '/brands'
+        url: '/brands'        //company admin brandss 
       },
       {
         id: 'brand-admin-component',
-        title: 'Company Users',
+        title: 'Manage Users',
         type: 'item',
         icon: 'whatshot',
         url: '/brand-users'

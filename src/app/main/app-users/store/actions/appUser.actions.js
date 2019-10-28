@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
-
+import { Base_URL } from '../../../../server'
 export const GET_ALL_APP_USERS = '[APP USERS APP] GET APPUSERS';
 
 export const UPDATE_APP_USER = '[APP USERS APP] UPDATE APPUSER';
@@ -36,13 +36,13 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 
 //   const request = axios({
 //     method: 'get',
-//     url: 'http://localhost:4000/get-all-brand-users',
+//     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
 export const getAllAppUsers = () => dispatch => {
   axios
-    // .get('http://localhost:4000/get-all-app-users')
-    .get('http://18.189.81.89:4000/get-all-app-users')
+    // .get(Base_URL+'get-all-app-users')
+    .get(Base_URL+'get-all-app-users')
     .then(res => {
       // console.log('res :', res);
       dispatch({
@@ -122,7 +122,7 @@ export const removeAppUser = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post('http://localhost:4000/create-brand-user', {
+//     const request = axios.post(Base_URL+'create-brand-user', {
 //       newContact
 //     });
 

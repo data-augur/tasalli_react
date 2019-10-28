@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
+import { Base_URL } from '../../../../server'
 
 export const GET_COMPANIES = '[COMPANIES APP] GET COMPANIES';
 export const ADD_COMPANY = '[COMPANIES APP] ADD COMPANY';
@@ -34,14 +35,14 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 
 //   const request = axios({
 //     method: 'get',
-//     url: 'http://localhost:4000/get-all-brand-users',
+//     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
 
 export const getCompanies = () => dispatch => {
   axios
-    // .get('http://localhost:4000/get-all-companies')
-    .get('http://18.189.81.89:4000/get-all-companies')
+    // .get(Base_URL+'get-all-companies')
+    .get(Base_URL+'get-all-companies')
     .then(res => {
       // console.log('res :', res);
       dispatch({
@@ -60,8 +61,8 @@ export const getCompanies = () => dispatch => {
 export const addCompany = newContact => dispatch => {
   // console.log('newContact :', newContact);
   axios
-    // .post('http://localhost:4000/create-company', newContact)
-    .post('http://18.189.81.89:4000/create-company', newContact)
+    // .post(Base_URL+'create-company', newContact)
+    .post(Base_URL+'create-company', newContact)
     .then(res => {
       // console.log('res :', res);
       dispatch({
@@ -141,7 +142,7 @@ export const removeCompany = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post('http://localhost:4000/create-brand-user', {
+//     const request = axios.post(Base_URL+'create-brand-user', {
 //       newContact
 //     });
 

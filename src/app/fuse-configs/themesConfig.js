@@ -7,7 +7,7 @@ const themesConfig = {
         palette: {
             type     : 'light',
             primary  : {
-                light: '#6cabd4',
+                light: '#6cabd4',   //55C39E
                 main : '#387ca3',
                 dark : '#005074'
             },

@@ -15,6 +15,7 @@ import { withRouter } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 import * as authActions from 'app/auth/store/actions';
 import axios from 'axios';
+import { Base_URL } from '../../../server';
 
 class JWTLoginTab extends Component {
   state = {
@@ -44,8 +45,8 @@ class JWTLoginTab extends Component {
     const token = localStorage.getItem('jwtToken');
     if (token) {
       axios
-        // .post('http://localhost:4000/admin-auth/verify-token', { token })
-        .post('http://18.189.81.89:4000/admin-auth/verify-token', { token })
+        // .post(Base_URL+'admin-auth/verify-token', { token })
+        .post(Base_URL+'admin-auth/verify-token', { token })
         .then(res => {
           // Set current user
           this.props.setCurrentUser(res.data);

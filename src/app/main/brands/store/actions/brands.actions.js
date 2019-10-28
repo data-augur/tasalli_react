@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
+import { Base_URL } from '../../../../server'
 
 export const GET_BRANDS = '[BRANDS APP] GET BRANDS';
 export const GET_ALL_COMPANIES = '[BRANDS APP] GET COMPANIES';
@@ -35,13 +36,13 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 
 //   const request = axios({
 //     method: 'get',
-//     url: 'http://localhost:4000/get-all-brand-users',
+//     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
 export const getAllCompanies = () => dispatch => {
   axios
-    // .get('http://localhost:4000/get-all-companies')
-    .get('http://18.189.81.89:4000/get-all-companies')
+    // .get(Base_URL+'get-all-companies')
+    .get(Base_URL+'get-all-companies')
     .then(res => {
       // console.log('res :', res);
       dispatch({
@@ -59,8 +60,8 @@ export const getAllCompanies = () => dispatch => {
 };
 export const getBrands = () => dispatch => {
   axios
-    // .get('http://localhost:4000/get-all-brands')
-    .get('http://18.189.81.89:4000/get-all-brands')   //Admin brands  /${email}
+    // .get(Base_URL+'get-all-brands')
+    .get(Base_URL+'get-all-brands')   //Admin brands  /${email}
     .then(res => {
       // console.log('res :', res);
       dispatch({
@@ -80,8 +81,8 @@ export const getBrands = () => dispatch => {
 export const addBrand = newContact => dispatch => {
   console.log('newContact :', newContact);
   axios
-    // .post('http://localhost:4000/create-brand', newContact)
-    .post('http://18.189.81.89:4000/create-brand', newContact)
+    // .post(Base_URL+'create-brand', newContact)
+    .post(Base_URL+'create-brand', newContact)
     .then(res => {
       // console.log('res :', res);
       dispatch({
@@ -161,7 +162,7 @@ export const removeBrand = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post('http://localhost:4000/create-brand-user', {
+//     const request = axios.post(Base_URL+'create-brand-user', {
 //       newContact
 //     });
 

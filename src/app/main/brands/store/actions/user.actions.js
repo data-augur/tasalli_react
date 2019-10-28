@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { Base_URL } from '../../../../server'
 
 export const GET_USER_DATA = '[CONTACTS APP] GET USER DATA';
 
@@ -12,7 +13,7 @@ export const GET_USER_DATA = '[CONTACTS APP] GET USER DATA';
 
 //   const request = axios({
 //     method: 'get',
-//     url: 'http://localhost:4000/get-all-brand-users',
+//     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
 
@@ -30,8 +31,8 @@ axios.defaults.headers.common['Content-Type'] =
   'application/x-www-form-urlencoded';
 export const getUserData = () => dispatch => {
   axios
-    // .get('http://localhost:4000/get-all-brands')
-    .get('http://18.189.81.89:4000/get-all-brands')
+    // .get(Base_URL+'get-all-brands')
+    .get(Base_URL+'get-all-brands')
     .then(res => {
       // console.log('res :', res);
       dispatch({

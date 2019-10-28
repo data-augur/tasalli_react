@@ -1,6 +1,7 @@
 import axios from 'axios';
 import setAuthToken from '../setAuthToken';
 import jwt_decode from 'jwt-decode';
+import { Base_URL } from '../../../server';
 export const GET_ERRORS = 'GET_ERRORS';
 export const SET_CURRENT_USER = 'SET_CURRENT_USER';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
@@ -10,8 +11,8 @@ export const LOGOUT = 'LOGOUT';
 // Login - Get User Token
 export const loginUser = userData => dispatch => {
   axios
-    // .post('http://localhost:4000/su-admin/login', userData)
-    .post('http://18.189.81.89:4000/su-admin/login', userData)
+    // .post(Base_URL+'su-admin/login', userData)
+    .post(Base_URL+'su-admin/login', userData)  
     .then(res => {
       console.log('res', res);
       // Save to localStorage
@@ -22,6 +23,7 @@ export const loginUser = userData => dispatch => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
+      console.log('User Data',decoded);
       const userInfo ={
         ...decoded,
         companyId: res.data.companyId,
@@ -41,8 +43,8 @@ export const loginUser = userData => dispatch => {
 // Login - Get User Token
 export const loginBrandUser = userData => dispatch => {
   axios
-    // .post('http://localhost:4000/admin-auth/login', userData)
-    .post('http://18.189.81.89:4000/admin-auth/login', userData)
+    // .post(Base_URL+'admin-auth/login', userData)
+    .post(Base_URL+'admin-auth/login', userData)
     .then(res => {
       console.log('res', res);
       // Save to localStorage
@@ -75,8 +77,8 @@ export const loginBrandUser = userData => dispatch => {
 export const verifyToken = token => dispatch => {
   // console.log(token);
   axios
-    // .post('http://localhost:4000/admin-auth/verify-token', { token })
-    .post('http://18.189.81.89:4000/admin-auth/verify-token', { token })
+    // .post(Base_URL+'admin-auth/verify-token', { token })
+    .post(Base_URL+'admin-auth/verify-token', { token })
     .then(res => {
       // Set current user
       // console.log('tokenInfo', res.data);

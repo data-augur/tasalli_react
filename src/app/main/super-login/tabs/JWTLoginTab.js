@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import {
   Button,
   Divider,
-  Typography,
   InputAdornment,
   Icon
 } from '@material-ui/core';
 import { TextFieldFormsy } from '@fuse';
-import jwt_decode from 'jwt-decode';
-import jwt from 'jsonwebtoken';
 import Formsy from 'formsy-react';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
@@ -37,7 +34,7 @@ class JWTLoginTab extends Component {
     //   role: 'superAdmin'
     // };
     // const data = { ...model, ...role };
-    // console.log('model :', model);
+
     this.props.submitLogin(model);
   };
   componentWillMount() {
@@ -64,8 +61,6 @@ class JWTLoginTab extends Component {
       if (nextProps.login.isAuthenticated) {
         this.props.history.push('/');
       }
-    }else{
-      console.log('errrrrrrroorrss');
     }
     if (nextProps.errors) {
       this.setState({ errors: nextProps.errors });

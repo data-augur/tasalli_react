@@ -32,7 +32,7 @@ class JWTRegisterTab extends Component {
       role: 'superAdmin'
     };
     const data = { ...model, ...role };
-    // console.log('model :', model);
+
     this.props.submitRegister(data);
   };
 

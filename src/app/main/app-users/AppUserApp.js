@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { withStyles, Fab, Icon } from '@material-ui/core';
-import { FusePageSimple, FuseAnimate } from '@fuse';
+import { withStyles } from '@material-ui/core';
+import { FusePageSimple } from '@fuse';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -34,7 +34,6 @@ class BrandUserApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
 
     return (
       <React.Fragment>

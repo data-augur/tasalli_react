@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import {
   TextField,
   Button,
@@ -10,8 +9,7 @@ import {
   IconButton,
   Typography,
   Toolbar,
-  AppBar,
-  Avatar
+  AppBar
 } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import * as Actions from './store/actions';
@@ -113,13 +111,9 @@ class ContactDialog extends Component {
     const {
       name,
       email,
-      password,
-      brandId,
       role,
       gender
-      // brandsArr
     } = this.state;
-    // console.log('this.state.brandsArr :', this.state.brandsArr);
 
     return (
       name.length > 0 &&
@@ -132,18 +126,12 @@ class ContactDialog extends Component {
   }
 
   render() {
-    // console.log('this.state.companyId :', this.state.companyId);
-    const { brandsArr } = this.state;
-    // console.log('brandsArr', brandsArr);
     const {
       contactDialog,
       addBrandUser,
       updateBrandUser,
       removeBrandUser
-      // brands
     } = this.props;
-    // console.log('brands :', brands);
-    // console.log('props :', this.props.brands);
     return (
       <Dialog
         classes={{
@@ -270,7 +258,7 @@ class ContactDialog extends Component {
               variant="outlined"
             >
               {this.props.companies.map(option => {
-                // console.log('option', option);
+
                 return (
                   <option key={option.id} value={option.id}>
                     {option.name}
@@ -300,7 +288,7 @@ class ContactDialog extends Component {
                 variant="outlined"
               >
                 {this.props.brands.map(option => {
-                  // console.log('option', option);
+
                   return (
                     <option key={option.id} value={option.id}>
                       {option.name}
@@ -402,15 +390,15 @@ class ContactDialog extends Component {
               variant="contained"
               color="primary"
               onClick={() => {
-                if(this.state.role=='brandAdmin'||this.state.role=='brandSupplier')
+                if(this.state.role==='brandAdmin'||this.state.role==='brandSupplier')
                 {
-                  this.state.companyId=null;
+                  this.state.companyId.setState(null);//=null;
                 }
-                else if(this.state.role=='companyAdmin')
+                else if(this.state.role==='companyAdmin')
                 {
                   const token = localStorage.getItem('jwtToken');
                   const decoded = jwt_decode(token);
-                  this.state.companyId= decoded.companyId;
+                  this.state.companyId.setStart(decoded.companyId);//= decoded.companyId;
                 }
                 addBrandUser(this.state);
                 this.closeComposeDialog();

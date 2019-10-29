@@ -14,7 +14,6 @@ export const loginUser = userData => dispatch => {
     // .post(Base_URL+'su-admin/login', userData)
     .post(Base_URL+'su-admin/login', userData)  
     .then(res => {
-      console.log('res', res);
       // Save to localStorage
       const { token } = res.data;
       // Set token to ls
@@ -23,8 +22,6 @@ export const loginUser = userData => dispatch => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
-      console.log('User Data',decoded);
-      console.log('Email', decoded.email);
       const userInfo ={
         ...decoded,
         companyId: res.data.companyId,
@@ -34,7 +31,7 @@ export const loginUser = userData => dispatch => {
       dispatch(setCurrentUser(userInfo));
     })
     .catch(err => {
-      console.log('err', err);
+
       dispatch({
         type: LOGIN_ERROR,
         payload: err.response.data
@@ -47,7 +44,6 @@ export const loginBrandUser = userData => dispatch => {
     // .post(Base_URL+'admin-auth/login', userData)
     .post(Base_URL+'admin-auth/login', userData)
     .then(res => {
-      console.log('res', res);
       // Save to localStorage
       const { token } = res.data;
       // Set token to ls
@@ -56,21 +52,17 @@ export const loginBrandUser = userData => dispatch => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
-      console.log('Decoded Email', decoded.email);
-      console.log('Decoded Role', decoded.role);
-      console.log('Decoded CompanyID', decoded.companyId);
-      console.log('Decoded BrandID', decoded.brandId);
-      console.log('Name',decoded.name);
+
       const userInfo ={
         ...decoded,
         companyId: res.data.companyId,
         brandId: res.data.brandId,
-      }
+      };
       // Set current user
       dispatch(setCurrentUser(userInfo));
     })
     .catch(err => {
-      console.log('err', err);
+
       dispatch({
         type: LOGIN_ERROR,
         payload: err.response.data
@@ -80,17 +72,16 @@ export const loginBrandUser = userData => dispatch => {
 
 // Set logged in user
 export const verifyToken = token => dispatch => {
-  // console.log(token);
+
   axios
     // .post(Base_URL+'admin-auth/verify-token', { token })
     .post(Base_URL+'admin-auth/verify-token', { token })
     .then(res => {
       // Set current user
-      // console.log('tokenInfo', res.data);
       dispatch(setCurrentUser(res.data));
     })
     .catch(err => {
-      console.log('err', err);
+
       dispatch({
         type: LOGIN_ERROR,
         payload: err.response.data

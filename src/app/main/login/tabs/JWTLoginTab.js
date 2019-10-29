@@ -2,20 +2,16 @@ import React, { Component } from 'react';
 import {
   Button,
   Divider,
-  Typography,
   InputAdornment,
   Icon
 } from '@material-ui/core';
 import { TextFieldFormsy } from '@fuse';
-import jwt_decode from 'jwt-decode';
-import jwt from 'jsonwebtoken';
 import Formsy from 'formsy-react';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import connect from 'react-redux/es/connect/connect';
 import * as authActions from 'app/auth/store/actions';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 import { Base_URL } from '../../../server';
 
 class JWTLoginTab extends Component {
@@ -38,7 +34,7 @@ class JWTLoginTab extends Component {
     //   role: 'superAdmin'
     // };
     // const data = { ...model, ...role };
-    // console.log('model :', model);
+
     this.props.submitLogin(model);
   };
   componentWillMount() {
@@ -57,7 +53,7 @@ class JWTLoginTab extends Component {
         .then(() => window.location.reload())
 
         .catch(err => {
-          console.log('err', err);
+
         });
     }
   }
@@ -97,7 +93,7 @@ class JWTLoginTab extends Component {
 
   render() {
     const { canSubmit } = this.state;
-console.log('asda', this.props.login)
+
     return (
       <div className="w-full">
         <Formsy

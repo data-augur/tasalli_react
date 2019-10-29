@@ -44,14 +44,14 @@ export const getCompanies = () => dispatch => {
     // .get(Base_URL+'get-all-companies')
     .get(Base_URL+'get-all-companies')
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: GET_COMPANIES,
         payload: res.data
       });
     })
     .catch(err => {
-      console.log('err', err);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -59,19 +59,19 @@ export const getCompanies = () => dispatch => {
     });
 };
 export const addCompany = newContact => dispatch => {
-  // console.log('newContact :', newContact);
+
   axios
     // .post(Base_URL+'create-company', newContact)
     .post(Base_URL+'create-company', newContact)
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: ADD_COMPANY
       });
     })
     .then(() => dispatch(getCompanies()))
     .catch(err => {
-      console.log('err', err);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -79,7 +79,7 @@ export const addCompany = newContact => dispatch => {
     });
 };
 export const updateCompany = (updateInfo, id) => dispatch => {
-  // console.log('updateInfo :', updateInfo);
+
   axios
     .put(
       // `http://localhost:4000/update-company/${updateInfo.id}`,
@@ -87,14 +87,14 @@ export const updateCompany = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-      // console.log('update req :', res);
+
       dispatch({
         type: UPDATE_COMPANY
       });
     })
     .then(() => dispatch(getCompanies()))
     .catch(err => {
-      console.log('err', err.response);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -106,14 +106,14 @@ export const removeCompany = id => dispatch => {
     // .delete(`http://localhost:4000/delete-company/${id}`)
     .delete(`http://18.189.81.89:4000/delete-company/${id}`)
     .then(res => {
-      // console.log('update req :', res);
+
       dispatch({
         type: REMOVE_COMPANY
       });
     })
     .then(() => dispatch(getCompanies()))
     .catch(err => {
-      console.log('err', err.response);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data

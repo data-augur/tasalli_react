@@ -10,10 +10,8 @@ import {
 import { darken } from '@material-ui/core/styles/colorManipulator';
 import { FuseAnimate } from '@fuse';
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 import { Link, withRouter } from 'react-router-dom';
 import classNames from 'classnames';
-import * as Actions from 'app/auth/store/actions';
 import JWTRegisterTab from './tabs/JWTRegisterTab';
 
 const styles = theme => ({

@@ -9,8 +9,7 @@ import {
   IconButton,
   Typography,
   Toolbar,
-  AppBar,
-  Avatar
+  AppBar
 } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import * as Actions from './store/actions';
@@ -78,7 +77,7 @@ class ContactDialog extends Component {
   };
 
   canBeSubmitted() {
-    const { name, company } = this.state;
+    const { name } = this.state;
     return name.length > 0;
   }
 
@@ -155,7 +154,7 @@ class ContactDialog extends Component {
               variant="outlined"
             >
               {this.props.companies.map(option => {
-                // console.log('option', option);
+
                 return (
                   <option key={option.id} value={option.id}>
                     {option.name}

@@ -44,14 +44,14 @@ export const getAllCompanies = () => dispatch => {
     // .get(Base_URL+'get-all-companies')
     .get(Base_URL+'get-all-companies')
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: GET_ALL_COMPANIES,
         payload: res.data
       });
     })
     .catch(err => {
-      // console.log('err', err);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -63,7 +63,7 @@ export const getBrands = () => dispatch => {
     // .get(Base_URL+'get-all-brands')
     .get(Base_URL+'get-all-brands')   //Admin brands  /${email}
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: GET_BRANDS,
         payload: res.data
@@ -79,12 +79,12 @@ export const getBrands = () => dispatch => {
     });
 };
 export const addBrand = newContact => dispatch => {
-  console.log('newContact :', newContact);
+
   axios
     // .post(Base_URL+'create-brand', newContact)
     .post(Base_URL+'create-brand', newContact)
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: ADD_BRAND
       });
@@ -99,7 +99,7 @@ export const addBrand = newContact => dispatch => {
     });
 };
 export const updateBrand = (updateInfo, id) => dispatch => {
-  console.log('updateInfo :', updateInfo);
+
   axios
     .put(
       // `http://localhost:4000/update-brand/${updateInfo.id}`,
@@ -107,7 +107,7 @@ export const updateBrand = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-      // console.log('update req :', res);
+
       dispatch({
         type: UPDATE_BRAND
       });
@@ -126,7 +126,7 @@ export const removeBrand = id => dispatch => {
     // .delete(`http://localhost:4000/delete-brand/${id}`)
     .delete(`http://18.189.81.89:4000/delete-brand/${id}`)
     .then(res => {
-      // console.log('update req :', res);
+
       dispatch({
         type: REMOVE_BRAND
       });

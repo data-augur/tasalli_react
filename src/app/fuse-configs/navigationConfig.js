@@ -1,20 +1,14 @@
-import jwt_decode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
-import { Redirect } from 'react-router-dom';
 
 let role = null;
 const token = localStorage.getItem('jwtToken');
 if (token) {
   var bearer = token.split(' ');
-  // console.log('bearer[1]aaaaaaaa :', bearer[1]);
 
   try {
     const decoded = jwt.verify(bearer[1], 'secret');
-    // console.log('decoded :', decoded);
     if (decoded) {
-      // console.log('decoded :', decoded);
       role = decoded.role;
-      // this.props.history.push('/');
     }
   } catch (err) {
     if (err) {
@@ -25,9 +19,7 @@ if (token) {
 }
 else
 {
-  console.log('No Token Exsists NavigationConfig', window.location);
-  //this.props.history.push("/login");
-  if(window.location.pathname == '/su-admin/') {
+  if(window.location.pathname === '/su-admin/'||window.location.pathname === '/su-admin') {
     window.location = '/su-admin/login';
   }
 }
@@ -132,16 +124,13 @@ const companyAdminnavigationConfig = [
   }
 ];
 
-// console.log('role :', role);
 localStorage.setItem('Role',role);
 var navigationConfig =
-  role == 'superAdmin'
+  role === 'superAdmin'
     ? superAdminNavigationConfig
-    : role == 'brandAdmin'
+    : role === 'brandAdmin'
     ? companyAdminnavigationConfig
-    : role == 'companyAdmin'
+    : role === 'companyAdmin'
     ? companyAdminnavigationConfig
     : superAdminNavigationConfig;
-
-// console.log('navigationConfig :', navigationConfig);
 export default navigationConfig;

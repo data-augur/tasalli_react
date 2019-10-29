@@ -47,14 +47,14 @@ export const getAllCompanies = () => dispatch => {
     // .get(Base_URL+'get-all-companies')
     .get(Base_URL+'get-all-companies')
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: GET_ALL_COMPANIES,
         payload: res.data
       });
     })
     .catch(err => {
-      // console.log('err', err);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -66,14 +66,14 @@ export const getAllBrands = () => dispatch => {
     // .get(Base_URL+'get-all-brands')
     .get(Base_URL+'get-all-brands')
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: GET_ALL_BRANDS,
         payload: res.data
       });
     })
     .catch(err => {
-      console.log('err', err);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -85,7 +85,7 @@ export const getBrandUsers = () => dispatch => {
     // .get(Base_URL+'get-all-brand-users')
     .get(Base_URL+'get-all-brand-users')
     .then(res => {
-      // console.log('get Brand Users :', res);
+
       dispatch({
         type: GET_BRAND_USERS,
         payload: res.data
@@ -94,7 +94,7 @@ export const getBrandUsers = () => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getAllBrands()))
     .catch(err => {
-      console.log('err', err);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -102,12 +102,12 @@ export const getBrandUsers = () => dispatch => {
     });
 };
 export const addBrandUser = newContact => dispatch => {
-  // console.log('newContact :', newContact);
+
   axios
     // .post(Base_URL+'create-brand-user', newContact)
     .post(Base_URL+'create-brand-user', newContact)
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: ADD_BRAND_USER
       });
@@ -115,7 +115,7 @@ export const addBrandUser = newContact => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
-      console.log('err', err);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -123,7 +123,7 @@ export const addBrandUser = newContact => dispatch => {
     });
 };
 export const updateBrandUser = (updateInfo, id) => dispatch => {
-  // console.log('updateInfo :', updateInfo);
+
   axios
     .put(
       // `http://localhost:4000/update-brand-user/${updateInfo.id}`,
@@ -131,7 +131,7 @@ export const updateBrandUser = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-      // console.log('update req :', res);
+
       dispatch({
         type: UPDATE_BRAND_USER
       });
@@ -139,7 +139,7 @@ export const updateBrandUser = (updateInfo, id) => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
-      console.log('err', err.response);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -151,7 +151,7 @@ export const removeBrandUser = id => dispatch => {
     // .delete(`http://localhost:4000/delete-brand-user/${id}`)
     .delete(`http://18.189.81.89:4000/delete-brand-user/${id}`)
     .then(res => {
-      // console.log('update req :', res);
+
       dispatch({
         type: REMOVE_BRAND_USER
       });
@@ -159,7 +159,7 @@ export const removeBrandUser = id => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
-      console.log('err', err.response);
+
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data

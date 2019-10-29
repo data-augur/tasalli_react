@@ -9,8 +9,7 @@ import {
   IconButton,
   Typography,
   Toolbar,
-  AppBar,
-  Avatar
+  AppBar
 } from '@material-ui/core';
 import { bindActionCreators } from 'redux';
 import * as Actions from './store/actions';

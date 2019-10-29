@@ -70,7 +70,7 @@ const styles = theme => ({
 });
 
 const Layout1 = ({classes, settings, children}) => {
-    // console.warn('FuseLayout:: rendered');
+
     const layoutConfig = settings.layout.config;
 
     switch ( layoutConfig.scroll )

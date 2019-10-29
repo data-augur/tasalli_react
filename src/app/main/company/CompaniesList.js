@@ -42,7 +42,6 @@ class ContactsList extends Component {
   render() {
     const {
       contacts,
-      user,
       searchText,
       selectedContactIds,
       selectAllContacts,
@@ -51,7 +50,6 @@ class ContactsList extends Component {
       openEditContactDialog,
       removeContacts,
       removeCompany,
-      toggleStarredContact,
       setContactsUnstarred,
       setContactsStarred
     } = this.props;

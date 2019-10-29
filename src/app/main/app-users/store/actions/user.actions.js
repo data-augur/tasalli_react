@@ -34,7 +34,7 @@ export const getUserData = () => dispatch => {
     // .get(Base_URL+'get-all-app-users')
     .get(Base_URL+'get-all-app-users')
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: GET_USER_DATA,
         payload: res.data

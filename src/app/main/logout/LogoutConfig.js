@@ -1,5 +1,4 @@
-import { authRoles } from 'app/auth';
-import React, { Component } from 'react';
+import React from 'react';
 import store from 'app/store';
 import { logoutUser } from 'app/auth/store/actions/login.actions';
 import { Redirect } from 'react-router-dom';
@@ -11,7 +10,7 @@ export const LogoutConfig = {
       path: '/logout',
       component: () => {
         store.dispatch(logoutUser());
-        if(localStorage.getItem('Role') == 'superAdmin')
+        if(localStorage.getItem('Role') === 'superAdmin')
         {
           localStorage.removeItem('Role');
           return <Redirect to="/su-admin/login" />;

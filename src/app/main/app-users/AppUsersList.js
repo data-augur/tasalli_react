@@ -32,7 +32,7 @@ class ContactsList extends Component {
 
     render()
     {
-        const { contacts, user, searchText, selectedContactIds, selectAllContacts, deSelectAllContacts, toggleInSelectedContacts, openEditContactDialog, removeContacts, removeAppUser, toggleStarredContact, setContactsUnstarred, setContactsStarred} = this.props;
+        const { contacts, searchText, selectedContactIds, selectAllContacts, deSelectAllContacts, toggleInSelectedContacts, openEditContactDialog, removeContacts, removeAppUser, setContactsUnstarred, setContactsStarred} = this.props;
         const data = this.getFilteredArray(contacts, searchText);
         const {selectedContactsMenu} = this.state;
 

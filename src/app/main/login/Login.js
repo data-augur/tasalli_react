@@ -9,7 +9,7 @@ import {
 } from '@material-ui/core';
 import { darken } from '@material-ui/core/styles/colorManipulator';
 import { FuseAnimate } from '@fuse';
-import { Link, withRouter } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 import classNames from 'classnames';
 import JWTLoginTab from './tabs/JWTLoginTab';
 

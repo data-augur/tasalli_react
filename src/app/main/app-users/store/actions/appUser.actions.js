@@ -44,7 +44,7 @@ export const getAllAppUsers = () => dispatch => {
     // .get(Base_URL+'get-all-app-users')
     .get(Base_URL+'get-all-app-users')
     .then(res => {
-      // console.log('res :', res);
+
       dispatch({
         type: GET_ALL_APP_USERS,
         payload: res.data
@@ -59,7 +59,7 @@ export const getAllAppUsers = () => dispatch => {
     });
 };
 export const updateAppUser = (updateInfo, id) => dispatch => {
-  // console.log('updateInfo :', updateInfo);
+
   axios
     .put(
       // `http://localhost:4000/update-app-user/${updateInfo.id}`,
@@ -67,7 +67,7 @@ export const updateAppUser = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-      // console.log('update req :', res);
+
       dispatch({
         type: UPDATE_APP_USER
       });
@@ -86,7 +86,7 @@ export const removeAppUser = id => dispatch => {
     // .delete(`http://localhost:4000/delete-app-user/${id}`)
     .delete(`http://18.189.81.89:4000/delete-app-user/${id}`)
     .then(res => {
-      // console.log('update req :', res);
+
       dispatch({
         type: REMOVE_APP_USER
       });

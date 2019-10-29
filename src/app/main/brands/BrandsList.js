@@ -17,7 +17,6 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
-import jwt_decode from 'jwt-decode';
 
 class ContactsList extends Component {
   state = {
@@ -43,7 +42,6 @@ class ContactsList extends Component {
   render() {
     const {
       contacts,
-      user,
       searchText,
       selectedContactIds,
       selectAllContacts,
@@ -52,7 +50,6 @@ class ContactsList extends Component {
       openEditContactDialog,
       removeContacts,
       removeBrand,
-      toggleStarredContact,
       setContactsUnstarred,
       setContactsStarred
     } = this.props;

@@ -21,7 +21,7 @@ const login = function(state = initialState, action) {
   switch (action.type) {
     case Actions.SET_CURRENT_USER: {
       state=action.payload;
-      console.log('Payload',action.payload);
+
       return {
         isAuthenticated: !isEmpty(action.payload),
         success: true,

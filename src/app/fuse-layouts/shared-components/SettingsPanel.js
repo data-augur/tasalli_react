@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Button, Typography, Dialog, Icon, IconButton, Slide, withStyles} from '@material-ui/core';
+import { Typography, Dialog, Icon, IconButton, Slide, withStyles} from '@material-ui/core';
 import {FuseScrollbars, FuseSettings} from '@fuse';
 import {red} from '@material-ui/core/colors';
 

@@ -17,12 +17,12 @@ if (token) {
     }
   }
 }
-else
-{
-  if(window.location.pathname === '/su-admin/'||window.location.pathname === '/su-admin') {
-    window.location = '/su-admin/login';
-  }
-}
+// else
+// {
+//   if(window.location.pathname === '/su-admin/'||window.location.pathname === '/su-admin') {
+//     window.location = '/su-admin/login';
+//   }
+// }
 const superAdminNavigationConfig = [
   {
     id: 'applications',

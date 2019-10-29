@@ -1,5 +1,6 @@
 import jwt_decode from 'jwt-decode';
 import jwt from 'jsonwebtoken';
+import { Redirect } from 'react-router-dom';
 
 let role = null;
 const token = localStorage.getItem('jwtToken');
@@ -20,6 +21,14 @@ if (token) {
       console.log(err);
       this.props.history.push('/login');
     }
+  }
+}
+else
+{
+  console.log('No Token Exsists NavigationConfig', window.location);
+  //this.props.history.push("/login");
+  if(window.location.pathname == '/su-admin/') {
+    window.location = '/su-admin/login';
   }
 }
 const superAdminNavigationConfig = [
@@ -124,6 +133,7 @@ const companyAdminnavigationConfig = [
 ];
 
 // console.log('role :', role);
+localStorage.setItem('Role',role);
 var navigationConfig =
   role == 'superAdmin'
     ? superAdminNavigationConfig

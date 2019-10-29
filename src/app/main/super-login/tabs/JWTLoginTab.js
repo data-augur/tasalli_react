@@ -89,7 +89,6 @@ class JWTLoginTab extends Component {
 
   render() {
     const { canSubmit } = this.state;
-
     return (
       <div className="w-full">
         <Formsy

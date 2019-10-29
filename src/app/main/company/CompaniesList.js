@@ -62,7 +62,7 @@ class ContactsList extends Component {
       return (
         <div className="flex items-center justify-center h-full">
           <Typography color="textSecondary" variant="h5">
-            There are no brand users!
+            There are no company!
           </Typography>
         </div>
       );

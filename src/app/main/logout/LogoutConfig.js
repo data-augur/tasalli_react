@@ -11,7 +11,16 @@ export const LogoutConfig = {
       path: '/logout',
       component: () => {
         store.dispatch(logoutUser());
-        return <Redirect to="/login" />;
+        if(localStorage.getItem('Role') == 'superAdmin')
+        {
+          localStorage.removeItem('Role');
+          return <Redirect to="/su-admin/login" />;
+        }
+        else
+        {
+          localStorage.removeItem('Role');
+          return <Redirect to="/login" />;
+        }
       }
     }
   ]

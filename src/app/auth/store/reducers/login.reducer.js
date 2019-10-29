@@ -6,10 +6,10 @@ const initialState = {
   success: false,
   user: {
     brandId: null,
-  companyId: null,
-  email: null,
-  name: null,
-  role: null,
+    companyId: null,
+    email: null,
+    name: null,
+    role: null,
   },
   error: {
     username: null,
@@ -20,6 +20,8 @@ const initialState = {
 const login = function(state = initialState, action) {
   switch (action.type) {
     case Actions.SET_CURRENT_USER: {
+      state=action.payload;
+      console.log('Payload',action.payload);
       return {
         isAuthenticated: !isEmpty(action.payload),
         success: true,

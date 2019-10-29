@@ -17,6 +17,8 @@ import { bindActionCreators } from 'redux';
 import * as Actions from './store/actions';
 import { connect } from 'react-redux';
 import _ from '@lodash';
+import jwt_decode from 'jwt-decode';
+
 const brandAdmins = [
   {
     value: 'companyAdmin',
@@ -406,11 +408,12 @@ class ContactDialog extends Component {
                 }
                 else if(this.state.role=='companyAdmin')
                 {
-                  this.state.companyId= this.props.companyId;
+                  const token = localStorage.getItem('jwtToken');
+                  const decoded = jwt_decode(token);
+                  this.state.companyId= decoded.companyId;
                 }
-                console.log(this.props.login.companyId);
-                //addBrandUser(this.state);
-                //this.closeComposeDialog();
+                addBrandUser(this.state);
+                this.closeComposeDialog();
               }}
               disabled={!this.canBeSubmitted()}
             >

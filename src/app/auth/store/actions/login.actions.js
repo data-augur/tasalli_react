@@ -24,6 +24,7 @@ export const loginUser = userData => dispatch => {
       // Decode token to get user data
       const decoded = jwt_decode(token);
       console.log('User Data',decoded);
+      console.log('Email', decoded.email);
       const userInfo ={
         ...decoded,
         companyId: res.data.companyId,
@@ -55,12 +56,16 @@ export const loginBrandUser = userData => dispatch => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
+      console.log('Decoded Email', decoded.email);
+      console.log('Decoded Role', decoded.role);
+      console.log('Decoded CompanyID', decoded.companyId);
+      console.log('Decoded BrandID', decoded.brandId);
+      console.log('Name',decoded.name);
       const userInfo ={
         ...decoded,
         companyId: res.data.companyId,
         brandId: res.data.brandId,
       }
-      console.log('userInfo', userInfo)
       // Set current user
       dispatch(setCurrentUser(userInfo));
     })

@@ -238,7 +238,37 @@ class ContactDialog extends Component {
               required
             />
           </div>
-          {/* <div className="flex">
+
+          <div className="flex">
+            <div className="min-w-48 pt-20">
+              <Icon color="action">work</Icon>
+            </div>
+            <TextField
+                className="mb-24"
+                label="Job Title"
+                id="role"
+                name="role"
+                select
+                value={this.state.role}
+                onChange={this.handleChange}
+                defaultValue="Brand Admin"
+                // onChange={handleChange('currency')}
+                // helperText="Please select "
+                margin="normal"
+                fullWidth
+                variant="outlined"
+            >
+              {brandAdmins.map(option => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+              ))}
+            </TextField>
+          </div>
+
+          {/***/}
+          {this.state.role==='companyAdmin' ? (
+           <div className="flex">
             <div className="min-w-48 pt-20">
               <Icon color="action">work</Icon>
             </div>
@@ -266,8 +296,11 @@ class ContactDialog extends Component {
                 );
               })}
             </TextField>
-          </div> */}
-          {!this.state.companyId ? (
+          </div>
+          ) : null}
+
+          {/***/}
+          {this.state.role==='brandAdmin'||this.state.role==='brandSupplier' ? (
             <div className="flex">
               <div className="min-w-48 pt-20">
                 <Icon color="action">work</Icon>
@@ -299,32 +332,6 @@ class ContactDialog extends Component {
             </div>
           ) : null}
 
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">work</Icon>
-            </div>
-            <TextField
-              className="mb-24"
-              label="Job Title"
-              id="role"
-              name="role"
-              select
-              value={this.state.role}
-              onChange={this.handleChange}
-              defaultValue="Brand Admin"
-              // onChange={handleChange('currency')}
-              // helperText="Please select "
-              margin="normal"
-              fullWidth
-              variant="outlined"
-            >
-              {brandAdmins.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </TextField>
-          </div>
           <div className="flex">
             <div className="min-w-48 pt-20">
               <Icon color="action">person</Icon>
@@ -392,13 +399,12 @@ class ContactDialog extends Component {
               onClick={() => {
                 if(this.state.role==='brandAdmin'||this.state.role==='brandSupplier')
                 {
-                  this.state.companyId.setState(null);//=null;
+                  this.state.companyId= null;//=null;
                 }
                 else if(this.state.role==='companyAdmin')
                 {
-                  const token = localStorage.getItem('jwtToken');
-                  const decoded = jwt_decode(token);
-                  this.state.companyId.setStart(decoded.companyId);//= decoded.companyId;
+                  this.state.brandId= null;
+                  //  this.state.companyId= decoded.companyId;
                 }
                 addBrandUser(this.state);
                 this.closeComposeDialog();

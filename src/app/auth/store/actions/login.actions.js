@@ -22,11 +22,12 @@ export const loginUser = userData => dispatch => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
+      console.log('Decoded', decoded);
       const userInfo ={
         ...decoded,
         companyId: res.data.companyId,
         brandId: res.data.brandId,
-      }
+      };
       // Set current user
       dispatch(setCurrentUser(userInfo));
     })

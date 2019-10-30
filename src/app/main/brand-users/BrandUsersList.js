@@ -64,34 +64,34 @@ class ContactsList extends Component {
                     }}
                     data={data}
                     columns={[
-                        {
-                            Header   : () => (
-                                <Checkbox
-                                    onClick={(event) => {
-                                        event.stopPropagation();
-                                    }}
-                                    onChange={(event) => {
-                                        event.target.checked ? selectAllContacts() : deSelectAllContacts();
-                                    }}
-                                    checked={selectedContactIds.length === Object.keys(contacts).length && selectedContactIds.length > 0}
-                                    indeterminate={selectedContactIds.length !== Object.keys(contacts).length && selectedContactIds.length > 0}
-                                />
-                            ),
-                            accessor : "",
-                            Cell     : row => {
-                                return (<Checkbox
-                                        onClick={(event) => {
-                                            event.stopPropagation();
-                                        }}
-                                        checked={selectedContactIds.includes(row.value.id)}
-                                        onChange={() => toggleInSelectedContacts(row.value.id)}
-                                    />
-                                )
-                            },
-                            className: "justify-center",
-                            sortable : false,
-                            width    : 64
-                        },
+                        // {
+                        //     Header   : () => (
+                        //         <Checkbox
+                        //             onClick={(event) => {
+                        //                 event.stopPropagation();
+                        //             }}
+                        //             onChange={(event) => {
+                        //                 event.target.checked ? selectAllContacts() : deSelectAllContacts();
+                        //             }}
+                        //             checked={selectedContactIds.length === Object.keys(contacts).length && selectedContactIds.length > 0}
+                        //             indeterminate={selectedContactIds.length !== Object.keys(contacts).length && selectedContactIds.length > 0}
+                        //         />
+                        //     ),
+                        //     accessor : "",
+                        //     Cell     : row => {
+                        //         return (<Checkbox
+                        //                 onClick={(event) => {
+                        //                     event.stopPropagation();
+                        //                 }}
+                        //                 checked={selectedContactIds.includes(row.value.id)}
+                        //                 onChange={() => toggleInSelectedContacts(row.value.id)}
+                        //             />
+                        //         )
+                        //     },
+                        //     className: "justify-center",
+                        //     sortable : false,
+                        //     width    : 64
+                        // },
                         {
                             Header   : () => (
                                 selectedContactIds.length > 0 && (
@@ -150,13 +150,14 @@ class ContactsList extends Component {
                             ),
                             accessor : "avatar",
                             Cell     : row => (
-                                <Avatar className="mr-8" alt={row.original.name} src={row.value}/>
+                                <Avatar className="mr-8" alt={row.original.name} src="/static/images/avatar/user.png" />
                             ),
                             className: "justify-center",
-                            width    : 64,
+                            width : 80,
                             sortable : false
                         },
                         {
+                            width : 150,
                             Header    : "Name",
                             accessor  : "name",
                             filterable: true,
@@ -164,30 +165,35 @@ class ContactsList extends Component {
                             // className: "justify-center",
                         },
                         {
+                            width : 150,
                             Header    : "Email",
                             accessor  : "email",
                             filterable: true,
                             className : " justify-center",
                         },
                         {
+                            width : 150,
                             Header    : "Job Title",
                             accessor  : "role",
                             filterable: true,
                             className : " justify-center",
                         },
                         {
+                            width : 150,
                             Header    : "Brand",
                             accessor  : "brand_Name",
                             className : " justify-center",
                             // filterable: true
                         },
                         {
+                            width : 150,
                             Header    : "Company",
                             accessor  : "company_Name",
                             className : " justify-center",
                             // filterable: true
                         },
                         {
+                            width : 150,
                             Header    : "Gender",
                             accessor  : "gender",
                             filterable: true,
@@ -195,6 +201,7 @@ class ContactsList extends Component {
                         },
 
                         {
+                            width : 150,
                             Header    : "Phone",
                             accessor  : "phoneNumber",
                             className : " justify-center",
@@ -202,7 +209,7 @@ class ContactsList extends Component {
                         },
                         {
                             Header: "",
-                            width : 128,
+                            width : 50,
                             Cell  : row => (
                                 <div className="flex items-center justify-center">
                                     <IconButton
@@ -218,6 +225,7 @@ class ContactsList extends Component {
                         }
                     ]}
                     defaultPageSize={10}
+                    resizable={false}
                     noDataText="No BrandUser found"
                 />
             </FuseAnimate>

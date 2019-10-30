@@ -32,6 +32,13 @@ const superAdminNavigationConfig = [
     children: [
       {
         id: 'companies-component',
+        title: 'Admin',
+        type: 'item',
+        icon: 'people',
+        url: '/brands'
+      },
+      {
+        id: 'companies-component',
         title: 'Companies',
         type: 'item',
         icon: 'whatshot',
@@ -48,14 +55,14 @@ const superAdminNavigationConfig = [
         id: 'company-admin-component',
         title: 'Company Users',
         type: 'item',
-        icon: 'whatshot',
+        icon: 'people',
         url: '/brand-users'
       },
       {
         id: 'app-user-component',
         title: 'App Users',
         type: 'item',
-        icon: 'whatshot',
+        icon: 'people',
         url: '/app-users'
       }
     ]

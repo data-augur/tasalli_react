@@ -14,7 +14,7 @@ import reducer from './store/reducers';
 import './style.css';
 const styles = theme => ({
   addButton: {
-    position: 'absolute',
+    position: 'fixed',
     right: 12,
     bottom: 12,
     zIndex: 99

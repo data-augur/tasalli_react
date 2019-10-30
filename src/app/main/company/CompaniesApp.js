@@ -12,9 +12,10 @@ import ContactDialog from './CompaniesDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
+// import { StickyContainer, Sticky } from 'react-sticky';
 const styles = theme => ({
   addButton: {
-    position: 'absolute',
+    position: 'fixed',
     right: 12,
     bottom: 12,
     zIndex: 99
@@ -62,7 +63,7 @@ class CompaniesApp extends Component {
             className={classes.addButton}
             onClick={openNewContactDialog}
           >
-            <Icon>person_add</Icon>
+            <Icon>add</Icon>
           </Fab>
         </FuseAnimate>
         <ContactDialog />

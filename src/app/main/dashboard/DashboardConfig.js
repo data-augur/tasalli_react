@@ -1,6 +1,6 @@
-import Example from './Example';
+import Dashboard from './Dashboard';
 
-export const ExampleConfig = {
+export const DashboardConfig = {
   settings: {
     layout: {
       config: {}
@@ -9,18 +9,18 @@ export const ExampleConfig = {
   routes: [
     {
       path: '/dashboard',
-      component: Example
+      component: Dashboard
     }
   ]
 };
 
 /**
- * Lazy load Example
+ * Lazy load Dashboard
  */
 /*
 import FuseLoadable from '@fuse/components/FuseLoadable/FuseLoadable';
 
-export const ExampleConfig = {
+export const DashboardConfig = {
     settings: {
         layout: {
             config: {}
@@ -28,9 +28,9 @@ export const ExampleConfig = {
     },
     routes  : [
         {
-            path     : '/example',
+            path     : '/dashboard',
             component: FuseLoadable({
-                loader: () => import('./Example')
+                loader: () => import('./Dashboard')
             })
         }
     ]

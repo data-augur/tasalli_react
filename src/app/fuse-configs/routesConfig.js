@@ -1,7 +1,7 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { FuseUtils } from '@fuse/index';
-import { ExampleConfig } from 'app/main/example/ExampleConfig';
+import { DashboardConfig } from 'app/main/dashboard/DashboardConfig';
 import { BrandUsersLoginConfig } from 'app/main/login/LoginConfig';
 import { LoginConfig } from 'app/main/super-login/LoginConfig';
 import { RegisterConfig } from 'app/main/register/RegisterConfig';
@@ -14,7 +14,7 @@ import { BrandsAppConfig } from 'app/main/brands/BrandsAppConfig';
 import { LogoutConfig } from 'app/main/logout/LogoutConfig';
 
 const routeConfigs = [
-  ExampleConfig,
+  DashboardConfig,
   BrandUsersLoginConfig,
   LoginConfig,
   RegisterConfig,

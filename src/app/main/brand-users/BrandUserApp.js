@@ -35,7 +35,10 @@ class BrandUserApp extends Component {
 
   render() {
     const { classes, openNewContactDialog } = this.props;
-
+      if(!localStorage.getItem('jwtToken'))
+      {
+          window.location = '/login';
+      }
     return (
       <React.Fragment>
         <FusePageSimple

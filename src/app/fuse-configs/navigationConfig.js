@@ -26,7 +26,7 @@ if (token) {
 const superAdminNavigationConfig = [
   {
     id: 'applications',
-    title: 'Applications',
+    title: 'Users',
     type: 'group',
     icon: 'whatshot',
     children: [

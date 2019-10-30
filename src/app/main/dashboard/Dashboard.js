@@ -8,6 +8,10 @@ const styles = theme => ({
 
 class Dashboard extends Component {
   render() {
+      if(!localStorage.getItem('jwtToken'))
+      {
+            window.location = '/login';
+      }
     const { classes } = this.props;
     return (
       <FusePageSimple

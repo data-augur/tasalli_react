@@ -35,7 +35,7 @@ class ContactsHeader extends Component {
             </FuseAnimate>
             <FuseAnimate animation="transition.slideLeftIn" delay={300}>
               <Typography variant="h6" className="hidden sm:flex">
-                App Users
+                Admin Users
               </Typography>
             </FuseAnimate>
           </div>
@@ -81,9 +81,9 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ appUserApp, fuse }) {
+function mapStateToProps({ adminUserApp, fuse }) {
   return {
-    searchText: appUserApp.appUser.searchText,
+    searchText: adminUserApp.adminUser.searchText,
     mainTheme: fuse.settings.mainTheme
   };
 }

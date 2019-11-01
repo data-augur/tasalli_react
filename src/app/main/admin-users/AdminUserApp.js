@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { withStyles } from '@material-ui/core';
-import { FusePageSimple } from '@fuse';
+import { withStyles, Fab, Icon } from '@material-ui/core';
+import { FusePageSimple, FuseAnimate } from '@fuse';
 import { bindActionCreators } from 'redux';
 import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './AppUsersList';
-import ContactsHeader from './AppUserHeader';
-import ContactDialog from './AppUserDialog';
+import ContactsList from './AdminUsersList';
+import ContactsHeader from './AdminUserHeader';
+import ContactDialog from './AdminUserDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -21,19 +21,20 @@ const styles = theme => ({
   }
 });
 
-class BrandUserApp extends Component {
+class AdminUserApp extends Component {
   componentDidMount() {
-    this.props.getAllAppUsers(this.props.match.params);
+    this.props.getAllAdminUsers(this.props.match.params);
     this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!_.isEqual(this.props.location, prevProps.location)) {
-      this.props.getAllAppUsers(this.props.match.params);
+      this.props.getAllAdminUsers(this.props.match.params);
     }
   }
 
   render() {
+      const { classes, openNewContactDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -54,7 +55,7 @@ class BrandUserApp extends Component {
           }}
           innerScroll
         />
-        {/* <FuseAnimate animation="transition.expandIn" delay={300}>
+         <FuseAnimate animation="transition.expandIn" delay={300}>
           <Fab
             color="primary"
             aria-label="add"
@@ -63,7 +64,7 @@ class BrandUserApp extends Component {
           >
             <Icon>person_add</Icon>
           </Fab>
-        </FuseAnimate> */}
+        </FuseAnimate>
         <ContactDialog />
       </React.Fragment>
     );
@@ -73,7 +74,7 @@ class BrandUserApp extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getAllAppUsers: Actions.getAllAppUsers,
+      getAllAdminUsers: Actions.getAllAdminUsers,
       getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
@@ -81,22 +82,22 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ appUserApp }) {
+function mapStateToProps({ adminUserApp }) {
   return {
-    contacts: appUserApp.appUser.entities,
-    selectedContactIds: appUserApp.appUser.selectedContactIds,
-    searchText: appUserApp.appUser.searchText,
-    user: appUserApp.user
+    contacts: adminUserApp.adminUser.entities,
+    selectedContactIds: adminUserApp.adminUser.selectedContactIds,
+    searchText: adminUserApp.adminUser.searchText,
+    user: adminUserApp.user
   };
 }
 
-export default withReducer('appUserApp', reducer)(
+export default withReducer('adminUserApp', reducer)(
   withStyles(styles, { withTheme: true })(
     withRouter(
       connect(
         mapStateToProps,
         mapDispatchToProps
-      )(BrandUserApp)
+      )(AdminUserApp)
     )
   )
 );

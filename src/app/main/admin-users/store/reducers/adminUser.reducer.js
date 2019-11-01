@@ -16,7 +16,7 @@ const initialState = {
   }
 };
 
-const appUserReducer = function(state = initialState, action) {
+const adminUserReducer = function(state = initialState, action) {
   switch (action.type) {
     case authActions.LOGOUT: {
       return {
@@ -34,19 +34,19 @@ const appUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.GET_ALL_APP_USERS: {
+    case Actions.GET_ALL_ADMIN_USERS: {
       return {
         ...state,
         entities: _.keyBy(action.payload, 'id')
       };
     }
-    case Actions.UPDATE_APP_USER: {
+    case Actions.UPDATE_ADMIN_USER: {
       return {
         ...state,
         entities: _.keyBy(action.payload, 'id')
       };
     }
-    case Actions.REMOVE_APP_USER: {
+    case Actions.REMOVE_ADMIN_USER: {
       return {
         ...state,
         entities: _.keyBy(action.payload, 'id')
@@ -144,4 +144,4 @@ const appUserReducer = function(state = initialState, action) {
   }
 };
 
-export default appUserReducer;
+export default adminUserReducer;

@@ -1,10 +1,12 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
-export const GET_ALL_APP_USERS = '[APP USERS APP] GET APPUSERS';
+import {ADD_BRAND_USER, getAllCompanies, getBrandUsers} from "../../../brand-users/store/actions";
+export const GET_ALL_ADMIN_USERS = '[ADMIN USERS APP] GET ADMINUSERS';
 
-export const UPDATE_APP_USER = '[APP USERS APP] UPDATE APPUSER';
-export const REMOVE_APP_USER = '[APP USERS APP] REMOVE APPUSER';
+export const UPDATE_ADMIN_USER = '[ADMIN USERS APP] UPDATE ADMINUSER';
+export const ADD_ADMIN_USER = '[ADMIN USERS APP] Add ADMINUSER';
+export const REMOVE_ADMIN_USER = '[ADMIN USERS APP] REMOVE ADMINUSER';
 
 export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
 export const TOGGLE_IN_SELECTED_CONTACTS =
@@ -39,14 +41,14 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
-export const getAllAppUsers = () => dispatch => {
+export const getAllAdminUsers = () => dispatch => {
   axios
     // .get(Base_URL+'get-all-app-users')
-    .get(Base_URL+'get-all-app-users')
+    .get(Base_URL+'get-all-tasali-admins')
     .then(res => {
-
+        console.log(res);
       dispatch({
-        type: GET_ALL_APP_USERS,
+        type: GET_ALL_ADMIN_USERS,
         payload: res.data
       });
     })
@@ -58,21 +60,42 @@ export const getAllAppUsers = () => dispatch => {
       //   });
     });
 };
-export const updateAppUser = (updateInfo, id) => dispatch => {
+export const addAdminUser = newContact => dispatch => {
+
+    axios
+    // .post(Base_URL+'create-brand-user', newContact)
+        .post(Base_URL+'create-tasali-admin', newContact)
+        .then(res => {
+
+            dispatch({
+                type: ADD_ADMIN_USER
+            });
+        })
+        // .then(() => dispatch(getAllCompanies()))
+        .then(() => dispatch(getAllAdminUsers()))
+        .catch(err => {
+
+            //   dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: err.response.data
+            //   });
+        });
+};
+export const updateAdminUser = (updateInfo, id) => dispatch => {
 
   axios
     .put(
       // `http://localhost:4000/update-app-user/${updateInfo.id}`,
-      `http://18.189.81.89:4000/update-app-user/${updateInfo.id}`,
+      `http://18.189.81.89:4000/update-tasali-admin/${updateInfo.id}`,
       updateInfo
     )
     .then(res => {
 
       dispatch({
-        type: UPDATE_APP_USER
+        type: UPDATE_ADMIN_USER
       });
     })
-    .then(() => dispatch(getAllAppUsers()))
+    .then(() => dispatch(getAllAdminUsers()))
     .catch(err => {
       console.log('err', err.response);
       //   dispatch({
@@ -81,17 +104,17 @@ export const updateAppUser = (updateInfo, id) => dispatch => {
       //   });
     });
 };
-export const removeAppUser = id => dispatch => {
+export const removeAdminUser = id => dispatch => {
   axios
-    // .delete(`http://localhost:4000/delete-app-user/${id}`)
-    .delete(`http://18.189.81.89:4000/delete-app-user/${id}`)
+    // .delete(`http://localhost:4000/delete-admin-user/${id}`)
+    .delete(`http://18.189.81.89:4000/delete-tasali-admin/${id}`)
     .then(res => {
 
       dispatch({
-        type: REMOVE_APP_USER
+        type: REMOVE_ADMIN_USER
       });
     })
-    .then(() => dispatch(getAllAppUsers()))
+    .then(() => dispatch(getAllAdminUsers()))
     .catch(err => {
       console.log('err', err.response);
       //   dispatch({
@@ -239,7 +262,7 @@ export function removeContacts(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         })
-      ]).then(() => dispatch(getAllAppUsers(routeParams)))
+      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
 }
@@ -258,7 +281,7 @@ export function toggleStarredContact(contactId) {
           type: TOGGLE_STARRED_CONTACT
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getAllAppUsers(routeParams)))
+      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
 }
@@ -280,7 +303,7 @@ export function toggleStarredContacts(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getAllAppUsers(routeParams)))
+      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
 }
@@ -302,7 +325,7 @@ export function setContactsStarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getAllAppUsers(routeParams)))
+      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
 }
@@ -324,7 +347,7 @@ export function setContactsUnstarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getAllAppUsers(routeParams)))
+      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
 }

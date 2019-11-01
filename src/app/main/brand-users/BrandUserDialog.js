@@ -266,7 +266,6 @@ class ContactDialog extends Component {
             </TextField>
           </div>
 
-          {/***/}
           {this.state.role==='companyAdmin' ? (
            <div className="flex">
             <div className="min-w-48 pt-20">
@@ -299,7 +298,6 @@ class ContactDialog extends Component {
           </div>
           ) : null}
 
-          {/***/}
           {this.state.role==='brandAdmin'||this.state.role==='brandSupplier' ? (
             <div className="flex">
               <div className="min-w-48 pt-20">

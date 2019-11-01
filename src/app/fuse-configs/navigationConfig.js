@@ -32,10 +32,10 @@ const superAdminNavigationConfig = [
     children: [
       {
         id: 'companies-component',
-        title: 'Admin',
+        title: 'Admins',
         type: 'item',
         icon: 'people',
-        url: '/brands'
+        url: '/admin-users'
       },
       {
         id: 'companies-component',

@@ -8,6 +8,7 @@ import { RegisterConfig } from 'app/main/register/RegisterConfig';
 import { Error404PageConfig } from 'app/main/errors/Error404PageConfig';
 // import { BrandAdminAppConfig } from 'app/main/brand-admin/BrandAdminAppConfig';
 import { BrandUsersAppConfig } from 'app/main/brand-users/BrandUserAppConfig';
+import { AdminUsersAppConfig } from 'app/main/admin-users/AdminUserAppConfig';
 import { AppUsersAppConfig } from 'app/main/app-users/AppUserAppConfig';
 import { CompaniesAppConfig } from 'app/main/company/CompaniesAppConfig';
 import { BrandsAppConfig } from 'app/main/brands/BrandsAppConfig';
@@ -19,6 +20,7 @@ const routeConfigs = [
   LoginConfig,
   RegisterConfig,
   AppUsersAppConfig,
+  AdminUsersAppConfig,
   BrandUsersAppConfig,
   BrandsAppConfig,
   CompaniesAppConfig,

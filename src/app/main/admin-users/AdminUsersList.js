@@ -32,7 +32,7 @@ class ContactsList extends Component {
 
     render()
     {
-        const { contacts, searchText, selectedContactIds, selectAllContacts, deSelectAllContacts, toggleInSelectedContacts, openEditContactDialog, removeContacts, removeAppUser, setContactsUnstarred, setContactsStarred} = this.props;
+        const { contacts, searchText, selectedContactIds, selectAllContacts, deSelectAllContacts, toggleInSelectedContacts, openEditContactDialog, removeContacts, removeAdminUser, setContactsUnstarred, setContactsStarred} = this.props;
         const data = this.getFilteredArray(contacts, searchText);
         const {selectedContactsMenu} = this.state;
 
@@ -41,7 +41,7 @@ class ContactsList extends Component {
             return (
                 <div className="flex items-center justify-center h-full">
                     <Typography color="textSecondary" variant="h5">
-                        There are no App Users!
+                        There are no Admin Users!
                     </Typography>
                 </div>
             );
@@ -157,43 +157,18 @@ class ContactsList extends Component {
                             sortable : false
                         },
                         {
-                            Header    : "Name",
-                            accessor  : "name",
+                            Header    : "Email",
+                            accessor  : "email",
                             // filterable: true,
                             className : "font-bold",
                             // className: "justify-center",
                         },
                         {
-                            Header    : "Phone",
-                            accessor  : "phoneNumber",
+                            Header    : "Role",
+                            accessor  : "role",
                             className : " justify-center",
                             // filterable: true
                         },
-                        {
-                            Header    : "Gender",
-                            accessor  : "gender",
-                            // filterable: true,
-                            className : "justify-center",
-                        },
-                        {
-                            Header    : "Address",
-                            accessor  : "address",
-                            // filterable: true,
-                            className : "justify-center",
-                        },
-                        {
-                            Header    : "CNIC",
-                            accessor  : "cnic",
-                            // filterable: true,
-                            className : "justify-center",
-                        },
-                        {
-                            Header    : "City",
-                            accessor  : "city",
-                            // filterable: true,
-                            className : "justify-center",
-                        },
-
                         {
                             Header: "",
                             width : 128,
@@ -202,7 +177,7 @@ class ContactsList extends Component {
                                     <IconButton
                                         onClick={(ev) => {
                                             ev.stopPropagation();
-                                            removeAppUser(row.original.id);
+                                            removeAdminUser(row.original.id);
                                         }}
                                     >
                                         <Icon>delete</Icon>
@@ -213,7 +188,7 @@ class ContactsList extends Component {
                     ]}
                     defaultPageSize={10}
                     resizable={false}
-                    noDataText="No BrandUser found"
+                    noDataText="No AdminUser found"
                 />
             </FuseAnimate>
         );
@@ -231,7 +206,7 @@ function mapDispatchToProps(dispatch)
         deSelectAllContacts     : Actions.deSelectAllContacts,
         openEditContactDialog   : Actions.openEditContactDialog,
         removeContacts          : Actions.removeContacts,
-        removeAppUser           : Actions.removeAppUser,
+        removeAdminUser           : Actions.removeAdminUser,
         toggleStarredContact    : Actions.toggleStarredContact,
         toggleStarredContacts   : Actions.toggleStarredContacts,
         setContactsStarred      : Actions.setContactsStarred,
@@ -239,13 +214,13 @@ function mapDispatchToProps(dispatch)
     }, dispatch);
 }
 
-function mapStateToProps({appUserApp})
+function mapStateToProps({adminUserApp})
 {
     return {
-        contacts          : appUserApp.appUser.entities,
-        selectedContactIds: appUserApp.appUser.selectedContactIds,
-        searchText        : appUserApp.appUser.searchText,
-        user              : appUserApp.user
+        contacts          : adminUserApp.adminUser.entities,
+        selectedContactIds: adminUserApp.adminUser.selectedContactIds,
+        searchText        : adminUserApp.adminUser.searchText,
+        user              : adminUserApp.user
     }
 }
 

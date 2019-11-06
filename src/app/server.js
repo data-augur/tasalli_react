@@ -1,1 +1,1 @@
-export const Base_URL = "http://18.189.81.89:4000/";
+export const Base_URL = "http://18.189.81.89:4000/";        //18.189.81.89          localhost

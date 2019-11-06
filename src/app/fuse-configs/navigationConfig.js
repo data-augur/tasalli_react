@@ -68,6 +68,28 @@ const superAdminNavigationConfig = [
     ]
   },
   {
+    id: 'applications',
+    title: 'Ads',
+    type: 'group',
+    icon: 'whatshot',
+    children: [
+      {
+        id: 'companies-component',
+        title: 'Ads',
+        type: 'item',
+        icon: 'book',
+        url: '/ads'
+      },
+      {
+        id: 'companies-component',
+        title: 'Survey',
+        type: 'item',
+        icon: 'book',
+        url: '/surveys'
+      },
+    ]
+  },
+  {
     id: 'user auth',
     title: 'User Management',
     type: 'group',

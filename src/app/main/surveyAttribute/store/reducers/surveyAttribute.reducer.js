@@ -17,7 +17,7 @@ const initialState = {
   }
 };
 
-const surveyReducer = function(state = initialState, action) {
+const surveyAttributeReducer = function(state = initialState, action) {
   switch (action.type) {
     case authActions.LOGOUT: {
       return {
@@ -36,31 +36,37 @@ const surveyReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.GET_SURVEYS: {
+    case Actions.GET_SURVEYATTRIBUTE: {
       return {
         ...state,
         entities: _.keyBy(action.payload, 'id')
       };
     }
-    case Actions.ADD_SURVEY: {
+    case Actions.ADD_SURVEYATTRIBUTE: {
       return {
         ...state,
         entities: _.keyBy(action.payload, 'id')
       };
     }
-    case Actions.UPDATE_SURVEY: {
+    case Actions.UPDATE_SURVEYATTRIBUTE: {
       return {
         ...state,
         entities: _.keyBy(action.payload, 'id')
       };
     }
-    case Actions.REMOVE_SURVEY: {
+    case Actions.REMOVE_SURVEYATTRIBUTE: {
       return {
         ...state,
         entities: _.keyBy(action.payload, 'id')
       };
     }
-    case Actions.GET_ALL_SURVEYS: {
+    case Actions.GET_SURVEYATTRIBUTEOPTIONS: {
+      return {
+        ...state,
+        entities: _.keyBy(action.payload, 'id')
+      };
+    }
+    case Actions.GET_ALL_SURVEYATTRIBUTE: {
       return {
         ...state,
         companies: action.payload
@@ -158,4 +164,4 @@ const surveyReducer = function(state = initialState, action) {
   }
 };
 
-export default surveyReducer;
+export default surveyAttributeReducer;

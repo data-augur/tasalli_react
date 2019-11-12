@@ -16,7 +16,6 @@ import * as Actions from './store/actions';
 class ContactsHeader extends Component {
   render() {
     const { setSearchText, searchText, pageLayout, mainTheme } = this.props;
-
     return (
       <div className="flex flex-1 items-center justify-between p-8 sm:p-24">
         <div className="flex flex-shrink items-center sm:w-224">
@@ -30,12 +29,22 @@ class ContactsHeader extends Component {
           </Hidden>
 
           <div className="flex items-center">
-            <FuseAnimate animation="transition.expandIn" delay={300}>
-              <Icon className="text-32 mr-12">account_box</Icon>
+            <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+              <Typography variant="h5" className="hidden sm:flex">
+                {
+                  localStorage.getItem('SurveyName')
+                }
+              </Typography>
             </FuseAnimate>
+          </div>
+
+          <div className="flex items-center">
+            {/*<FuseAnimate animation="transition.expandIn" delay={300}>*/}
+            {/*  /!*<Icon className="text-32 mr-12">account_box</Icon>*!/*/}
+            {/*</FuseAnimate>*/}
             <FuseAnimate animation="transition.slideLeftIn" delay={300}>
               <Typography variant="h6" className="hidden sm:flex">
-                Surveys
+                -Survey Attributes
               </Typography>
             </FuseAnimate>
           </div>
@@ -81,9 +90,9 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ surveysApp, fuse }) {
+function mapStateToProps({ surveyAttributeApp, fuse }) {
   return {
-    searchText: surveysApp.surveys.searchText,
+    searchText: surveyAttributeApp.surveyAttribute.searchText,
     mainTheme: fuse.settings.mainTheme
   };
 }

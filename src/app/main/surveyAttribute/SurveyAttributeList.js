@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    Avatar,
+    Avatar, CardHeader,
     Checkbox,
     Icon,
     IconButton,
@@ -18,6 +18,8 @@ import {bindActionCreators} from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
 import Link from "@material-ui/core/Link";
+import { SnackbarProvider, useSnackbar } from 'notistack';
+
 
 class ContactsList extends Component {
     state = {
@@ -50,7 +52,7 @@ class ContactsList extends Component {
             toggleInSelectedContacts,
             openEditContactDialog,
             removeContacts,
-            removeSurvey,
+            removeSurveyAttribute,
             setContactsUnstarred,
             setContactsStarred
         } = this.props;
@@ -61,7 +63,7 @@ class ContactsList extends Component {
             return (
                 <div className="flex items-center justify-center h-full">
                     <Typography color="textSecondary" variant="h5">
-                        There are no survey!
+                        There are no survey attribute!
                     </Typography>
                 </div>
             );
@@ -193,46 +195,74 @@ class ContactsList extends Component {
                         },
                         {
                             Header: 'ID',
-                            width: 80,
+                            width: 50,
                             accessor: 'id',
+                            show: false,
                             // filterable: true,
                             // className: 'font-bold'
                             className: "justify-center",
                         },
                         {
-                            Header: 'Survey Name',
-                            accessor: 'name',
+                            Header: 'Field Name',
+                            accessor: 'field_name',
                             filterable: true,
                             className: 'font-bold',
                             // className: "justify-center",
                         },
                         {
-                            Header: 'Add/Edit Fields',
-                            width: 128,
-                            Cell: row => (
-                                <div className="flex items-center justify-center">
-                                    <Link to='www.google.com'>
-                                        <IconButton
-                                            onClick={ev => {
-                                                ev.stopPropagation();
-                                                 window.location.href="surveyAttribute/"+(row.original.id);
-                                            }}
-                                        >
-                                            <Icon>edit</Icon>
-                                        </IconButton>
-                                    </Link>
-                                </div>
-                            )
+                            Header: '',
+                            accessor: 'survey_Id',
+                            width: 10,
+                            show: false,
+                            // filterable: true,
+                            className: 'font-bold',
+                            // className: "justify-center",
                         },
                         {
-                            Header: 'Delete Survey',
-                            width: 128,
+                            Header: 'Field Type',
+                            accessor: 'field_type',
+                            width: 80,
+                            // filterable: true,
+                            className: 'font-bold',
+                            // className: "justify-center",
+                        },
+                        {
+                            Header: 'Options',
+                            accessor: 'options',
+                            show: false,
+                            width: 80,
+                            // filterable: true,
+                            className: 'font-bold',
+                            // className: "justify-center",
+                        },
+                        // {
+                        //     Header: 'Add/Edit Values',
+                        //     width: 125,
+                        //     Cell: row => (
+                        //         <div className="flex items-center justify-center">
+                        //             {/*this.state.type==='video'*/}
+                        //             { this.state.type==='video' ? (
+                        //                 <IconButton
+                        //                     onClick={ev => {
+                        //                         ev.stopPropagation();
+                        //                          window.location.href="surveyAttributeValues/"+(row.original.id);
+                        //                     }}
+                        //                 >
+                        //                     <Icon>edit</Icon>
+                        //                 </IconButton>
+                        //             ) : null}
+                        //         </div>
+                        //     )
+                        // },
+                        {
+                            Header: 'Delete Field',
+                            width: 125,
                             Cell: row => (
                                 <div className="flex items-center justify-center">
                                     <IconButton
                                         onClick={ev => {
                                             ev.stopPropagation();
-                                            removeSurvey(row.original.id);
+                                            removeSurveyAttribute(row.original.id);
                                         }}
                                     >
                                         <Icon>delete</Icon>
@@ -243,7 +273,7 @@ class ContactsList extends Component {
                     ]}
                     defaultPageSize={10}
                     resizable={false}
-                    noDataText="No survey found"
+                    noDataText="No survey attribute found"
                 />
             </FuseAnimate>
         );
@@ -253,14 +283,14 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
-            getContacts: Actions.getSurveys,
+            getContacts: Actions.getSurveyAttribute,
             getUserData: Actions.getUserData,
             toggleInSelectedContacts: Actions.toggleInSelectedContacts,
             selectAllContacts: Actions.selectAllContacts,
             deSelectAllContacts: Actions.deSelectAllContacts,
             openEditContactDialog: Actions.openEditContactDialog,
             removeContacts: Actions.removeContacts,
-            removeSurvey: Actions.removeSurvey,
+            removeSurveyAttribute: Actions.removeSurveyAttribute,
             toggleStarredContact: Actions.toggleStarredContact,
             toggleStarredContacts: Actions.toggleStarredContacts,
             setContactsStarred: Actions.setContactsStarred,
@@ -270,12 +300,12 @@ function mapDispatchToProps(dispatch) {
     );
 }
 
-function mapStateToProps({surveysApp}) {
+function mapStateToProps({surveyAttributeApp}) {
     return {
-        contacts: surveysApp.surveys.entities,
-        selectedContactIds: surveysApp.surveys.selectedContactIds,
-        searchText: surveysApp.surveys.searchText,
-        user: surveysApp.user
+        contacts: surveyAttributeApp.surveyAttribute.entities,
+        selectedContactIds: surveyAttributeApp.surveyAttribute.selectedContactIds,
+        searchText: surveyAttributeApp.surveyAttribute.searchText,
+        user: surveyAttributeApp.user
     };
 }
 

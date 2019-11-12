@@ -2,12 +2,13 @@ import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
 // import {GET_ALL_SURVEYS} from "../../../surveys/store/actions";
+ import {showMessage} from 'app/store/actions/fuse';
 
 export const GET_SURVEYS = '[SURVEYS APP] GET SURVEYS';
 export const GET_ALL_SURVEYS = '[SURVEYS APP] GET SURVEYS';
-export const ADD_BRAND = '[BRANDS APP] ADD BRAND';
-export const UPDATE_BRAND = '[BRANDS APP] UPDATE BRAND';
-export const REMOVE_SURVEY = '[BRANDS APP] REMOVE SURVEY';
+export const ADD_SURVEY = '[SURVEYS APP] ADD SURVEY';
+export const UPDATE_SURVEY = '[SURVEYS APP] UPDATE SURVEY';
+export const REMOVE_SURVEY = '[SURVEYS APP] REMOVE SURVEY';
 
 export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
 export const TOGGLE_IN_SELECTED_CONTACTS =
@@ -59,7 +60,7 @@ export const getAllSurveys = () => dispatch => {
       //   });
     });
 };
-export const getBrands = () => dispatch => {
+export const getSurveys = () => dispatch => {
   axios
     // .get(Base_URL+'get-all-brands')
     .get(Base_URL+'get-all-surveys')   //Admin brands  /${email}
@@ -79,44 +80,54 @@ export const getBrands = () => dispatch => {
       //   });
     });
 };
-export const addBrand = newContact => dispatch => {
+export const addSurvey = newContact => dispatch => {
 
   axios
     // .post(Base_URL+'create-brand', newContact)
-    .post(Base_URL+'create-brand', newContact)
+    .post(Base_URL+'create-survey', newContact)
     .then(res => {
-
+        // dispatch(showMessage({message: 'Survey Saved'}));
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Survey Created',variant: "success"}));
+        }
       dispatch({
-        type: ADD_BRAND
+        type: ADD_SURVEY
       });
     })
-    .then(() => dispatch(getBrands()))
+    .then(() => dispatch(getAllSurveys()))
     .catch(err => {
-      console.log('err', err);
+        dispatch(showMessage({message: 'Error!'+err,variant: "error"}));
+        console.log('err', err);
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
       //   });
     });
 };
-export const updateBrand = (updateInfo, id) => dispatch => {
+export const updateSurvey = (updateInfo, id) => dispatch => {
 
   axios
     .put(
-      // `http://localhost:4000/update-brand/${updateInfo.id}`,
-      `http://18.189.81.89:4000/update-brand/${updateInfo.id}`,
+      // `http://localhost:4000/update-survey/${updateInfo.id}`,
+        Base_URL+`update-survey/${updateInfo.id}`,
       updateInfo
     )
     .then(res => {
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Survey Updated',variant: "success"}));
+        }
 
       dispatch({
-        type: UPDATE_BRAND
+        type: UPDATE_SURVEY
       });
     })
-    .then(() => dispatch(getBrands()))
+    .then(() => dispatch(getSurveys()))
     .catch(err => {
       console.log('err', err.response);
-      //   dispatch({
+        dispatch(showMessage({message: 'Error! Survey Not Updated'+err,variant: "error"}));
+        //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
       //   });
@@ -125,16 +136,25 @@ export const updateBrand = (updateInfo, id) => dispatch => {
 export const removeSurvey = id => dispatch => {
   axios
     // .delete(`http://localhost:4000/delete-brand/${id}`)
-    .delete(`http://18.189.81.89:4000/delete-brand/${id}`)
+    .delete(Base_URL+`delete-survey/${id}`)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Survey Deleted', variant: "success"}));
+        }
+        else
+        {
+            dispatch(showMessage({message: 'Error! Survey Not Deleted'}));
+        }
       dispatch({
         type: REMOVE_SURVEY
       });
     })
-    .then(() => dispatch(getBrands()))
+    .then(() => dispatch(getSurveys()))
     .catch(err => {
-      console.log('err', err.response);
+        dispatch(showMessage({message: 'Error! Survey Not Updated'+err,variant: "error"}));
+
+        console.log('err', err.response);
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -280,7 +300,7 @@ export function removeContacts(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         })
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getSurveys(routeParams)))
     );
   };
 }
@@ -299,7 +319,7 @@ export function toggleStarredContact(contactId) {
           type: TOGGLE_STARRED_CONTACT
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getSurveys(routeParams)))
     );
   };
 }
@@ -321,7 +341,7 @@ export function toggleStarredContacts(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getSurveys(routeParams)))
     );
   };
 }
@@ -343,7 +363,7 @@ export function setContactsStarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getSurveys(routeParams)))
     );
   };
 }
@@ -365,7 +385,7 @@ export function setContactsUnstarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getSurveys(routeParams)))
     );
   };
 }

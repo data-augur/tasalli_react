@@ -19,6 +19,7 @@ import _ from '@lodash';
 import DateTimePicker from 'react-datetime-picker'
 import moment from "moment";
 import Select from "@material-ui/core/Select";
+import {showMessage} from 'app/store/actions/fuse';
 
 import 'date-fns';
 import PropTypes from 'prop-types';
@@ -94,13 +95,23 @@ class ContactDialog extends Component {
         )
     );
   };
+  handleVideoLinkChange = event => {
+    const re = /^(http(s)?:\/\/)?((w){3}.)?youtu(be|.be)?(\.com)?\/.+/gm;
+    if(re.test(event.target.value))
+    {
+      this.setState(
+          _.set(
+              { ...this.state },
+              event.target.name,
+              event.target.type === 'checkbox'
+                  ? event.target.checked
+                  : event.target.value
+          )
+      );
+    }
+  };
 
-  handleFromDateChange = date => {
-    this.setState({ time_from: date });
-  };
-  handleToDateChange = date => {
-    this.setState({ time_to: date });
-  };
+
 
   onToChange = time_to => this.setState({ time_to });
   onFromChange = time_from => this.setState({ time_from });
@@ -198,9 +209,11 @@ class ContactDialog extends Component {
                       label="Link"
                       autoFocus
                       id="video_link"
+                      placeholder="Paste Youtube Link here"
                       name="video_link"
                       value={this.state.video_link}
-                      onChange={this.handleChange}
+                      onChange={this.handleVideoLinkChange}
+                      // onBlur={this.handleVideoLinkChange}
                       variant="outlined"
                       required
                       fullWidth
@@ -209,32 +222,32 @@ class ContactDialog extends Component {
             ) : null}
 
             {this.state.type==='survey' ? (
-            <div className="flex">
-              <div className="min-w-48 pt-20">
-                <Icon color="action">work</Icon>
-              </div>
-              <TextField
-                  className="mb-24"
-                  label="Select Survey"
-                  id="survey_Id"
-                  name="survey_Id"
-                  select
-                  value={this.state.survey_Id}
-                  onChange={this.handleChange}
-                  margin="normal"
-                  fullWidth
-                  variant="outlined"
-              >
-                {this.props.surveys.map(option => {
+                <div className="flex">
+                  <div className="min-w-48 pt-20">
+                    <Icon color="action">work</Icon>
+                  </div>
+                  <TextField
+                      className="mb-24"
+                      label="Select Survey"
+                      id="survey_Id"
+                      name="survey_Id"
+                      select
+                      value={this.state.survey_Id}
+                      onChange={this.handleChange}
+                      margin="normal"
+                      fullWidth
+                      variant="outlined"
+                  >
+                    {this.props.surveys.map(option => {
 
-                  return (
-                      <option key={option.id} value={option.id}>
-                        {option.name}
-                      </option>
-                  );
-                })}
-              </TextField>
-            </div>
+                      return (
+                          <option key={option.id} value={option.id}>
+                            {option.name}
+                          </option>
+                      );
+                    })}
+                  </TextField>
+                </div>
             ) : null}
 
 
@@ -304,28 +317,21 @@ class ContactDialog extends Component {
                       }
                       this.state.time_from=moment(new Date(this.state.time_from)).format('YYYY-MM-DD hh:mm:ss');
                       this.state.time_to=moment(new Date(this.state.time_to)).format('YYYY-MM-DD hh:mm:ss');
-                      // if((moment(new Date(this.time_to)).format('YYYY-MM-DDThh:mm'))>(moment(new Date(this.time_from)).format('YYYY-MM-DDThh:mm') ))  //    moment(new Date(this.state.time_to)).format('YYYY-MM-DDThh:mm')
-                      // {
-                      //   addAds(this.state);
-                      //   this.closeComposeDialog();
-                      // }
-                      // else
-                      // {
-                      //   alert("To Date should be greater than From Date!")
-                      // }
-                      // let strDateTime = this.state.time_to;
-                      // let myDate = new Date(strDateTime);
-                      // alert(myDate.toLocaleString());
-                      // this.state.time_to=myDate.toLocaleString();
-                      //
-                      // let strDateTimes = this.state.time_from;
-                      // let myDates = new Date(strDateTimes);
-                      // alert(myDates.toLocaleString());
-                      // this.state.time_to=myDates.toLocaleString();
-
-                      console.log("New Ad Data:", this.state);
-                      addAds(this.state);
-                      this.closeComposeDialog();
+                      if(this.state.time_to>this.state.time_from)  //    moment(new Date(this.state.time_to)).format('YYYY-MM-DDThh:mm')
+                      {
+                        let strDateTime = this.state.time_to;
+                        let myDate = new Date(strDateTime);
+                        this.state.time_to=myDate.toLocaleString();
+                        let strDateTimes = this.state.time_from;
+                        let myDates = new Date(strDateTimes);
+                        this.state.time_from=myDates.toLocaleString();
+                        addAds(this.state);
+                        this.closeComposeDialog();
+                      }
+                      else
+                      {
+                        alert("To Date should be greater than From Date!");
+                      }
                     }}
                     disabled={!this.canBeSubmitted()}
                 >
@@ -340,12 +346,30 @@ class ContactDialog extends Component {
                     onClick={() => {
                       if(this.state.type==='survey')
                       {
-                        this.state.video_link = '';
+                        this.state.video_link= null;
                       }
-                      this.state.time_from=moment(new Date(this.state.time_from)).format('YYYY-MM-DD hh:mm');
-                      this.state.time_to=moment(new Date(this.state.time_to)).format('YYYY-MM-DD hh:mm');
-                      updateAds(this.state);
-                      this.closeComposeDialog();
+                      else if(this.state.type==='video')
+                      {
+                        this.state.survey_Id= null;
+                      }
+                      this.state.time_from=moment(new Date(this.state.time_from)).format('YYYY-MM-DD hh:mm:ss');
+                      this.state.time_to=moment(new Date(this.state.time_to)).format('YYYY-MM-DD hh:mm:ss');
+                      if(this.state.time_to>this.state.time_from)  //    moment(new Date(this.state.time_to)).format('YYYY-MM-DDThh:mm')
+                      {
+                        let strDateTime = this.state.time_to;
+                        let myDate = new Date(strDateTime);
+                        this.state.time_to=myDate.toLocaleString();
+                        let strDateTimes = this.state.time_from;
+                        let myDates = new Date(strDateTimes);
+                        this.state.time_from=myDates.toLocaleString();
+                        updateAds(this.state);
+                        this.closeComposeDialog();
+                      }
+                      else
+                      {
+                        alert("To Date should be greater than From Date!");
+                      }
+                      // updateAds(this.state);
                     }}
                     disabled={!this.canBeSubmitted()}
                 >

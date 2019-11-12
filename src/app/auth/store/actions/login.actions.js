@@ -63,7 +63,6 @@ export const loginBrandUser = userData => dispatch => {
       dispatch(setCurrentUser(userInfo));
     })
     .catch(err => {
-
       dispatch({
         type: LOGIN_ERROR,
         payload: err.response.data

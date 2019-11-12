@@ -1,15 +1,16 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
-import moment from "moment";
-import {GET_ALL_COMPANIES, getAllCompanies} from "../../../brands/store/actions";
+// import {ADD_SURVEYATTRIBUTE} from "../../../surveyAttributes/store/actions";
+// import {GET_ALL_SURVEYS} from "../../../surveys/store/actions";
 import {showMessage} from 'app/store/actions/fuse';
 
-export const GET_ADS = '[ADS APP] GET ADS';
- export const GET_ALL_SURVEYS = '[ADS APP] GET SURVEYS';
-export const ADD_ADS = '[ADS APP] ADD ADS';
-export const UPDATE_ADS = '[ADS APP] UPDATE ADS';
-export const REMOVE_ADS = '[ADS APP] REMOVE ADS';
+export const GET_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] GET SURVEYATTRIBUTE';
+export const GET_ALL_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] GET SURVEYATTRIBUTE';
+export const ADD_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] ADD SURVEYATTRIBUTE';
+export const UPDATE_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] UPDATE SURVEYATTRIBUTE';
+export const REMOVE_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] REMOVE SURVEYATTRIBUTE';
+export const GET_SURVEYATTRIBUTEOPTIONS = '[SURVEYATTRIBUTE APP] GET SURVEYATTRIBUTEOPTIONS';
 
 export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
 export const TOGGLE_IN_SELECTED_CONTACTS =
@@ -39,46 +40,42 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 
 //   const request = axios({
 //     method: 'get',
-//     url: Base_URL+'get-all-ads',
+//     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
-// export const getAllCompanies = () => dispatch => {
-//   axios
-//     // .get(Base_URL+'get-all-companies')
-//     .get(Base_URL+'get-all-companies')
-//     .then(res => {
-//
-//       dispatch({
-//         type: GET_ALL_COMPANIES,
-//         payload: res.data
-//       });
-//     })
-//     .catch(err => {
-//
-//       //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
-export const getAds = () => dispatch => {
+export const getAllSurveyAttribute = () => dispatch => {
   axios
-    // .get(Base_URL+'get-all-ads')
-    .get(Base_URL+'get-all-ads')
+    // .get(Base_URL+'get-all-surveys')
+    .get(Base_URL+'get-a-survey-attributes-with-options/${id}')
     .then(res => {
+
       dispatch({
-        type: GET_ADS,
+        type: GET_ALL_SURVEYATTRIBUTE,
         payload: res.data
       });
-      console.log(res);
-      // let data=JSON.parse(JSON.stringify(res.data))
-       for(let i=0 ; i<res.data.length; i++)
-      {
-           res.data[i].time_from=moment(res.data[i].time_from).format('YYYY-MM-DD hh:mm');
-           res.data[i].time_to=moment(res.data[i].time_to).format('YYYY-MM-DD hh:mm');
-      }
     })
-      .then(() => dispatch(getAllSurveys()))
+    .catch(err => {
+
+      //   dispatch({
+      //     type: LOGIN_ERROR,
+      //     payload: err.response.data
+      //   });
+    });
+};
+export const getSurveyAttribute = () => dispatch => {
+    let id=0;
+    id=window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    axios
+        .get(Base_URL+`get-a-survey-attributes-with-options/${id}`)
+    .then(res => {
+        console.log(res);
+        localStorage.setItem('SurveyName', res.data[0].survey_Name[0].name);
+      dispatch({
+        type: GET_SURVEYATTRIBUTE,
+        payload: res.data
+      });
+    })
+    // .then(() => dispatch(getAllCompanies()))
     .catch(err => {
       console.log('err', err);
       //   dispatch({
@@ -87,96 +84,99 @@ export const getAds = () => dispatch => {
       //   });
     });
 };
-export const addAds = newContact => dispatch => {
-console.log(newContact);
-newContact.time_from = new Date(newContact.time_from);
-newContact.time_to = new Date(newContact.time_to);
-// newContact.ad_type = newContact.type;
+export const addSurveyAttribute = newContact => dispatch => {
   axios
-    // .post(Base_URL+'create-ads', newContact)
-    .post(Base_URL+'create-ad', newContact)
+    // .post(Base_URL+'create-brand', newContact)
+    .post(Base_URL+'create-survey-attribute', newContact)
     .then(res => {
         if(res.request.status===200)
         {
-            dispatch(showMessage({message: 'Ad Created', variant:"success"}));
+            dispatch(showMessage({message: 'Survey Attribute Saved Successfully', variant: "success"}));
         }
-        else if(res.request.status===204)
-        {
-            dispatch(showMessage({message: 'Ad Overlap with exsisting Ad date', variant:"error"}));
-        }
-      dispatch({
-        type: ADD_ADS
+        dispatch({
+        type: ADD_SURVEYATTRIBUTE
       });
     })
-    .then(() => dispatch(getAds()))
+    .then(() => dispatch(getSurveyAttribute()))
     .catch(err => {
-      console.log('err', err);
-        dispatch(showMessage({message: 'Error!'+err, variant:"error"}));
+        dispatch(showMessage({message: 'Error!'+err, variant: "error"}));
+        console.log('err', err);
+      //   dispatch({
+      //     type: LOGIN_ERROR,
+      //     payload: err.response.data
+      //   });
+    });
+};
+export const updateSurveyAttribute = (updateInfo, id) => dispatch => {
+
+  axios
+    .put(
+      // `http://localhost:4000/update-survey/${updateInfo.id}`,
+        Base_URL+`update-survey-attribute/${updateInfo.id}`,
+      updateInfo
+    )
+    .then(res => {
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Survey Attribute Updated', variant: "success"}));
+        }
+      dispatch({
+        type: UPDATE_SURVEYATTRIBUTE
+      });
+    })
+    .then(() => dispatch(getSurveyAttribute()))
+    .catch(err => {
+      console.log('err', err.response);
+        dispatch(showMessage({message: 'Error!'+err, variant: "error"}));
         //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
       //   });
     });
 };
-export const updateAds = (updateInfo, id) => dispatch => {
-// .put(Base_URL+'update-ad/${updateInfo.id}`,updateInfo)
-
+export const removeSurveyAttribute = id => dispatch => {
   axios
-    .put(Base_URL+`update-ad/${updateInfo.id}`, updateInfo )
+    // .delete(`http://localhost:4000/delete-brand/${id}`)
+    .delete(Base_URL+`delete-survey-attribute/${id}`)
     .then(res => {
         if(res.request.status===200)
         {
-            dispatch(showMessage({message: 'Ad Updated', variant:"success"}));
-        }
-        else if(res.request.status===204)
-        {
-            dispatch(showMessage({message: 'Ad Overlap with exsisting Ad date', variant:"error"}));
+            dispatch(showMessage({message: 'Survey Attribute Deleted', variant: "success"}));
         }
       dispatch({
-        type: UPDATE_ADS
+        type: REMOVE_SURVEYATTRIBUTE
       });
     })
-    .then(() => dispatch(getAds()))
+    .then(() => dispatch(getSurveyAttribute()))
     .catch(err => {
-      console.log('err', err.response);
-        dispatch(showMessage({message: 'Error!'+err, variant:"error"}));
-
-        //   dispatch({
+        dispatch(showMessage({message: 'Error!'+err, variant: "error"}));
+        console.log('err', err.response);
+      //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
       //   });
     });
 };
-export const removeAds = id => dispatch => {
-  axios
-    // .delete(`http://localhost:4000/delete-ad/${id}`)
-    .delete(Base_URL+`delete-ad/${id}`)
-    .then(res => {
-        if(res.request.status===200)
-        {
-            dispatch(showMessage({message: 'Ad Deleted', variant: "success"}));
-        }
-      dispatch({
-        type: REMOVE_ADS
-      });
-    })
-    .then(() => dispatch(getAds()))
-    .catch(err => {
-      console.log('err', err.response);
-        dispatch(showMessage({message: 'Error!'+err, variant:"error"}));
 
-        //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
-    });
+export const getSurveyAttributeOptions = id => dispatch => {
+    axios
+        .get(Base_URL+`get-a-survey-attribute-options/${id}`)
+        .then(res => {
+            dispatch({
+                type: GET_SURVEYATTRIBUTEOPTIONS
+            });
+        })
+        // .then(() => dispatch(getSurveyAttribute()))
+        .catch(err => {
+            console.log('err', err.response);
+        });
 };
 
 // export function updateContact(contact) {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/update-ads/${id}`, {
+//     const request = axios.post(`http://localhost:4000/update-brand-user/${id}`, {
 //       contact
 //     });
 
@@ -193,7 +193,7 @@ export const removeAds = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(Base_URL+'create-ads', {
+//     const request = axios.post(Base_URL+'create-brand-user', {
 //       newContact
 //     });
 
@@ -280,7 +280,7 @@ export function closeEditContactDialog() {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/delete-ads/${id}`, {
+//     const request = axios.post(`http://localhost:4000/delete-brand-user/${id}`, {
 //       contactId
 //     });
 
@@ -310,7 +310,7 @@ export function removeContacts(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         })
-      ]).then(() => dispatch(getAds(routeParams)))
+      ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );
   };
 }
@@ -329,7 +329,7 @@ export function toggleStarredContact(contactId) {
           type: TOGGLE_STARRED_CONTACT
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getAds(routeParams)))
+      ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );
   };
 }
@@ -351,7 +351,7 @@ export function toggleStarredContacts(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getAds(routeParams)))
+      ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );
   };
 }
@@ -373,30 +373,10 @@ export function setContactsStarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getAds(routeParams)))
+      ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );
   };
 }
-
-export const getAllSurveys = () => dispatch => {
-    axios
-    // .get(Base_URL+'get-all-companies')
-        .get(Base_URL+'get-all-surveys')
-        .then(res => {
-
-            dispatch({
-                type: GET_ALL_SURVEYS,
-                payload: res.data
-            });
-        })
-        .catch(err => {
-
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
-        });
-};
 
 export function setContactsUnstarred(contactIds) {
   return (dispatch, getState) => {
@@ -415,7 +395,9 @@ export function setContactsUnstarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getAds(routeParams)))
+      ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );
   };
 }
+
+

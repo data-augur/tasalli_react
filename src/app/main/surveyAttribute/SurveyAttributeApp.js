@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './SurveysList';
-import ContactsHeader from './SurveysHeader';
-import ContactDialog from './SurveysDialog';
+import ContactsList from './SurveyAttributeList';
+import ContactsHeader from './SurveyAttributeHeader';
+import ContactDialog from './SurveyAttributeDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -23,13 +23,13 @@ const styles = theme => ({
 
 class SurveysApp extends Component {
   componentDidMount() {
-    this.props.getSurveys(this.props.match.params);
+    this.props.getSurveyAttribute(this.props.match.params);
     this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!_.isEqual(this.props.location, prevProps.location)) {
-      this.props.getSurveys(this.props.match.params);
+      this.props.getSurveyAttribute(this.props.match.params);
     }
   }
 
@@ -75,7 +75,7 @@ class SurveysApp extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getSurveys: Actions.getSurveys,
+      getSurveyAttribute: Actions.getSurveyAttribute,
       getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
@@ -83,16 +83,16 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ surveysApp }) {
+function mapStateToProps({ surveyAttributeApp }) {
   return {
     // contacts: brandsApp.brands.entities,
-    selectedContactIds: surveysApp.surveys.selectedContactIds,
-    searchText: surveysApp.surveys.searchText,
-    user: surveysApp.user
+    selectedContactIds: surveyAttributeApp.surveyAttribute.selectedContactIds,
+    searchText: surveyAttributeApp.surveyAttribute.searchText,
+    user: surveyAttributeApp.user
   };
 }
 
-export default withReducer('surveysApp', reducer)(
+export default withReducer('surveyAttributeApp', reducer)(
   withStyles(styles, { withTheme: true })(
     withRouter(
       connect(

@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
-import surveys from './surveys.reducer';
+import surveyAttribute from './surveyAttribute.reducer';
 import user from './user.reducer';
 
 const reducer = combineReducers({
-  surveys,
+  surveyAttribute,
   user
 });
 

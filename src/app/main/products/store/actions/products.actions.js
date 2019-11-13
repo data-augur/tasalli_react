@@ -2,11 +2,15 @@ import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
 
-export const GET_BRANDS = '[BRANDS APP] GET BRANDS';
+export const GET_PRODUCTS = '[PRODUCTS APP] GET PRODUCTS';
+export const GET_ALL_WARRANTY_REGISTRATION_FORM = '[PRODUCTS APP] GET WARRANTYREGISTRATIONFORM';
+export const GET_ALL_WARRANTY_COMPLETION_FORM = '[PRODUCTS APP] GET WARRANTYCOMPLETIONFORM';
+export const GET_ALL_WARRANTY_CLAIM_FORM = '[PRODUCTS APP] GET WARRANTYCLAIMFORM';
+export const GET_ALL_BRANDS = '[PRODUCTS APP] GET BRANDS';
 export const GET_ALL_COMPANIES = '[BRANDS APP] GET COMPANIES';
-export const ADD_BRAND = '[BRANDS APP] ADD BRAND';
-export const UPDATE_BRAND = '[BRANDS APP] UPDATE BRAND';
-export const REMOVE_BRAND = '[BRANDS APP] REMOVE BRAND';
+export const ADD_PRODUCT = '[PRODUCTS APP] ADD PRODUCT';
+export const UPDATE_PRODUCT = '[PRODUCTS APP] UPDATE PRODUCT';
+export const REMOVE_PRODUCT = '[PRODUCTS APP] REMOVE PRODUCT';
 
 export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
 export const TOGGLE_IN_SELECTED_CONTACTS =
@@ -39,37 +43,78 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
-export const getAllCompanies = () => dispatch => {
-  axios
+export const getAllWarrantyRegistration = () => dispatch => {
+    axios
     // .get(Base_URL+'get-all-companies')
-    .get(Base_URL+'get-all-companies')
+    .get(Base_URL+'get-all-warranty-registration-forms')
     .then(res => {
 
       dispatch({
-        type: GET_ALL_COMPANIES,
+        type: GET_ALL_WARRANTY_REGISTRATION_FORM,
         payload: res.data
       });
     })
     .catch(err => {
-
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
     });
 };
-export const getBrands = () => dispatch => {
+export const getAllWarrantyCompletion = () => dispatch => {
+    axios
+    // .get(Base_URL+'get-all-companies')
+        .get(Base_URL+'get-all-warranty-completion-forms')
+        .then(res => {
+
+            dispatch({
+                type: GET_ALL_WARRANTY_COMPLETION_FORM,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+        });
+};
+export const getAllWarrantyClaim = () => dispatch => {
+    axios
+    // .get(Base_URL+'get-all-companies')
+        .get(Base_URL+'get-all-warranty-claim-forms')
+        .then(res => {
+
+            dispatch({
+                type: GET_ALL_WARRANTY_CLAIM_FORM,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+        });
+};
+export const getAllBrand = () => dispatch => {
+    axios
+    // .get(Base_URL+'get-all-companies')
+        .get(Base_URL+'get-all-brands')
+        .then(res => {
+
+            dispatch({
+                type: GET_ALL_BRANDS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+        });
+};
+export const getProducts = () => dispatch => {
   axios
     // .get(Base_URL+'get-all-brands')
-    .get(Base_URL+'get-all-brands')   //Admin brands  /${email}
+    .get(Base_URL+'get-all-sku')   //Admin products  /${email}
     .then(res => {
 
       dispatch({
-        type: GET_BRANDS,
+        type: GET_PRODUCTS,
         payload: res.data
       });
     })
-    .then(() => dispatch(getAllCompanies()))
+    .then(() => dispatch(getProducts()))
+    .then(() => dispatch(getAllWarrantyRegistration()))
+    .then(() => dispatch(getAllWarrantyCompletion()))
+    .then(() => dispatch(getAllWarrantyClaim()))
+    .then(() => dispatch(getAllBrand()))
     .catch(err => {
       console.log('err', err);
       //   dispatch({
@@ -78,18 +123,17 @@ export const getBrands = () => dispatch => {
       //   });
     });
 };
-export const addBrand = newContact => dispatch => {
-
+export const addProduct = newContact => dispatch => {
   axios
     // .post(Base_URL+'create-brand', newContact)
-    .post(Base_URL+'create-brand', newContact)
+    .post(Base_URL+'create-sku', newContact)
     .then(res => {
 
       dispatch({
-        type: ADD_BRAND
+        type: ADD_PRODUCT
       });
     })
-    .then(() => dispatch(getBrands()))
+    .then(() => dispatch(getProducts()))
     .catch(err => {
       console.log('err', err);
       //   dispatch({
@@ -98,21 +142,22 @@ export const addBrand = newContact => dispatch => {
       //   });
     });
 };
-export const updateBrand = (updateInfo, id) => dispatch => {
+export const updateProduct = (updateInfo, id) => dispatch => {
+    console.log("Object",updateInfo);
 
   axios
     .put(
       // `http://localhost:4000/update-brand/${updateInfo.id}`,
-        Base_URL+`update-brand/${updateInfo.id}`,
+        Base_URL+`update-sku/${updateInfo.id}`,
       updateInfo
     )
     .then(res => {
 
       dispatch({
-        type: UPDATE_BRAND
+        type: UPDATE_PRODUCT
       });
     })
-    .then(() => dispatch(getBrands()))
+    .then(() => dispatch(getProducts()))
     .catch(err => {
       console.log('err', err.response);
       //   dispatch({
@@ -121,17 +166,17 @@ export const updateBrand = (updateInfo, id) => dispatch => {
       //   });
     });
 };
-export const removeBrand = id => dispatch => {
+export const removeProduct = id => dispatch => {
   axios
-    // .delete(`http://localhost:4000/delete-brand/${id}`)
-    .delete(Base_URL+`delete-brand/${id}`)
+    // .delete(`http://localhost:4000/delete-product/${id}`)
+    .delete(Base_URL+`delete-sku/${id}`)
     .then(res => {
 
       dispatch({
-        type: REMOVE_BRAND
+        type: REMOVE_PRODUCT
       });
     })
-    .then(() => dispatch(getBrands()))
+    .then(() => dispatch(getProducts()))
     .catch(err => {
       console.log('err', err.response);
       //   dispatch({
@@ -279,7 +324,7 @@ export function removeContacts(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         })
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getProducts(routeParams)))
     );
   };
 }
@@ -298,7 +343,7 @@ export function toggleStarredContact(contactId) {
           type: TOGGLE_STARRED_CONTACT
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getProducts(routeParams)))
     );
   };
 }
@@ -320,7 +365,7 @@ export function toggleStarredContacts(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getProducts(routeParams)))
     );
   };
 }
@@ -342,7 +387,7 @@ export function setContactsStarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getProducts(routeParams)))
     );
   };
 }
@@ -364,7 +409,7 @@ export function setContactsUnstarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getBrands(routeParams)))
+      ]).then(() => dispatch(getProducts(routeParams)))
     );
   };
 }

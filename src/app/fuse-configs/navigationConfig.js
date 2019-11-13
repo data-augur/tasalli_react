@@ -90,6 +90,21 @@ const superAdminNavigationConfig = [
     ]
   },
   {
+    id: 'applications',
+    title: 'Products Management',
+    type: 'group',
+    icon: 'whatshot',
+    children: [
+      {
+        id: 'companies-component',
+        title: 'Products',
+        type: 'item',
+        icon: 'book',
+        url: '/products'
+      }
+    ]
+  },
+  {
     id: 'user auth',
     title: 'User Management',
     type: 'group',

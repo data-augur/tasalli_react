@@ -12,6 +12,7 @@ import { AdminUsersAppConfig } from 'app/main/admin-users/AdminUserAppConfig';
 import { AdsAppConfig } from 'app/main/ads/AdsAppConfig';
 import { SurveysAppConfig } from 'app/main/surveys/SurveysAppConfig';
 import { SurveyAttributeAppConfig } from 'app/main/surveyAttribute/SurveyAttributeAppConfig';
+import { ProductsAppConfig } from 'app/main/products/ProductsAppConfig';
 import { AppUsersAppConfig } from 'app/main/app-users/AppUserAppConfig';
 import { CompaniesAppConfig } from 'app/main/company/CompaniesAppConfig';
 import { BrandsAppConfig } from 'app/main/brands/BrandsAppConfig';
@@ -27,6 +28,7 @@ const routeConfigs = [
   AdsAppConfig,
   SurveysAppConfig,
   SurveyAttributeAppConfig,
+  ProductsAppConfig,
   BrandUsersAppConfig,
   BrandsAppConfig,
   CompaniesAppConfig,

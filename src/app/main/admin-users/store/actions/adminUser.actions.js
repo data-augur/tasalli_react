@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
-import {ADD_BRAND_USER, getAllCompanies, getBrandUsers} from "../../../brand-users/store/actions";
 export const GET_ALL_ADMIN_USERS = '[ADMIN USERS APP] GET ADMINUSERS';
 
 export const UPDATE_ADMIN_USER = '[ADMIN USERS APP] UPDATE ADMINUSER';

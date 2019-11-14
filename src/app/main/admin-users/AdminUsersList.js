@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Avatar, Checkbox, Icon, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Typography} from '@material-ui/core';
+import {Avatar, Icon, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Typography} from '@material-ui/core';
 import {FuseUtils, FuseAnimate} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -32,7 +32,7 @@ class ContactsList extends Component {
 
     render()
     {
-        const { contacts, searchText, selectedContactIds, selectAllContacts, deSelectAllContacts, toggleInSelectedContacts, openEditContactDialog, removeContacts, removeAdminUser, setContactsUnstarred, setContactsStarred} = this.props;
+        const { contacts, searchText, selectedContactIds,  openEditContactDialog, removeContacts, removeAdminUser, setContactsUnstarred, setContactsStarred} = this.props;
         const data = this.getFilteredArray(contacts, searchText);
         const {selectedContactsMenu} = this.state;
 

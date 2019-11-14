@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {
     Avatar,
-    Checkbox,
     Icon,
     IconButton,
     ListItemIcon,
@@ -17,7 +16,6 @@ import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
-import Link from "@material-ui/core/Link";
 
 class ContactsList extends Component {
     state = {
@@ -45,9 +43,6 @@ class ContactsList extends Component {
             contacts,
             searchText,
             selectedContactIds,
-            selectAllContacts,
-            deSelectAllContacts,
-            toggleInSelectedContacts,
             openEditContactDialog,
             removeContacts,
             removeSurvey,
@@ -83,45 +78,7 @@ class ContactsList extends Component {
                     }}
                     data={data}
                     columns={[
-                        // {
-                        //   Header: () => (
-                        //     <Checkbox
-                        //       onClick={event => {
-                        //         event.stopPropagation();
-                        //       }}
-                        //       onChange={event => {
-                        //         event.target.checked
-                        //           ? selectAllContacts()
-                        //           : deSelectAllContacts();
-                        //       }}
-                        //       checked={
-                        //         selectedContactIds.length ===
-                        //           Object.keys(contacts).length &&
-                        //         selectedContactIds.length > 0
-                        //       }
-                        //       indeterminate={
-                        //         selectedContactIds.length !==
-                        //           Object.keys(contacts).length &&
-                        //         selectedContactIds.length > 0
-                        //       }
-                        //     />
-                        //   ),
-                        //   accessor: '',
-                        //   Cell: row => {
-                        //     return (
-                        //       <Checkbox
-                        //         onClick={event => {
-                        //           event.stopPropagation();
-                        //         }}
-                        //         checked={selectedContactIds.includes(row.value.id)}
-                        //         onChange={() => toggleInSelectedContacts(row.value.id)}
-                        //       />
-                        //     );
-                        //   },
-                        //   className: 'justify-center',
-                        //   sortable: false,
-                        //   width: 64
-                        // },
+                        
                         {
                             Header: () =>
                                 selectedContactIds.length > 0 && (
@@ -211,16 +168,14 @@ class ContactsList extends Component {
                             width: 128,
                             Cell: row => (
                                 <div className="flex items-center justify-center">
-                                    <Link to='www.google.com'>
-                                        <IconButton
-                                            onClick={ev => {
-                                                ev.stopPropagation();
-                                                 window.location.href="surveyAttribute/"+(row.original.id);
-                                            }}
-                                        >
-                                            <Icon>edit</Icon>
-                                        </IconButton>
-                                    </Link>
+                                    <IconButton
+                                        onClick={ev => {
+                                            ev.stopPropagation();
+                                            window.location.href="surveyAttribute/"+(row.original.id);
+                                        }}
+                                    >
+                                        <Icon>edit</Icon>
+                                    </IconButton>
                                 </div>
                             )
                         },

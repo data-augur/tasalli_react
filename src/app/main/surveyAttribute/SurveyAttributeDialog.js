@@ -17,7 +17,6 @@ import { connect } from 'react-redux';
 import _ from '@lodash';
 import axios from "axios";
 import {Base_URL} from "../../server";
-import {GET_SURVEYATTRIBUTE} from "./store/actions";
 
 
 const attributesType = [
@@ -146,7 +145,7 @@ class ContactDialog extends Component {
 
 
   render() {
-    const { contactDialog, addSurveyAttribute, updateSurveyAttribute, removeSurveyAttribute, getSurveyAttributeOptions } = this.props;
+    const { contactDialog, addSurveyAttribute, updateSurveyAttribute, removeSurveyAttribute } = this.props;
 
     return (
         <Dialog

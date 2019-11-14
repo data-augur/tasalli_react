@@ -105,6 +105,35 @@ const superAdminNavigationConfig = [
     ]
   },
   {
+    id: 'applications',
+    title: 'Warranty Management',
+    type: 'group',
+    icon: 'whatshot',
+    children: [
+      {
+        id: 'companies-component',
+        title: 'Warranty Registration',
+        type: 'item',
+        icon: 'note',
+        url: '/warranty-registration'
+      },
+      {
+        id: 'companies-component',
+        title: 'Warranty Claim',
+        type: 'item',
+        icon: 'note',
+        url: '/warranty-claim'
+      },
+      {
+        id: 'companies-component',
+        title: 'Warranty Completion',
+        type: 'item',
+        icon: 'note',
+        url: '/warranty-completion'
+      }
+    ]
+  },
+  {
     id: 'user auth',
     title: 'User Management',
     type: 'group',

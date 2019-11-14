@@ -16,15 +16,11 @@ import * as Actions from './store/actions';
 import { connect } from 'react-redux';
 import _ from '@lodash';
 // import {DateTimePicker} from "material-ui-pickers";
-import DateTimePicker from 'react-datetime-picker'
 import moment from "moment";
 import Select from "@material-ui/core/Select";
-import {showMessage} from 'app/store/actions/fuse';
 
 import 'date-fns';
-import PropTypes from 'prop-types';
 import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider, TimePicker, DatePicker } from 'material-ui-pickers';
 
@@ -138,8 +134,6 @@ class ContactDialog extends Component {
   render() {
     const { contactDialog, addAds, updateAds, removeAds } = this.props;
 
-    const { classes } = this.props;
-    const { selectedDate } = this.state;
 
     return (
         <Dialog

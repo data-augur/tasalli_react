@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
+import {showMessage} from 'app/store/actions/fuse';
 
 export const GET_BRANDS = '[BRANDS APP] GET BRANDS';
 export const GET_ALL_COMPANIES = '[BRANDS APP] GET COMPANIES';
@@ -84,14 +85,18 @@ export const addBrand = newContact => dispatch => {
     // .post(Base_URL+'create-brand', newContact)
     .post(Base_URL+'create-brand', newContact)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Brand Created',variant: "success"}));
+        }
       dispatch({
         type: ADD_BRAND
       });
     })
     .then(() => dispatch(getBrands()))
     .catch(err => {
-      console.log('err', err);
+        dispatch(showMessage({message: err,variant: "error"}));
+        console.log('err', err);
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -107,7 +112,10 @@ export const updateBrand = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Brand Updated',variant: "success"}));
+        }
       dispatch({
         type: UPDATE_BRAND
       });
@@ -115,7 +123,8 @@ export const updateBrand = (updateInfo, id) => dispatch => {
     .then(() => dispatch(getBrands()))
     .catch(err => {
       console.log('err', err.response);
-      //   dispatch({
+        dispatch(showMessage({message: err,variant: "error"}));
+        //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
       //   });
@@ -126,7 +135,10 @@ export const removeBrand = id => dispatch => {
     // .delete(`http://localhost:4000/delete-brand/${id}`)
     .delete(Base_URL+`delete-brand/${id}`)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Brand Removed',variant: "success"}));
+        }
       dispatch({
         type: REMOVE_BRAND
       });
@@ -134,7 +146,8 @@ export const removeBrand = id => dispatch => {
     .then(() => dispatch(getBrands()))
     .catch(err => {
       console.log('err', err.response);
-      //   dispatch({
+        dispatch(showMessage({message: err,variant: "error"}));
+        //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
       //   });

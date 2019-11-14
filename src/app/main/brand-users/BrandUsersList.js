@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Avatar, Checkbox, Icon, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Typography} from '@material-ui/core';
+import {Avatar,  Icon, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Typography} from '@material-ui/core';
 import {FuseUtils, FuseAnimate} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -32,7 +32,7 @@ class ContactsList extends Component {
 
     render()
     {
-        const { contacts, searchText, selectedContactIds, selectAllContacts, deSelectAllContacts, toggleInSelectedContacts, openEditContactDialog, removeContacts, removeBrandUser, setContactsUnstarred, setContactsStarred} = this.props;
+        const { contacts, searchText, selectedContactIds,  openEditContactDialog, removeContacts, removeBrandUser, setContactsUnstarred, setContactsStarred} = this.props;
         const data = this.getFilteredArray(contacts, searchText);
         const {selectedContactsMenu} = this.state;
 
@@ -64,34 +64,7 @@ class ContactsList extends Component {
                     }}
                     data={data}
                     columns={[
-                        // {
-                        //     Header   : () => (
-                        //         <Checkbox
-                        //             onClick={(event) => {
-                        //                 event.stopPropagation();
-                        //             }}
-                        //             onChange={(event) => {
-                        //                 event.target.checked ? selectAllContacts() : deSelectAllContacts();
-                        //             }}
-                        //             checked={selectedContactIds.length === Object.keys(contacts).length && selectedContactIds.length > 0}
-                        //             indeterminate={selectedContactIds.length !== Object.keys(contacts).length && selectedContactIds.length > 0}
-                        //         />
-                        //     ),
-                        //     accessor : "",
-                        //     Cell     : row => {
-                        //         return (<Checkbox
-                        //                 onClick={(event) => {
-                        //                     event.stopPropagation();
-                        //                 }}
-                        //                 checked={selectedContactIds.includes(row.value.id)}
-                        //                 onChange={() => toggleInSelectedContacts(row.value.id)}
-                        //             />
-                        //         )
-                        //     },
-                        //     className: "justify-center",
-                        //     sortable : false,
-                        //     width    : 64
-                        // },
+                        
                         {
                             Header   : () => (
                                 selectedContactIds.length > 0 && (

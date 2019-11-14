@@ -12,7 +12,12 @@ import { AdminUsersAppConfig } from 'app/main/admin-users/AdminUserAppConfig';
 import { AdsAppConfig } from 'app/main/ads/AdsAppConfig';
 import { SurveysAppConfig } from 'app/main/surveys/SurveysAppConfig';
 import { SurveyAttributeAppConfig } from 'app/main/surveyAttribute/SurveyAttributeAppConfig';
+import { WarrantyRegistrationAttributeAppConfig } from 'app/main/warrantyRegistrationAttribute/WarrantyRegistrationAttributeAppConfig';
+import { WarrantyClaimAttributeAppConfig } from 'app/main/warrantyClaimAttribute/WarrantyClaimAttributeAppConfig';
 import { ProductsAppConfig } from 'app/main/products/ProductsAppConfig';
+import { WarrantyRegistrationAppConfig } from 'app/main/warranty-registration/WarrantyRegistrationAppConfig';
+import { WarrantyClaimAppConfig } from 'app/main/warranty-claim/WarrantyClaimAppConfig';
+import { WarrantyCompletionAppConfig } from 'app/main/warranty-completion/WarrantyCompletionAppConfig';
 import { AppUsersAppConfig } from 'app/main/app-users/AppUserAppConfig';
 import { CompaniesAppConfig } from 'app/main/company/CompaniesAppConfig';
 import { BrandsAppConfig } from 'app/main/brands/BrandsAppConfig';
@@ -28,10 +33,15 @@ const routeConfigs = [
   AdsAppConfig,
   SurveysAppConfig,
   SurveyAttributeAppConfig,
+  WarrantyRegistrationAttributeAppConfig,
+  WarrantyClaimAttributeAppConfig,
   ProductsAppConfig,
   BrandUsersAppConfig,
   BrandsAppConfig,
   CompaniesAppConfig,
+  WarrantyRegistrationAppConfig,
+  WarrantyClaimAppConfig,
+  WarrantyCompletionAppConfig,
   LogoutConfig,
   Error404PageConfig
 ];

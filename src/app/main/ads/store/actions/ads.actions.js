@@ -2,7 +2,6 @@ import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
 import moment from "moment";
-import {GET_ALL_COMPANIES, getAllCompanies} from "../../../brands/store/actions";
 import {showMessage} from 'app/store/actions/fuse';
 
 export const GET_ADS = '[ADS APP] GET ADS';

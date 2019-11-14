@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {ToastsContainer, ToastsStore} from 'react-toasts';
 import {
   TextField,
   Button,

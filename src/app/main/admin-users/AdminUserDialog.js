@@ -15,7 +15,6 @@ import { bindActionCreators } from 'redux';
 import * as Actions from './store/actions';
 import { connect } from 'react-redux';
 import _ from '@lodash';
-import jwt_decode from 'jwt-decode';
 
 const adminsRole = [
   {

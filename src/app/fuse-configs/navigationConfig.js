@@ -134,6 +134,21 @@ const superAdminNavigationConfig = [
     ]
   },
   {
+    id: 'applications',
+    title: 'User Logs',
+    type: 'group',
+    icon: 'whatshot',
+    children: [
+      {
+        id: 'companies-component',
+        title: 'Logs',
+        type: 'item',
+        icon: 'book',
+        url: '/logs'
+      }
+    ]
+  },
+  {
     id: 'user auth',
     title: 'User Management',
     type: 'group',

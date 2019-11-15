@@ -22,6 +22,7 @@ import { AppUsersAppConfig } from 'app/main/app-users/AppUserAppConfig';
 import { CompaniesAppConfig } from 'app/main/company/CompaniesAppConfig';
 import { LogsAppConfig } from 'app/main/logs/LogsAppConfig';
 import { WarrantyRegisterAppConfig } from 'app/main/warranty-register/WarrantyRegisterAppConfig';
+import { WarrantyClaimedAppConfig } from 'app/main/warranty-claimed/WarrantyClaimedAppConfig';
 import { BrandsAppConfig } from 'app/main/brands/BrandsAppConfig';
 import { LogoutConfig } from 'app/main/logout/LogoutConfig';
 
@@ -46,6 +47,7 @@ const routeConfigs = [
   WarrantyCompletionAppConfig,
   LogsAppConfig,
   WarrantyRegisterAppConfig,
+  WarrantyClaimedAppConfig,
   LogoutConfig,
   Error404PageConfig
 ];

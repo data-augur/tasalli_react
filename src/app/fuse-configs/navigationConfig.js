@@ -146,6 +146,13 @@ const superAdminNavigationConfig = [
         icon: 'note',
         url: '/warranty-register'
       },
+      {
+        id: 'companies-component',
+        title: 'Claimed Warranty',
+        type: 'item',
+        icon: 'note',
+        url: '/warranty-claimed'
+      },
     ]
   },
   {

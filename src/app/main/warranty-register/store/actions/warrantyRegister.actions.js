@@ -1,13 +1,11 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
+import {showMessage} from 'app/store/actions/fuse';
 import moment from "moment";
 
-export const GET_LOGS = '[LOGS APP] GET LOGS';
-// export const GET_ALL_COMPANIES = '[BRANDS APP] GET COMPANIES';
-// export const ADD_BRAND = '[BRANDS APP] ADD BRAND';
-// export const UPDATE_BRAND = '[BRANDS APP] UPDATE BRAND';
-// export const REMOVE_BRAND = '[BRANDS APP] REMOVE BRAND';
+export const GET_WARRANTYREGISTER = '[WARRANTYREGISTER APP] GET WARRANTYREGISTER';
+export const REMOVE_WARRANTYREGISTER = '[WARRANTYREGISTER APP] REMOVE WARRANTYREGISTER';
 
 export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
 export const TOGGLE_IN_SELECTED_CONTACTS =
@@ -40,121 +38,55 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
-// export const getAllCompanies = () => dispatch => {
-//   axios
-//     // .get(Base_URL+'get-all-companies')
-//     .get(Base_URL+'get-all-companies')
-//     .then(res => {
-//
-//       dispatch({
-//         type: GET_ALL_COMPANIES,
-//         payload: res.data
-//       });
-//     })
-//     .catch(err => {
-//
-//       //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
-export const getLogs = () => dispatch => {
-  axios
+
+export const getWarrantyRegister = () => dispatch => {
+    axios
     // .get(Base_URL+'get-all-brands')
-    .get(Base_URL+'get-all-logs')
+    .get(Base_URL+'get-all-warranty-registrations')   //Admin brands  /${email}
     .then(res => {
         for(let i=0 ; i<res.data.length; i++)
         {
-            res.data[i].time=moment(res.data[i].time).format('YYYY-MM-DD hh:mm');
+            res.data[i].date=moment(res.data[i].date).format('YYYY-MM-DD hh:mm');
         }
+        console.log(res.data);
         dispatch({
-        type: GET_LOGS,
+        type: GET_WARRANTYREGISTER,
         payload: res.data
       });
     })
     .catch(err => {
       console.log('err', err);
-      //   dispatch({
+        dispatch(showMessage({message: err,variant: "error"}));
+        //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
       //   });
     });
 };
-// export const addBrand = newContact => dispatch => {
-//
-//   axios
-//     // .post(Base_URL+'create-brand', newContact)
-//     .post(Base_URL+'create-brand', newContact)
-//     .then(res => {
-//         if(res.request.status===200)
-//         {
-//             dispatch(showMessage({message: 'Brand Created',variant: "success"}));
-//         }
-//       dispatch({
-//         type: ADD_BRAND
-//       });
-//     })
-//     .then(() => dispatch(getBrands()))
-//     .catch(err => {
-//         dispatch(showMessage({message: err,variant: "error"}));
-//         console.log('err', err);
-//       //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
-// export const updateBrand = (updateInfo, id) => dispatch => {
-//
-//   axios
-//     .put(
-//       // `http://localhost:4000/update-brand/${updateInfo.id}`,
-//         Base_URL+`update-brand/${updateInfo.id}`,
-//       updateInfo
-//     )
-//     .then(res => {
-//         if(res.request.status===200)
-//         {
-//             dispatch(showMessage({message: 'Brand Updated',variant: "success"}));
-//         }
-//       dispatch({
-//         type: UPDATE_BRAND
-//       });
-//     })
-//     .then(() => dispatch(getBrands()))
-//     .catch(err => {
-//       console.log('err', err.response);
-//         dispatch(showMessage({message: err,variant: "error"}));
-//         //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
-// export const removeBrand = id => dispatch => {
-//   axios
-//     // .delete(`http://localhost:4000/delete-brand/${id}`)
-//     .delete(Base_URL+`delete-brand/${id}`)
-//     .then(res => {
-//         if(res.request.status===200)
-//         {
-//             dispatch(showMessage({message: 'Brand Removed',variant: "success"}));
-//         }
-//       dispatch({
-//         type: REMOVE_BRAND
-//       });
-//     })
-//     .then(() => dispatch(getBrands()))
-//     .catch(err => {
-//       console.log('err', err.response);
-//         dispatch(showMessage({message: err,variant: "error"}));
-//         //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
+export const removeWarrantyRegister = id => dispatch => {
+
+  axios
+    // .delete(`http://localhost:4000/delete-brand/${id}`)
+    .delete(Base_URL+`delete-warranty-registration/${id}`)
+    .then(res => {
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Warranty Registration Removed',variant: "success"}));
+        }
+      dispatch({
+        type: REMOVE_WARRANTYREGISTER
+      });
+    })
+    .then(() => dispatch(getWarrantyRegister()))
+    .catch(err => {
+      console.log('err', err.response);
+        dispatch(showMessage({message: err,variant: "error"}));
+        //   dispatch({
+      //     type: LOGIN_ERROR,
+      //     payload: err.response.data
+      //   });
+    });
+};
 
 // export function updateContact(contact) {
 //   return (dispatch, getState) => {
@@ -278,26 +210,26 @@ export function closeEditContactDialog() {
 //   };
 // }
 
-// export function removeContacts(contactIds) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
-//
-//     const request = axios.post('/api/contacts-app/remove-contacts', {
-//       contactIds
-//     });
-//
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: REMOVE_CONTACTS
-//         }),
-//         dispatch({
-//           type: DESELECT_ALL_CONTACTS
-//         })
-//       ]).then(() => dispatch(getBrands(routeParams)))
-//     );
-//   };
-// }
+export function removeContacts(contactIds) {
+  return (dispatch, getState) => {
+    const { routeParams } = getState().contactsApp.contacts;
+
+    const request = axios.post('/api/contacts-app/remove-contacts', {
+      contactIds
+    });
+
+    return request.then(response =>
+      Promise.all([
+        dispatch({
+          type: REMOVE_CONTACTS
+        }),
+        dispatch({
+          type: DESELECT_ALL_CONTACTS
+        })
+      ]).then(() => dispatch(getWarrantyRegister(routeParams)))
+    );
+  };
+}
 
 export function toggleStarredContact(contactId) {
   return (dispatch, getState) => {
@@ -313,7 +245,7 @@ export function toggleStarredContact(contactId) {
           type: TOGGLE_STARRED_CONTACT
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getLogs(routeParams)))
+      ]).then(() => dispatch(getWarrantyRegister(routeParams)))
     );
   };
 }
@@ -335,7 +267,7 @@ export function toggleStarredContacts(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getLogs(routeParams)))
+      ]).then(() => dispatch(getWarrantyRegister(routeParams)))
     );
   };
 }
@@ -357,7 +289,7 @@ export function setContactsStarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getLogs(routeParams)))
+      ]).then(() => dispatch(getWarrantyRegister(routeParams)))
     );
   };
 }
@@ -379,7 +311,7 @@ export function setContactsUnstarred(contactIds) {
           type: DESELECT_ALL_CONTACTS
         }),
         dispatch(getUserData())
-      ]).then(() => dispatch(getLogs(routeParams)))
+      ]).then(() => dispatch(getWarrantyRegister(routeParams)))
     );
   };
 }

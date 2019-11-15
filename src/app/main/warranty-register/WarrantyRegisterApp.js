@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './LogsList';
-import ContactsHeader from './LogsHeader';
-// import ContactDialog from './BrandsDialog';
+import ContactsList from './WarrantyRegisterList';
+import ContactsHeader from './WarrantyRegisterHeader';
+import ContactDialog from './WarrantyRegisterDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -21,15 +21,15 @@ const styles = theme => ({
   }
 });
 
-class LogsApp extends Component {
+class WarrantyRegisterApp extends Component {
   componentDidMount() {
-    this.props.getLogs(this.props.match.params);
+    this.props.getWarrantyRegister(this.props.match.params);
     this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!_.isEqual(this.props.location, prevProps.location)) {
-      this.props.getLogs(this.props.match.params);
+      this.props.getWarrantyRegister(this.props.match.params);
     }
   }
 
@@ -65,7 +65,7 @@ class LogsApp extends Component {
         {/*    <Icon>add</Icon>*/}
         {/*  </Fab>*/}
         {/*</FuseAnimate>*/}
-        {/*<ContactDialog />*/}
+        <ContactDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ class LogsApp extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getLogs: Actions.getLogs,
+      getWarrantyRegister: Actions.getWarrantyRegister,
       getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
@@ -82,22 +82,22 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ logsApp }) {
+function mapStateToProps({ warrantyRegisterApp }) {
   return {
-    // contacts: brandsApp.brands.entities,
-    selectedContactIds: logsApp.logs.selectedContactIds,
-    searchText: logsApp.logs.searchText,
-    user: logsApp.user
+    // contacts: warrantyRegistrationApp.warrantyRegistration.entities,
+    selectedContactIds: warrantyRegisterApp.warrantyRegister.selectedContactIds,
+    searchText: warrantyRegisterApp.warrantyRegister.searchText,
+    user: warrantyRegisterApp.user
   };
 }
 
-export default withReducer('logsApp', reducer)(
+export default withReducer('warrantyRegisterApp', reducer)(
   withStyles(styles, { withTheme: true })(
     withRouter(
       connect(
         mapStateToProps,
         mapDispatchToProps
-      )(LogsApp)
+      )(WarrantyRegisterApp)
     )
   )
 );

@@ -135,6 +135,21 @@ const superAdminNavigationConfig = [
   },
   {
     id: 'applications',
+    title: 'User Warranty',
+    type: 'group',
+    icon: 'whatshot',
+    children: [
+      {
+        id: 'companies-component',
+        title: 'Registers Warranty',
+        type: 'item',
+        icon: 'note',
+        url: '/warranty-register'
+      },
+    ]
+  },
+  {
+    id: 'applications',
     title: 'User Logs',
     type: 'group',
     icon: 'whatshot',

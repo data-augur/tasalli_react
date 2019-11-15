@@ -16,6 +16,7 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
+import {removeWarrantyRegister} from "./store/actions";
 
 class ContactsList extends Component {
   state = {
@@ -43,8 +44,9 @@ class ContactsList extends Component {
       contacts,
       searchText,
       selectedContactIds,
-
-      // removeBrand,
+      openEditContactDialog,
+      removeContacts,
+      removeWarrantyRegister,
       setContactsUnstarred,
       setContactsStarred
     } = this.props;
@@ -55,7 +57,7 @@ class ContactsList extends Component {
       return (
         <div className="flex items-center justify-center h-full">
           <Typography color="textSecondary" variant="h5">
-            There are no Logs Data!
+            There are no Warranty Registration Form!
           </Typography>
         </div>
       );
@@ -68,16 +70,16 @@ class ContactsList extends Component {
           getTrProps={(state, rowInfo, column) => {
             return {
               className: 'cursor-pointer',
-              // onClick: (e, handleOriginal) => {
-              //   if (rowInfo) {
-              //     openEditContactDialog(rowInfo.original);
-              //   }
-              // }
+              onClick: (e, handleOriginal) => {
+                if (rowInfo) {
+                  openEditContactDialog(rowInfo.original);
+                }
+              }
             };
           }}
           data={data}
           columns={[
-
+        
             {
               Header: () =>
                 selectedContactIds.length > 0 && (
@@ -99,14 +101,14 @@ class ContactsList extends Component {
                     >
                       <MenuList>
                         <MenuItem
-                          // onClick={() => {
-                          //   removeContacts(selectedContactIds);
-                          //   this.closeSelectedContactsMenu();
-                          // }}
+                          onClick={() => {
+                            removeContacts(selectedContactIds);
+                            this.closeSelectedContactsMenu();
+                          }}
                         >
-                          {/*<ListItemIcon>*/}
-                          {/*  <Icon>delete</Icon>*/}
-                          {/*</ListItemIcon>*/}
+                          <ListItemIcon>
+                            <Icon>delete</Icon>
+                          </ListItemIcon>
                           <ListItemText inset primary="Remove" />
                         </MenuItem>
                         <MenuItem
@@ -148,60 +150,54 @@ class ContactsList extends Component {
               sortable: false
             },
             {
-              Header: 'Phone Number',
-              accessor: 'phoneNumber',
+              Header: 'Product Name',
+              accessor: 'name',
               filterable: true,
               className: 'font-bold'
               // className: "justify-center",
             },
             {
-              Header: 'Activity',
-              accessor: 'activity',
+                  Header: 'User Phone',
+                  accessor: 'phoneNumber',
+                  filterable: true,
+                  className: 'font-bold'
+                  // className: "justify-center",
+            },
+            {
+                  Header: 'Retailer Number',
+                  accessor: 'retailerNumber',
+                  filterable: true,
+                  className: 'font-bold'
+                  // className: "justify-center",
+            },
+            {
+              Header: 'Date',
+              accessor: 'date',
               filterable: true,
               className: 'font-bold justify-center'
               // className: "justify-center",
             },
             {
-                  Header: 'Latitude',
-                  accessor: 'latitude',
-                  // filterable: true,
-                  className: ' justify-center'
-                  // className: "justify-center",
-            },
-            {
-                  Header: 'Longitude',
-                  accessor: 'longitude',
-                  // filterable: true,
-                  className: ' justify-center'
-                  // className: "justify-center",
-            },
-            {
-                  Header: 'Time',
-                  accessor: 'time',
-                  // filterable: true,
-                  className: ' justify-center'
-                  // className: "justify-center",
+              Header: '',
+              width: 128,
+              Cell: row => (
+                <div className="flex items-center justify-center">
+                  <IconButton
+                    onClick={ev => {
+                        console.log("DELETED",row.original.id);
+                      ev.stopPropagation();
+                      removeWarrantyRegister(row.original.id);
+                    }}
+                  >
+                    <Icon>delete</Icon>
+                  </IconButton>
+                </div>
+              )
             }
-            // {
-            //   Header: '',
-            //   width: 128,
-            //   Cell: row => (
-            //     <div className="flex items-center justify-center">
-            //       <IconButton
-            //         onClick={ev => {
-            //           ev.stopPropagation();
-            //           removeBrand(row.original.id);
-            //         }}
-            //       >
-            //         <Icon>delete</Icon>
-            //       </IconButton>
-            //     </div>
-            //   )
-            // }
           ]}
           defaultPageSize={10}
           resizable={false}
-          noDataText="No brand found"
+          noDataText="No Warranty Registration found"
         />
       </FuseAnimate>
     );
@@ -211,14 +207,14 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getContacts: Actions.getLogs,
+      getContacts: Actions.getWarrantyRegister,
       getUserData: Actions.getUserData,
       toggleInSelectedContacts: Actions.toggleInSelectedContacts,
       selectAllContacts: Actions.selectAllContacts,
       deSelectAllContacts: Actions.deSelectAllContacts,
       openEditContactDialog: Actions.openEditContactDialog,
-      // removeContacts: Actions.removeContacts,
-      // removeBrand: Actions.removeBrand,
+      removeContacts: Actions.removeContacts,
+      removeWarrantyRegister: Actions.removeWarrantyRegister,
       toggleStarredContact: Actions.toggleStarredContact,
       toggleStarredContacts: Actions.toggleStarredContacts,
       setContactsStarred: Actions.setContactsStarred,
@@ -228,12 +224,12 @@ function mapDispatchToProps(dispatch) {
   );
 }
 
-function mapStateToProps({ logsApp }) {
+function mapStateToProps({ warrantyRegisterApp }) {
   return {
-    contacts: logsApp.logs.entities,
-    selectedContactIds: logsApp.logs.selectedContactIds,
-    searchText: logsApp.logs.searchText,
-    user: logsApp.user
+    contacts: warrantyRegisterApp.warrantyRegister.entities,
+    selectedContactIds: warrantyRegisterApp.warrantyRegister.selectedContactIds,
+    searchText: warrantyRegisterApp.warrantyRegister.searchText,
+    user: warrantyRegisterApp.user
   };
 }
 

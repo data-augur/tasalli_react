@@ -101,7 +101,7 @@ export const setCurrentUser = decoded => {
 export const logoutUser = () => dispatch => {
   // Remove token from localStorage
   localStorage.removeItem('jwtToken');
-  localStorage.removeItem('Role');
+  // localStorage.removeItem('Role');
   localStorage.removeItem('WarrantyRegistrationFormName');
   localStorage.removeItem('SurveyName');
   localStorage.removeItem('WarrantyClaimFormName');

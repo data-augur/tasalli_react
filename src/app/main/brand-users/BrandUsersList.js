@@ -186,6 +186,8 @@ class ContactsList extends Component {
                             Cell  : row => (
                                 <div className="flex items-center justify-center">
                                     <IconButton
+                                        hidden={localStorage.getItem('Role')!=='superAdmin'}
+                                        disabled= {localStorage.getItem('Role')!=='superAdmin'}
                                         onClick={(ev) => {
                                             ev.stopPropagation();
                                             removeBrandUser(row.original.id);

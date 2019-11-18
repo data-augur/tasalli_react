@@ -150,8 +150,8 @@ class ContactsList extends Component {
               sortable: false
             },
             {
-              Header: 'Product Name',
-              accessor: 'name',
+              Header: 'SKU',
+              accessor: 'code',
               filterable: true,
               className: 'font-bold'
               // className: "justify-center",
@@ -159,13 +159,6 @@ class ContactsList extends Component {
             {
                   Header: 'User Phone',
                   accessor: 'phoneNumber',
-                  filterable: true,
-                  className: 'font-bold'
-                  // className: "justify-center",
-            },
-            {
-                  Header: 'Retailer Number',
-                  accessor: 'retailerNumber',
                   filterable: true,
                   className: 'font-bold'
                   // className: "justify-center",
@@ -197,7 +190,7 @@ class ContactsList extends Component {
           ]}
           defaultPageSize={10}
           resizable={false}
-          noDataText="No Warranty Registration found"
+          noDataText="No Warranty Register"
         />
       </FuseAnimate>
     );

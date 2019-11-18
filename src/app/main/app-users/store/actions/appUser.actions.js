@@ -1,6 +1,8 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
+import {showMessage} from 'app/store/actions/fuse';
+
 export const GET_ALL_APP_USERS = '[APP USERS APP] GET APPUSERS';
 
 export const UPDATE_APP_USER = '[APP USERS APP] UPDATE APPUSER';
@@ -67,7 +69,10 @@ export const updateAppUser = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'App User Updated',variant: "success"}));
+        }
       dispatch({
         type: UPDATE_APP_USER
       });
@@ -75,7 +80,8 @@ export const updateAppUser = (updateInfo, id) => dispatch => {
     .then(() => dispatch(getAllAppUsers()))
     .catch(err => {
       console.log('err', err.response);
-      //   dispatch({
+        dispatch(showMessage({message: err,variant: "error"}));
+        //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
       //   });
@@ -86,7 +92,10 @@ export const removeAppUser = id => dispatch => {
     // .delete(`http://localhost:4000/delete-app-user/${id}`)
     .delete(`http://18.189.81.89:4000/delete-app-user/${id}`)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'App User Removed',variant: "success"}));
+        }
       dispatch({
         type: REMOVE_APP_USER
       });
@@ -94,7 +103,8 @@ export const removeAppUser = id => dispatch => {
     .then(() => dispatch(getAllAppUsers()))
     .catch(err => {
       console.log('err', err.response);
-      //   dispatch({
+        dispatch(showMessage({message: err,variant: "error"}));
+        //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
       //   });

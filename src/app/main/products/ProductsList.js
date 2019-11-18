@@ -150,17 +150,10 @@ class ContactsList extends Component {
               sortable: false
             },
             {
-              Header: 'Product',
-              accessor: 'name',
+              Header: 'Product Code',
+              accessor: 'code',
               filterable: true,
               className: 'font-bold'
-              // className: "justify-center",
-            },
-            {
-              Header: 'Description',
-              accessor: 'description',
-              filterable: true,
-              className: 'font-bold justify-center'
               // className: "justify-center",
             },
             {

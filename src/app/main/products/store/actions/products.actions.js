@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
+import {showMessage} from 'app/store/actions/fuse';
 
 export const GET_PRODUCTS = '[PRODUCTS APP] GET PRODUCTS';
 export const GET_ALL_WARRANTY_REGISTRATION_FORM = '[PRODUCTS APP] GET WARRANTYREGISTRATIONFORM';
@@ -45,10 +46,8 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //   });
 export const getAllWarrantyRegistration = () => dispatch => {
     axios
-    // .get(Base_URL+'get-all-companies')
     .get(Base_URL+'get-all-warranty-registration-forms')
     .then(res => {
-
       dispatch({
         type: GET_ALL_WARRANTY_REGISTRATION_FORM,
         payload: res.data
@@ -59,10 +58,8 @@ export const getAllWarrantyRegistration = () => dispatch => {
 };
 export const getAllWarrantyCompletion = () => dispatch => {
     axios
-    // .get(Base_URL+'get-all-companies')
         .get(Base_URL+'get-all-warranty-completion-forms')
         .then(res => {
-
             dispatch({
                 type: GET_ALL_WARRANTY_COMPLETION_FORM,
                 payload: res.data
@@ -124,18 +121,22 @@ export const getProducts = () => dispatch => {
     });
 };
 export const addProduct = newContact => dispatch => {
-  axios
+    axios
     // .post(Base_URL+'create-brand', newContact)
     .post(Base_URL+'create-sku', newContact)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Product Created',variant: "success"}));
+        }
       dispatch({
         type: ADD_PRODUCT
       });
     })
     .then(() => dispatch(getProducts()))
     .catch(err => {
-      console.log('err', err);
+        dispatch(showMessage({message: err,variant: "error"}));
+        console.log('err', err);
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -152,14 +153,18 @@ export const updateProduct = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Product Updated',variant: "success"}));
+        }
       dispatch({
         type: UPDATE_PRODUCT
       });
     })
     .then(() => dispatch(getProducts()))
     .catch(err => {
-      console.log('err', err.response);
+        dispatch(showMessage({message: err,variant: "error"}));
+        console.log('err', err.response);
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -171,14 +176,18 @@ export const removeProduct = id => dispatch => {
     // .delete(`http://localhost:4000/delete-product/${id}`)
     .delete(Base_URL+`delete-sku/${id}`)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Product Removed',variant: "success"}));
+        }
       dispatch({
         type: REMOVE_PRODUCT
       });
     })
     .then(() => dispatch(getProducts()))
     .catch(err => {
-      console.log('err', err.response);
+        dispatch(showMessage({message: err,variant: "error"}));
+        console.log('err', err.response);
       //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data

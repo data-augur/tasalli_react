@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
+import {showMessage} from 'app/store/actions/fuse';
 
 export const GET_BRAND_USERS = '[BRAND USERS APP] GET BRANDUSERS';
 export const GET_ALL_COMPANIES = '[BRAND USERS APP] GET COMPANIES';
@@ -107,7 +108,10 @@ export const addBrandUser = newContact => dispatch => {
     // .post(Base_URL+'create-brand-user', newContact)
     .post(Base_URL+'create-brand-user', newContact)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Brand User Created',variant: "success"}));
+        }
       dispatch({
         type: ADD_BRAND_USER
       });
@@ -115,6 +119,7 @@ export const addBrandUser = newContact => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
+        dispatch(showMessage({message: err,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -131,7 +136,10 @@ export const updateBrandUser = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Brand User Updated',variant: "success"}));
+        }
       dispatch({
         type: UPDATE_BRAND_USER
       });
@@ -139,6 +147,7 @@ export const updateBrandUser = (updateInfo, id) => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
+        dispatch(showMessage({message: err,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -151,7 +160,10 @@ export const removeBrandUser = id => dispatch => {
     // .delete(`http://localhost:4000/delete-brand-user/${id}`)
     .delete(`http://18.189.81.89:4000/delete-brand-user/${id}`)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Brand User Removed',variant: "success"}));
+        }
       dispatch({
         type: REMOVE_BRAND_USER
       });
@@ -159,6 +171,7 @@ export const removeBrandUser = id => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
+        dispatch(showMessage({message: err,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,

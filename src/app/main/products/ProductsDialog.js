@@ -23,8 +23,7 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
 const newContactState = {
-  name: '',
-  description: '',
+  code: '',
   product_has_warranty: '',
   brandId: '',
   w_registration_form_Id: '',
@@ -82,6 +81,19 @@ class ContactDialog extends Component {
       )
     );
   };
+  handleCodeChange = event => {
+
+      this.setState(
+          _.set(
+              { ...this.state },
+              event.target.name,
+              event.target.type === 'checkbox'
+                  ? event.target.checked
+                  : event.target.value
+          )
+      );
+
+  };
 
   closeComposeDialog = () => {
     this.props.contactDialog.type === 'edit'
@@ -90,8 +102,8 @@ class ContactDialog extends Component {
   };
 
   canBeSubmitted() {
-    const { name } = this.state;
-    return name.length > 0;
+    const { code } = this.state;
+    return code.length > 0;
   };
 
   openPopup = () => {
@@ -133,7 +145,7 @@ class ContactDialog extends Component {
             /> */}
             {contactDialog.type === 'edit' && (
               <Typography variant="h6" color="inherit" className="pt-8">
-                {this.state.name}
+                {this.state.code}
               </Typography>
             )}
           </div>
@@ -147,35 +159,18 @@ class ContactDialog extends Component {
 
             <TextField
               className="mb-24"
-              label="Name"
+              label="Code"
               autoFocus
-              id="name"
-              name="name"
-              value={this.state.name}
-              onChange={this.handleChange}
+              id="code"
+              name="code"
+              value={this.state.code}
+              onChange={this.handleCodeChange}
               variant="outlined"
               required
               fullWidth
             />
           </div>
 
-          <div className="flex">
-            <div className="min-w-48 pt-20">
-              <Icon color="action">account_circle</Icon>
-            </div>
-
-            <TextField
-                className="mb-24"
-                label="Description"
-                id="description"
-                name="description"
-                value={this.state.description}
-                onChange={this.handleChange}
-                variant="outlined"
-                required
-                fullWidth
-            />
-          </div>
 
           <div className="flex">
             <div className="min-w-48 pt-20">

@@ -1,4 +1,5 @@
 import jwt from 'jsonwebtoken';
+import { Redirect } from 'react-router-dom';
 
 let role = null;
 const token = localStorage.getItem('jwtToken');
@@ -202,18 +203,11 @@ const companyAdminnavigationConfig = [
     icon: 'whatshot',
     children: [
       {
-        id: 'brands-component',
-        title: 'Brands',
+        id: 'companies-component',
+        title: 'Products',
         type: 'item',
-        icon: 'whatshot',
-        url: '/brands'        //company admin brandss 
-      },
-      {
-        id: 'brand-admin-component',
-        title: 'Manage Users',
-        type: 'item',
-        icon: 'whatshot',
-        url: '/brand-users'
+        icon: 'book',
+        url: '/products'
       }
     ]
   },

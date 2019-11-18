@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
+import {showMessage} from 'app/store/actions/fuse';
 
 export const GET_COMPANIES = '[COMPANIES APP] GET COMPANIES';
 export const ADD_COMPANY = '[COMPANIES APP] ADD COMPANY';
@@ -64,13 +65,17 @@ export const addCompany = newContact => dispatch => {
     // .post(Base_URL+'create-company', newContact)
     .post(Base_URL+'create-company', newContact)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Company Created',variant: "success"}));
+        }
       dispatch({
         type: ADD_COMPANY
       });
     })
     .then(() => dispatch(getCompanies()))
     .catch(err => {
+        dispatch(showMessage({message: err,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -87,13 +92,17 @@ export const updateCompany = (updateInfo, id) => dispatch => {
       updateInfo
     )
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Company Updated',variant: "success"}));
+        }
       dispatch({
         type: UPDATE_COMPANY
       });
     })
     .then(() => dispatch(getCompanies()))
     .catch(err => {
+        dispatch(showMessage({message: err,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -106,13 +115,17 @@ export const removeCompany = id => dispatch => {
     // .delete(`http://localhost:4000/delete-company/${id}`)
     .delete(`http://18.189.81.89:4000/delete-company/${id}`)
     .then(res => {
-
+        if(res.request.status===200)
+        {
+            dispatch(showMessage({message: 'Company Removed',variant: "success"}));
+        }
       dispatch({
         type: REMOVE_COMPANY
       });
     })
     .then(() => dispatch(getCompanies()))
     .catch(err => {
+        dispatch(showMessage({message: err,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,

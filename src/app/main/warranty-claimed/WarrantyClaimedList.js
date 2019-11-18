@@ -150,8 +150,8 @@ class ContactsList extends Component {
               sortable: false
             },
             {
-              Header: 'Product Name',
-              accessor: 'name',
+              Header: 'SKU',
+              accessor: 'code',
               filterable: true,
               className: 'font-bold'
               // className: "justify-center",
@@ -190,7 +190,7 @@ class ContactsList extends Component {
           ]}
           defaultPageSize={10}
           resizable={false}
-          noDataText="No Warranty Claimed found"
+          noDataText="No Warranty Claimed"
         />
       </FuseAnimate>
     );

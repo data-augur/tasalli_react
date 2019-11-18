@@ -97,7 +97,7 @@ export const addSurvey = newContact => dispatch => {
     })
     .then(() => dispatch(getAllSurveys()))
     .catch(err => {
-        dispatch(showMessage({message: 'Error!'+err,variant: "error"}));
+        dispatch(showMessage({message: err,variant: "error"}));
         console.log('err', err);
       //   dispatch({
       //     type: LOGIN_ERROR,

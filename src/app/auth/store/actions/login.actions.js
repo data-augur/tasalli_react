@@ -46,9 +46,11 @@ export const loginBrandUser = userData => dispatch => {
     .post(Base_URL+'admin-auth/login', userData)
     .then(res => {
       // Save to localStorage
-      const { token } = res.data;
+        const { token } = res.data;
       // Set token to ls
       localStorage.setItem('jwtToken', token);
+      localStorage.setItem("companyId",res.data.companyId);
+      localStorage.setItem("brandId",res.data.brandId);
       // Set token to Auth header
       setAuthToken(token);
       // Decode token to get user data
@@ -99,6 +101,12 @@ export const setCurrentUser = decoded => {
 export const logoutUser = () => dispatch => {
   // Remove token from localStorage
   localStorage.removeItem('jwtToken');
+  localStorage.removeItem('Role');
+  localStorage.removeItem('WarrantyRegistrationFormName');
+  localStorage.removeItem('SurveyName');
+  localStorage.removeItem('WarrantyClaimFormName');
+  localStorage.removeItem('brandId');
+  localStorage.removeItem('companyId');
   // Remove auth header for future requests
   setAuthToken(false);
   // Set current user to {} which will set isAuthenticated to false

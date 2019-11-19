@@ -40,9 +40,18 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //   });
 
 export const getWarrantyRegister = () => dispatch => {
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-warranty-registrations-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-warranty-registrations';
+    }
     axios
-    // .get(Base_URL+'get-all-brands')
-    .get(Base_URL+'get-all-warranty-registrations')   //Admin brands  /${email}
+    .get(Base_URL+query)
     .then(res => {
         for(let i=0 ; i<res.data.length; i++)
         {

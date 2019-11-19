@@ -40,9 +40,18 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //   });
 
 export const getWarrantyClaimed = () => dispatch => {
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-warranty-claimed-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-warranty-claimed';
+    }
     axios
-
-    .get(Base_URL+'get-all-warranty-claimed')
+    .get(Base_URL+query)
     .then(res => {
         for(let i=0 ; i<res.data.length; i++)
         {

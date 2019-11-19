@@ -151,6 +151,13 @@ class ContactsList extends Component {
             },
             {
               Header: 'SKU',
+              accessor: 'sku_code',
+              filterable: true,
+              className: 'font-bold'
+              // className: "justify-center",
+            },
+            {
+              Header: 'Code',
               accessor: 'code',
               filterable: true,
               className: 'font-bold'

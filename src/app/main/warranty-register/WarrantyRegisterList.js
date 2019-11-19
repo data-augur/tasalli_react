@@ -149,13 +149,20 @@ class ContactsList extends Component {
               width: 64,
               sortable: false
             },
-            {
-              Header: 'SKU',
-              accessor: 'code',
-              filterable: true,
-              className: 'font-bold'
-              // className: "justify-center",
-            },
+              {
+                  Header: 'SKU',
+                  accessor: 'sku_code',
+                  filterable: true,
+                  className: 'font-bold'
+                  // className: "justify-center",
+              },
+              {
+                  Header: 'Code',
+                  accessor: 'code',
+                  filterable: true,
+                  className: 'font-bold'
+                  // className: "justify-center",
+              },
             {
                   Header: 'User Phone',
                   accessor: 'phoneNumber',

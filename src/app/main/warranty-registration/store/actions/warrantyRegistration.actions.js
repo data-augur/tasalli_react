@@ -108,7 +108,6 @@ export const updateWarrantyRegistration = (updateInfo, id) => dispatch => {
 
   axios
     .put(
-      // `http://localhost:4000/update-brand/${updateInfo.id}`,
         Base_URL+`update-warranty-registration-form/${updateInfo.id}`,
       updateInfo
     )
@@ -134,7 +133,6 @@ export const updateWarrantyRegistration = (updateInfo, id) => dispatch => {
 export const removeWarrantyRegistration = id => dispatch => {
 
   axios
-    // .delete(`http://localhost:4000/delete-brand/${id}`)
     .delete(Base_URL+`delete-warranty-registration-form/${id}`)
     .then(res => {
         if(res.request.status===200)
@@ -160,7 +158,7 @@ export const removeWarrantyRegistration = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/update-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
 //       contact
 //     });
 
@@ -264,7 +262,7 @@ export function closeEditContactDialog() {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/delete-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
 //       contactId
 //     });
 

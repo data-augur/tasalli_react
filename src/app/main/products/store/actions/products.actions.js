@@ -97,9 +97,19 @@ export const getAllBrand = () => dispatch => {
         });
 };
 export const getProducts = () => dispatch => {
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-sku-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-sku';
+    }
   axios
     // .get(Base_URL+'get-all-brands')
-    .get(Base_URL+'get-all-sku')   //Admin products  /${email}
+    .get(Base_URL+query)   //Admin products  /${email}
     .then(res => {
 
       dispatch({
@@ -148,7 +158,6 @@ export const updateProduct = (updateInfo, id) => dispatch => {
 
   axios
     .put(
-      // `http://localhost:4000/update-brand/${updateInfo.id}`,
         Base_URL+`update-sku/${updateInfo.id}`,
       updateInfo
     )
@@ -173,7 +182,6 @@ export const updateProduct = (updateInfo, id) => dispatch => {
 };
 export const removeProduct = id => dispatch => {
   axios
-    // .delete(`http://localhost:4000/delete-product/${id}`)
     .delete(Base_URL+`delete-sku/${id}`)
     .then(res => {
         if(res.request.status===200)
@@ -199,7 +207,7 @@ export const removeProduct = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/update-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
 //       contact
 //     });
 
@@ -303,7 +311,7 @@ export function closeEditContactDialog() {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/delete-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
 //       contactId
 //     });
 

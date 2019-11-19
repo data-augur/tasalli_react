@@ -109,7 +109,6 @@ export const updateSurvey = (updateInfo, id) => dispatch => {
 
   axios
     .put(
-      // `http://localhost:4000/update-survey/${updateInfo.id}`,
         Base_URL+`update-survey/${updateInfo.id}`,
       updateInfo
     )
@@ -135,7 +134,6 @@ export const updateSurvey = (updateInfo, id) => dispatch => {
 };
 export const removeSurvey = id => dispatch => {
   axios
-    // .delete(`http://localhost:4000/delete-brand/${id}`)
     .delete(Base_URL+`delete-survey/${id}`)
     .then(res => {
         if(res.request.status===200)
@@ -166,7 +164,7 @@ export const removeSurvey = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/update-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
 //       contact
 //     });
 
@@ -270,7 +268,7 @@ export function closeEditContactDialog() {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/delete-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
 //       contactId
 //     });
 

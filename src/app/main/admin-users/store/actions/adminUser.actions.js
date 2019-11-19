@@ -88,8 +88,7 @@ export const updateAdminUser = (updateInfo, id) => dispatch => {
 
   axios
     .put(
-      // `http://localhost:4000/update-app-user/${updateInfo.id}`,
-      `http://18.189.81.89:4000/update-tasali-admin/${updateInfo.id}`,
+        Base_URL+`update-tasali-admin/${updateInfo.id}`,
       updateInfo
     )
     .then(res => {
@@ -113,8 +112,7 @@ export const updateAdminUser = (updateInfo, id) => dispatch => {
 };
 export const removeAdminUser = id => dispatch => {
   axios
-    // .delete(`http://localhost:4000/delete-admin-user/${id}`)
-    .delete(`http://18.189.81.89:4000/delete-tasali-admin/${id}`)
+    .delete(Base_URL+`delete-tasali-admin/${id}`)
     .then(res => {
         if(res.request.status===200)
         {
@@ -139,7 +137,7 @@ export const removeAdminUser = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/update-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
 //       contact
 //     });
 
@@ -243,7 +241,7 @@ export function closeEditContactDialog() {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/delete-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
 //       contactId
 //     });
 

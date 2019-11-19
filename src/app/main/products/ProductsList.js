@@ -177,6 +177,7 @@ class ContactsList extends Component {
                 <div className="flex items-center justify-center">
                   <IconButton
                     onClick={ev => {
+                        console.log("Remove",removeProduct(row.original.id));
                       ev.stopPropagation();
                       removeProduct(row.original.id);
                     }}

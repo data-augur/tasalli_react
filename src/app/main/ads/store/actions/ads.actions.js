@@ -147,7 +147,6 @@ export const updateAds = (updateInfo, id) => dispatch => {
 };
 export const removeAds = id => dispatch => {
   axios
-    // .delete(`http://localhost:4000/delete-ad/${id}`)
     .delete(Base_URL+`delete-ad/${id}`)
     .then(res => {
         if(res.request.status===200)
@@ -174,7 +173,7 @@ export const removeAds = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/update-ads/${id}`, {
+//     const request = axios.post(Base_URL+`update-ads/${id}`, {
 //       contact
 //     });
 
@@ -278,7 +277,7 @@ export function closeEditContactDialog() {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/delete-ads/${id}`, {
+//     const request = axios.post(Base_URL+`delete-ads/${id}`, {
 //       contactId
 //     });
 

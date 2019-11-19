@@ -85,10 +85,9 @@ export const addCompany = newContact => dispatch => {
 };
 export const updateCompany = (updateInfo, id) => dispatch => {
 
-  axios
+    axios
     .put(
-      // `http://localhost:4000/update-company/${updateInfo.id}`,
-      `http://18.189.81.89:4000/update-company/${updateInfo.id}`,
+        Base_URL+`update-company/${updateInfo.id}`,
       updateInfo
     )
     .then(res => {
@@ -112,8 +111,7 @@ export const updateCompany = (updateInfo, id) => dispatch => {
 };
 export const removeCompany = id => dispatch => {
   axios
-    // .delete(`http://localhost:4000/delete-company/${id}`)
-    .delete(`http://18.189.81.89:4000/delete-company/${id}`)
+    .delete(Base_URL+`delete-company/${id}`)
     .then(res => {
         if(res.request.status===200)
         {
@@ -138,7 +136,7 @@ export const removeCompany = id => dispatch => {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/update-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
 //       contact
 //     });
 
@@ -242,7 +240,7 @@ export function closeEditContactDialog() {
 //   return (dispatch, getState) => {
 //     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post(`http://localhost:4000/delete-brand-user/${id}`, {
+//     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
 //       contactId
 //     });
 

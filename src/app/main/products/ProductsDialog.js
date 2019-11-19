@@ -134,7 +134,7 @@ class ContactDialog extends Component {
         <AppBar position="static" elevation={1}>
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
-              {contactDialog.type === 'new' ? 'New Company' : 'Edit Company'}
+              {contactDialog.type === 'new' ? 'New Product' : 'Edit Product'}
             </Typography>
           </Toolbar>
           <div className="flex flex-col items-center justify-center pb-24">
@@ -348,6 +348,7 @@ class ContactDialog extends Component {
             </Button>
             <IconButton
               onClick={() => {
+                console.log("Remove",removeProduct(this.state.id));
                 removeProduct(this.state.id);
                 this.closeComposeDialog();
               }}

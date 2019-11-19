@@ -230,6 +230,8 @@ class ContactDialog extends Component {
             Save
           </Button>
           <IconButton
+              hidden={localStorage.getItem('Role')!=='superAdmin'}
+              disabled= {localStorage.getItem('Role')!=='superAdmin'}
             onClick={() => {
               removeAppUser(this.state.id);
               this.closeComposeDialog();

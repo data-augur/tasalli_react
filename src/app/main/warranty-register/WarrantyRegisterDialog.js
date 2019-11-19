@@ -18,7 +18,7 @@ import _ from '@lodash';
 
 const newContactState = {
   code: '',
-  retailerNumber: '',
+  phoneNumber: '',
   date: '',
   id: '',
   details: []
@@ -111,12 +111,12 @@ class ContactDialog extends Component {
 
             <TextField
               className="mb-24"
-              label="Product Name"
+              label="SKU"
               autoFocus
-              id="name"
-              name="name"
+              id="code"
+              name="code"
               disabled={true}
-              value={this.state.name}
+              value={this.state.code}
               variant="outlined"
               required
               fullWidth
@@ -144,20 +144,20 @@ class ContactDialog extends Component {
 
           <div className="flex">
             <div className="min-w-48 pt-20">
-              <Icon color="action">account_circle</Icon>
+              <Icon color="action">phone</Icon>
             </div>
 
             <TextField
-              className="mb-24"
-              label="Retailer Number"
-              autoFocus
-              id="retailerNumber"
-              name="retailerNumber"
-              value={this.state.retailerNumber}
-              variant="outlined"
-              disabled={true}
-              required
-              fullWidth
+                className="mb-24"
+                label="Phone Number"
+                autoFocus
+                id="phoneNumber"
+                name="phoneNumber"
+                value={this.state.phoneNumber}
+                variant="outlined"
+                disabled={true}
+                required
+                fullWidth
             />
           </div>
 
@@ -201,6 +201,8 @@ class ContactDialog extends Component {
               Exit
             </Button>
             <IconButton
+                hidden={localStorage.getItem('Role')!=='superAdmin'}
+                disabled= {localStorage.getItem('Role')!=='superAdmin'}
               onClick={() => {
                 removeWarrantyRegister(this.state.id);
                 this.closeComposeDialog();

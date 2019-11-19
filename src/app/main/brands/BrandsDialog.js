@@ -97,7 +97,7 @@ class ContactDialog extends Component {
         <AppBar position="static" elevation={1}>
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
-              {contactDialog.type === 'new' ? 'New Company' : 'Edit Company'}
+              {contactDialog.type === 'new' ? 'New Brand' : 'Edit Brand'}
             </Typography>
           </Toolbar>
           <div className="flex flex-col items-center justify-center pb-24">
@@ -193,6 +193,8 @@ class ContactDialog extends Component {
               Save
             </Button>
             <IconButton
+                hidden={localStorage.getItem('Role')!=='superAdmin'}
+                disabled= {localStorage.getItem('Role')!=='superAdmin'}
               onClick={() => {
                 removeBrand(this.state.id);
                 this.closeComposeDialog();

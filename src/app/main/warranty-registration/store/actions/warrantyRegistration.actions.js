@@ -41,9 +41,19 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //     headers
 //   });
 export const getAllCompanies = () => dispatch => {
-  axios
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-companies-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-companies';
+    }
+    axios
     // .get(Base_URL+'get-all-companies')
-    .get(Base_URL+'get-all-companies')
+    .get(Base_URL+query)
     .then(res => {
 
       dispatch({
@@ -60,11 +70,21 @@ export const getAllCompanies = () => dispatch => {
     });
 };
 export const getWarrantyRegistration = () => dispatch => {
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-warranty-registration-forms-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-warranty-registration-forms';
+    }
     axios
     // .get(Base_URL+'get-all-brands')
-    .get(Base_URL+'get-all-warranty-registration-forms')   //Admin brands  /${email}
+    .get(Base_URL+query)   //Admin brands  /${email}
     .then(res => {
-
+        console.log(res);
       dispatch({
         type: GET_WARRANTYREGISTRATION,
         payload: res.data

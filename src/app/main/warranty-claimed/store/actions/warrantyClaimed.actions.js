@@ -57,7 +57,7 @@ export const getWarrantyClaimed = () => dispatch => {
         {
             res.data[i].date=moment(res.data[i].date).format('YYYY-MM-DD hh:mm');
         }
-        console.log(res.data);
+        console.log(res);
         dispatch({
         type: GET_WARRANTYCLAIMED,
         payload: res.data

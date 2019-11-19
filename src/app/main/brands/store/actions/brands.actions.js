@@ -41,9 +41,19 @@ export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 //     headers
 //   });
 export const getAllCompanies = () => dispatch => {
-  axios
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-companies-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-companies';
+    }
+    axios
     // .get(Base_URL+'get-all-companies')
-    .get(Base_URL+'get-all-companies')
+    .get(Base_URL+query)
     .then(res => {
 
       dispatch({
@@ -60,9 +70,19 @@ export const getAllCompanies = () => dispatch => {
     });
 };
 export const getBrands = () => dispatch => {
-  axios
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-brands-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-brands';
+    }
+    axios
     // .get(Base_URL+'get-all-brands')
-    .get(Base_URL+'get-all-brands')   //Admin brands  /${email}
+    .get(Base_URL+query)   //Admin brands  /${email}
     .then(res => {
 
       dispatch({

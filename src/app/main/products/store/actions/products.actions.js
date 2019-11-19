@@ -168,6 +168,10 @@ export const addProduct = newContact => dispatch => {
         {
             dispatch(showMessage({message: 'Product Created',variant: "success"}));
         }
+        else
+        {
+            dispatch(showMessage({message: 'SKU already exsist',variant: "success"}));
+        }
       dispatch({
         type: ADD_PRODUCT
       });

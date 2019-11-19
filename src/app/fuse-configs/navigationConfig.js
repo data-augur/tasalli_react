@@ -208,6 +208,13 @@ const companyAdminnavigationConfig = [
         type: 'item',
         icon: 'book',
         url: '/products'
+      },
+      {
+        id: 'brands-component',
+        title: 'Brands',
+        type: 'item',
+        icon: 'whatshot',
+        url: '/brands'
       }
     ]
   },

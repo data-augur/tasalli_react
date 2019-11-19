@@ -31,22 +31,20 @@ export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
 export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
 export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 
-// export function getContacts(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
 
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
 export const getAllWarrantyRegistration = () => dispatch => {
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-warranty-registration-forms-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-warranty-registration-forms';
+    }
     axios
-    .get(Base_URL+'get-all-warranty-registration-forms')
+    .get(Base_URL+query)
     .then(res => {
       dispatch({
         type: GET_ALL_WARRANTY_REGISTRATION_FORM,
@@ -57,8 +55,18 @@ export const getAllWarrantyRegistration = () => dispatch => {
     });
 };
 export const getAllWarrantyCompletion = () => dispatch => {
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-warranty-completion-forms-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-warranty-completion-forms';
+    }
     axios
-        .get(Base_URL+'get-all-warranty-completion-forms')
+        .get(Base_URL+query)
         .then(res => {
             dispatch({
                 type: GET_ALL_WARRANTY_COMPLETION_FORM,
@@ -69,9 +77,19 @@ export const getAllWarrantyCompletion = () => dispatch => {
         });
 };
 export const getAllWarrantyClaim = () => dispatch => {
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-warranty-claim-forms-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-warranty-claim-forms';
+    }
     axios
     // .get(Base_URL+'get-all-companies')
-        .get(Base_URL+'get-all-warranty-claim-forms')
+        .get(Base_URL+query)
         .then(res => {
 
             dispatch({
@@ -83,9 +101,19 @@ export const getAllWarrantyClaim = () => dispatch => {
         });
 };
 export const getAllBrand = () => dispatch => {
+    let query;
+    if(localStorage.getItem('companyId'))
+    {
+        let id=localStorage.getItem('companyId');
+        query='get-all-brands-by-id/'+id;
+    }
+    else
+    {
+        query='get-all-brands';
+    }
     axios
     // .get(Base_URL+'get-all-companies')
-        .get(Base_URL+'get-all-brands')
+        .get(Base_URL+query)
         .then(res => {
 
             dispatch({
@@ -131,6 +159,7 @@ export const getProducts = () => dispatch => {
     });
 };
 export const addProduct = newContact => dispatch => {
+    console.log(newContact);
     axios
     // .post(Base_URL+'create-brand', newContact)
     .post(Base_URL+'create-sku', newContact)

@@ -6,9 +6,9 @@ const initialState = {
   entities: [],
   companies: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedSurveyIds: [],
   routeParams: {},
-  contactDialog: {
+  surveyDialog: {
     type: 'new',
     props: {
       open: false
@@ -25,9 +25,9 @@ const surveyReducer = function(state = initialState, action) {
         entities: [],
         companies: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedSurveyIds: [],
         routeParams: {},
-        contactDialog: {
+        surveyDialog: {
           type: 'new',
           props: {
             open: false
@@ -72,42 +72,42 @@ const surveyReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_SURVEYS: {
+      const surveyId = action.surveyId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedSurveyIds = [...state.selectedSurveyIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedSurveyIds.find(id => id === surveyId) !== undefined) {
+        selectedSurveyIds = selectedSurveyIds.filter(id => id !== surveyId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedSurveyIds = [...selectedSurveyIds, surveyId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedSurveyIds: selectedSurveyIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_SURVEYS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedSurveyIds = arr.map(survey => survey.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedSurveyIds: selectedSurveyIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_SURVEYS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedSurveyIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_SURVEY_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        surveyDialog: {
           type: 'new',
           props: {
             open: true
@@ -116,10 +116,10 @@ const surveyReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_SURVEY_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        surveyDialog: {
           type: 'new',
           props: {
             open: false
@@ -128,10 +128,10 @@ const surveyReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_SURVEY_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        surveyDialog: {
           type: 'edit',
           props: {
             open: true
@@ -140,10 +140,10 @@ const surveyReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_SURVEY_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        surveyDialog: {
           type: 'edit',
           props: {
             open: false

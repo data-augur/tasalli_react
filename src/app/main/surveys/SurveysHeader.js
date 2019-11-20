@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import * as Actions from './store/actions';
 
-class ContactsHeader extends Component {
+class SurveysHeader extends Component {
   render() {
     const { setSearchText, searchText, pageLayout, mainTheme } = this.props;
 
@@ -91,4 +91,4 @@ function mapStateToProps({ surveysApp, fuse }) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ContactsHeader);
+)(SurveysHeader);

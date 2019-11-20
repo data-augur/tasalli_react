@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './SurveysList';
-import ContactsHeader from './SurveysHeader';
-import ContactDialog from './SurveysDialog';
+import SurveysList from './SurveysList';
+import SurveysHeader from './SurveysHeader';
+import SurveyDialog from './SurveysDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class SurveysApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewSurveyDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class SurveysApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<SurveysHeader pageLayout={() => this.pageLayout} />}
+          content={<SurveysList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,13 +59,13 @@ class SurveysApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewSurveyDialog}
           >
             <Icon>add</Icon>
               {/*new*/}
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <SurveyDialog />
       </React.Fragment>
     );
   }
@@ -75,7 +75,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getSurveys: Actions.getSurveys,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewSurveyDialog: Actions.openNewSurveyDialog
     },
     dispatch
   );
@@ -83,8 +83,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ surveysApp }) {
   return {
-    // contacts: brandsApp.brands.entities,
-    selectedContactIds: surveysApp.surveys.selectedContactIds,
+    // surveys: brandsApp.brands.entities,
+    selectedSurveyIds: surveysApp.surveys.selectedSurveyIds,
     searchText: surveysApp.surveys.searchText,
     user: surveysApp.user
   };

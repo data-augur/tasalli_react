@@ -16,32 +16,32 @@ import * as Actions from './store/actions';
 import { connect } from 'react-redux';
 import _ from '@lodash';
 
-const newContactState = {
+const newSurveyState = {
   name: '',
   id: ''
 };
 
-class ContactDialog extends Component {
-  state = { ...newContactState };
+class SurveyDialog extends Component {
+  state = { ...newSurveyState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     /**
      * After Dialog Open
      */
     if (
-        !prevProps.contactDialog.props.open &&
-        this.props.contactDialog.props.open
+        !prevProps.surveyDialog.props.open &&
+        this.props.surveyDialog.props.open
     ) {
       /**
        * Dialog type: 'edit'
        * Update State
        */
       if (
-          this.props.contactDialog.type === 'edit' &&
-          this.props.contactDialog.data &&
-          !_.isEqual(this.props.contactDialog.data, prevState)
+          this.props.surveyDialog.type === 'edit' &&
+          this.props.surveyDialog.data &&
+          !_.isEqual(this.props.surveyDialog.data, prevState)
       ) {
-        this.setState({ ...this.props.contactDialog.data });
+        this.setState({ ...this.props.surveyDialog.data });
       }
 
       /**
@@ -49,10 +49,10 @@ class ContactDialog extends Component {
        * Update State
        */
       if (
-          this.props.contactDialog.type === 'new' &&
-          !_.isEqual(newContactState, prevState)
+          this.props.surveyDialog.type === 'new' &&
+          !_.isEqual(newSurveyState, prevState)
       ) {
-        this.setState({ ...newContactState });
+        this.setState({ ...newSurveyState });
       }
     }
   }
@@ -70,9 +70,9 @@ class ContactDialog extends Component {
   };
 
   closeComposeDialog = () => {
-    this.props.contactDialog.type === 'edit'
-        ? this.props.closeEditContactDialog()
-        : this.props.closeNewContactDialog();
+    this.props.surveyDialog.type === 'edit'
+        ? this.props.closeEditSurveyDialog()
+        : this.props.closeNewSurveyDialog();
   };
 
   canBeSubmitted() {
@@ -81,14 +81,14 @@ class ContactDialog extends Component {
   }
 
   render() {
-    const { contactDialog, addSurvey, updateSurvey, removeSurvey } = this.props;
+    const { surveyDialog, addSurvey, updateSurvey, removeSurvey } = this.props;
 
     return (
         <Dialog
             classes={{
               paper: 'm-24'
             }}
-            {...contactDialog.props}
+            {...surveyDialog.props}
             onClose={this.closeComposeDialog}
             fullWidth
             maxWidth="xs"
@@ -96,16 +96,16 @@ class ContactDialog extends Component {
           <AppBar position="static" elevation={1}>
             <Toolbar className="flex w-full">
               <Typography variant="subtitle1" color="inherit">
-                {contactDialog.type === 'new' ? 'New Survey' : 'Edit Survey'}
+                {surveyDialog.type === 'new' ? 'New Survey' : 'Edit Survey'}
               </Typography>
             </Toolbar>
             <div className="flex flex-col items-center justify-center pb-24">
               {/* <Avatar
               className="w-96 h-96"
-              alt="contact avatar"
+              alt="survey avatar"
               src={this.state.avatar}
             /> */}
-              {contactDialog.type === 'edit' && (
+              {surveyDialog.type === 'edit' && (
                   <Typography variant="h6" color="inherit" className="pt-8">
                     {this.state.name}
                   </Typography>
@@ -135,7 +135,7 @@ class ContactDialog extends Component {
 
           </DialogContent>
 
-          {contactDialog.type === 'new' ? (
+          {surveyDialog.type === 'new' ? (
               <DialogActions className="justify-between pl-16">
                 <Button
                     variant="contained"
@@ -180,8 +180,8 @@ class ContactDialog extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
       {
-        closeEditContactDialog: Actions.closeEditContactDialog,
-        closeNewContactDialog: Actions.closeNewContactDialog,
+        closeEditSurveyDialog: Actions.closeEditSurveyDialog,
+        closeNewSurveyDialog: Actions.closeNewSurveyDialog,
         addSurvey: Actions.addSurvey,
         updateSurvey: Actions.updateSurvey,
         removeSurvey: Actions.removeSurvey
@@ -192,11 +192,11 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ surveysApp }) {
   return {
-    contactDialog: surveysApp.surveys.contactDialog
+    surveyDialog: surveysApp.surveys.surveyDialog
   };
 }
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ContactDialog);
+)(SurveyDialog);

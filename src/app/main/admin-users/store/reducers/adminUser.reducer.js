@@ -5,9 +5,9 @@ import * as authActions from '../../../../auth/store/actions';
 const initialState = {
   entities: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedAdminIds: [],
   routeParams: {},
-  contactDialog: {
+  adminDialog: {
     type: 'new',
     props: {
       open: false
@@ -23,9 +23,9 @@ const adminUserReducer = function(state = initialState, action) {
         ...state,
         entities: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedAdminIds: [],
         routeParams: {},
-        contactDialog: {
+        adminDialog: {
           type: 'new',
           props: {
             open: false
@@ -58,42 +58,42 @@ const adminUserReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_ADMINS: {
+      const adminId = action.adminId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedAdminIds = [...state.selectedAdminIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedAdminIds.find(id => id === adminId) !== undefined) {
+        selectedAdminIds = selectedAdminIds.filter(id => id !== adminId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedAdminIds = [...selectedAdminIds, adminId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedAdminIds: selectedAdminIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_ADMINS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedAdminIds = arr.map(admin => admin.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedAdminIds: selectedAdminIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_ADMINS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedAdminIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_ADMIN_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        adminDialog: {
           type: 'new',
           props: {
             open: true
@@ -102,10 +102,10 @@ const adminUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_ADMIN_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        adminDialog: {
           type: 'new',
           props: {
             open: false
@@ -114,10 +114,10 @@ const adminUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_ADMIN_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        adminDialog: {
           type: 'edit',
           props: {
             open: true
@@ -126,10 +126,10 @@ const adminUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_ADMIN_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        adminDialog: {
           type: 'edit',
           props: {
             open: false

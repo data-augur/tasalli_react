@@ -7,10 +7,10 @@ import {bindActionCreators} from 'redux';
 import ReactTable from "react-table";
 import * as Actions from './store/actions';
 
-class ContactsList extends Component {
+class AdminsList extends Component {
 
     state = {
-        selectedContactsMenu: null
+        selectedAdminsMenu: null
     };
 
     getFilteredArray = (entities, searchText) => {
@@ -22,19 +22,19 @@ class ContactsList extends Component {
         return FuseUtils.filterArrayByString(arr, searchText);
     };
 
-    openSelectedContactMenu = (event) => {
-        this.setState({selectedContactsMenu: event.currentTarget});
+    openSelectedAdminMenu = (event) => {
+        this.setState({selectedAdminsMenu: event.currentTarget});
     };
 
-    closeSelectedContactsMenu = () => {
-        this.setState({selectedContactsMenu: null});
+    closeSelectedAdminsMenu = () => {
+        this.setState({selectedAdminsMenu: null});
     };
 
     render()
     {
-        const { contacts, searchText, selectedContactIds,  openEditContactDialog, removeContacts, removeAdminUser, setContactsUnstarred, setContactsStarred} = this.props;
-        const data = this.getFilteredArray(contacts, searchText);
-        const {selectedContactsMenu} = this.state;
+        const { admins, searchText, selectedAdminIds,  openEditAdminDialog, removeAdmins, removeAdminUser, setAdminsUnstarred, setAdminsStarred} = this.props;
+        const data = this.getFilteredArray(admins, searchText);
+        const {selectedAdminsMenu} = this.state;
 
         if ( !data && data.length === 0 )
         {
@@ -57,7 +57,7 @@ class ContactsList extends Component {
                             onClick  : (e, handleOriginal) => {
                                 if ( rowInfo )
                                 {
-                                    openEditContactDialog(rowInfo.original);
+                                    openEditAdminDialog(rowInfo.original);
                                 }
                             }
                         }
@@ -71,10 +71,10 @@ class ContactsList extends Component {
                         //                 event.stopPropagation();
                         //             }}
                         //             onChange={(event) => {
-                        //                 event.target.checked ? selectAllContacts() : deSelectAllContacts();
+                        //                 event.target.checked ? selectAllAdmins() : deSelectAllAdmins();
                         //             }}
-                        //             checked={selectedContactIds.length === Object.keys(contacts).length && selectedContactIds.length > 0}
-                        //             indeterminate={selectedContactIds.length !== Object.keys(contacts).length && selectedContactIds.length > 0}
+                        //             checked={selectedAdminIds.length === Object.keys(admins).length && selectedAdminIds.length > 0}
+                        //             indeterminate={selectedAdminIds.length !== Object.keys(admins).length && selectedAdminIds.length > 0}
                         //         />
                         //     ),
                         //     accessor : "",
@@ -83,8 +83,8 @@ class ContactsList extends Component {
                         //                 onClick={(event) => {
                         //                     event.stopPropagation();
                         //                 }}
-                        //                 checked={selectedContactIds.includes(row.value.id)}
-                        //                 onChange={() => toggleInSelectedContacts(row.value.id)}
+                        //                 checked={selectedAdminIds.includes(row.value.id)}
+                        //                 onChange={() => toggleInSelectedAdmins(row.value.id)}
                         //             />
                         //         )
                         //     },
@@ -94,26 +94,26 @@ class ContactsList extends Component {
                         // },
                         {
                             Header   : () => (
-                                selectedContactIds.length > 0 && (
+                                selectedAdminIds.length > 0 && (
                                     <React.Fragment>
                                         <IconButton
-                                            aria-owns={selectedContactsMenu ? 'selectedContactsMenu' : null}
+                                            aria-owns={selectedAdminsMenu ? 'selectedAdminsMenu' : null}
                                             aria-haspopup="true"
-                                            onClick={this.openSelectedContactMenu}
+                                            onClick={this.openSelectedAdminMenu}
                                         >
                                             <Icon>more_horiz</Icon>
                                         </IconButton>
                                         <Menu
-                                            id="selectedContactsMenu"
-                                            anchorEl={selectedContactsMenu}
-                                            open={Boolean(selectedContactsMenu)}
-                                            onClose={this.closeSelectedContactsMenu}
+                                            id="selectedAdminsMenu"
+                                            anchorEl={selectedAdminsMenu}
+                                            open={Boolean(selectedAdminsMenu)}
+                                            onClose={this.closeSelectedAdminsMenu}
                                         >
                                             <MenuList>
                                                 <MenuItem
                                                     onClick={() => {
-                                                        removeContacts(selectedContactIds);
-                                                        this.closeSelectedContactsMenu();
+                                                        removeAdmins(selectedAdminIds);
+                                                        this.closeSelectedAdminsMenu();
                                                     }}
                                                 >
                                                     <ListItemIcon>
@@ -123,8 +123,8 @@ class ContactsList extends Component {
                                                 </MenuItem>
                                                 <MenuItem
                                                     onClick={() => {
-                                                        setContactsStarred(selectedContactIds);
-                                                        this.closeSelectedContactsMenu();
+                                                        setAdminsStarred(selectedAdminIds);
+                                                        this.closeSelectedAdminsMenu();
                                                     }}
                                                 >
                                                     <ListItemIcon>
@@ -134,8 +134,8 @@ class ContactsList extends Component {
                                                 </MenuItem>
                                                 <MenuItem
                                                     onClick={() => {
-                                                        setContactsUnstarred(selectedContactIds);
-                                                        this.closeSelectedContactsMenu();
+                                                        setAdminsUnstarred(selectedAdminIds);
+                                                        this.closeSelectedAdminsMenu();
                                                     }}
                                                 >
                                                     <ListItemIcon>
@@ -199,28 +199,28 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch)
 {
     return bindActionCreators({
-        // getContacts             : Actions.getContacts,
-        toggleInSelectedContacts: Actions.toggleInSelectedContacts,
-        selectAllContacts       : Actions.selectAllContacts,
-        deSelectAllContacts     : Actions.deSelectAllContacts,
-        openEditContactDialog   : Actions.openEditContactDialog,
-        removeContacts          : Actions.removeContacts,
+        // getAdmins             : Actions.getAdmins,
+        toggleInSelectedAdmins: Actions.toggleInSelectedAdmins,
+        selectAllAdmins       : Actions.selectAllAdmins,
+        deSelectAllAdmins     : Actions.deSelectAllAdmins,
+        openEditAdminDialog   : Actions.openEditAdminDialog,
+        removeAdmins          : Actions.removeAdmins,
         removeAdminUser           : Actions.removeAdminUser,
-        toggleStarredContact    : Actions.toggleStarredContact,
-        toggleStarredContacts   : Actions.toggleStarredContacts,
-        setContactsStarred      : Actions.setContactsStarred,
-        setContactsUnstarred    : Actions.setContactsUnstarred
+        toggleStarredAdmin    : Actions.toggleStarredAdmin,
+        toggleStarredAdmins   : Actions.toggleStarredAdmins,
+        setAdminsStarred      : Actions.setAdminsStarred,
+        setAdminsUnstarred    : Actions.setAdminsUnstarred
     }, dispatch);
 }
 
 function mapStateToProps({adminUserApp})
 {
     return {
-        contacts          : adminUserApp.adminUser.entities,
-        selectedContactIds: adminUserApp.adminUser.selectedContactIds,
+        admins          : adminUserApp.adminUser.entities,
+        selectedAdminIds: adminUserApp.adminUser.selectedAdminIds,
         searchText        : adminUserApp.adminUser.searchText,
         user              : adminUserApp.user
     }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(ContactsList));
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(AdminsList));

@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './AdminUsersList';
-import ContactsHeader from './AdminUserHeader';
-import ContactDialog from './AdminUserDialog';
+import AdminsList from './AdminUsersList';
+import AdminsHeader from './AdminUserHeader';
+import AdminDialog from './AdminUserDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class AdminUserApp extends Component {
   }
 
   render() {
-      const { classes, openNewContactDialog } = this.props;
+      const { classes, openNewAdminDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class AdminUserApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<AdminsHeader pageLayout={() => this.pageLayout} />}
+          content={<AdminsList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class AdminUserApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewAdminDialog}
           >
             <Icon>person_add</Icon>
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <AdminDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getAllAdminUsers: Actions.getAllAdminUsers,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewAdminDialog: Actions.openNewAdminDialog
     },
     dispatch
   );
@@ -82,8 +82,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ adminUserApp }) {
   return {
-    contacts: adminUserApp.adminUser.entities,
-    selectedContactIds: adminUserApp.adminUser.selectedContactIds,
+    admins: adminUserApp.adminUser.entities,
+    selectedAdminIds: adminUserApp.adminUser.selectedAdminIds,
     searchText: adminUserApp.adminUser.searchText,
     user: adminUserApp.user
   };

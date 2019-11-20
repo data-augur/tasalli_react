@@ -7,27 +7,27 @@ export const UPDATE_ADMIN_USER = '[ADMIN USERS APP] UPDATE ADMINUSER';
 export const ADD_ADMIN_USER = '[ADMIN USERS APP] Add ADMINUSER';
 export const REMOVE_ADMIN_USER = '[ADMIN USERS APP] REMOVE ADMINUSER';
 
-export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
-export const TOGGLE_IN_SELECTED_CONTACTS =
-  '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
-export const SELECT_ALL_CONTACTS = '[CONTACTS APP] SELECT ALL CONTACTS';
-export const DESELECT_ALL_CONTACTS = '[CONTACTS APP] DESELECT ALL CONTACTS';
-export const OPEN_NEW_CONTACT_DIALOG = '[CONTACTS APP] OPEN NEW CONTACT DIALOG';
-export const CLOSE_NEW_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE NEW CONTACT DIALOG';
-export const OPEN_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
-export const CLOSE_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
-export const ADD_CONTACT = '[CONTACTS APP] ADD CONTACT';
-export const UPDATE_CONTACT = '[CONTACTS APP] UPDATE CONTACT';
-export const REMOVE_CONTACT = '[CONTACTS APP] REMOVE CONTACT';
-export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
-export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
-export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
-export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
+export const SET_SEARCH_TEXT = '[ADMINS APP] SET SEARCH TEXT';
+export const TOGGLE_IN_SELECTED_ADMINS =
+  '[ADMINS APP] TOGGLE IN SELECTED ADMINS';
+export const SELECT_ALL_ADMINS = '[ADMINS APP] SELECT ALL ADMINS';
+export const DESELECT_ALL_ADMINS = '[ADMINS APP] DESELECT ALL ADMINS';
+export const OPEN_NEW_ADMIN_DIALOG = '[ADMINS APP] OPEN NEW ADMIN DIALOG';
+export const CLOSE_NEW_ADMIN_DIALOG =
+  '[ADMINS APP] CLOSE NEW ADMIN DIALOG';
+export const OPEN_EDIT_ADMIN_DIALOG =
+  '[ADMINS APP] OPEN EDIT ADMIN DIALOG';
+export const CLOSE_EDIT_ADMIN_DIALOG =
+  '[ADMINS APP] CLOSE EDIT ADMIN DIALOG';
+export const ADD_ADMIN = '[ADMINS APP] ADD ADMIN';
+export const UPDATE_ADMIN = '[ADMINS APP] UPDATE ADMIN';
+export const REMOVE_ADMIN = '[ADMINS APP] REMOVE ADMIN';
+export const REMOVE_ADMINS = '[ADMINS APP] REMOVE ADMINS';
+export const TOGGLE_STARRED_ADMIN = '[ADMINS APP] TOGGLE STARRED ADMIN';
+export const TOGGLE_STARRED_ADMINS = '[ADMINS APP] TOGGLE STARRED ADMINS';
+export const SET_ADMINS_STARRED = '[ADMINS APP] SET ADMINS STARRED ';
 
-// export function getContacts(routeParams) {
+// export function getAdmins(routeParams) {
 //   const token = localStorage.getItem('jwtToken');
 
 //   const headers = {
@@ -59,11 +59,11 @@ export const getAllAdminUsers = () => dispatch => {
       //   });
     });
 };
-export const addAdminUser = newContact => dispatch => {
+export const addAdminUser = newAdmin => dispatch => {
 
     axios
-    // .post(Base_URL+'create-brand-user', newContact)
-        .post(Base_URL+'create-tasali-admin', newContact)
+    // .post(Base_URL+'create-brand-user', newAdmin)
+        .post(Base_URL+'create-tasali-admin', newAdmin)
         .then(res => {
             if(res.request.status===200)
             {
@@ -132,35 +132,35 @@ export const removeAdminUser = id => dispatch => {
     });
 };
 
-// export function updateContact(contact) {
+// export function updateAdmin(admin) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().adminsApp.admins;
 
 //     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
-//       contact
+//       admin
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_ADMIN
 //         })
 //       ]).then(() => dispatch(getAllAppUsers(routeParams)))
 //     );
 //   };
 // }
-// export function addContact(newContact) {
+// export function addAdmin(newAdmin) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().adminsApp.admins;
 
 //     const request = axios.post(Base_URL+'create-brand-user', {
-//       newContact
+//       newAdmin
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: ADD_CONTACT
+//           type: ADD_ADMIN
 //         })
 //       ]).then(() => dispatch(getAllAppUsers(routeParams)))
 //     );
@@ -174,182 +174,182 @@ export function setSearchText(event) {
   };
 }
 
-export function toggleInSelectedContacts(contactId) {
+export function toggleInSelectedAdmins(adminId) {
   return {
-    type: TOGGLE_IN_SELECTED_CONTACTS,
-    contactId
+    type: TOGGLE_IN_SELECTED_ADMINS,
+    adminId
   };
 }
 
-export function selectAllContacts() {
+export function selectAllAdmins() {
   return {
-    type: SELECT_ALL_CONTACTS
+    type: SELECT_ALL_ADMINS
   };
 }
 
-export function deSelectAllContacts() {
+export function deSelectAllAdmins() {
   return {
-    type: DESELECT_ALL_CONTACTS
+    type: DESELECT_ALL_ADMINS
   };
 }
 
-export function openNewContactDialog() {
+export function openNewAdminDialog() {
   return {
-    type: OPEN_NEW_CONTACT_DIALOG
+    type: OPEN_NEW_ADMIN_DIALOG
   };
 }
 
-export function closeNewContactDialog() {
+export function closeNewAdminDialog() {
   return {
-    type: CLOSE_NEW_CONTACT_DIALOG
+    type: CLOSE_NEW_ADMIN_DIALOG
   };
 }
 
-export function openEditContactDialog(data) {
+export function openEditAdminDialog(data) {
   return {
-    type: OPEN_EDIT_CONTACT_DIALOG,
+    type: OPEN_EDIT_ADMIN_DIALOG,
     data
   };
 }
 
-export function closeEditContactDialog() {
+export function closeEditAdminDialog() {
   return {
-    type: CLOSE_EDIT_CONTACT_DIALOG
+    type: CLOSE_EDIT_ADMIN_DIALOG
   };
 }
 
-// export function updateContact(contact) {
+// export function updateAdmin(admin) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().adminsApp.admins;
 
-//     const request = axios.post('/api/contacts-app/update-contact', {
-//       contact
+//     const request = axios.post('/api/admins-app/update-admin', {
+//       admin
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_ADMIN
 //         })
 //       ]).then(() => dispatch(getAllAppUsers(routeParams)))
 //     );
 //   };
 // }
 
-// export function removeContact(contactId) {
+// export function removeAdmin(adminId) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().adminsApp.admins;
 
 //     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
-//       contactId
+//       adminId
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: REMOVE_CONTACT
+//           type: REMOVE_ADMIN
 //         })
 //       ]).then(() => dispatch(getAllAppUsers(routeParams)))
 //     );
 //   };
 // }
 
-export function removeContacts(contactIds) {
+export function removeAdmins(adminIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().adminsApp.admins;
 
-    const request = axios.post('/api/contacts-app/remove-contacts', {
-      contactIds
+    const request = axios.post('/api/admins-app/remove-admins', {
+      adminIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: REMOVE_CONTACTS
+          type: REMOVE_ADMINS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_ADMINS
         })
       ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
 }
 
-export function toggleStarredContact(contactId) {
+export function toggleStarredAdmin(adminId) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().adminsApp.admins;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contact', {
-      contactId
+    const request = axios.post('/api/admins-app/toggle-starred-admin', {
+      adminId
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACT
+          type: TOGGLE_STARRED_ADMIN
         }),
       ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
 }
 
-export function toggleStarredContacts(contactIds) {
+export function toggleStarredAdmins(adminIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().adminsApp.admins;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contacts', {
-      contactIds
+    const request = axios.post('/api/admins-app/toggle-starred-admins', {
+      adminIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACTS
+          type: TOGGLE_STARRED_ADMINS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_ADMINS
         }),
       ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
 }
 
-export function setContactsStarred(contactIds) {
+export function setAdminsStarred(adminIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().adminsApp.admins;
 
-    const request = axios.post('/api/contacts-app/set-contacts-starred', {
-      contactIds
+    const request = axios.post('/api/admins-app/set-admins-starred', {
+      adminIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_ADMINS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_ADMINS
         }),
       ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
 }
 
-export function setContactsUnstarred(contactIds) {
+export function setAdminsUnstarred(adminIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().adminsApp.admins;
 
-    const request = axios.post('/api/contacts-app/set-contacts-unstarred', {
-      contactIds
+    const request = axios.post('/api/admins-app/set-admins-unstarred', {
+      adminIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_ADMINS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_ADMINS
         }),
       ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );

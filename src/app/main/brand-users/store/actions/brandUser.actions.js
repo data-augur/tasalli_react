@@ -9,27 +9,27 @@ export const ADD_BRAND_USER = '[BRAND USERS APP] Add BRANDUSER';
 export const UPDATE_BRAND_USER = '[BRAND USERS APP] UPDATE BRANDUSER';
 export const REMOVE_BRAND_USER = '[BRAND USERS APP] REMOVE BRANDUSER';
 
-export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
-export const TOGGLE_IN_SELECTED_CONTACTS =
-  '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
-export const SELECT_ALL_CONTACTS = '[CONTACTS APP] SELECT ALL CONTACTS';
-export const DESELECT_ALL_CONTACTS = '[CONTACTS APP] DESELECT ALL CONTACTS';
-export const OPEN_NEW_CONTACT_DIALOG = '[CONTACTS APP] OPEN NEW CONTACT DIALOG';
-export const CLOSE_NEW_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE NEW CONTACT DIALOG';
-export const OPEN_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
-export const CLOSE_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
-export const ADD_CONTACT = '[CONTACTS APP] ADD CONTACT';
-export const UPDATE_CONTACT = '[CONTACTS APP] UPDATE CONTACT';
-export const REMOVE_CONTACT = '[CONTACTS APP] REMOVE CONTACT';
-export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
-export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
-export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
-export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
+export const SET_SEARCH_TEXT = '[BRANDUSERS APP] SET SEARCH TEXT';
+export const TOGGLE_IN_SELECTED_BRANDUSERS =
+  '[BRANDUSERS APP] TOGGLE IN SELECTED BRANDUSERS';
+export const SELECT_ALL_BRANDUSERS = '[BRANDUSERS APP] SELECT ALL BRANDUSERS';
+export const DESELECT_ALL_BRANDUSERS = '[BRANDUSERS APP] DESELECT ALL BRANDUSERS';
+export const OPEN_NEW_BRANDUSER_DIALOG = '[BRANDUSERS APP] OPEN NEW BRANDUSER DIALOG';
+export const CLOSE_NEW_BRANDUSER_DIALOG =
+  '[BRANDUSERS APP] CLOSE NEW BRANDUSER DIALOG';
+export const OPEN_EDIT_BRANDUSER_DIALOG =
+  '[BRANDUSERS APP] OPEN EDIT BRANDUSER DIALOG';
+export const CLOSE_EDIT_BRANDUSER_DIALOG =
+  '[BRANDUSERS APP] CLOSE EDIT BRANDUSER DIALOG';
+export const ADD_BRANDUSER = '[BRANDUSERS APP] ADD BRANDUSER';
+export const UPDATE_BRANDUSER = '[BRANDUSERS APP] UPDATE BRANDUSER';
+export const REMOVE_BRANDUSER = '[BRANDUSERS APP] REMOVE BRANDUSER';
+export const REMOVE_BRANDUSERS = '[BRANDUSERS APP] REMOVE BRANDUSERS';
+export const TOGGLE_STARRED_BRANDUSER = '[BRANDUSERS APP] TOGGLE STARRED BRANDUSER';
+export const TOGGLE_STARRED_BRANDUSERS = '[BRANDUSERS APP] TOGGLE STARRED BRANDUSERS';
+export const SET_BRANDUSERS_STARRED = '[BRANDUSERS APP] SET BRANDUSERS STARRED ';
 
-// export function getContacts(routeParams) {
+// export function getBrandUsers(routeParams) {
 //   const token = localStorage.getItem('jwtToken');
 
 //   const headers = {
@@ -101,11 +101,11 @@ export const getBrandUsers = () => dispatch => {
       //   });
     });
 };
-export const addBrandUser = newContact => dispatch => {
+export const addBrandUser = newBrandUser => dispatch => {
 
   axios
-    // .post(Base_URL+'create-brand-user', newContact)
-    .post(Base_URL+'create-brand-user', newContact)
+    // .post(Base_URL+'create-brand-user', newBrandUser)
+    .post(Base_URL+'create-brand-user', newBrandUser)
     .then(res => {
         if(res.request.status===200)
         {
@@ -177,35 +177,35 @@ export const removeBrandUser = id => dispatch => {
     });
 };
 
-// export function updateContact(contact) {
+// export function updateBrandUser(brandUser) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().brandUsersApp.brandUsers;
 
 //     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
-//       contact
+//       brandUser
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_BRANDUSER
 //         })
 //       ]).then(() => dispatch(getBrandUsers(routeParams)))
 //     );
 //   };
 // }
-// export function addContact(newContact) {
+// export function addBrandUser(newBrandUser) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().brandUsersApp.brandUsers;
 
 //     const request = axios.post(Base_URL+'create-brand-user', {
-//       newContact
+//       newBrandUser
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: ADD_CONTACT
+//           type: ADD_BRANDUSER
 //         })
 //       ]).then(() => dispatch(getBrandUsers(routeParams)))
 //     );
@@ -219,182 +219,182 @@ export function setSearchText(event) {
   };
 }
 
-export function toggleInSelectedContacts(contactId) {
+export function toggleInSelectedBrandUsers(brandUserId) {
   return {
-    type: TOGGLE_IN_SELECTED_CONTACTS,
-    contactId
+    type: TOGGLE_IN_SELECTED_BRANDUSERS,
+    brandUserId
   };
 }
 
-export function selectAllContacts() {
+export function selectAllBrandUsers() {
   return {
-    type: SELECT_ALL_CONTACTS
+    type: SELECT_ALL_BRANDUSERS
   };
 }
 
-export function deSelectAllContacts() {
+export function deSelectAllBrandUsers() {
   return {
-    type: DESELECT_ALL_CONTACTS
+    type: DESELECT_ALL_BRANDUSERS
   };
 }
 
-export function openNewContactDialog() {
+export function openNewBrandUserDialog() {
   return {
-    type: OPEN_NEW_CONTACT_DIALOG
+    type: OPEN_NEW_BRANDUSER_DIALOG
   };
 }
 
-export function closeNewContactDialog() {
+export function closeNewBrandUserDialog() {
   return {
-    type: CLOSE_NEW_CONTACT_DIALOG
+    type: CLOSE_NEW_BRANDUSER_DIALOG
   };
 }
 
-export function openEditContactDialog(data) {
+export function openEditBrandUserDialog(data) {
   return {
-    type: OPEN_EDIT_CONTACT_DIALOG,
+    type: OPEN_EDIT_BRANDUSER_DIALOG,
     data
   };
 }
 
-export function closeEditContactDialog() {
+export function closeEditBrandUserDialog() {
   return {
-    type: CLOSE_EDIT_CONTACT_DIALOG
+    type: CLOSE_EDIT_BRANDUSER_DIALOG
   };
 }
 
-// export function updateContact(contact) {
+// export function updateBrandUser(brandUser) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().brandUsersApp.brandUsers;
 
-//     const request = axios.post('/api/contacts-app/update-contact', {
-//       contact
+//     const request = axios.post('/api/brandUsers-app/update-brandUser', {
+//       brandUser
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_BRANDUSER
 //         })
 //       ]).then(() => dispatch(getBrandUsers(routeParams)))
 //     );
 //   };
 // }
 
-// export function removeContact(contactId) {
+// export function removeBrandUser(brandUserId) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().brandUsersApp.brandUsers;
 
 //     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
-//       contactId
+//       brandUserId
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: REMOVE_CONTACT
+//           type: REMOVE_BRANDUSER
 //         })
 //       ]).then(() => dispatch(getBrandUsers(routeParams)))
 //     );
 //   };
 // }
 
-export function removeContacts(contactIds) {
+export function removeBrandUsers(brandUserIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().brandUsersApp.brandUsers;
 
-    const request = axios.post('/api/contacts-app/remove-contacts', {
-      contactIds
+    const request = axios.post('/api/brandUsers-app/remove-brandUsers', {
+      brandUserIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: REMOVE_CONTACTS
+          type: REMOVE_BRANDUSERS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_BRANDUSERS
         })
       ]).then(() => dispatch(getBrandUsers(routeParams)))
     );
   };
 }
 
-export function toggleStarredContact(contactId) {
+export function toggleStarredBrandUser(brandUserId) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().brandUsersApp.brandUsers;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contact', {
-      contactId
+    const request = axios.post('/api/brandUsers-app/toggle-starred-brandUser', {
+      brandUserId
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACT
+          type: TOGGLE_STARRED_BRANDUSER
         }),
       ]).then(() => dispatch(getBrandUsers(routeParams)))
     );
   };
 }
 
-export function toggleStarredContacts(contactIds) {
+export function toggleStarredBrandUsers(brandUserIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().brandUsersApp.brandUsers;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contacts', {
-      contactIds
+    const request = axios.post('/api/brandUsers-app/toggle-starred-brandUsers', {
+      brandUserIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACTS
+          type: TOGGLE_STARRED_BRANDUSERS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_BRANDUSERS
         }),
       ]).then(() => dispatch(getBrandUsers(routeParams)))
     );
   };
 }
 
-export function setContactsStarred(contactIds) {
+export function setBrandUsersStarred(brandUserIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().brandUsersApp.brandUsers;
 
-    const request = axios.post('/api/contacts-app/set-contacts-starred', {
-      contactIds
+    const request = axios.post('/api/brandUsers-app/set-brandUsers-starred', {
+      brandUserIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_BRANDUSERS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_BRANDUSERS
         }),
       ]).then(() => dispatch(getBrandUsers(routeParams)))
     );
   };
 }
 
-export function setContactsUnstarred(contactIds) {
+export function setBrandUsersUnstarred(brandUserIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().brandUsersApp.brandUsers;
 
-    const request = axios.post('/api/contacts-app/set-contacts-unstarred', {
-      contactIds
+    const request = axios.post('/api/brandUsers-app/set-brandUsers-unstarred', {
+      brandUserIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_BRANDUSERS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_BRANDUSERS
         }),
       ]).then(() => dispatch(getBrandUsers(routeParams)))
     );

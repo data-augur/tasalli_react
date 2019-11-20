@@ -7,9 +7,9 @@ const initialState = {
   brands: [],
   companies: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedBrandUserIds: [],
   routeParams: {},
-  contactDialog: {
+  brandUserDialog: {
     type: 'new',
     props: {
       open: false
@@ -26,9 +26,9 @@ const brandUserReducer = function(state = initialState, action) {
         entities: [],
         brands: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedBrandUserIds: [],
         routeParams: {},
-        contactDialog: {
+        brandUserDialog: {
           type: 'new',
           props: {
             open: false
@@ -79,42 +79,42 @@ const brandUserReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_BRANDUSERS: {
+      const brandUserId = action.brandUserId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedBrandUserIds = [...state.selectedBrandUserIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedBrandUserIds.find(id => id === brandUserId) !== undefined) {
+        selectedBrandUserIds = selectedBrandUserIds.filter(id => id !== brandUserId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedBrandUserIds = [...selectedBrandUserIds, brandUserId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedBrandUserIds: selectedBrandUserIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_BRANDUSERS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedBrandUserIds = arr.map(brandUser => brandUser.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedBrandUserIds: selectedBrandUserIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_BRANDUSERS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedBrandUserIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_BRANDUSER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        brandUserDialog: {
           type: 'new',
           props: {
             open: true
@@ -123,10 +123,10 @@ const brandUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_BRANDUSER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        brandUserDialog: {
           type: 'new',
           props: {
             open: false
@@ -135,10 +135,10 @@ const brandUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_BRANDUSER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        brandUserDialog: {
           type: 'edit',
           props: {
             open: true
@@ -147,10 +147,10 @@ const brandUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_BRANDUSER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        brandUserDialog: {
           type: 'edit',
           props: {
             open: false

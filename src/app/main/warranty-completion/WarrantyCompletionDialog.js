@@ -16,34 +16,34 @@ import * as Actions from './store/actions';
 import { connect } from 'react-redux';
 import _ from '@lodash';
 
-const newContactState = {
+const newWarrantyCompletionState = {
   formName: '',
   companyId: '',
   id: '',
   attributes: []
 };
 
-class ContactDialog extends Component {
-  state = { ...newContactState };
+class WarrantyCompletionDialog extends Component {
+  state = { ...newWarrantyCompletionState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     /**
      * After Dialog Open
      */
     if (
-      !prevProps.contactDialog.props.open &&
-      this.props.contactDialog.props.open
+      !prevProps.warrantyCompletionDialog.props.open &&
+      this.props.warrantyCompletionDialog.props.open
     ) {
       /**
        * Dialog type: 'edit'
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'edit' &&
-        this.props.contactDialog.data &&
-        !_.isEqual(this.props.contactDialog.data, prevState)
+        this.props.warrantyCompletionDialog.type === 'edit' &&
+        this.props.warrantyCompletionDialog.data &&
+        !_.isEqual(this.props.warrantyCompletionDialog.data, prevState)
       ) {
-        this.setState({ ...this.props.contactDialog.data });
+        this.setState({ ...this.props.warrantyCompletionDialog.data });
       }
 
       /**
@@ -51,10 +51,10 @@ class ContactDialog extends Component {
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'new' &&
-        !_.isEqual(newContactState, prevState)
+        this.props.warrantyCompletionDialog.type === 'new' &&
+        !_.isEqual(newWarrantyCompletionState, prevState)
       ) {
-        this.setState({ ...newContactState });
+        this.setState({ ...newWarrantyCompletionState });
       }
     }
   }
@@ -88,9 +88,9 @@ class ContactDialog extends Component {
   };
 
   closeComposeDialog = () => {
-    this.props.contactDialog.type === 'edit'
-      ? this.props.closeEditContactDialog()
-      : this.props.closeNewContactDialog();
+    this.props.warrantyCompletionDialog.type === 'edit'
+      ? this.props.closeEditWarrantyCompletionDialog()
+      : this.props.closeNewWarrantyCompletionDialog();
   };
 
   canBeSubmitted() {
@@ -99,14 +99,14 @@ class ContactDialog extends Component {
   }
 
   render() {
-    const { contactDialog, addWarrantyCompletion, updateWarrantyCompletion, removeWarrantyCompletion } = this.props;
+    const { warrantyCompletionDialog, addWarrantyCompletion, updateWarrantyCompletion, removeWarrantyCompletion } = this.props;
 
     return (
       <Dialog
         classes={{
           paper: 'm-24'
         }}
-        {...contactDialog.props}
+        {...warrantyCompletionDialog.props}
         onClose={this.closeComposeDialog}
         fullWidth
         maxWidth="sm"
@@ -114,16 +114,16 @@ class ContactDialog extends Component {
         <AppBar position="static" elevation={1}>
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
-              {contactDialog.type === 'new' ? 'New Warranty Completion' : 'Edit Warranty Completion'}
+              {warrantyCompletionDialog.type === 'new' ? 'New Warranty Completion' : 'Edit Warranty Completion'}
             </Typography>
           </Toolbar>
           <div className="flex flex-col items-center justify-center pb-24">
             {/* <Avatar
               className="w-96 h-96"
-              alt="contact avatar"
+              alt="warrantyCompletion avatar"
               src={this.state.avatar}
             /> */}
-            {contactDialog.type === 'edit' && (
+            {warrantyCompletionDialog.type === 'edit' && (
               <Typography variant="h6" color="inherit" className="pt-8">
                 {this.state.formName}
               </Typography>
@@ -225,7 +225,7 @@ class ContactDialog extends Component {
               </div>
         </DialogContent>
 
-        {contactDialog.type === 'new' ? (
+        {warrantyCompletionDialog.type === 'new' ? (
           <DialogActions className="justify-between pl-16">
             <Button
               variant="contained"
@@ -270,8 +270,8 @@ class ContactDialog extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      closeEditContactDialog: Actions.closeEditContactDialog,
-      closeNewContactDialog: Actions.closeNewContactDialog,
+      closeEditWarrantyCompletionDialog: Actions.closeEditWarrantyCompletionDialog,
+      closeNewWarrantyCompletionDialog: Actions.closeNewWarrantyCompletionDialog,
       addWarrantyCompletion: Actions.addWarrantyCompletion,
       updateWarrantyCompletion: Actions.updateWarrantyCompletion,
       removeWarrantyCompletion: Actions.removeWarrantyCompletion
@@ -282,7 +282,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyCompletionApp }) {
   return {
-    contactDialog: warrantyCompletionApp.warrantyCompletion.contactDialog,
+    warrantyCompletionDialog: warrantyCompletionApp.warrantyCompletion.warrantyCompletionDialog,
     companies: warrantyCompletionApp.warrantyCompletion.companies
   };
 }
@@ -290,4 +290,4 @@ function mapStateToProps({ warrantyCompletionApp }) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ContactDialog);
+)(WarrantyCompletionDialog);

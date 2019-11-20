@@ -8,25 +8,25 @@ export const ADD_WARRANTYCOMPLETION = '[WARRANTYCOMPLETION APP] ADD WARRANTYCOMP
 export const UPDATE_WARRANTYCOMPLETION = '[WARRANTYCOMPLETION APP] UPDATE WARRANTYCOMPLETION';
 export const REMOVE_WARRANTYCOMPLETION = '[WARRANTYCOMPLETION APP] REMOVE WARRANTYCOMPLETION';
 
-export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
-export const TOGGLE_IN_SELECTED_CONTACTS =
-  '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
-export const SELECT_ALL_CONTACTS = '[CONTACTS APP] SELECT ALL CONTACTS';
-export const DESELECT_ALL_CONTACTS = '[CONTACTS APP] DESELECT ALL CONTACTS';
-export const OPEN_NEW_CONTACT_DIALOG = '[CONTACTS APP] OPEN NEW CONTACT DIALOG';
-export const CLOSE_NEW_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE NEW CONTACT DIALOG';
-export const OPEN_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
-export const CLOSE_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
+export const SET_SEARCH_TEXT = '[WARRANTYCOMPLETIONS APP] SET SEARCH TEXT';
+export const TOGGLE_IN_SELECTED_WARRANTYCOMPLETIONS =
+  '[WARRANTYCOMPLETIONS APP] TOGGLE IN SELECTED WARRANTYCOMPLETIONS';
+export const SELECT_ALL_WARRANTYCOMPLETIONS = '[WARRANTYCOMPLETIONS APP] SELECT ALL WARRANTYCOMPLETIONS';
+export const DESELECT_ALL_WARRANTYCOMPLETIONS = '[WARRANTYCOMPLETIONS APP] DESELECT ALL WARRANTYCOMPLETIONS';
+export const OPEN_NEW_WARRANTYCOMPLETION_DIALOG = '[WARRANTYCOMPLETIONS APP] OPEN NEW WARRANTYCOMPLETION DIALOG';
+export const CLOSE_NEW_WARRANTYCOMPLETION_DIALOG =
+  '[WARRANTYCOMPLETIONS APP] CLOSE NEW WARRANTYCOMPLETION DIALOG';
+export const OPEN_EDIT_WARRANTYCOMPLETION_DIALOG =
+  '[WARRANTYCOMPLETIONS APP] OPEN EDIT WARRANTYCOMPLETION DIALOG';
+export const CLOSE_EDIT_WARRANTYCOMPLETION_DIALOG =
+  '[WARRANTYCOMPLETIONS APP] CLOSE EDIT WARRANTYCOMPLETION DIALOG';
 
-export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
-export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
-export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
-export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
+export const REMOVE_WARRANTYCOMPLETIONS = '[WARRANTYCOMPLETIONS APP] REMOVE WARRANTYCOMPLETIONS';
+export const TOGGLE_STARRED_WARRANTYCOMPLETION = '[WARRANTYCOMPLETIONS APP] TOGGLE STARRED WARRANTYCOMPLETION';
+export const TOGGLE_STARRED_WARRANTYCOMPLETIONS = '[WARRANTYCOMPLETIONS APP] TOGGLE STARRED WARRANTYCOMPLETIONS';
+export const SET_WARRANTYCOMPLETIONS_STARRED = '[WARRANTYCOMPLETIONS APP] SET WARRANTYCOMPLETIONS STARRED ';
 
-// export function getContacts(routeParams) {
+// export function getWarrantyCompletions(routeParams) {
 //   const token = localStorage.getItem('jwtToken');
 
 //   const headers = {
@@ -106,10 +106,10 @@ export const getWarrantyCompletion = () => dispatch => {
       //   });
     });
 };
-export const addWarrantyCompletion = newContact => dispatch => {
+export const addWarrantyCompletion = newWarrantyCompletion => dispatch => {
     axios
-    // .post(Base_URL+'create-brand', newContact)
-    .post(Base_URL+'create-warranty-completion-form', newContact)
+    // .post(Base_URL+'create-brand', newWarrantyCompletion)
+    .post(Base_URL+'create-warranty-completion-form', newWarrantyCompletion)
     .then(res => {
         if(res.request.status===200)
         {
@@ -178,37 +178,37 @@ export const removeWarrantyCompletion = id => dispatch => {
     });
 };
 
-// export function updateContact(contact) {
+// export function updateWarrantyCompletion(warrantyCompletion) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().warrantyCompletionsApp.warrantyCompletions;
 
 //     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
-//       contact
+//       warrantyCompletion
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_WARRANTYCOMPLETION
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getWarrantyCompletions(routeParams)))
 //     );
 //   };
 // }
-// export function addContact(newContact) {
+// export function addWarrantyCompletion(newWarrantyCompletion) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().warrantyCompletionsApp.warrantyCompletions;
 
 //     const request = axios.post(Base_URL+'create-brand-user', {
-//       newContact
+//       newWarrantyCompletion
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: ADD_CONTACT
+//           type: ADD_WARRANTYCOMPLETION
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getWarrantyCompletions(routeParams)))
 //     );
 //   };
 // }
@@ -220,182 +220,182 @@ export function setSearchText(event) {
   };
 }
 
-export function toggleInSelectedContacts(contactId) {
+export function toggleInSelectedWarrantyCompletions(warrantyCompletionId) {
   return {
-    type: TOGGLE_IN_SELECTED_CONTACTS,
-    contactId
+    type: TOGGLE_IN_SELECTED_WARRANTYCOMPLETIONS,
+    warrantyCompletionId
   };
 }
 
-export function selectAllContacts() {
+export function selectAllWarrantyCompletions() {
   return {
-    type: SELECT_ALL_CONTACTS
+    type: SELECT_ALL_WARRANTYCOMPLETIONS
   };
 }
 
-export function deSelectAllContacts() {
+export function deSelectAllWarrantyCompletions() {
   return {
-    type: DESELECT_ALL_CONTACTS
+    type: DESELECT_ALL_WARRANTYCOMPLETIONS
   };
 }
 
-export function openNewContactDialog() {
+export function openNewWarrantyCompletionDialog() {
   return {
-    type: OPEN_NEW_CONTACT_DIALOG
+    type: OPEN_NEW_WARRANTYCOMPLETION_DIALOG
   };
 }
 
-export function closeNewContactDialog() {
+export function closeNewWarrantyCompletionDialog() {
   return {
-    type: CLOSE_NEW_CONTACT_DIALOG
+    type: CLOSE_NEW_WARRANTYCOMPLETION_DIALOG
   };
 }
 
-export function openEditContactDialog(data) {
+export function openEditWarrantyCompletionDialog(data) {
   return {
-    type: OPEN_EDIT_CONTACT_DIALOG,
+    type: OPEN_EDIT_WARRANTYCOMPLETION_DIALOG,
     data
   };
 }
 
-export function closeEditContactDialog() {
+export function closeEditWarrantyCompletionDialog() {
   return {
-    type: CLOSE_EDIT_CONTACT_DIALOG
+    type: CLOSE_EDIT_WARRANTYCOMPLETION_DIALOG
   };
 }
 
-// export function updateContact(contact) {
+// export function updateWarrantyCompletion(warrantyCompletion) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().warrantyCompletionsApp.warrantyCompletions;
 
-//     const request = axios.post('/api/contacts-app/update-contact', {
-//       contact
+//     const request = axios.post('/api/warrantyCompletions-app/update-warrantyCompletion', {
+//       warrantyCompletion
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_WARRANTYCOMPLETION
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getWarrantyCompletions(routeParams)))
 //     );
 //   };
 // }
 
-// export function removeContact(contactId) {
+// export function removeWarrantyCompletion(warrantyCompletionId) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().warrantyCompletionsApp.warrantyCompletions;
 
 //     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
-//       contactId
+//       warrantyCompletionId
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: REMOVE_CONTACT
+//           type: REMOVE_WARRANTYCOMPLETION
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getWarrantyCompletions(routeParams)))
 //     );
 //   };
 // }
 
-export function removeContacts(contactIds) {
+export function removeWarrantyCompletions(warrantyCompletionIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyCompletionsApp.warrantyCompletions;
 
-    const request = axios.post('/api/contacts-app/remove-contacts', {
-      contactIds
+    const request = axios.post('/api/warrantyCompletions-app/remove-warrantyCompletions', {
+      warrantyCompletionIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: REMOVE_CONTACTS
+          type: REMOVE_WARRANTYCOMPLETIONS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_WARRANTYCOMPLETIONS
         })
       ]).then(() => dispatch(getWarrantyCompletion(routeParams)))
     );
   };
 }
 
-export function toggleStarredContact(contactId) {
+export function toggleStarredWarrantyCompletion(warrantyCompletionId) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyCompletionsApp.warrantyCompletions;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contact', {
-      contactId
+    const request = axios.post('/api/warrantyCompletions-app/toggle-starred-warrantyCompletion', {
+      warrantyCompletionId
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACT
+          type: TOGGLE_STARRED_WARRANTYCOMPLETION
         }),
       ]).then(() => dispatch(getWarrantyCompletion(routeParams)))
     );
   };
 }
 
-export function toggleStarredContacts(contactIds) {
+export function toggleStarredWarrantyCompletions(warrantyCompletionIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyCompletionsApp.warrantyCompletions;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contacts', {
-      contactIds
+    const request = axios.post('/api/warrantyCompletions-app/toggle-starred-warrantyCompletions', {
+      warrantyCompletionIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACTS
+          type: TOGGLE_STARRED_WARRANTYCOMPLETIONS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_WARRANTYCOMPLETIONS
         }),
       ]).then(() => dispatch(getWarrantyCompletion(routeParams)))
     );
   };
 }
 
-export function setContactsStarred(contactIds) {
+export function setWarrantyCompletionsStarred(warrantyCompletionIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyCompletionsApp.warrantyCompletions;
 
-    const request = axios.post('/api/contacts-app/set-contacts-starred', {
-      contactIds
+    const request = axios.post('/api/warrantyCompletions-app/set-warrantyCompletions-starred', {
+      warrantyCompletionIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_WARRANTYCOMPLETIONS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_WARRANTYCOMPLETIONS
         }),
       ]).then(() => dispatch(getWarrantyCompletion(routeParams)))
     );
   };
 }
 
-export function setContactsUnstarred(contactIds) {
+export function setWarrantyCompletionsUnstarred(warrantyCompletionIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyCompletionsApp.warrantyCompletions;
 
-    const request = axios.post('/api/contacts-app/set-contacts-unstarred', {
-      contactIds
+    const request = axios.post('/api/warrantyCompletions-app/set-warrantyCompletions-unstarred', {
+      warrantyCompletionIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_WARRANTYCOMPLETIONS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_WARRANTYCOMPLETIONS
         }),
       ]).then(() => dispatch(getWarrantyCompletion(routeParams)))
     );

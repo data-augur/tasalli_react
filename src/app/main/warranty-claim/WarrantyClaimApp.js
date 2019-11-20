@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './WarrantyClaimList';
-import ContactsHeader from './WarrantyClaimHeader';
-import ContactDialog from './WarrantyClaimDialog';
+import WarrantyClaimsList from './WarrantyClaimList';
+import WarrantyClaimsHeader from './WarrantyClaimHeader';
+import WarrantyClaimDialog from './WarrantyClaimDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class WarrantyClaimApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewWarrantyClaimDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class WarrantyClaimApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<WarrantyClaimsHeader pageLayout={() => this.pageLayout} />}
+          content={<WarrantyClaimsList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class WarrantyClaimApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewWarrantyClaimDialog}
           >
             <Icon>add</Icon>
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <WarrantyClaimDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getWarrantyClaim: Actions.getWarrantyClaim,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewWarrantyClaimDialog: Actions.openNewWarrantyClaimDialog
     },
     dispatch
   );
@@ -82,8 +82,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyClaimApp }) {
   return {
-    // contacts: brandsApp.brands.entities,
-    selectedContactIds: warrantyClaimApp.warrantyClaim.selectedContactIds,
+    // warrantyClaims: brandsApp.brands.entities,
+    selectedWarrantyClaimIds: warrantyClaimApp.warrantyClaim.selectedWarrantyClaimIds,
     searchText: warrantyClaimApp.warrantyClaim.searchText,
     user: warrantyClaimApp.user
   };

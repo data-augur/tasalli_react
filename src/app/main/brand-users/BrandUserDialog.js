@@ -40,7 +40,7 @@ const gender = [
     label: 'Female'
   }
 ];
-const newContactState = {
+const newBrandUserState = {
   name: '',
   password: '',
   email: '',
@@ -52,27 +52,27 @@ const newContactState = {
   companyId: null
 };
 
-class ContactDialog extends Component {
-  state = { ...newContactState };
+class BrandUserDialog extends Component {
+  state = { ...newBrandUserState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     /**
      * After Dialog Open
      */
     if (
-      !prevProps.contactDialog.props.open &&
-      this.props.contactDialog.props.open
+      !prevProps.brandUserDialog.props.open &&
+      this.props.brandUserDialog.props.open
     ) {
       /**
        * Dialog type: 'edit'
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'edit' &&
-        this.props.contactDialog.data &&
-        !_.isEqual(this.props.contactDialog.data, prevState)
+        this.props.brandUserDialog.type === 'edit' &&
+        this.props.brandUserDialog.data &&
+        !_.isEqual(this.props.brandUserDialog.data, prevState)
       ) {
-        this.setState({ ...this.props.contactDialog.data });
+        this.setState({ ...this.props.brandUserDialog.data });
       }
 
       /**
@@ -80,10 +80,10 @@ class ContactDialog extends Component {
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'new' &&
-        !_.isEqual(newContactState, prevState)
+        this.props.brandUserDialog.type === 'new' &&
+        !_.isEqual(newBrandUserState, prevState)
       ) {
-        this.setState({ ...newContactState });
+        this.setState({ ...newBrandUserState });
       }
     }
   }
@@ -101,9 +101,9 @@ class ContactDialog extends Component {
   };
 
   closeComposeDialog = () => {
-    this.props.contactDialog.type === 'edit'
-      ? this.props.closeEditContactDialog()
-      : this.props.closeNewContactDialog();
+    this.props.brandUserDialog.type === 'edit'
+      ? this.props.closeEditBrandUserDialog()
+      : this.props.closeNewBrandUserDialog();
   };
 
   canBeSubmitted() {
@@ -126,7 +126,7 @@ class ContactDialog extends Component {
 
   render() {
     const {
-      contactDialog,
+      brandUserDialog,
       addBrandUser,
       updateBrandUser,
       removeBrandUser
@@ -136,7 +136,7 @@ class ContactDialog extends Component {
         classes={{
           paper: 'm-24'
         }}
-        {...contactDialog.props}
+        {...brandUserDialog.props}
         onClose={this.closeComposeDialog}
         fullWidth
         maxWidth="xs"
@@ -144,7 +144,7 @@ class ContactDialog extends Component {
         <AppBar position="static" elevation={1}>
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
-              {contactDialog.type === 'new'
+              {brandUserDialog.type === 'new'
                 ? 'New Company User'
                 : 'Edit Company User'}
             </Typography>
@@ -152,10 +152,10 @@ class ContactDialog extends Component {
           <div className="flex flex-col items-center justify-center pb-24">
             {/* <Avatar
               className="w-96 h-96"
-              alt="contact avatar"
+              alt="brandUser avatar"
               src={this.state.avatar}
             /> */}
-            {contactDialog.type === 'edit' && (
+            {brandUserDialog.type === 'edit' && (
               <Typography variant="h6" color="inherit" className="pt-8">
                 {this.state.name}
               </Typography>
@@ -200,7 +200,7 @@ class ContactDialog extends Component {
             />
           </div>
 
-          {contactDialog.type === 'new' ? (
+          {brandUserDialog.type === 'new' ? (
             <div className="flex">
               <div className="min-w-48 pt-20">
                 <Icon color="action">lock</Icon>
@@ -388,7 +388,7 @@ class ContactDialog extends Component {
                     </div> */}
         </DialogContent>
 
-        {contactDialog.type === 'new' ? (
+        {brandUserDialog.type === 'new' ? (
           <DialogActions className="justify-between pl-16">
             <Button
               variant="contained"
@@ -445,8 +445,8 @@ class ContactDialog extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      closeEditContactDialog: Actions.closeEditContactDialog,
-      closeNewContactDialog: Actions.closeNewContactDialog,
+      closeEditBrandUserDialog: Actions.closeEditBrandUserDialog,
+      closeNewBrandUserDialog: Actions.closeNewBrandUserDialog,
       addBrandUser: Actions.addBrandUser,
       updateBrandUser: Actions.updateBrandUser,
       removeBrandUser: Actions.removeBrandUser,
@@ -458,7 +458,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ brandUserApp }) {
   return {
-    contactDialog: brandUserApp.brandUser.contactDialog,
+    brandUserDialog: brandUserApp.brandUser.brandUserDialog,
     brands: brandUserApp.brandUser.brands,
     companies: brandUserApp.brandUser.companies,
     login: brandUserApp.login,
@@ -469,4 +469,4 @@ function mapStateToProps({ brandUserApp }) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ContactDialog);
+)(BrandUserDialog);

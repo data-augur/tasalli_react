@@ -16,33 +16,33 @@ import * as Actions from './store/actions';
 import { connect } from 'react-redux';
 import _ from '@lodash';
 
-const newContactState = {
+const newWarrantyClaimState = {
   formName: '',
   companyId: ''
   // id: ''
 };
 
-class ContactDialog extends Component {
-  state = { ...newContactState };
+class WarrantyClaimDialog extends Component {
+  state = { ...newWarrantyClaimState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     /**
      * After Dialog Open
      */
     if (
-      !prevProps.contactDialog.props.open &&
-      this.props.contactDialog.props.open
+      !prevProps.warrantyClaimDialog.props.open &&
+      this.props.warrantyClaimDialog.props.open
     ) {
       /**
        * Dialog type: 'edit'
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'edit' &&
-        this.props.contactDialog.data &&
-        !_.isEqual(this.props.contactDialog.data, prevState)
+        this.props.warrantyClaimDialog.type === 'edit' &&
+        this.props.warrantyClaimDialog.data &&
+        !_.isEqual(this.props.warrantyClaimDialog.data, prevState)
       ) {
-        this.setState({ ...this.props.contactDialog.data });
+        this.setState({ ...this.props.warrantyClaimDialog.data });
       }
 
       /**
@@ -50,10 +50,10 @@ class ContactDialog extends Component {
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'new' &&
-        !_.isEqual(newContactState, prevState)
+        this.props.warrantyClaimDialog.type === 'new' &&
+        !_.isEqual(newWarrantyClaimState, prevState)
       ) {
-        this.setState({ ...newContactState });
+        this.setState({ ...newWarrantyClaimState });
       }
     }
   }
@@ -71,9 +71,9 @@ class ContactDialog extends Component {
   };
 
   closeComposeDialog = () => {
-    this.props.contactDialog.type === 'edit'
-      ? this.props.closeEditContactDialog()
-      : this.props.closeNewContactDialog();
+    this.props.warrantyClaimDialog.type === 'edit'
+      ? this.props.closeEditWarrantyClaimDialog()
+      : this.props.closeNewWarrantyClaimDialog();
   };
 
   canBeSubmitted() {
@@ -82,14 +82,14 @@ class ContactDialog extends Component {
   }
 
   render() {
-    const { contactDialog, addWarrantyClaim, updateWarrantyClaim, removeWarrantyClaim } = this.props;
+    const { warrantyClaimDialog, addWarrantyClaim, updateWarrantyClaim, removeWarrantyClaim } = this.props;
 
     return (
       <Dialog
         classes={{
           paper: 'm-24'
         }}
-        {...contactDialog.props}
+        {...warrantyClaimDialog.props}
         onClose={this.closeComposeDialog}
         fullWidth
         maxWidth="xs"
@@ -97,16 +97,16 @@ class ContactDialog extends Component {
         <AppBar position="static" elevation={1}>
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
-              {contactDialog.type === 'new' ? 'New Warranty Claim Form' : 'Edit Warranty Claim Form'}
+              {warrantyClaimDialog.type === 'new' ? 'New Warranty Claim Form' : 'Edit Warranty Claim Form'}
             </Typography>
           </Toolbar>
           <div className="flex flex-col items-center justify-center pb-24">
             {/* <Avatar
               className="w-96 h-96"
-              alt="contact avatar"
+              alt="warrantyClaim avatar"
               src={this.state.avatar}
             /> */}
-            {contactDialog.type === 'edit' && (
+            {warrantyClaimDialog.type === 'edit' && (
               <Typography variant="h6" color="inherit" className="pt-8">
                 {this.state.formName}
               </Typography>
@@ -165,7 +165,7 @@ class ContactDialog extends Component {
           </div>
         </DialogContent>
 
-        {contactDialog.type === 'new' ? (
+        {warrantyClaimDialog.type === 'new' ? (
           <DialogActions className="justify-between pl-16">
             <Button
               variant="contained"
@@ -210,8 +210,8 @@ class ContactDialog extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      closeEditContactDialog: Actions.closeEditContactDialog,
-      closeNewContactDialog: Actions.closeNewContactDialog,
+      closeEditWarrantyClaimDialog: Actions.closeEditWarrantyClaimDialog,
+      closeNewWarrantyClaimDialog: Actions.closeNewWarrantyClaimDialog,
       addWarrantyClaim: Actions.addWarrantyClaim,
       updateWarrantyClaim: Actions.updateWarrantyClaim,
       removeWarrantyClaim: Actions.removeWarrantyClaim
@@ -222,7 +222,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyClaimApp }) {
   return {
-    contactDialog: warrantyClaimApp.warrantyClaim.contactDialog,
+    warrantyClaimDialog: warrantyClaimApp.warrantyClaim.warrantyClaimDialog,
     companies: warrantyClaimApp.warrantyClaim.companies
   };
 }
@@ -230,4 +230,4 @@ function mapStateToProps({ warrantyClaimApp }) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ContactDialog);
+)(WarrantyClaimDialog);

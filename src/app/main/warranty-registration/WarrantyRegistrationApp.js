@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './WarrantyRegistrationList';
-import ContactsHeader from './WarrantyRegistrationHeader';
-import ContactDialog from './WarrantyRegistrationDialog';
+import WarrantyRegistrationsList from './WarrantyRegistrationList';
+import WarrantyRegistrationsHeader from './WarrantyRegistrationHeader';
+import WarrantyRegistrationDialog from './WarrantyRegistrationDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class WarrantyRegistrationApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewWarrantyRegistrationDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class WarrantyRegistrationApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<WarrantyRegistrationsHeader pageLayout={() => this.pageLayout} />}
+          content={<WarrantyRegistrationsList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class WarrantyRegistrationApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewWarrantyRegistrationDialog}
           >
             <Icon>add</Icon>
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <WarrantyRegistrationDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getWarrantyRegistration: Actions.getWarrantyRegistration,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewWarrantyRegistrationDialog: Actions.openNewWarrantyRegistrationDialog
     },
     dispatch
   );
@@ -82,8 +82,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyRegistrationApp }) {
   return {
-    // contacts: warrantyRegistrationApp.warrantyRegistration.entities,
-    selectedContactIds: warrantyRegistrationApp.warrantyRegistration.selectedContactIds,
+    // warrantyRegistrations: warrantyRegistrationApp.warrantyRegistration.entities,
+    selectedWarrantyRegistrationIds: warrantyRegistrationApp.warrantyRegistration.selectedWarrantyRegistrationIds,
     searchText: warrantyRegistrationApp.warrantyRegistration.searchText,
     user: warrantyRegistrationApp.user
   };

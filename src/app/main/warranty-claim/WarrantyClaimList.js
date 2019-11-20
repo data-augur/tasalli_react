@@ -17,9 +17,9 @@ import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
 
-class ContactsList extends Component {
+class WarrantyClaimsList extends Component {
   state = {
-    selectedContactsMenu: null
+    selectedWarrantyClaimsMenu: null
   };
 
   getFilteredArray = (entities, searchText) => {
@@ -30,28 +30,28 @@ class ContactsList extends Component {
     return FuseUtils.filterArrayByString(arr, searchText);
   };
 
-  openSelectedContactMenu = event => {
-    this.setState({ selectedContactsMenu: event.currentTarget });
+  openSelectedWarrantyClaimMenu = event => {
+    this.setState({ selectedWarrantyClaimsMenu: event.currentTarget });
   };
 
-  closeSelectedContactsMenu = () => {
-    this.setState({ selectedContactsMenu: null });
+  closeSelectedWarrantyClaimsMenu = () => {
+    this.setState({ selectedWarrantyClaimsMenu: null });
   };
 
   render() {
     const {
-      contacts,
+      warrantyClaims,
       searchText,
-      selectedContactIds,
+      selectedWarrantyClaimIds,
       
-      openEditContactDialog,
-      removeContacts,
+      openEditWarrantyClaimDialog,
+      removeWarrantyClaims,
       removeWarrantyClaim,
-      setContactsUnstarred,
-      setContactsStarred
+      setWarrantyClaimsUnstarred,
+      setWarrantyClaimsStarred
     } = this.props;
-    const data = this.getFilteredArray(contacts, searchText);
-    const { selectedContactsMenu } = this.state;
+    const data = this.getFilteredArray(warrantyClaims, searchText);
+    const { selectedWarrantyClaimsMenu } = this.state;
 
     if (!data && data.length === 0) {
       return (
@@ -72,7 +72,7 @@ class ContactsList extends Component {
               className: 'cursor-pointer',
               onClick: (e, handleOriginal) => {
                 if (rowInfo) {
-                  openEditContactDialog(rowInfo.original);
+                  openEditWarrantyClaimDialog(rowInfo.original);
                 }
               }
             };
@@ -82,28 +82,28 @@ class ContactsList extends Component {
             
             {
               Header: () =>
-                selectedContactIds.length > 0 && (
+                selectedWarrantyClaimIds.length > 0 && (
                   <React.Fragment>
                     <IconButton
                       aria-owns={
-                        selectedContactsMenu ? 'selectedContactsMenu' : null
+                        selectedWarrantyClaimsMenu ? 'selectedWarrantyClaimsMenu' : null
                       }
                       aria-haspopup="true"
-                      onClick={this.openSelectedContactMenu}
+                      onClick={this.openSelectedWarrantyClaimMenu}
                     >
                       <Icon>more_horiz</Icon>
                     </IconButton>
                     <Menu
-                      id="selectedContactsMenu"
-                      anchorEl={selectedContactsMenu}
-                      open={Boolean(selectedContactsMenu)}
-                      onClose={this.closeSelectedContactsMenu}
+                      id="selectedWarrantyClaimsMenu"
+                      anchorEl={selectedWarrantyClaimsMenu}
+                      open={Boolean(selectedWarrantyClaimsMenu)}
+                      onClose={this.closeSelectedWarrantyClaimsMenu}
                     >
                       <MenuList>
                         <MenuItem
                           onClick={() => {
-                            removeContacts(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            removeWarrantyClaims(selectedWarrantyClaimIds);
+                            this.closeSelectedWarrantyClaimsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -113,8 +113,8 @@ class ContactsList extends Component {
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsStarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setWarrantyClaimsStarred(selectedWarrantyClaimIds);
+                            this.closeSelectedWarrantyClaimsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -124,8 +124,8 @@ class ContactsList extends Component {
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsUnstarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setWarrantyClaimsUnstarred(selectedWarrantyClaimIds);
+                            this.closeSelectedWarrantyClaimsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -208,17 +208,17 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getContacts: Actions.getWarrantyClaim,
-      toggleInSelectedContacts: Actions.toggleInSelectedContacts,
-      selectAllContacts: Actions.selectAllContacts,
-      deSelectAllContacts: Actions.deSelectAllContacts,
-      openEditContactDialog: Actions.openEditContactDialog,
-      removeContacts: Actions.removeContacts,
+      getWarrantyClaims: Actions.getWarrantyClaim,
+      toggleInSelectedWarrantyClaims: Actions.toggleInSelectedWarrantyClaims,
+      selectAllWarrantyClaims: Actions.selectAllWarrantyClaims,
+      deSelectAllWarrantyClaims: Actions.deSelectAllWarrantyClaims,
+      openEditWarrantyClaimDialog: Actions.openEditWarrantyClaimDialog,
+      removeWarrantyClaims: Actions.removeWarrantyClaims,
       removeWarrantyClaim: Actions.removeWarrantyClaim,
-      toggleStarredContact: Actions.toggleStarredContact,
-      toggleStarredContacts: Actions.toggleStarredContacts,
-      setContactsStarred: Actions.setContactsStarred,
-      setContactsUnstarred: Actions.setContactsUnstarred
+      toggleStarredWarrantyClaim: Actions.toggleStarredWarrantyClaim,
+      toggleStarredWarrantyClaims: Actions.toggleStarredWarrantyClaims,
+      setWarrantyClaimsStarred: Actions.setWarrantyClaimsStarred,
+      setWarrantyClaimsUnstarred: Actions.setWarrantyClaimsUnstarred
     },
     dispatch
   );
@@ -226,8 +226,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyClaimApp }) {
   return {
-    contacts: warrantyClaimApp.warrantyClaim.entities,
-    selectedContactIds: warrantyClaimApp.warrantyClaim.selectedContactIds,
+    warrantyClaims: warrantyClaimApp.warrantyClaim.entities,
+    selectedWarrantyClaimIds: warrantyClaimApp.warrantyClaim.selectedWarrantyClaimIds,
     searchText: warrantyClaimApp.warrantyClaim.searchText,
     user: warrantyClaimApp.user
   };
@@ -237,5 +237,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ContactsList)
+  )(WarrantyClaimsList)
 );

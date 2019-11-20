@@ -6,9 +6,9 @@ const initialState = {
   entities: [],
   companies: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedWarrantyRegistrationIds: [],
   routeParams: {},
-  contactDialog: {
+  warrantyRegistrationDialog: {
     type: 'new',
     props: {
       open: false
@@ -25,9 +25,9 @@ const warrantyRegistrationReducer = function(state = initialState, action) {
         entities: [],
         companies: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedWarrantyRegistrationIds: [],
         routeParams: {},
-        contactDialog: {
+        warrantyRegistrationDialog: {
           type: 'new',
           props: {
             open: false
@@ -72,42 +72,42 @@ const warrantyRegistrationReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_WARRANTYREGISTRATIONS: {
+      const warrantyRegistrationId = action.warrantyRegistrationId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedWarrantyRegistrationIds = [...state.selectedWarrantyRegistrationIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedWarrantyRegistrationIds.find(id => id === warrantyRegistrationId) !== undefined) {
+        selectedWarrantyRegistrationIds = selectedWarrantyRegistrationIds.filter(id => id !== warrantyRegistrationId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedWarrantyRegistrationIds = [...selectedWarrantyRegistrationIds, warrantyRegistrationId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedWarrantyRegistrationIds: selectedWarrantyRegistrationIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_WARRANTYREGISTRATIONS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedWarrantyRegistrationIds = arr.map(warrantyRegistration => warrantyRegistration.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedWarrantyRegistrationIds: selectedWarrantyRegistrationIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_WARRANTYREGISTRATIONS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedWarrantyRegistrationIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_WARRANTYREGISTRATION_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyRegistrationDialog: {
           type: 'new',
           props: {
             open: true
@@ -116,10 +116,10 @@ const warrantyRegistrationReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_WARRANTYREGISTRATION_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyRegistrationDialog: {
           type: 'new',
           props: {
             open: false
@@ -128,10 +128,10 @@ const warrantyRegistrationReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_WARRANTYREGISTRATION_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyRegistrationDialog: {
           type: 'edit',
           props: {
             open: true
@@ -140,10 +140,10 @@ const warrantyRegistrationReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_WARRANTYREGISTRATION_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyRegistrationDialog: {
           type: 'edit',
           props: {
             open: false

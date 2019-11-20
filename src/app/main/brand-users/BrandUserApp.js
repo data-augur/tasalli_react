@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './BrandUsersList';
-import ContactsHeader from './BrandUserHeader';
-import ContactDialog from './BrandUserDialog';
+import BrandUsersList from './BrandUsersList';
+import BrandUsersHeader from './BrandUserHeader';
+import BrandUserDialog from './BrandUserDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class BrandUserApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewBrandUserDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class BrandUserApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<BrandUsersHeader pageLayout={() => this.pageLayout} />}
+          content={<BrandUsersList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class BrandUserApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewBrandUserDialog}
           >
             <Icon>person_add</Icon>
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <BrandUserDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getBrandUsers: Actions.getBrandUsers,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewBrandUserDialog: Actions.openNewBrandUserDialog
     },
     dispatch
   );
@@ -82,8 +82,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ brandUserApp }) {
   return {
-    contacts: brandUserApp.brandUser.entities,
-    selectedContactIds: brandUserApp.brandUser.selectedContactIds,
+    brandUsers: brandUserApp.brandUser.entities,
+    selectedBrandUserIds: brandUserApp.brandUser.selectedBrandUserIds,
     searchText: brandUserApp.brandUser.searchText,
     user: brandUserApp.user
   };

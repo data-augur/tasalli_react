@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './WarrantyCompletionList';
-import ContactsHeader from './WarrantyCompletionHeader';
-import ContactDialog from './WarrantyCompletionDialog';
+import WarrantyCompletionsList from './WarrantyCompletionList';
+import WarrantyCompletionsHeader from './WarrantyCompletionHeader';
+import WarrantyCompletionDialog from './WarrantyCompletionDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class WarrantyCompletionApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewWarrantyCompletionDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class WarrantyCompletionApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<WarrantyCompletionsHeader pageLayout={() => this.pageLayout} />}
+          content={<WarrantyCompletionsList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class WarrantyCompletionApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewWarrantyCompletionDialog}
           >
             <Icon>add</Icon>
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <WarrantyCompletionDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getWarrantyCompletion: Actions.getWarrantyCompletion,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewWarrantyCompletionDialog: Actions.openNewWarrantyCompletionDialog
     },
     dispatch
   );
@@ -82,8 +82,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyCompletionApp }) {
   return {
-    // contacts: brandsApp.brands.entities,
-    selectedContactIds: warrantyCompletionApp.warrantyCompletion.selectedContactIds,
+    // warrantyCompletions: brandsApp.brands.entities,
+    selectedWarrantyCompletionIds: warrantyCompletionApp.warrantyCompletion.selectedWarrantyCompletionIds,
     searchText: warrantyCompletionApp.warrantyCompletion.searchText,
     user: warrantyCompletionApp.user
   };

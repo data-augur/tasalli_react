@@ -17,9 +17,9 @@ import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
 
-class ContactsList extends Component {
+class LogsList extends Component {
   state = {
-    selectedContactsMenu: null
+    selectedLogsMenu: null
   };
 
   getFilteredArray = (entities, searchText) => {
@@ -30,26 +30,26 @@ class ContactsList extends Component {
     return FuseUtils.filterArrayByString(arr, searchText);
   };
 
-  openSelectedContactMenu = event => {
-    this.setState({ selectedContactsMenu: event.currentTarget });
+  openSelectedLogMenu = event => {
+    this.setState({ selectedLogsMenu: event.currentTarget });
   };
 
-  closeSelectedContactsMenu = () => {
-    this.setState({ selectedContactsMenu: null });
+  closeSelectedLogsMenu = () => {
+    this.setState({ selectedLogsMenu: null });
   };
 
   render() {
     const {
-      contacts,
+      logs,
       searchText,
-      selectedContactIds,
+      selectedLogIds,
 
       // removeBrand,
-      setContactsUnstarred,
-      setContactsStarred
+      setLogsUnstarred,
+      setLogsStarred
     } = this.props;
-    const data = this.getFilteredArray(contacts, searchText);
-    const { selectedContactsMenu } = this.state;
+    const data = this.getFilteredArray(logs, searchText);
+    const { selectedLogsMenu } = this.state;
 
     if (!data && data.length === 0) {
       return (
@@ -68,11 +68,7 @@ class ContactsList extends Component {
           getTrProps={(state, rowInfo, column) => {
             return {
               className: 'cursor-pointer',
-              // onClick: (e, handleOriginal) => {
-              //   if (rowInfo) {
-              //     openEditContactDialog(rowInfo.original);
-              //   }
-              // }
+
             };
           }}
           data={data}
@@ -80,39 +76,34 @@ class ContactsList extends Component {
 
             {
               Header: () =>
-                selectedContactIds.length > 0 && (
+                selectedLogIds.length > 0 && (
                   <React.Fragment>
                     <IconButton
                       aria-owns={
-                        selectedContactsMenu ? 'selectedContactsMenu' : null
+                        selectedLogsMenu ? 'selectedLogsMenu' : null
                       }
                       aria-haspopup="true"
-                      onClick={this.openSelectedContactMenu}
+                      onClick={this.openSelectedLogMenu}
                     >
                       <Icon>more_horiz</Icon>
                     </IconButton>
                     <Menu
-                      id="selectedContactsMenu"
-                      anchorEl={selectedContactsMenu}
-                      open={Boolean(selectedContactsMenu)}
-                      onClose={this.closeSelectedContactsMenu}
+                      id="selectedLogsMenu"
+                      anchorEl={selectedLogsMenu}
+                      open={Boolean(selectedLogsMenu)}
+                      onClose={this.closeSelectedLogsMenu}
                     >
                       <MenuList>
                         <MenuItem
-                          // onClick={() => {
-                          //   removeContacts(selectedContactIds);
-                          //   this.closeSelectedContactsMenu();
-                          // }}
+
                         >
-                          {/*<ListItemIcon>*/}
-                          {/*  <Icon>delete</Icon>*/}
-                          {/*</ListItemIcon>*/}
+
                           <ListItemText inset primary="Remove" />
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsStarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setLogsStarred(selectedLogIds);
+                            this.closeSelectedLogsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -122,8 +113,8 @@ class ContactsList extends Component {
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsUnstarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setLogsUnstarred(selectedLogIds);
+                            this.closeSelectedLogsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -211,17 +202,15 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getContacts: Actions.getLogs,
-      toggleInSelectedContacts: Actions.toggleInSelectedContacts,
-      selectAllContacts: Actions.selectAllContacts,
-      deSelectAllContacts: Actions.deSelectAllContacts,
-      openEditContactDialog: Actions.openEditContactDialog,
-      // removeContacts: Actions.removeContacts,
-      // removeBrand: Actions.removeBrand,
-      toggleStarredContact: Actions.toggleStarredContact,
-      toggleStarredContacts: Actions.toggleStarredContacts,
-      setContactsStarred: Actions.setContactsStarred,
-      setContactsUnstarred: Actions.setContactsUnstarred
+      getLogs: Actions.getLogs,
+      toggleInSelectedLogs: Actions.toggleInSelectedLogs,
+      selectAllLogs: Actions.selectAllLogs,
+      deSelectAllLogs: Actions.deSelectAllLogs,
+      openEditLogDialog: Actions.openEditLogDialog,
+      toggleStarredLog: Actions.toggleStarredLog,
+      toggleStarredLogs: Actions.toggleStarredLogs,
+      setLogsStarred: Actions.setLogsStarred,
+      setLogsUnstarred: Actions.setLogsUnstarred
     },
     dispatch
   );
@@ -229,8 +218,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ logsApp }) {
   return {
-    contacts: logsApp.logs.entities,
-    selectedContactIds: logsApp.logs.selectedContactIds,
+    logs: logsApp.logs.entities,
+    selectedLogIds: logsApp.logs.selectedLogIds,
     searchText: logsApp.logs.searchText,
     user: logsApp.user
   };
@@ -240,5 +229,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ContactsList)
+  )(LogsList)
 );

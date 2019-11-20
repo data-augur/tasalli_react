@@ -8,56 +8,24 @@ export const GET_LOGS = '[LOGS APP] GET LOGS';
 // export const UPDATE_BRAND = '[BRANDS APP] UPDATE BRAND';
 // export const REMOVE_BRAND = '[BRANDS APP] REMOVE BRAND';
 
-export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
-export const TOGGLE_IN_SELECTED_CONTACTS =
-  '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
-export const SELECT_ALL_CONTACTS = '[CONTACTS APP] SELECT ALL CONTACTS';
-export const DESELECT_ALL_CONTACTS = '[CONTACTS APP] DESELECT ALL CONTACTS';
-export const OPEN_NEW_CONTACT_DIALOG = '[CONTACTS APP] OPEN NEW CONTACT DIALOG';
-export const CLOSE_NEW_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE NEW CONTACT DIALOG';
-export const OPEN_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
-export const CLOSE_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
+export const SET_SEARCH_TEXT = '[LOGS APP] SET SEARCH TEXT';
+export const TOGGLE_IN_SELECTED_LOGS =
+  '[LOGS APP] TOGGLE IN SELECTED LOGS';
+export const SELECT_ALL_LOGS = '[LOGS APP] SELECT ALL LOGS';
+export const DESELECT_ALL_LOGS = '[LOGS APP] DESELECT ALL LOGS';
+export const OPEN_NEW_LOG_DIALOG = '[LOGS APP] OPEN NEW LOG DIALOG';
+export const CLOSE_NEW_LOG_DIALOG =
+  '[LOGS APP] CLOSE NEW LOG DIALOG';
+export const OPEN_EDIT_LOG_DIALOG =
+  '[LOGS APP] OPEN EDIT LOG DIALOG';
+export const CLOSE_EDIT_LOG_DIALOG =
+  '[LOGS APP] CLOSE EDIT LOG DIALOG';
 
-export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
-export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
-export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
-export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
+export const REMOVE_LOGS = '[LOGS APP] REMOVE LOGS';
+export const TOGGLE_STARRED_LOG = '[LOGS APP] TOGGLE STARRED LOG';
+export const TOGGLE_STARRED_LOGS = '[LOGS APP] TOGGLE STARRED LOGS';
+export const SET_LOGS_STARRED = '[LOGS APP] SET LOGS STARRED ';
 
-// export function getContacts(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
-
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
-// export const getAllCompanies = () => dispatch => {
-//   axios
-//     // .get(Base_URL+'get-all-companies')
-//     .get(Base_URL+'get-all-companies')
-//     .then(res => {
-//
-//       dispatch({
-//         type: GET_ALL_COMPANIES,
-//         payload: res.data
-//       });
-//     })
-//     .catch(err => {
-//
-//       //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
 export const getLogs = () => dispatch => {
   axios
     // .get(Base_URL+'get-all-brands')
@@ -80,114 +48,6 @@ export const getLogs = () => dispatch => {
       //   });
     });
 };
-// export const addBrand = newContact => dispatch => {
-//
-//   axios
-//     // .post(Base_URL+'create-brand', newContact)
-//     .post(Base_URL+'create-brand', newContact)
-//     .then(res => {
-//         if(res.request.status===200)
-//         {
-//             dispatch(showMessage({message: 'Brand Created',variant: "success"}));
-//         }
-//       dispatch({
-//         type: ADD_BRAND
-//       });
-//     })
-//     .then(() => dispatch(getBrands()))
-//     .catch(err => {
-//         dispatch(showMessage({message: err,variant: "error"}));
-//         console.log('err', err);
-//       //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
-// export const updateBrand = (updateInfo, id) => dispatch => {
-//
-//   axios
-//     .put(
-//         Base_URL+`update-brand/${updateInfo.id}`,
-//       updateInfo
-//     )
-//     .then(res => {
-//         if(res.request.status===200)
-//         {
-//             dispatch(showMessage({message: 'Brand Updated',variant: "success"}));
-//         }
-//       dispatch({
-//         type: UPDATE_BRAND
-//       });
-//     })
-//     .then(() => dispatch(getBrands()))
-//     .catch(err => {
-//       console.log('err', err.response);
-//         dispatch(showMessage({message: err,variant: "error"}));
-//         //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
-// export const removeBrand = id => dispatch => {
-//   axios
-//     // .delete(Base_URL+`delete-brand/${id}`)
-//     .delete(Base_URL+`delete-brand/${id}`)
-//     .then(res => {
-//         if(res.request.status===200)
-//         {
-//             dispatch(showMessage({message: 'Brand Removed',variant: "success"}));
-//         }
-//       dispatch({
-//         type: REMOVE_BRAND
-//       });
-//     })
-//     .then(() => dispatch(getBrands()))
-//     .catch(err => {
-//       console.log('err', err.response);
-//         dispatch(showMessage({message: err,variant: "error"}));
-//         //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
-
-// export function updateContact(contact) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
-
-//     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
-//       contact
-//     });
-
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: UPDATE_CONTACT
-//         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
-//     );
-//   };
-// }
-// export function addContact(newContact) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
-
-//     const request = axios.post(Base_URL+'create-brand-user', {
-//       newContact
-//     });
-
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: ADD_CONTACT
-//         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
-//     );
-//   };
-// }
 
 export function setSearchText(event) {
   return {
@@ -196,182 +56,126 @@ export function setSearchText(event) {
   };
 }
 
-export function toggleInSelectedContacts(contactId) {
+export function toggleInSelectedLogs(logId) {
   return {
-    type: TOGGLE_IN_SELECTED_CONTACTS,
-    contactId
+    type: TOGGLE_IN_SELECTED_LOGS,
+    logId
   };
 }
 
-export function selectAllContacts() {
+export function selectAllLogs() {
   return {
-    type: SELECT_ALL_CONTACTS
+    type: SELECT_ALL_LOGS
   };
 }
 
-export function deSelectAllContacts() {
+export function deSelectAllLogs() {
   return {
-    type: DESELECT_ALL_CONTACTS
+    type: DESELECT_ALL_LOGS
   };
 }
 
-export function openNewContactDialog() {
+export function openNewLogDialog() {
   return {
-    type: OPEN_NEW_CONTACT_DIALOG
+    type: OPEN_NEW_LOG_DIALOG
   };
 }
 
-export function closeNewContactDialog() {
+export function closeNewLogDialog() {
   return {
-    type: CLOSE_NEW_CONTACT_DIALOG
+    type: CLOSE_NEW_LOG_DIALOG
   };
 }
 
-export function openEditContactDialog(data) {
+export function openEditLogDialog(data) {
   return {
-    type: OPEN_EDIT_CONTACT_DIALOG,
+    type: OPEN_EDIT_LOG_DIALOG,
     data
   };
 }
 
-export function closeEditContactDialog() {
+export function closeEditLogDialog() {
   return {
-    type: CLOSE_EDIT_CONTACT_DIALOG
+    type: CLOSE_EDIT_LOG_DIALOG
   };
 }
 
-// export function updateContact(contact) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
 
-//     const request = axios.post('/api/contacts-app/update-contact', {
-//       contact
-//     });
-
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: UPDATE_CONTACT
-//         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
-//     );
-//   };
-// }
-
-// export function removeContact(contactId) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
-
-//     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
-//       contactId
-//     });
-
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: REMOVE_CONTACT
-//         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
-//     );
-//   };
-// }
-
-// export function removeContacts(contactIds) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
-//
-//     const request = axios.post('/api/contacts-app/remove-contacts', {
-//       contactIds
-//     });
-//
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: REMOVE_CONTACTS
-//         }),
-//         dispatch({
-//           type: DESELECT_ALL_CONTACTS
-//         })
-//       ]).then(() => dispatch(getBrands(routeParams)))
-//     );
-//   };
-// }
-
-export function toggleStarredContact(contactId) {
+export function toggleStarredLog(logId) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().logsApp.logs;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contact', {
-      contactId
+    const request = axios.post('/api/logs-app/toggle-starred-log', {
+      logId
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACT
+          type: TOGGLE_STARRED_LOG
         }),
       ]).then(() => dispatch(getLogs(routeParams)))
     );
   };
 }
 
-export function toggleStarredContacts(contactIds) {
+export function toggleStarredLogs(logIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().logsApp.logs;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contacts', {
-      contactIds
+    const request = axios.post('/api/logs-app/toggle-starred-logs', {
+      logIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACTS
+          type: TOGGLE_STARRED_LOGS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_LOGS
         }),
       ]).then(() => dispatch(getLogs(routeParams)))
     );
   };
 }
 
-export function setContactsStarred(contactIds) {
+export function setLogsStarred(logIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().logsApp.logs;
 
-    const request = axios.post('/api/contacts-app/set-contacts-starred', {
-      contactIds
+    const request = axios.post('/api/logs-app/set-logs-starred', {
+      logIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_LOGS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_LOGS
         }),
       ]).then(() => dispatch(getLogs(routeParams)))
     );
   };
 }
 
-export function setContactsUnstarred(contactIds) {
+export function setLogsUnstarred(logIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().logsApp.logs;
 
-    const request = axios.post('/api/contacts-app/set-contacts-unstarred', {
-      contactIds
+    const request = axios.post('/api/logs-app/set-logs-unstarred', {
+      logIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_LOGS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_LOGS
         }),
       ]).then(() => dispatch(getLogs(routeParams)))
     );

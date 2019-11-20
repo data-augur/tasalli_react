@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './LogsList';
-import ContactsHeader from './LogsHeader';
-// import ContactDialog from './BrandsDialog';
+import LogsList from './LogsList';
+import LogsHeader from './LogsHeader';
+// import LogDialog from './BrandsDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -46,25 +46,15 @@ class LogsApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<LogsHeader pageLayout={() => this.pageLayout} />}
+          content={<LogsList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
           }}
           innerScroll
         />
-        {/*<FuseAnimate animation="transition.expandIn" delay={300}>*/}
-        {/*  <Fab*/}
-        {/*    color="primary"*/}
-        {/*    aria-label="add"*/}
-        {/*    className={classes.addButton}*/}
-        {/*    onClick={openNewContactDialog}*/}
-        {/*  >*/}
-        {/*    <Icon>add</Icon>*/}
-        {/*  </Fab>*/}
-        {/*</FuseAnimate>*/}
-        {/*<ContactDialog />*/}
+      
       </React.Fragment>
     );
   }
@@ -74,7 +64,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getLogs: Actions.getLogs,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewLogDialog: Actions.openNewLogDialog
     },
     dispatch
   );
@@ -82,8 +72,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ logsApp }) {
   return {
-    // contacts: brandsApp.brands.entities,
-    selectedContactIds: logsApp.logs.selectedContactIds,
+    selectedLogIds: logsApp.logs.selectedLogIds,
     searchText: logsApp.logs.searchText,
     user: logsApp.user
   };

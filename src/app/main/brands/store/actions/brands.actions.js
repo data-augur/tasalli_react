@@ -78,10 +78,10 @@ export const getBrands = () => dispatch => {
 
     });
 };
-export const addBrand = newContact => dispatch => {
+export const addBrand = newBrand => dispatch => {
 
   axios
-    .post(Base_URL+'create-brand', newContact)
+    .post(Base_URL+'create-brand', newBrand)
     .then(res => {
         if(res.request.status===200)
         {

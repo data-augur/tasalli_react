@@ -6,9 +6,9 @@ const initialState = {
   entities: [],
   companies: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedLogIds: [],
   routeParams: {},
-  contactDialog: {
+  logDialog: {
     type: 'new',
     props: {
       open: false
@@ -25,9 +25,9 @@ const logsReducer = function(state = initialState, action) {
         entities: [],
         companies: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedLogIds: [],
         routeParams: {},
-        contactDialog: {
+        logDialog: {
           type: 'new',
           props: {
             open: false
@@ -72,42 +72,42 @@ const logsReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_LOGS: {
+      const logId = action.logId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedLogIds = [...state.selectedLogIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedLogIds.find(id => id === logId) !== undefined) {
+        selectedLogIds = selectedLogIds.filter(id => id !== logId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedLogIds = [...selectedLogIds, logId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedLogIds: selectedLogIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_LOGS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedLogIds = arr.map(log => log.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedLogIds: selectedLogIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_LOGS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedLogIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_LOG_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        logDialog: {
           type: 'new',
           props: {
             open: true
@@ -116,10 +116,10 @@ const logsReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_LOG_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        logDialog: {
           type: 'new',
           props: {
             open: false
@@ -128,10 +128,10 @@ const logsReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_LOG_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        logDialog: {
           type: 'edit',
           props: {
             open: true
@@ -140,10 +140,10 @@ const logsReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_LOG_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        logDialog: {
           type: 'edit',
           props: {
             open: false

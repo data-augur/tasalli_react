@@ -17,9 +17,9 @@ import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
 
-class ContactsList extends Component {
+class BrandsList extends Component {
   state = {
-    selectedContactsMenu: null
+    selectedBrandsMenu: null
   };
 
   getFilteredArray = (entities, searchText) => {
@@ -30,28 +30,28 @@ class ContactsList extends Component {
     return FuseUtils.filterArrayByString(arr, searchText);
   };
 
-  openSelectedContactMenu = event => {
-    this.setState({ selectedContactsMenu: event.currentTarget });
+  openSelectedBrandMenu = event => {
+    this.setState({ selectedBrandsMenu: event.currentTarget });
   };
 
-  closeSelectedContactsMenu = () => {
-    this.setState({ selectedContactsMenu: null });
+  closeSelectedBrandsMenu = () => {
+    this.setState({ selectedBrandsMenu: null });
   };
 
   render() {
     const {
-      contacts,
+      brands,
       searchText,
-      selectedContactIds,
+      selectedBrandIds,
 
-      openEditContactDialog,
-      removeContacts,
+      openEditBrandDialog,
+      removeBrands,
       removeBrand,
-      setContactsUnstarred,
-      setContactsStarred
+      setBrandsUnstarred,
+      setBrandsStarred
     } = this.props;
-    const data = this.getFilteredArray(contacts, searchText);
-    const { selectedContactsMenu } = this.state;
+    const data = this.getFilteredArray(brands, searchText);
+    const { selectedBrandsMenu } = this.state;
 
     if (!data && data.length === 0) {
       return (
@@ -72,7 +72,7 @@ class ContactsList extends Component {
               className: 'cursor-pointer',
               onClick: (e, handleOriginal) => {
                 if (rowInfo) {
-                  openEditContactDialog(rowInfo.original);
+                  openEditBrandDialog(rowInfo.original);
                 }
               }
             };
@@ -82,28 +82,28 @@ class ContactsList extends Component {
 
             {
               Header: () =>
-                selectedContactIds.length > 0 && (
+                selectedBrandIds.length > 0 && (
                   <React.Fragment>
                     <IconButton
                       aria-owns={
-                        selectedContactsMenu ? 'selectedContactsMenu' : null
+                        selectedBrandsMenu ? 'selectedBrandsMenu' : null
                       }
                       aria-haspopup="true"
-                      onClick={this.openSelectedContactMenu}
+                      onClick={this.openSelectedBrandMenu}
                     >
                       <Icon>more_horiz</Icon>
                     </IconButton>
                     <Menu
-                      id="selectedContactsMenu"
-                      anchorEl={selectedContactsMenu}
-                      open={Boolean(selectedContactsMenu)}
-                      onClose={this.closeSelectedContactsMenu}
+                      id="selectedBrandsMenu"
+                      anchorEl={selectedBrandsMenu}
+                      open={Boolean(selectedBrandsMenu)}
+                      onClose={this.closeSelectedBrandsMenu}
                     >
                       <MenuList>
                         <MenuItem
                           onClick={() => {
-                            removeContacts(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            removeBrands(selectedBrandIds);
+                            this.closeSelectedBrandsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -113,8 +113,8 @@ class ContactsList extends Component {
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsStarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setBrandsStarred(selectedBrandIds);
+                            this.closeSelectedBrandsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -124,8 +124,8 @@ class ContactsList extends Component {
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsUnstarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setBrandsUnstarred(selectedBrandIds);
+                            this.closeSelectedBrandsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -195,17 +195,17 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getContacts: Actions.getBrands,
-      toggleInSelectedContacts: Actions.toggleInSelectedContacts,
-      selectAllContacts: Actions.selectAllContacts,
-      deSelectAllContacts: Actions.deSelectAllContacts,
-      openEditContactDialog: Actions.openEditContactDialog,
-      removeContacts: Actions.removeContacts,
+      getBrands: Actions.getBrands,
+      toggleInSelectedBrands: Actions.toggleInSelectedBrands,
+      selectAllBrands: Actions.selectAllBrands,
+      deSelectAllBrands: Actions.deSelectAllBrands,
+      openEditBrandDialog: Actions.openEditBrandDialog,
+      removeBrands: Actions.removeBrands,
       removeBrand: Actions.removeBrand,
-      toggleStarredContact: Actions.toggleStarredContact,
-      toggleStarredContacts: Actions.toggleStarredContacts,
-      setContactsStarred: Actions.setContactsStarred,
-      setContactsUnstarred: Actions.setContactsUnstarred
+      toggleStarredBrand: Actions.toggleStarredBrand,
+      toggleStarredBrands: Actions.toggleStarredBrands,
+      setBrandsStarred: Actions.setBrandsStarred,
+      setBrandsUnstarred: Actions.setBrandsUnstarred
     },
     dispatch
   );
@@ -213,8 +213,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ brandsApp }) {
   return {
-    contacts: brandsApp.brands.entities,
-    selectedContactIds: brandsApp.brands.selectedContactIds,
+    brands: brandsApp.brands.entities,
+    selectedBrandIds: brandsApp.brands.selectedBrandIds,
     searchText: brandsApp.brands.searchText,
     user: brandsApp.user
   };
@@ -224,5 +224,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ContactsList)
+  )(BrandsList)
 );

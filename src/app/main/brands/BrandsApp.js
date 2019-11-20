@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './BrandsList';
-import ContactsHeader from './BrandsHeader';
-import ContactDialog from './BrandsDialog';
+import BrandsList from './BrandsList';
+import BrandsHeader from './BrandsHeader';
+import BrandDialog from './BrandsDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class BrandsApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewBrandDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class BrandsApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<BrandsHeader pageLayout={() => this.pageLayout} />}
+          content={<BrandsList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class BrandsApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewBrandDialog}
           >
             <Icon>add</Icon>
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <BrandDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getBrands: Actions.getBrands,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewBrandDialog: Actions.openNewBrandDialog
     },
     dispatch
   );
@@ -82,8 +82,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ brandsApp }) {
   return {
-    // contacts: brandsApp.brands.entities,
-    selectedContactIds: brandsApp.brands.selectedContactIds,
+    selectedBrandIds: brandsApp.brands.selectedBrandIds,
     searchText: brandsApp.brands.searchText,
     user: brandsApp.user
   };

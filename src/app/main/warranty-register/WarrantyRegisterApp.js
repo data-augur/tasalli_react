@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './WarrantyRegisterList';
-import ContactsHeader from './WarrantyRegisterHeader';
-import ContactDialog from './WarrantyRegisterDialog';
+import WarrantyRegistersList from './WarrantyRegisterList';
+import WarrantyRegistersHeader from './WarrantyRegisterHeader';
+import WarrantyRegisterDialog from './WarrantyRegisterDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -46,8 +46,8 @@ class WarrantyRegisterApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<WarrantyRegistersHeader pageLayout={() => this.pageLayout} />}
+          content={<WarrantyRegistersList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class WarrantyRegisterApp extends Component {
         {/*    color="primary"*/}
         {/*    aria-label="add"*/}
         {/*    className={classes.addButton}*/}
-        {/*    onClick={openNewContactDialog}*/}
+        {/*    onClick={openNewWarrantyRegisterDialog}*/}
         {/*  >*/}
         {/*    <Icon>add</Icon>*/}
         {/*  </Fab>*/}
         {/*</FuseAnimate>*/}
-        <ContactDialog />
+        <WarrantyRegisterDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getWarrantyRegister: Actions.getWarrantyRegister,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewWarrantyRegisterDialog: Actions.openNewWarrantyRegisterDialog
     },
     dispatch
   );
@@ -82,8 +82,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyRegisterApp }) {
   return {
-    // contacts: warrantyRegistrationApp.warrantyRegistration.entities,
-    selectedContactIds: warrantyRegisterApp.warrantyRegister.selectedContactIds,
+    // warrantyRegisters: warrantyRegistrationApp.warrantyRegistration.entities,
+    selectedWarrantyRegisterIds: warrantyRegisterApp.warrantyRegister.selectedWarrantyRegisterIds,
     searchText: warrantyRegisterApp.warrantyRegister.searchText,
     user: warrantyRegisterApp.user
   };

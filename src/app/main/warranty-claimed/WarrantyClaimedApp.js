@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './WarrantyClaimedList';
-import ContactsHeader from './WarrantyClaimedHeader';
-import ContactDialog from './WarrantyClaimedDialog';
+import WarrantyClaimedsList from './WarrantyClaimedList';
+import WarrantyClaimedsHeader from './WarrantyClaimedHeader';
+import WarrantyClaimedDialog from './WarrantyClaimedDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -46,8 +46,8 @@ class WarrantyClaimedApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<WarrantyClaimedsHeader pageLayout={() => this.pageLayout} />}
+          content={<WarrantyClaimedsList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class WarrantyClaimedApp extends Component {
         {/*    color="primary"*/}
         {/*    aria-label="add"*/}
         {/*    className={classes.addButton}*/}
-        {/*    onClick={openNewContactDialog}*/}
+        {/*    onClick={openNewWarrantyClaimedDialog}*/}
         {/*  >*/}
         {/*    <Icon>add</Icon>*/}
         {/*  </Fab>*/}
         {/*</FuseAnimate>*/}
-        <ContactDialog />
+        <WarrantyClaimedDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getWarrantyClaimed: Actions.getWarrantyClaimed,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewWarrantyClaimedDialog: Actions.openNewWarrantyClaimedDialog
     },
     dispatch
   );
@@ -82,8 +82,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyClaimedApp }) {
   return {
-    // contacts: warrantyRegistrationApp.warrantyRegistration.entities,
-    selectedContactIds: warrantyClaimedApp.warrantyClaimed.selectedContactIds,
+    // warrantyClaimeds: warrantyRegistrationApp.warrantyRegistration.entities,
+    selectedWarrantyClaimedIds: warrantyClaimedApp.warrantyClaimed.selectedWarrantyClaimedIds,
     searchText: warrantyClaimedApp.warrantyClaimed.searchText,
     user: warrantyClaimedApp.user
   };

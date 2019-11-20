@@ -6,9 +6,9 @@ const initialState = {
   entities: [],
   companies: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedWarrantyRegisterIds: [],
   routeParams: {},
-  contactDialog: {
+  warrantyRegisterDialog: {
     type: 'new',
     props: {
       open: false
@@ -25,9 +25,9 @@ const warrantyRegisterReducer = function(state = initialState, action) {
         entities: [],
         companies: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedWarrantyRegisterIds: [],
         routeParams: {},
-        contactDialog: {
+        warrantyRegisterDialog: {
           type: 'new',
           props: {
             open: false
@@ -54,42 +54,42 @@ const warrantyRegisterReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_WARRANTYREGISTERS: {
+      const warrantyRegisterId = action.warrantyRegisterId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedWarrantyRegisterIds = [...state.selectedWarrantyRegisterIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedWarrantyRegisterIds.find(id => id === warrantyRegisterId) !== undefined) {
+        selectedWarrantyRegisterIds = selectedWarrantyRegisterIds.filter(id => id !== warrantyRegisterId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedWarrantyRegisterIds = [...selectedWarrantyRegisterIds, warrantyRegisterId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedWarrantyRegisterIds: selectedWarrantyRegisterIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_WARRANTYREGISTERS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedWarrantyRegisterIds = arr.map(warrantyRegister => warrantyRegister.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedWarrantyRegisterIds: selectedWarrantyRegisterIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_WARRANTYREGISTERS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedWarrantyRegisterIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_WARRANTYREGISTER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyRegisterDialog: {
           type: 'new',
           props: {
             open: true
@@ -98,10 +98,10 @@ const warrantyRegisterReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_WARRANTYREGISTER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyRegisterDialog: {
           type: 'new',
           props: {
             open: false
@@ -110,10 +110,10 @@ const warrantyRegisterReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_WARRANTYREGISTER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyRegisterDialog: {
           type: 'edit',
           props: {
             open: true
@@ -122,10 +122,10 @@ const warrantyRegisterReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_WARRANTYREGISTER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyRegisterDialog: {
           type: 'edit',
           props: {
             open: false

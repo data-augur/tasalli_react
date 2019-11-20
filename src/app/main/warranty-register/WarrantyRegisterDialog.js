@@ -16,7 +16,7 @@ import * as Actions from './store/actions';
 import { connect } from 'react-redux';
 import _ from '@lodash';
 
-const newContactState = {
+const newWarrantyRegisterState = {
   code: '',
   phoneNumber: '',
   date: '',
@@ -24,8 +24,8 @@ const newContactState = {
   details: []
 };
 
-class ContactDialog extends Component {
-  state = { ...newContactState };
+class WarrantyRegisterDialog extends Component {
+  state = { ...newWarrantyRegisterState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     /**
@@ -34,19 +34,19 @@ class ContactDialog extends Component {
     // this.state.detail=this.state.details;
 
     if (
-      !prevProps.contactDialog.props.open &&
-      this.props.contactDialog.props.open
+      !prevProps.warrantyRegisterDialog.props.open &&
+      this.props.warrantyRegisterDialog.props.open
     ) {
       /**
        * Dialog type: 'edit'
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'edit' &&
-        this.props.contactDialog.data &&
-        !_.isEqual(this.props.contactDialog.data, prevState)
+        this.props.warrantyRegisterDialog.type === 'edit' &&
+        this.props.warrantyRegisterDialog.data &&
+        !_.isEqual(this.props.warrantyRegisterDialog.data, prevState)
       ) {
-        this.setState({ ...this.props.contactDialog.data });
+        this.setState({ ...this.props.warrantyRegisterDialog.data });
       }
 
       /**
@@ -54,10 +54,10 @@ class ContactDialog extends Component {
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'new' &&
-        !_.isEqual(newContactState, prevState)
+        this.props.warrantyRegisterDialog.type === 'new' &&
+        !_.isEqual(newWarrantyRegisterState, prevState)
       ) {
-        this.setState({ ...newContactState });
+        this.setState({ ...newWarrantyRegisterState });
       }
     }
   }
@@ -65,20 +65,20 @@ class ContactDialog extends Component {
 
 
   closeComposeDialog = () => {
-    this.props.contactDialog.type === 'edit'
-      ? this.props.closeEditContactDialog()
-      : this.props.closeNewContactDialog();
+    this.props.warrantyRegisterDialog.type === 'edit'
+      ? this.props.closeEditWarrantyRegisterDialog()
+      : this.props.closeNewWarrantyRegisterDialog();
   };
 
   render() {
-    const { contactDialog, removeWarrantyRegister } = this.props;
+    const { warrantyRegisterDialog, removeWarrantyRegister } = this.props;
 
     return (
       <Dialog
         classes={{
           paper: 'm-24'
         }}
-        {...contactDialog.props}
+        {...warrantyRegisterDialog.props}
         onClose={this.closeComposeDialog}
         fullWidth
         maxWidth="sm"
@@ -86,16 +86,16 @@ class ContactDialog extends Component {
         <AppBar position="static" elevation={1}>
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
-              {contactDialog.type === 'new' ? 'New Warranty Registration' : 'Warranty Registration Detail'}
+              {warrantyRegisterDialog.type === 'new' ? 'New Warranty Registration' : 'Warranty Registration Detail'}
             </Typography>
           </Toolbar>
           <div className="flex flex-col items-center justify-center pb-24">
             {/* <Avatar
               className="w-96 h-96"
-              alt="contact avatar"
+              alt="warrantyRegister avatar"
               src={this.state.avatar}
             /> */}
-            {contactDialog.type === 'edit' && (
+            {warrantyRegisterDialog.type === 'edit' && (
               <Typography variant="h6" color="inherit" className="pt-8">
                 {this.state.name}
               </Typography>
@@ -220,8 +220,8 @@ class ContactDialog extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      closeEditContactDialog: Actions.closeEditContactDialog,
-      closeNewContactDialog: Actions.closeNewContactDialog,
+      closeEditWarrantyRegisterDialog: Actions.closeEditWarrantyRegisterDialog,
+      closeNewWarrantyRegisterDialog: Actions.closeNewWarrantyRegisterDialog,
       removeWarrantyRegister: Actions.removeWarrantyRegister
     },
     dispatch
@@ -230,11 +230,11 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyRegisterApp }) {
   return {
-    contactDialog: warrantyRegisterApp.warrantyRegister.contactDialog
+    warrantyRegisterDialog: warrantyRegisterApp.warrantyRegister.warrantyRegisterDialog
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ContactDialog);
+)(WarrantyRegisterDialog);

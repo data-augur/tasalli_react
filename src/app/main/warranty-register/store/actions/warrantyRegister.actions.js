@@ -6,25 +6,25 @@ import moment from "moment";
 export const GET_WARRANTYREGISTER = '[WARRANTYREGISTER APP] GET WARRANTYREGISTER';
 export const REMOVE_WARRANTYREGISTER = '[WARRANTYREGISTER APP] REMOVE WARRANTYREGISTER';
 
-export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
-export const TOGGLE_IN_SELECTED_CONTACTS =
-  '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
-export const SELECT_ALL_CONTACTS = '[CONTACTS APP] SELECT ALL CONTACTS';
-export const DESELECT_ALL_CONTACTS = '[CONTACTS APP] DESELECT ALL CONTACTS';
-export const OPEN_NEW_CONTACT_DIALOG = '[CONTACTS APP] OPEN NEW CONTACT DIALOG';
-export const CLOSE_NEW_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE NEW CONTACT DIALOG';
-export const OPEN_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
-export const CLOSE_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
+export const SET_SEARCH_TEXT = '[WARRANTYREGISTERS APP] SET SEARCH TEXT';
+export const TOGGLE_IN_SELECTED_WARRANTYREGISTERS =
+  '[WARRANTYREGISTERS APP] TOGGLE IN SELECTED WARRANTYREGISTERS';
+export const SELECT_ALL_WARRANTYREGISTERS = '[WARRANTYREGISTERS APP] SELECT ALL WARRANTYREGISTERS';
+export const DESELECT_ALL_WARRANTYREGISTERS = '[WARRANTYREGISTERS APP] DESELECT ALL WARRANTYREGISTERS';
+export const OPEN_NEW_WARRANTYREGISTER_DIALOG = '[WARRANTYREGISTERS APP] OPEN NEW WARRANTYREGISTER DIALOG';
+export const CLOSE_NEW_WARRANTYREGISTER_DIALOG =
+  '[WARRANTYREGISTERS APP] CLOSE NEW WARRANTYREGISTER DIALOG';
+export const OPEN_EDIT_WARRANTYREGISTER_DIALOG =
+  '[WARRANTYREGISTERS APP] OPEN EDIT WARRANTYREGISTER DIALOG';
+export const CLOSE_EDIT_WARRANTYREGISTER_DIALOG =
+  '[WARRANTYREGISTERS APP] CLOSE EDIT WARRANTYREGISTER DIALOG';
 
-export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
-export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
-export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
-export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
+export const REMOVE_WARRANTYREGISTERS = '[WARRANTYREGISTERS APP] REMOVE WARRANTYREGISTERS';
+export const TOGGLE_STARRED_WARRANTYREGISTER = '[WARRANTYREGISTERS APP] TOGGLE STARRED WARRANTYREGISTER';
+export const TOGGLE_STARRED_WARRANTYREGISTERS = '[WARRANTYREGISTERS APP] TOGGLE STARRED WARRANTYREGISTERS';
+export const SET_WARRANTYREGISTERS_STARRED = '[WARRANTYREGISTERS APP] SET WARRANTYREGISTERS STARRED ';
 
-// export function getContacts(routeParams) {
+// export function getWarrantyRegisters(routeParams) {
 //   const token = localStorage.getItem('jwtToken');
 
 //   const headers = {
@@ -95,37 +95,37 @@ export const removeWarrantyRegister = id => dispatch => {
     });
 };
 
-// export function updateContact(contact) {
+// export function updateWarrantyRegister(warrantyRegister) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().warrantyRegistersApp.warrantyRegisters;
 
 //     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
-//       contact
+//       warrantyRegister
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_WARRANTYREGISTER
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getWarrantyRegisters(routeParams)))
 //     );
 //   };
 // }
-// export function addContact(newContact) {
+// export function addWarrantyRegister(newWarrantyRegister) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().warrantyRegistersApp.warrantyRegisters;
 
 //     const request = axios.post(Base_URL+'create-brand-user', {
-//       newContact
+//       newWarrantyRegister
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: ADD_CONTACT
+//           type: ADD_WARRANTYREGISTER
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getWarrantyRegisters(routeParams)))
 //     );
 //   };
 // }
@@ -137,182 +137,182 @@ export function setSearchText(event) {
   };
 }
 
-export function toggleInSelectedContacts(contactId) {
+export function toggleInSelectedWarrantyRegisters(warrantyRegisterId) {
   return {
-    type: TOGGLE_IN_SELECTED_CONTACTS,
-    contactId
+    type: TOGGLE_IN_SELECTED_WARRANTYREGISTERS,
+    warrantyRegisterId
   };
 }
 
-export function selectAllContacts() {
+export function selectAllWarrantyRegisters() {
   return {
-    type: SELECT_ALL_CONTACTS
+    type: SELECT_ALL_WARRANTYREGISTERS
   };
 }
 
-export function deSelectAllContacts() {
+export function deSelectAllWarrantyRegisters() {
   return {
-    type: DESELECT_ALL_CONTACTS
+    type: DESELECT_ALL_WARRANTYREGISTERS
   };
 }
 
-export function openNewContactDialog() {
+export function openNewWarrantyRegisterDialog() {
   return {
-    type: OPEN_NEW_CONTACT_DIALOG
+    type: OPEN_NEW_WARRANTYREGISTER_DIALOG
   };
 }
 
-export function closeNewContactDialog() {
+export function closeNewWarrantyRegisterDialog() {
   return {
-    type: CLOSE_NEW_CONTACT_DIALOG
+    type: CLOSE_NEW_WARRANTYREGISTER_DIALOG
   };
 }
 
-export function openEditContactDialog(data) {
+export function openEditWarrantyRegisterDialog(data) {
   return {
-    type: OPEN_EDIT_CONTACT_DIALOG,
+    type: OPEN_EDIT_WARRANTYREGISTER_DIALOG,
     data
   };
 }
 
-export function closeEditContactDialog() {
+export function closeEditWarrantyRegisterDialog() {
   return {
-    type: CLOSE_EDIT_CONTACT_DIALOG
+    type: CLOSE_EDIT_WARRANTYREGISTER_DIALOG
   };
 }
 
-// export function updateContact(contact) {
+// export function updateWarrantyRegister(warrantyRegister) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().warrantyRegistersApp.warrantyRegisters;
 
-//     const request = axios.post('/api/contacts-app/update-contact', {
-//       contact
+//     const request = axios.post('/api/warrantyRegisters-app/update-warrantyRegister', {
+//       warrantyRegister
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_WARRANTYREGISTER
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getWarrantyRegisters(routeParams)))
 //     );
 //   };
 // }
 
-// export function removeContact(contactId) {
+// export function removeWarrantyRegister(warrantyRegisterId) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().warrantyRegistersApp.warrantyRegisters;
 
 //     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
-//       contactId
+//       warrantyRegisterId
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: REMOVE_CONTACT
+//           type: REMOVE_WARRANTYREGISTER
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getWarrantyRegisters(routeParams)))
 //     );
 //   };
 // }
 
-export function removeContacts(contactIds) {
+export function removeWarrantyRegisters(warrantyRegisterIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyRegistersApp.warrantyRegisters;
 
-    const request = axios.post('/api/contacts-app/remove-contacts', {
-      contactIds
+    const request = axios.post('/api/warrantyRegisters-app/remove-warrantyRegisters', {
+      warrantyRegisterIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: REMOVE_CONTACTS
+          type: REMOVE_WARRANTYREGISTERS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_WARRANTYREGISTERS
         })
       ]).then(() => dispatch(getWarrantyRegister(routeParams)))
     );
   };
 }
 
-export function toggleStarredContact(contactId) {
+export function toggleStarredWarrantyRegister(warrantyRegisterId) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyRegistersApp.warrantyRegisters;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contact', {
-      contactId
+    const request = axios.post('/api/warrantyRegisters-app/toggle-starred-warrantyRegister', {
+      warrantyRegisterId
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACT
+          type: TOGGLE_STARRED_WARRANTYREGISTER
         }),
       ]).then(() => dispatch(getWarrantyRegister(routeParams)))
     );
   };
 }
 
-export function toggleStarredContacts(contactIds) {
+export function toggleStarredWarrantyRegisters(warrantyRegisterIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyRegistersApp.warrantyRegisters;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contacts', {
-      contactIds
+    const request = axios.post('/api/warrantyRegisters-app/toggle-starred-warrantyRegisters', {
+      warrantyRegisterIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACTS
+          type: TOGGLE_STARRED_WARRANTYREGISTERS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_WARRANTYREGISTERS
         }),
       ]).then(() => dispatch(getWarrantyRegister(routeParams)))
     );
   };
 }
 
-export function setContactsStarred(contactIds) {
+export function setWarrantyRegistersStarred(warrantyRegisterIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyRegistersApp.warrantyRegisters;
 
-    const request = axios.post('/api/contacts-app/set-contacts-starred', {
-      contactIds
+    const request = axios.post('/api/warrantyRegisters-app/set-warrantyRegisters-starred', {
+      warrantyRegisterIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_WARRANTYREGISTERS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_WARRANTYREGISTERS
         }),
       ]).then(() => dispatch(getWarrantyRegister(routeParams)))
     );
   };
 }
 
-export function setContactsUnstarred(contactIds) {
+export function setWarrantyRegistersUnstarred(warrantyRegisterIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().warrantyRegistersApp.warrantyRegisters;
 
-    const request = axios.post('/api/contacts-app/set-contacts-unstarred', {
-      contactIds
+    const request = axios.post('/api/warrantyRegisters-app/set-warrantyRegisters-unstarred', {
+      warrantyRegisterIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_WARRANTYREGISTERS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_WARRANTYREGISTERS
         }),
       ]).then(() => dispatch(getWarrantyRegister(routeParams)))
     );

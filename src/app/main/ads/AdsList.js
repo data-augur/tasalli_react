@@ -17,9 +17,9 @@ import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
 
-class ContactsList extends Component {
+class AdsList extends Component {
   state = {
-    selectedContactsMenu: null
+    selectedAdsMenu: null
   };
 
   getFilteredArray = (entities, searchText) => {
@@ -30,28 +30,28 @@ class ContactsList extends Component {
     return FuseUtils.filterArrayByString(arr, searchText);
   };
 
-  openSelectedContactMenu = event => {
-    this.setState({ selectedContactsMenu: event.currentTarget });
+  openSelectedAdMenu = event => {
+    this.setState({ selectedAdsMenu: event.currentTarget });
   };
 
-  closeSelectedContactsMenu = () => {
-    this.setState({ selectedContactsMenu: null });
+  closeSelectedAdsMenu = () => {
+    this.setState({ selectedAdsMenu: null });
   };
 
   render() {
     const {
-      contacts,
+      ads,
       searchText,
-      selectedContactIds,
+      selectedAdIds,
       
-      openEditContactDialog,
-      removeContacts,
+      openEditAdDialog,
       removeAds,
-      setContactsUnstarred,
-      setContactsStarred
+      // removeAds,
+      setAdsUnstarred,
+      setAdsStarred
     } = this.props;
-    const data = this.getFilteredArray(contacts, searchText);
-    const { selectedContactsMenu } = this.state;
+    const data = this.getFilteredArray(ads, searchText);
+    const { selectedAdsMenu } = this.state;
 
     if (!data && data.length === 0) {
       return (
@@ -72,7 +72,7 @@ class ContactsList extends Component {
               className: 'cursor-pointer',
               onClick: (e, handleOriginal) => {
                 if (rowInfo) {
-                  openEditContactDialog(rowInfo.original);
+                  openEditAdDialog(rowInfo.original);
                 }
               }
             };
@@ -82,28 +82,28 @@ class ContactsList extends Component {
             
             {
               Header: () =>
-                selectedContactIds.length > 0 && (
+                selectedAdIds.length > 0 && (
                   <React.Fragment>
                     <IconButton
                       aria-owns={
-                        selectedContactsMenu ? 'selectedContactsMenu' : null
+                        selectedAdsMenu ? 'selectedAdsMenu' : null
                       }
                       aria-haspopup="true"
-                      onClick={this.openSelectedContactMenu}
+                      onClick={this.openSelectedAdMenu}
                     >
                       <Icon>more_horiz</Icon>
                     </IconButton>
                     <Menu
-                      id="selectedContactsMenu"
-                      anchorEl={selectedContactsMenu}
-                      open={Boolean(selectedContactsMenu)}
-                      onClose={this.closeSelectedContactsMenu}
+                      id="selectedAdsMenu"
+                      anchorEl={selectedAdsMenu}
+                      open={Boolean(selectedAdsMenu)}
+                      onClose={this.closeSelectedAdsMenu}
                     >
                       <MenuList>
                         <MenuItem
                           onClick={() => {
-                            removeContacts(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            removeAds(selectedAdIds);
+                            this.closeSelectedAdsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -113,8 +113,8 @@ class ContactsList extends Component {
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsStarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setAdsStarred(selectedAdIds);
+                            this.closeSelectedAdsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -124,8 +124,8 @@ class ContactsList extends Component {
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsUnstarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setAdsUnstarred(selectedAdIds);
+                            this.closeSelectedAdsMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -208,17 +208,17 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getContacts: Actions.getAds,
-      toggleInSelectedContacts: Actions.toggleInSelectedContacts,
-      selectAllContacts: Actions.selectAllContacts,
-      deSelectAllContacts: Actions.deSelectAllContacts,
-      openEditContactDialog: Actions.openEditContactDialog,
-      removeContacts: Actions.removeContacts,
+      getAds: Actions.getAds,
+      toggleInSelectedAds: Actions.toggleInSelectedAds,
+      selectAllAds: Actions.selectAllAds,
+      deSelectAllAds: Actions.deSelectAllAds,
+      openEditAdDialog: Actions.openEditAdDialog,
       removeAds: Actions.removeAds,
-      toggleStarredContact: Actions.toggleStarredContact,
-      toggleStarredContacts: Actions.toggleStarredContacts,
-      setContactsStarred: Actions.setContactsStarred,
-      setContactsUnstarred: Actions.setContactsUnstarred
+      // removeAds: Actions.removeAds,
+      toggleStarredAd: Actions.toggleStarredAd,
+      toggleStarredAds: Actions.toggleStarredAds,
+      setAdsStarred: Actions.setAdsStarred,
+      setAdsUnstarred: Actions.setAdsUnstarred
     },
     dispatch
   );
@@ -226,8 +226,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ adsApp }) {
   return {
-    contacts: adsApp.ads.entities,
-    selectedContactIds: adsApp.ads.selectedContactIds,
+    ads: adsApp.ads.entities,
+    selectedAdIds: adsApp.ads.selectedAdIds,
     searchText: adsApp.ads.searchText,
     user: adsApp.user
   };
@@ -237,5 +237,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ContactsList)
+  )(AdsList)
 );

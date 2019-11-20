@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './CompaniesList';
-import ContactsHeader from './CompaniesHeader';
-import ContactDialog from './CompaniesDialog';
+import CompanysList from './CompaniesList';
+import CompanysHeader from './CompaniesHeader';
+import CompanyDialog from './CompaniesDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -24,17 +24,17 @@ const styles = theme => ({
 
 class CompaniesApp extends Component {
   componentDidMount() {
-    this.props.getContacts(this.props.match.params);
+    this.props.getCompanys(this.props.match.params);
   }
 
   componentDidUpdate(prevProps, prevState) {
     if (!_.isEqual(this.props.location, prevProps.location)) {
-      this.props.getContacts(this.props.match.params);
+      this.props.getCompanys(this.props.match.params);
     }
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewCompanyDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -47,8 +47,8 @@ class CompaniesApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<CompanysHeader pageLayout={() => this.pageLayout} />}
+          content={<CompanysList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -60,12 +60,12 @@ class CompaniesApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewCompanyDialog}
           >
             <Icon>add</Icon>
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <CompanyDialog />
       </React.Fragment>
     );
   }
@@ -74,8 +74,8 @@ class CompaniesApp extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getContacts: Actions.getCompanies,
-      openNewContactDialog: Actions.openNewContactDialog
+      getCompanys: Actions.getCompanies,
+      openNewCompanyDialog: Actions.openNewCompanyDialog
     },
     dispatch
   );
@@ -83,8 +83,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ companiesApp }) {
   return {
-    // contacts: companiesApp.companies.entities,
-    selectedContactIds: companiesApp.companies.selectedContactIds,
+    // companys: companiesApp.companies.entities,
+    selectedCompanyIds: companiesApp.companies.selectedCompanyIds,
     searchText: companiesApp.companies.searchText,
     user: companiesApp.user
   };

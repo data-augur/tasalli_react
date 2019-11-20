@@ -6,9 +6,9 @@ const initialState = {
   entities: [],
   surveys: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedAdIds: [],
   routeParams: {},
-  contactDialog: {
+  adDialog: {
     type: 'new',
     props: {
       open: false
@@ -25,9 +25,9 @@ const adsReducer = function(state = initialState, action) {
         entities: [],
         surveys: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedAdIds: [],
         routeParams: {},
-        contactDialog: {
+        adDialog: {
           type: 'new',
           props: {
             open: false
@@ -72,42 +72,42 @@ const adsReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_ADS: {
+      const adId = action.adId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedAdIds = [...state.selectedAdIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedAdIds.find(id => id === adId) !== undefined) {
+        selectedAdIds = selectedAdIds.filter(id => id !== adId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedAdIds = [...selectedAdIds, adId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedAdIds: selectedAdIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_ADS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedAdIds = arr.map(ad => ad.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedAdIds: selectedAdIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_ADS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedAdIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_AD_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        adDialog: {
           type: 'new',
           props: {
             open: true
@@ -116,10 +116,10 @@ const adsReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_AD_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        adDialog: {
           type: 'new',
           props: {
             open: false
@@ -128,10 +128,10 @@ const adsReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_AD_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        adDialog: {
           type: 'edit',
           props: {
             open: true
@@ -140,10 +140,10 @@ const adsReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_AD_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        adDialog: {
           type: 'edit',
           props: {
             open: false

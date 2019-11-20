@@ -18,9 +18,9 @@ import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
 
-class ContactsList extends Component {
+class CompanysList extends Component {
   state = {
-    selectedContactsMenu: null
+    selectedCompanysMenu: null
   };
 
   getFilteredArray = (entities, searchText) => {
@@ -31,28 +31,28 @@ class ContactsList extends Component {
     return FuseUtils.filterArrayByString(arr, searchText);
   };
 
-  openSelectedContactMenu = event => {
-    this.setState({ selectedContactsMenu: event.currentTarget });
+  openSelectedCompanyMenu = event => {
+    this.setState({ selectedCompanysMenu: event.currentTarget });
   };
 
-  closeSelectedContactsMenu = () => {
-    this.setState({ selectedContactsMenu: null });
+  closeSelectedCompanysMenu = () => {
+    this.setState({ selectedCompanysMenu: null });
   };
 
   render() {
     const {
-      contacts,
+      companys,
       searchText,
-      selectedContactIds,
+      selectedCompanyIds,
     
-      openEditContactDialog,
-      removeContacts,
+      openEditCompanyDialog,
+      removeCompanys,
       removeCompany,
-      setContactsUnstarred,
-      setContactsStarred
+      setCompanysUnstarred,
+      setCompanysStarred
     } = this.props;
-    const data = this.getFilteredArray(contacts, searchText);
-    const { selectedContactsMenu } = this.state;
+    const data = this.getFilteredArray(companys, searchText);
+    const { selectedCompanysMenu } = this.state;
 
     if (!data && data.length === 0) {
       return (
@@ -73,7 +73,7 @@ class ContactsList extends Component {
               className: 'cursor-pointer',
               onClick: (e, handleOriginal) => {
                 if (rowInfo) {
-                  openEditContactDialog(rowInfo.original);
+                  openEditCompanyDialog(rowInfo.original);
                 }
               }
             };
@@ -83,28 +83,28 @@ class ContactsList extends Component {
             
             {
               Header: () =>
-                selectedContactIds.length > 0 && (
+                selectedCompanyIds.length > 0 && (
                   <React.Fragment>
                     <IconButton
                       aria-owns={
-                        selectedContactsMenu ? 'selectedContactsMenu' : null
+                        selectedCompanysMenu ? 'selectedCompanysMenu' : null
                       }
                       aria-haspopup="true"
-                      onClick={this.openSelectedContactMenu}
+                      onClick={this.openSelectedCompanyMenu}
                     >
                       <Icon>more_horiz</Icon>
                     </IconButton>
                     <Menu
-                      id="selectedContactsMenu"
-                      anchorEl={selectedContactsMenu}
-                      open={Boolean(selectedContactsMenu)}
-                      onClose={this.closeSelectedContactsMenu}
+                      id="selectedCompanysMenu"
+                      anchorEl={selectedCompanysMenu}
+                      open={Boolean(selectedCompanysMenu)}
+                      onClose={this.closeSelectedCompanysMenu}
                     >
                       <MenuList>
                         <MenuItem
                           onClick={() => {
-                            removeContacts(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            removeCompanys(selectedCompanyIds);
+                            this.closeSelectedCompanysMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -114,8 +114,8 @@ class ContactsList extends Component {
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsStarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setCompanysStarred(selectedCompanyIds);
+                            this.closeSelectedCompanysMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -125,8 +125,8 @@ class ContactsList extends Component {
                         </MenuItem>
                         <MenuItem
                           onClick={() => {
-                            setContactsUnstarred(selectedContactIds);
-                            this.closeSelectedContactsMenu();
+                            setCompanysUnstarred(selectedCompanyIds);
+                            this.closeSelectedCompanysMenu();
                           }}
                         >
                           <ListItemIcon>
@@ -188,17 +188,17 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      getContacts: Actions.getCompanies,
-      toggleInSelectedContacts: Actions.toggleInSelectedContacts,
-      selectAllContacts: Actions.selectAllContacts,
-      deSelectAllContacts: Actions.deSelectAllContacts,
-      openEditContactDialog: Actions.openEditContactDialog,
-      removeContacts: Actions.removeContacts,
+      getCompanys: Actions.getCompanies,
+      toggleInSelectedCompanys: Actions.toggleInSelectedCompanys,
+      selectAllCompanys: Actions.selectAllCompanys,
+      deSelectAllCompanys: Actions.deSelectAllCompanys,
+      openEditCompanyDialog: Actions.openEditCompanyDialog,
+      removeCompanys: Actions.removeCompanys,
       removeCompany: Actions.removeCompany,
-      toggleStarredContact: Actions.toggleStarredContact,
-      toggleStarredContacts: Actions.toggleStarredContacts,
-      setContactsStarred: Actions.setContactsStarred,
-      setContactsUnstarred: Actions.setContactsUnstarred
+      toggleStarredCompany: Actions.toggleStarredCompany,
+      toggleStarredCompanys: Actions.toggleStarredCompanys,
+      setCompanysStarred: Actions.setCompanysStarred,
+      setCompanysUnstarred: Actions.setCompanysUnstarred
     },
     dispatch
   );
@@ -206,8 +206,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ companiesApp }) {
   return {
-    contacts: companiesApp.companies.entities,
-    selectedContactIds: companiesApp.companies.selectedContactIds,
+    companys: companiesApp.companies.entities,
+    selectedCompanyIds: companiesApp.companies.selectedCompanyIds,
     searchText: companiesApp.companies.searchText,
     user: companiesApp.user
   };
@@ -217,5 +217,5 @@ export default withRouter(
   connect(
     mapStateToProps,
     mapDispatchToProps
-  )(ContactsList)
+  )(CompanysList)
 );

@@ -9,25 +9,25 @@ export const ADD_ADS = '[ADS APP] ADD ADS';
 export const UPDATE_ADS = '[ADS APP] UPDATE ADS';
 export const REMOVE_ADS = '[ADS APP] REMOVE ADS';
 
-export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
-export const TOGGLE_IN_SELECTED_CONTACTS =
-  '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
-export const SELECT_ALL_CONTACTS = '[CONTACTS APP] SELECT ALL CONTACTS';
-export const DESELECT_ALL_CONTACTS = '[CONTACTS APP] DESELECT ALL CONTACTS';
-export const OPEN_NEW_CONTACT_DIALOG = '[CONTACTS APP] OPEN NEW CONTACT DIALOG';
-export const CLOSE_NEW_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE NEW CONTACT DIALOG';
-export const OPEN_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
-export const CLOSE_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
+export const SET_SEARCH_TEXT = '[ADS APP] SET SEARCH TEXT';
+export const TOGGLE_IN_SELECTED_ADS =
+  '[ADS APP] TOGGLE IN SELECTED ADS';
+export const SELECT_ALL_ADS = '[ADS APP] SELECT ALL ADS';
+export const DESELECT_ALL_ADS = '[ADS APP] DESELECT ALL ADS';
+export const OPEN_NEW_AD_DIALOG = '[ADS APP] OPEN NEW AD DIALOG';
+export const CLOSE_NEW_AD_DIALOG =
+  '[ADS APP] CLOSE NEW AD DIALOG';
+export const OPEN_EDIT_AD_DIALOG =
+  '[ADS APP] OPEN EDIT AD DIALOG';
+export const CLOSE_EDIT_AD_DIALOG =
+  '[ADS APP] CLOSE EDIT AD DIALOG';
 
-export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
-export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
-export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
-export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
+// export const REMOVE_ADS = '[ADS APP] REMOVE ADS';
+export const TOGGLE_STARRED_AD = '[ADS APP] TOGGLE STARRED AD';
+export const TOGGLE_STARRED_ADS = '[ADS APP] TOGGLE STARRED ADS';
+export const SET_ADS_STARRED = '[ADS APP] SET ADS STARRED ';
 
-// export function getContacts(routeParams) {
+// export function getAds(routeParams) {
 //   const token = localStorage.getItem('jwtToken');
 
 //   const headers = {
@@ -84,13 +84,13 @@ export const getAds = () => dispatch => {
       //   });
     });
 };
-export const addAds = newContact => dispatch => {
-newContact.time_from = new Date(newContact.time_from);
-newContact.time_to = new Date(newContact.time_to);
-// newContact.ad_type = newContact.type;
+export const addAds = newAd => dispatch => {
+newAd.time_from = new Date(newAd.time_from);
+newAd.time_to = new Date(newAd.time_to);
+// newAd.ad_type = newAd.type;
   axios
-    // .post(Base_URL+'create-ads', newContact)
-    .post(Base_URL+'create-ad', newContact)
+    // .post(Base_URL+'create-ads', newAd)
+    .post(Base_URL+'create-ad', newAd)
     .then(res => {
         if(res.request.status===200)
         {
@@ -167,37 +167,37 @@ export const removeAds = id => dispatch => {
     });
 };
 
-// export function updateContact(contact) {
+// export function updateAd(ad) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().adsApp.ads;
 
 //     const request = axios.post(Base_URL+`update-ads/${id}`, {
-//       contact
+//       ad
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_AD
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getAds(routeParams)))
 //     );
 //   };
 // }
-// export function addContact(newContact) {
+// export function addAd(newAd) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().adsApp.ads;
 
 //     const request = axios.post(Base_URL+'create-ads', {
-//       newContact
+//       newAd
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: ADD_CONTACT
+//           type: ADD_AD
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getAds(routeParams)))
 //     );
 //   };
 // }
@@ -209,161 +209,126 @@ export function setSearchText(event) {
   };
 }
 
-export function toggleInSelectedContacts(contactId) {
+export function toggleInSelectedAds(adId) {
   return {
-    type: TOGGLE_IN_SELECTED_CONTACTS,
-    contactId
+    type: TOGGLE_IN_SELECTED_ADS,
+    adId
   };
 }
 
-export function selectAllContacts() {
+export function selectAllAds() {
   return {
-    type: SELECT_ALL_CONTACTS
+    type: SELECT_ALL_ADS
   };
 }
 
-export function deSelectAllContacts() {
+export function deSelectAllAds() {
   return {
-    type: DESELECT_ALL_CONTACTS
+    type: DESELECT_ALL_ADS
   };
 }
 
-export function openNewContactDialog() {
+export function openNewAdDialog() {
   return {
-    type: OPEN_NEW_CONTACT_DIALOG
+    type: OPEN_NEW_AD_DIALOG
   };
 }
 
-export function closeNewContactDialog() {
+export function closeNewAdDialog() {
   return {
-    type: CLOSE_NEW_CONTACT_DIALOG
+    type: CLOSE_NEW_AD_DIALOG
   };
 }
 
-export function openEditContactDialog(data) {
+export function openEditAdDialog(data) {
   return {
-    type: OPEN_EDIT_CONTACT_DIALOG,
+    type: OPEN_EDIT_AD_DIALOG,
     data
   };
 }
 
-export function closeEditContactDialog() {
+export function closeEditAdDialog() {
   return {
-    type: CLOSE_EDIT_CONTACT_DIALOG
+    type: CLOSE_EDIT_AD_DIALOG
   };
 }
 
-// export function updateContact(contact) {
+
+// export function removeAds(adIds) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
-
-//     const request = axios.post('/api/contacts-app/update-contact', {
-//       contact
+//     const { routeParams } = getState().adsApp.ads;
+//
+//     const request = axios.post('/api/ads-app/remove-ads', {
+//       adIds
 //     });
-
+//
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: REMOVE_ADS
+//         }),
+//         dispatch({
+//           type: DESELECT_ALL_ADS
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getAds(routeParams)))
 //     );
 //   };
 // }
 
-// export function removeContact(contactId) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
-
-//     const request = axios.post(Base_URL+`delete-ads/${id}`, {
-//       contactId
-//     });
-
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: REMOVE_CONTACT
-//         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
-//     );
-//   };
-// }
-
-export function removeContacts(contactIds) {
+export function toggleStarredAd(adId) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().adsApp.ads;
 
-    const request = axios.post('/api/contacts-app/remove-contacts', {
-      contactIds
+    const request = axios.post('/api/ads-app/toggle-starred-ad', {
+      adId
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: REMOVE_CONTACTS
-        }),
-        dispatch({
-          type: DESELECT_ALL_CONTACTS
-        })
-      ]).then(() => dispatch(getAds(routeParams)))
-    );
-  };
-}
-
-export function toggleStarredContact(contactId) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
-
-    const request = axios.post('/api/contacts-app/toggle-starred-contact', {
-      contactId
-    });
-
-    return request.then(response =>
-      Promise.all([
-        dispatch({
-          type: TOGGLE_STARRED_CONTACT
+          type: TOGGLE_STARRED_AD
         }),
       ]).then(() => dispatch(getAds(routeParams)))
     );
   };
 }
 
-export function toggleStarredContacts(contactIds) {
+export function toggleStarredAds(adIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().adsApp.ads;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contacts', {
-      contactIds
+    const request = axios.post('/api/ads-app/toggle-starred-ads', {
+      adIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACTS
+          type: TOGGLE_STARRED_ADS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_ADS
         }),
       ]).then(() => dispatch(getAds(routeParams)))
     );
   };
 }
 
-export function setContactsStarred(contactIds) {
+export function setAdsStarred(adIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().adsApp.ads;
 
-    const request = axios.post('/api/contacts-app/set-contacts-starred', {
-      contactIds
+    const request = axios.post('/api/ads-app/set-ads-starred', {
+      adIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_ADS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_ADS
         }),
       ]).then(() => dispatch(getAds(routeParams)))
     );
@@ -383,28 +348,25 @@ export const getAllSurveys = () => dispatch => {
         })
         .catch(err => {
 
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
+
         });
 };
 
-export function setContactsUnstarred(contactIds) {
+export function setAdsUnstarred(adIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().adsApp.ads;
 
-    const request = axios.post('/api/contacts-app/set-contacts-unstarred', {
-      contactIds
+    const request = axios.post('/api/ads-app/set-ads-unstarred', {
+      adIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_ADS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_ADS
         }),
       ]).then(() => dispatch(getAds(routeParams)))
     );

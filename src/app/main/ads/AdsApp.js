@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './AdsList';
-import ContactsHeader from './AdsHeader';
-import ContactDialog from './AdsDialog';
+import AdsList from './AdsList';
+import AdsHeader from './AdsHeader';
+import AdDialog from './AdsDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class AdsApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewAdDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class AdsApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<AdsHeader pageLayout={() => this.pageLayout} />}
+          content={<AdsList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class AdsApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewAdDialog}
           >
             <Icon>add</Icon>
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <AdDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getAds: Actions.getAds,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewAdDialog: Actions.openNewAdDialog
     },
     dispatch
   );
@@ -82,8 +82,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ adsApp }) {
   return {
-    // contacts: adsApp.ads.entities,
-    selectedContactIds: adsApp.ads.selectedContactIds,
+    // ads: adsApp.ads.entities,
+    selectedAdIds: adsApp.ads.selectedAdIds,
     searchText: adsApp.ads.searchText,
     user: adsApp.user
   };

@@ -5,9 +5,9 @@ import * as authActions from '../../../../auth/store/actions';
 const initialState = {
   entities: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedCompanyIds: [],
   routeParams: {},
-  contactDialog: {
+  companyDialog: {
     type: 'new',
     props: {
       open: false
@@ -23,9 +23,9 @@ const companiesReducer = function(state = initialState, action) {
         ...state,
         entities: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedCompanyIds: [],
         routeParams: {},
-        contactDialog: {
+        companyDialog: {
           type: 'new',
           props: {
             open: false
@@ -64,42 +64,42 @@ const companiesReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_COMPANYS: {
+      const companyId = action.companyId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedCompanyIds = [...state.selectedCompanyIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedCompanyIds.find(id => id === companyId) !== undefined) {
+        selectedCompanyIds = selectedCompanyIds.filter(id => id !== companyId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedCompanyIds = [...selectedCompanyIds, companyId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedCompanyIds: selectedCompanyIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_COMPANYS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedCompanyIds = arr.map(company => company.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedCompanyIds: selectedCompanyIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_COMPANYS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedCompanyIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_COMPANY_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        companyDialog: {
           type: 'new',
           props: {
             open: true
@@ -108,10 +108,10 @@ const companiesReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_COMPANY_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        companyDialog: {
           type: 'new',
           props: {
             open: false
@@ -120,10 +120,10 @@ const companiesReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_COMPANY_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        companyDialog: {
           type: 'edit',
           props: {
             open: true
@@ -132,10 +132,10 @@ const companiesReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_COMPANY_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        companyDialog: {
           type: 'edit',
           props: {
             open: false

@@ -11,25 +11,25 @@ export const UPDATE_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] UPDATE SURVEYATTRIB
 export const REMOVE_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] REMOVE SURVEYATTRIBUTE';
 export const GET_SURVEYATTRIBUTEOPTIONS = '[SURVEYATTRIBUTE APP] GET SURVEYATTRIBUTEOPTIONS';
 
-export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
-export const TOGGLE_IN_SELECTED_CONTACTS =
-  '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
-export const SELECT_ALL_CONTACTS = '[CONTACTS APP] SELECT ALL CONTACTS';
-export const DESELECT_ALL_CONTACTS = '[CONTACTS APP] DESELECT ALL CONTACTS';
-export const OPEN_NEW_CONTACT_DIALOG = '[CONTACTS APP] OPEN NEW CONTACT DIALOG';
-export const CLOSE_NEW_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE NEW CONTACT DIALOG';
-export const OPEN_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
-export const CLOSE_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
+export const SET_SEARCH_TEXT = '[SURVEYATTRIBUTES APP] SET SEARCH TEXT';
+export const TOGGLE_IN_SELECTED_SURVEYATTRIBUTES =
+  '[SURVEYATTRIBUTES APP] TOGGLE IN SELECTED SURVEYATTRIBUTES';
+export const SELECT_ALL_SURVEYATTRIBUTES = '[SURVEYATTRIBUTES APP] SELECT ALL SURVEYATTRIBUTES';
+export const DESELECT_ALL_SURVEYATTRIBUTES = '[SURVEYATTRIBUTES APP] DESELECT ALL SURVEYATTRIBUTES';
+export const OPEN_NEW_SURVEYATTRIBUTE_DIALOG = '[SURVEYATTRIBUTES APP] OPEN NEW SURVEYATTRIBUTE DIALOG';
+export const CLOSE_NEW_SURVEYATTRIBUTE_DIALOG =
+  '[SURVEYATTRIBUTES APP] CLOSE NEW SURVEYATTRIBUTE DIALOG';
+export const OPEN_EDIT_SURVEYATTRIBUTE_DIALOG =
+  '[SURVEYATTRIBUTES APP] OPEN EDIT SURVEYATTRIBUTE DIALOG';
+export const CLOSE_EDIT_SURVEYATTRIBUTE_DIALOG =
+  '[SURVEYATTRIBUTES APP] CLOSE EDIT SURVEYATTRIBUTE DIALOG';
 
-export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
-export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
-export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
-export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
+export const REMOVE_SURVEYATTRIBUTES = '[SURVEYATTRIBUTES APP] REMOVE SURVEYATTRIBUTES';
+export const TOGGLE_STARRED_SURVEYATTRIBUTE = '[SURVEYATTRIBUTES APP] TOGGLE STARRED SURVEYATTRIBUTE';
+export const TOGGLE_STARRED_SURVEYATTRIBUTES = '[SURVEYATTRIBUTES APP] TOGGLE STARRED SURVEYATTRIBUTES';
+export const SET_SURVEYATTRIBUTES_STARRED = '[SURVEYATTRIBUTES APP] SET SURVEYATTRIBUTES STARRED ';
 
-// export function getContacts(routeParams) {
+// export function getSurveyAttributes(routeParams) {
 //   const token = localStorage.getItem('jwtToken');
 
 //   const headers = {
@@ -83,10 +83,10 @@ export const getSurveyAttribute = () => dispatch => {
       //   });
     });
 };
-export const addSurveyAttribute = newContact => dispatch => {
+export const addSurveyAttribute = newSurveyAttribute => dispatch => {
   axios
-    // .post(Base_URL+'create-brand', newContact)
-    .post(Base_URL+'create-survey-attribute', newContact)
+    // .post(Base_URL+'create-brand', newSurveyAttribute)
+    .post(Base_URL+'create-survey-attribute', newSurveyAttribute)
     .then(res => {
         if(res.request.status===200)
         {
@@ -169,37 +169,37 @@ export const getSurveyAttributeOptions = id => dispatch => {
         });
 };
 
-// export function updateContact(contact) {
+// export function updateSurveyAttribute(surveyAttribute) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().surveyAttributesApp.surveyAttributes;
 
 //     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
-//       contact
+//       surveyAttribute
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_SURVEYATTRIBUTE
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getSurveyAttributes(routeParams)))
 //     );
 //   };
 // }
-// export function addContact(newContact) {
+// export function addSurveyAttribute(newSurveyAttribute) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().surveyAttributesApp.surveyAttributes;
 
 //     const request = axios.post(Base_URL+'create-brand-user', {
-//       newContact
+//       newSurveyAttribute
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: ADD_CONTACT
+//           type: ADD_SURVEYATTRIBUTE
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getSurveyAttributes(routeParams)))
 //     );
 //   };
 // }
@@ -211,182 +211,182 @@ export function setSearchText(event) {
   };
 }
 
-export function toggleInSelectedContacts(contactId) {
+export function toggleInSelectedSurveyAttributes(surveyAttributeId) {
   return {
-    type: TOGGLE_IN_SELECTED_CONTACTS,
-    contactId
+    type: TOGGLE_IN_SELECTED_SURVEYATTRIBUTES,
+    surveyAttributeId
   };
 }
 
-export function selectAllContacts() {
+export function selectAllSurveyAttributes() {
   return {
-    type: SELECT_ALL_CONTACTS
+    type: SELECT_ALL_SURVEYATTRIBUTES
   };
 }
 
-export function deSelectAllContacts() {
+export function deSelectAllSurveyAttributes() {
   return {
-    type: DESELECT_ALL_CONTACTS
+    type: DESELECT_ALL_SURVEYATTRIBUTES
   };
 }
 
-export function openNewContactDialog() {
+export function openNewSurveyAttributeDialog() {
   return {
-    type: OPEN_NEW_CONTACT_DIALOG
+    type: OPEN_NEW_SURVEYATTRIBUTE_DIALOG
   };
 }
 
-export function closeNewContactDialog() {
+export function closeNewSurveyAttributeDialog() {
   return {
-    type: CLOSE_NEW_CONTACT_DIALOG
+    type: CLOSE_NEW_SURVEYATTRIBUTE_DIALOG
   };
 }
 
-export function openEditContactDialog(data) {
+export function openEditSurveyAttributeDialog(data) {
   return {
-    type: OPEN_EDIT_CONTACT_DIALOG,
+    type: OPEN_EDIT_SURVEYATTRIBUTE_DIALOG,
     data
   };
 }
 
-export function closeEditContactDialog() {
+export function closeEditSurveyAttributeDialog() {
   return {
-    type: CLOSE_EDIT_CONTACT_DIALOG
+    type: CLOSE_EDIT_SURVEYATTRIBUTE_DIALOG
   };
 }
 
-// export function updateContact(contact) {
+// export function updateSurveyAttribute(surveyAttribute) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().surveyAttributesApp.surveyAttributes;
 
-//     const request = axios.post('/api/contacts-app/update-contact', {
-//       contact
+//     const request = axios.post('/api/surveyAttributes-app/update-surveyAttribute', {
+//       surveyAttribute
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_SURVEYATTRIBUTE
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getSurveyAttributes(routeParams)))
 //     );
 //   };
 // }
 
-// export function removeContact(contactId) {
+// export function removeSurveyAttribute(surveyAttributeId) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().surveyAttributesApp.surveyAttributes;
 
 //     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
-//       contactId
+//       surveyAttributeId
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: REMOVE_CONTACT
+//           type: REMOVE_SURVEYATTRIBUTE
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getSurveyAttributes(routeParams)))
 //     );
 //   };
 // }
 
-export function removeContacts(contactIds) {
+export function removeSurveyAttributes(surveyAttributeIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().surveyAttributesApp.surveyAttributes;
 
-    const request = axios.post('/api/contacts-app/remove-contacts', {
-      contactIds
+    const request = axios.post('/api/surveyAttributes-app/remove-surveyAttributes', {
+      surveyAttributeIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: REMOVE_CONTACTS
+          type: REMOVE_SURVEYATTRIBUTES
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_SURVEYATTRIBUTES
         })
       ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );
   };
 }
 
-export function toggleStarredContact(contactId) {
+export function toggleStarredSurveyAttribute(surveyAttributeId) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().surveyAttributesApp.surveyAttributes;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contact', {
-      contactId
+    const request = axios.post('/api/surveyAttributes-app/toggle-starred-surveyAttribute', {
+      surveyAttributeId
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACT
+          type: TOGGLE_STARRED_SURVEYATTRIBUTE
         }),
       ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );
   };
 }
 
-export function toggleStarredContacts(contactIds) {
+export function toggleStarredSurveyAttributes(surveyAttributeIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().surveyAttributesApp.surveyAttributes;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contacts', {
-      contactIds
+    const request = axios.post('/api/surveyAttributes-app/toggle-starred-surveyAttributes', {
+      surveyAttributeIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACTS
+          type: TOGGLE_STARRED_SURVEYATTRIBUTES
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_SURVEYATTRIBUTES
         }),
       ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );
   };
 }
 
-export function setContactsStarred(contactIds) {
+export function setSurveyAttributesStarred(surveyAttributeIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().surveyAttributesApp.surveyAttributes;
 
-    const request = axios.post('/api/contacts-app/set-contacts-starred', {
-      contactIds
+    const request = axios.post('/api/surveyAttributes-app/set-surveyAttributes-starred', {
+      surveyAttributeIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_SURVEYATTRIBUTES_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_SURVEYATTRIBUTES
         }),
       ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );
   };
 }
 
-export function setContactsUnstarred(contactIds) {
+export function setSurveyAttributesUnstarred(surveyAttributeIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().surveyAttributesApp.surveyAttributes;
 
-    const request = axios.post('/api/contacts-app/set-contacts-unstarred', {
-      contactIds
+    const request = axios.post('/api/surveyAttributes-app/set-surveyAttributes-unstarred', {
+      surveyAttributeIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_SURVEYATTRIBUTES_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_SURVEYATTRIBUTES
         }),
       ]).then(() => dispatch(getSurveyAttribute(routeParams)))
     );

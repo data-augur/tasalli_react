@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './SurveyAttributeList';
-import ContactsHeader from './SurveyAttributeHeader';
-import ContactDialog from './SurveyAttributeDialog';
+import SurveyAttributesList from './SurveyAttributeList';
+import SurveyAttributesHeader from './SurveyAttributeHeader';
+import SurveyAttributeDialog from './SurveyAttributeDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class SurveysApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewSurveyAttributeDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class SurveysApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<SurveyAttributesHeader pageLayout={() => this.pageLayout} />}
+          content={<SurveyAttributesList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,13 +59,13 @@ class SurveysApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewSurveyAttributeDialog}
           >
             <Icon>add</Icon>
               {/*new*/}
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <SurveyAttributeDialog />
       </React.Fragment>
     );
   }
@@ -75,7 +75,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getSurveyAttribute: Actions.getSurveyAttribute,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewSurveyAttributeDialog: Actions.openNewSurveyAttributeDialog
     },
     dispatch
   );
@@ -83,8 +83,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ surveyAttributeApp }) {
   return {
-    // contacts: brandsApp.brands.entities,
-    selectedContactIds: surveyAttributeApp.surveyAttribute.selectedContactIds,
+    // surveyAttributes: brandsApp.brands.entities,
+    selectedSurveyAttributeIds: surveyAttributeApp.surveyAttribute.selectedSurveyAttributeIds,
     searchText: surveyAttributeApp.surveyAttribute.searchText,
     user: surveyAttributeApp.user
   };

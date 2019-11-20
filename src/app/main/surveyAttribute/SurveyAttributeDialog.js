@@ -38,7 +38,7 @@ const attributesType = [
   }
 ];
 
-const newContactState = {
+const newSurveyAttributeState = {
   field_name: '',
   field_type: '',
   survey_Id: window.location.href.substring(window.location.href.lastIndexOf('/') + 1),
@@ -47,27 +47,27 @@ const newContactState = {
   options: []
 };
 
-class ContactDialog extends Component {
-  state = { ...newContactState };
+class SurveyAttributeDialog extends Component {
+  state = { ...newSurveyAttributeState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     /**
      * After Dialog Open
      */
     if (
-        !prevProps.contactDialog.props.open &&
-        this.props.contactDialog.props.open
+        !prevProps.surveyAttributeDialog.props.open &&
+        this.props.surveyAttributeDialog.props.open
     ) {
       /**
        * Dialog type: 'edit'
        * Update State
        */
       if (
-          this.props.contactDialog.type === 'edit' &&
-          this.props.contactDialog.data &&
-          !_.isEqual(this.props.contactDialog.data, prevState)
+          this.props.surveyAttributeDialog.type === 'edit' &&
+          this.props.surveyAttributeDialog.data &&
+          !_.isEqual(this.props.surveyAttributeDialog.data, prevState)
       ) {
-        this.setState({ ...this.props.contactDialog.data });
+        this.setState({ ...this.props.surveyAttributeDialog.data });
       }
 
       /**
@@ -75,10 +75,10 @@ class ContactDialog extends Component {
        * Update State
        */
       if (
-          this.props.contactDialog.type === 'new' &&
-          !_.isEqual(newContactState, prevState)
+          this.props.surveyAttributeDialog.type === 'new' &&
+          !_.isEqual(newSurveyAttributeState, prevState)
       ) {
-        this.setState({ ...newContactState });
+        this.setState({ ...newSurveyAttributeState });
       }
     }
   }
@@ -119,9 +119,9 @@ class ContactDialog extends Component {
   closeComposeDialog = () => {
     // this.state.options=[];
   //  this.handleAllRemove();
-    this.props.contactDialog.type === 'edit'
-        ? this.props.closeEditContactDialog()
-        : this.props.closeNewContactDialog();
+    this.props.surveyAttributeDialog.type === 'edit'
+        ? this.props.closeEditSurveyAttributeDialog()
+        : this.props.closeNewSurveyAttributeDialog();
   };
 
   canBeSubmitted() {
@@ -145,14 +145,14 @@ class ContactDialog extends Component {
 
 
   render() {
-    const { contactDialog, addSurveyAttribute, updateSurveyAttribute, removeSurveyAttribute } = this.props;
+    const { surveyAttributeDialog, addSurveyAttribute, updateSurveyAttribute, removeSurveyAttribute } = this.props;
 
     return (
         <Dialog
             classes={{
               paper: 'm-24'
             }}
-            {...contactDialog.props}
+            {...surveyAttributeDialog.props}
             onClose={this.closeComposeDialog}
             fullWidth
             maxWidth="sm"
@@ -160,16 +160,16 @@ class ContactDialog extends Component {
           <AppBar position="static" elevation={1}>
             <Toolbar className="flex w-full">
               <Typography variant="subtitle1" color="inherit">
-                {contactDialog.type === 'new' ? 'New Survey Attribute' : 'Edit Survey Attribute'}
+                {surveyAttributeDialog.type === 'new' ? 'New Survey Attribute' : 'Edit Survey Attribute'}
               </Typography>
             </Toolbar>
             <div className="flex flex-col items-center justify-center pb-24">
               {/* <Avatar
               className="w-96 h-96"
-              alt="contact avatar"
+              alt="surveyAttribute avatar"
               src={this.state.avatar}
             /> */}
-              {contactDialog.type === 'edit' && (
+              {surveyAttributeDialog.type === 'edit' && (
                   <Typography variant="h6" color="inherit" className="pt-8">
                     {this.state.name}
                   </Typography>
@@ -241,7 +241,7 @@ class ContactDialog extends Component {
             </div>
 
 
-            { contactDialog.type === 'new' && (this.state.field_type==='radio' || this.state.field_type==='checkbox' || this.state.field_type==='spinner') ? (
+            { surveyAttributeDialog.type === 'new' && (this.state.field_type==='radio' || this.state.field_type==='checkbox' || this.state.field_type==='spinner') ? (
                 <div>
                   {
 
@@ -274,14 +274,14 @@ class ContactDialog extends Component {
                 </div>
             ) : null}
 
-            {contactDialog.type === 'new' && (this.state.field_type==='radio' || this.state.field_type==='checkbox' || this.state.field_type==='spinner') ? (
+            {surveyAttributeDialog.type === 'new' && (this.state.field_type==='radio' || this.state.field_type==='checkbox' || this.state.field_type==='spinner') ? (
                 <div className="flex">
                   <Button
                       variant="contained"
                       color="primary"
                       onClick={(e)=>this.addOption(e)}>Add Options</Button>
                 </div>
-            ) : contactDialog.type === 'edit' && this.state.field_type!=='input' ? (
+            ) : surveyAttributeDialog.type === 'edit' && this.state.field_type!=='input' ? (
 
                 <div>
                   {
@@ -356,7 +356,7 @@ class ContactDialog extends Component {
 
           </DialogContent>
 
-          {contactDialog.type === 'new' ? (
+          {surveyAttributeDialog.type === 'new' ? (
               <DialogActions className="justify-between pl-16">
                 <Button
                     variant="contained"
@@ -401,8 +401,8 @@ class ContactDialog extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
       {
-        closeEditContactDialog: Actions.closeEditContactDialog,
-        closeNewContactDialog: Actions.closeNewContactDialog,
+        closeEditSurveyAttributeDialog: Actions.closeEditSurveyAttributeDialog,
+        closeNewSurveyAttributeDialog: Actions.closeNewSurveyAttributeDialog,
         addSurveyAttribute: Actions.addSurveyAttribute,
         updateSurveyAttribute: Actions.updateSurveyAttribute,
         removeSurveyAttribute: Actions.removeSurveyAttribute,
@@ -414,11 +414,11 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ surveyAttributeApp }) {
   return {
-    contactDialog: surveyAttributeApp.surveyAttribute.contactDialog
+    surveyAttributeDialog: surveyAttributeApp.surveyAttribute.surveyAttributeDialog
   };
 }
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ContactDialog);
+)(SurveyAttributeDialog);

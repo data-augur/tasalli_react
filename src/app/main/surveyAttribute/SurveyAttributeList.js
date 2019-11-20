@@ -18,9 +18,9 @@ import ReactTable from 'react-table';
 import * as Actions from './store/actions';
 
 
-class ContactsList extends Component {
+class SurveyAttributesList extends Component {
     state = {
-        selectedContactsMenu: null
+        selectedSurveyAttributesMenu: null
     };
 
     getFilteredArray = (entities, searchText) => {
@@ -31,28 +31,28 @@ class ContactsList extends Component {
         return FuseUtils.filterArrayByString(arr, searchText);
     };
 
-    openSelectedContactMenu = event => {
-        this.setState({selectedContactsMenu: event.currentTarget});
+    openSelectedSurveyAttributeMenu = event => {
+        this.setState({selectedSurveyAttributesMenu: event.currentTarget});
     };
 
-    closeSelectedContactsMenu = () => {
-        this.setState({selectedContactsMenu: null});
+    closeSelectedSurveyAttributesMenu = () => {
+        this.setState({selectedSurveyAttributesMenu: null});
     };
 
     render() {
         const {
-            contacts,
+            surveyAttributes,
             searchText,
-            selectedContactIds,
+            selectedSurveyAttributeIds,
             
-            openEditContactDialog,
-            removeContacts,
+            openEditSurveyAttributeDialog,
+            removeSurveyAttributes,
             removeSurveyAttribute,
-            setContactsUnstarred,
-            setContactsStarred
+            setSurveyAttributesUnstarred,
+            setSurveyAttributesStarred
         } = this.props;
-        const data = this.getFilteredArray(contacts, searchText);
-        const {selectedContactsMenu} = this.state;
+        const data = this.getFilteredArray(surveyAttributes, searchText);
+        const {selectedSurveyAttributesMenu} = this.state;
 
         if (!data && data.length === 0) {
             return (
@@ -73,7 +73,7 @@ class ContactsList extends Component {
                             className: 'cursor-pointer',
                             onClick: (e, handleOriginal) => {
                                 if (rowInfo) {
-                                    openEditContactDialog(rowInfo.original);
+                                    openEditSurveyAttributeDialog(rowInfo.original);
                                 }
                             }
                         };
@@ -83,28 +83,28 @@ class ContactsList extends Component {
                         
                         {
                             Header: () =>
-                                selectedContactIds.length > 0 && (
+                                selectedSurveyAttributeIds.length > 0 && (
                                     <React.Fragment>
                                         <IconButton
                                             aria-owns={
-                                                selectedContactsMenu ? 'selectedContactsMenu' : null
+                                                selectedSurveyAttributesMenu ? 'selectedSurveyAttributesMenu' : null
                                             }
                                             aria-haspopup="true"
-                                            onClick={this.openSelectedContactMenu}
+                                            onClick={this.openSelectedSurveyAttributeMenu}
                                         >
                                             <Icon>more_horiz</Icon>
                                         </IconButton>
                                         <Menu
-                                            id="selectedContactsMenu"
-                                            anchorEl={selectedContactsMenu}
-                                            open={Boolean(selectedContactsMenu)}
-                                            onClose={this.closeSelectedContactsMenu}
+                                            id="selectedSurveyAttributesMenu"
+                                            anchorEl={selectedSurveyAttributesMenu}
+                                            open={Boolean(selectedSurveyAttributesMenu)}
+                                            onClose={this.closeSelectedSurveyAttributesMenu}
                                         >
                                             <MenuList>
                                                 <MenuItem
                                                     onClick={() => {
-                                                        removeContacts(selectedContactIds);
-                                                        this.closeSelectedContactsMenu();
+                                                        removeSurveyAttributes(selectedSurveyAttributeIds);
+                                                        this.closeSelectedSurveyAttributesMenu();
                                                     }}
                                                 >
                                                     <ListItemIcon>
@@ -114,8 +114,8 @@ class ContactsList extends Component {
                                                 </MenuItem>
                                                 <MenuItem
                                                     onClick={() => {
-                                                        setContactsStarred(selectedContactIds);
-                                                        this.closeSelectedContactsMenu();
+                                                        setSurveyAttributesStarred(selectedSurveyAttributeIds);
+                                                        this.closeSelectedSurveyAttributesMenu();
                                                     }}
                                                 >
                                                     <ListItemIcon>
@@ -125,8 +125,8 @@ class ContactsList extends Component {
                                                 </MenuItem>
                                                 <MenuItem
                                                     onClick={() => {
-                                                        setContactsUnstarred(selectedContactIds);
-                                                        this.closeSelectedContactsMenu();
+                                                        setSurveyAttributesUnstarred(selectedSurveyAttributeIds);
+                                                        this.closeSelectedSurveyAttributesMenu();
                                                     }}
                                                 >
                                                     <ListItemIcon>
@@ -240,17 +240,17 @@ class ContactsList extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
-            getContacts: Actions.getSurveyAttribute,
-            toggleInSelectedContacts: Actions.toggleInSelectedContacts,
-            selectAllContacts: Actions.selectAllContacts,
-            deSelectAllContacts: Actions.deSelectAllContacts,
-            openEditContactDialog: Actions.openEditContactDialog,
-            removeContacts: Actions.removeContacts,
+            getSurveyAttributes: Actions.getSurveyAttribute,
+            toggleInSelectedSurveyAttributes: Actions.toggleInSelectedSurveyAttributes,
+            selectAllSurveyAttributes: Actions.selectAllSurveyAttributes,
+            deSelectAllSurveyAttributes: Actions.deSelectAllSurveyAttributes,
+            openEditSurveyAttributeDialog: Actions.openEditSurveyAttributeDialog,
+            removeSurveyAttributes: Actions.removeSurveyAttributes,
             removeSurveyAttribute: Actions.removeSurveyAttribute,
-            toggleStarredContact: Actions.toggleStarredContact,
-            toggleStarredContacts: Actions.toggleStarredContacts,
-            setContactsStarred: Actions.setContactsStarred,
-            setContactsUnstarred: Actions.setContactsUnstarred
+            toggleStarredSurveyAttribute: Actions.toggleStarredSurveyAttribute,
+            toggleStarredSurveyAttributes: Actions.toggleStarredSurveyAttributes,
+            setSurveyAttributesStarred: Actions.setSurveyAttributesStarred,
+            setSurveyAttributesUnstarred: Actions.setSurveyAttributesUnstarred
         },
         dispatch
     );
@@ -258,8 +258,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({surveyAttributeApp}) {
     return {
-        contacts: surveyAttributeApp.surveyAttribute.entities,
-        selectedContactIds: surveyAttributeApp.surveyAttribute.selectedContactIds,
+        surveyAttributes: surveyAttributeApp.surveyAttribute.entities,
+        selectedSurveyAttributeIds: surveyAttributeApp.surveyAttribute.selectedSurveyAttributeIds,
         searchText: surveyAttributeApp.surveyAttribute.searchText,
         user: surveyAttributeApp.user
     };
@@ -269,5 +269,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(ContactsList)
+    )(SurveyAttributesList)
 );

@@ -6,9 +6,9 @@ const initialState = {
   entities: [],
   companies: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedSurveyAttributeIds: [],
   routeParams: {},
-  contactDialog: {
+  surveyAttributeDialog: {
     type: 'new',
     props: {
       open: false
@@ -25,9 +25,9 @@ const surveyAttributeReducer = function(state = initialState, action) {
         entities: [],
         companies: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedSurveyAttributeIds: [],
         routeParams: {},
-        contactDialog: {
+        surveyAttributeDialog: {
           type: 'new',
           props: {
             open: false
@@ -78,42 +78,42 @@ const surveyAttributeReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_SURVEYATTRIBUTES: {
+      const surveyAttributeId = action.surveyAttributeId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedSurveyAttributeIds = [...state.selectedSurveyAttributeIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedSurveyAttributeIds.find(id => id === surveyAttributeId) !== undefined) {
+        selectedSurveyAttributeIds = selectedSurveyAttributeIds.filter(id => id !== surveyAttributeId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedSurveyAttributeIds = [...selectedSurveyAttributeIds, surveyAttributeId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedSurveyAttributeIds: selectedSurveyAttributeIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_SURVEYATTRIBUTES: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedSurveyAttributeIds = arr.map(surveyAttribute => surveyAttribute.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedSurveyAttributeIds: selectedSurveyAttributeIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_SURVEYATTRIBUTES: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedSurveyAttributeIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_SURVEYATTRIBUTE_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        surveyAttributeDialog: {
           type: 'new',
           props: {
             open: true
@@ -122,10 +122,10 @@ const surveyAttributeReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_SURVEYATTRIBUTE_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        surveyAttributeDialog: {
           type: 'new',
           props: {
             open: false
@@ -134,10 +134,10 @@ const surveyAttributeReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_SURVEYATTRIBUTE_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        surveyAttributeDialog: {
           type: 'edit',
           props: {
             open: true
@@ -146,10 +146,10 @@ const surveyAttributeReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_SURVEYATTRIBUTE_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        surveyAttributeDialog: {
           type: 'edit',
           props: {
             open: false

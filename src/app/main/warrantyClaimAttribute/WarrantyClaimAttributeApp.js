@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './WarrantyClaimAttributeList';
-import ContactsHeader from './WarrantyClaimAttributeHeader';
-import ContactDialog from './WarrantyClaimAttributeDialog';
+import WarrantyClaimAttributesList from './WarrantyClaimAttributeList';
+import WarrantyClaimAttributesHeader from './WarrantyClaimAttributeHeader';
+import WarrantyClaimAttributeDialog from './WarrantyClaimAttributeDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class WarrantyClaimAttributeApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewWarrantyClaimAttributeDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class WarrantyClaimAttributeApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<WarrantyClaimAttributesHeader pageLayout={() => this.pageLayout} />}
+          content={<WarrantyClaimAttributesList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,13 +59,13 @@ class WarrantyClaimAttributeApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewWarrantyClaimAttributeDialog}
           >
             <Icon>add</Icon>
               {/*new*/}
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <WarrantyClaimAttributeDialog />
       </React.Fragment>
     );
   }
@@ -75,7 +75,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getWarrantyClaimAttribute: Actions.getWarrantyClaimAttribute,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewWarrantyClaimAttributeDialog: Actions.openNewWarrantyClaimAttributeDialog
     },
     dispatch
   );
@@ -83,8 +83,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyClaimAttributeApp }) {
   return {
-    // contacts: brandsApp.brands.entities,
-    selectedContactIds: warrantyClaimAttributeApp.warrantyClaimAttribute.selectedContactIds,
+    // warrantyClaimAttributes: brandsApp.brands.entities,
+    selectedWarrantyClaimAttributeIds: warrantyClaimAttributeApp.warrantyClaimAttribute.selectedWarrantyClaimAttributeIds,
     searchText: warrantyClaimAttributeApp.warrantyClaimAttribute.searchText,
     user: warrantyClaimAttributeApp.user
   };

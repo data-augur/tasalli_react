@@ -6,9 +6,9 @@ const initialState = {
   entities: [],
   companies: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedWarrantyClaimAttributeIds: [],
   routeParams: {},
-  contactDialog: {
+  warrantyClaimAttributeDialog: {
     type: 'new',
     props: {
       open: false
@@ -25,9 +25,9 @@ const warrantyClaimAttributeReducer = function(state = initialState, action) {
         entities: [],
         companies: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedWarrantyClaimAttributeIds: [],
         routeParams: {},
-        contactDialog: {
+        warrantyClaimAttributeDialog: {
           type: 'new',
           props: {
             open: false
@@ -78,42 +78,42 @@ const warrantyClaimAttributeReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_WARRANTYCLAIMATTRIBUTES: {
+      const warrantyClaimAttributeId = action.warrantyClaimAttributeId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedWarrantyClaimAttributeIds = [...state.selectedWarrantyClaimAttributeIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedWarrantyClaimAttributeIds.find(id => id === warrantyClaimAttributeId) !== undefined) {
+        selectedWarrantyClaimAttributeIds = selectedWarrantyClaimAttributeIds.filter(id => id !== warrantyClaimAttributeId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedWarrantyClaimAttributeIds = [...selectedWarrantyClaimAttributeIds, warrantyClaimAttributeId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedWarrantyClaimAttributeIds: selectedWarrantyClaimAttributeIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_WARRANTYCLAIMATTRIBUTES: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedWarrantyClaimAttributeIds = arr.map(warrantyClaimAttribute => warrantyClaimAttribute.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedWarrantyClaimAttributeIds: selectedWarrantyClaimAttributeIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_WARRANTYCLAIMATTRIBUTES: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedWarrantyClaimAttributeIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_WARRANTYCLAIMATTRIBUTE_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyClaimAttributeDialog: {
           type: 'new',
           props: {
             open: true
@@ -122,10 +122,10 @@ const warrantyClaimAttributeReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_WARRANTYCLAIMATTRIBUTE_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyClaimAttributeDialog: {
           type: 'new',
           props: {
             open: false
@@ -134,10 +134,10 @@ const warrantyClaimAttributeReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_WARRANTYCLAIMATTRIBUTE_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyClaimAttributeDialog: {
           type: 'edit',
           props: {
             open: true
@@ -146,10 +146,10 @@ const warrantyClaimAttributeReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_WARRANTYCLAIMATTRIBUTE_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        warrantyClaimAttributeDialog: {
           type: 'edit',
           props: {
             open: false

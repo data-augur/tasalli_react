@@ -36,7 +36,7 @@ const attributesType = [
   }
 ];
 
-const newContactState = {
+const newWarrantyRegistrationAttributeState = {
   field_name: '',
   field_type: '',
   warrantyRegistrationForm_Id: window.location.href.substring(window.location.href.lastIndexOf('/') + 1),
@@ -45,27 +45,27 @@ const newContactState = {
   options: []
 };
 
-class ContactDialog extends Component {
-  state = { ...newContactState };
+class WarrantyRegistrationAttributeDialog extends Component {
+  state = { ...newWarrantyRegistrationAttributeState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     /**
      * After Dialog Open
      */
     if (
-        !prevProps.contactDialog.props.open &&
-        this.props.contactDialog.props.open
+        !prevProps.warrantyRegistrationAttributeDialog.props.open &&
+        this.props.warrantyRegistrationAttributeDialog.props.open
     ) {
       /**
        * Dialog type: 'edit'
        * Update State
        */
       if (
-          this.props.contactDialog.type === 'edit' &&
-          this.props.contactDialog.data &&
-          !_.isEqual(this.props.contactDialog.data, prevState)
+          this.props.warrantyRegistrationAttributeDialog.type === 'edit' &&
+          this.props.warrantyRegistrationAttributeDialog.data &&
+          !_.isEqual(this.props.warrantyRegistrationAttributeDialog.data, prevState)
       ) {
-        this.setState({ ...this.props.contactDialog.data });
+        this.setState({ ...this.props.warrantyRegistrationAttributeDialog.data });
       }
 
       /**
@@ -73,10 +73,10 @@ class ContactDialog extends Component {
        * Update State
        */
       if (
-          this.props.contactDialog.type === 'new' &&
-          !_.isEqual(newContactState, prevState)
+          this.props.warrantyRegistrationAttributeDialog.type === 'new' &&
+          !_.isEqual(newWarrantyRegistrationAttributeState, prevState)
       ) {
-        this.setState({ ...newContactState });
+        this.setState({ ...newWarrantyRegistrationAttributeState });
       }
     }
   }
@@ -103,9 +103,9 @@ class ContactDialog extends Component {
   closeComposeDialog = () => {
     // this.state.options=[];
   //  this.handleAllRemove();
-    this.props.contactDialog.type === 'edit'
-        ? this.props.closeEditContactDialog()
-        : this.props.closeNewContactDialog();
+    this.props.warrantyRegistrationAttributeDialog.type === 'edit'
+        ? this.props.closeEditWarrantyRegistrationAttributeDialog()
+        : this.props.closeNewWarrantyRegistrationAttributeDialog();
   };
 
   canBeSubmitted() {
@@ -129,14 +129,14 @@ class ContactDialog extends Component {
 
 
   render() {
-    const { contactDialog, addWarrantyRegistrationAttribute, updateWarrantyRegistrationAttribute, removeWarrantyRegistrationAttribute } = this.props;
+    const { warrantyRegistrationAttributeDialog, addWarrantyRegistrationAttribute, updateWarrantyRegistrationAttribute, removeWarrantyRegistrationAttribute } = this.props;
 
     return (
         <Dialog
             classes={{
               paper: 'm-24'
             }}
-            {...contactDialog.props}
+            {...warrantyRegistrationAttributeDialog.props}
             onClose={this.closeComposeDialog}
             fullWidth
             maxWidth="sm"
@@ -144,16 +144,16 @@ class ContactDialog extends Component {
           <AppBar position="static" elevation={1}>
             <Toolbar className="flex w-full">
               <Typography variant="subtitle1" color="inherit">
-                {contactDialog.type === 'new' ? 'New Warranty Registration Attribute' : 'Edit Warranty Registration Attribute'}
+                {warrantyRegistrationAttributeDialog.type === 'new' ? 'New Warranty Registration Attribute' : 'Edit Warranty Registration Attribute'}
               </Typography>
             </Toolbar>
             <div className="flex flex-col items-center justify-center pb-24">
               {/* <Avatar
               className="w-96 h-96"
-              alt="contact avatar"
+              alt="warrantyRegistrationAttribute avatar"
               src={this.state.avatar}
             /> */}
-              {contactDialog.type === 'edit' && (
+              {warrantyRegistrationAttributeDialog.type === 'edit' && (
                   <Typography variant="h6" color="inherit" className="pt-8">
                     {this.state.field_name}
                   </Typography>
@@ -225,7 +225,7 @@ class ContactDialog extends Component {
             </div>
 
 
-            { contactDialog.type === 'new' && (this.state.field_type==='radio' || this.state.field_type==='checkbox' || this.state.field_type==='spinner') ? (
+            { warrantyRegistrationAttributeDialog.type === 'new' && (this.state.field_type==='radio' || this.state.field_type==='checkbox' || this.state.field_type==='spinner') ? (
                 <div>
                   {
 
@@ -258,14 +258,14 @@ class ContactDialog extends Component {
                 </div>
             ) : null}
 
-            {contactDialog.type === 'new' && (this.state.field_type==='radio' || this.state.field_type==='checkbox' || this.state.field_type==='spinner') ? (
+            {warrantyRegistrationAttributeDialog.type === 'new' && (this.state.field_type==='radio' || this.state.field_type==='checkbox' || this.state.field_type==='spinner') ? (
                 <div className="flex">
                   <Button
                       variant="contained"
                       color="primary"
                       onClick={(e)=>this.addOption(e)}>Add Options</Button>
                 </div>
-            ) : contactDialog.type === 'edit' && this.state.field_type!=='input' ? (
+            ) : warrantyRegistrationAttributeDialog.type === 'edit' && this.state.field_type!=='input' ? (
 
                 <div>
                   {
@@ -340,7 +340,7 @@ class ContactDialog extends Component {
 
           </DialogContent>
 
-          {contactDialog.type === 'new' ? (
+          {warrantyRegistrationAttributeDialog.type === 'new' ? (
               <DialogActions className="justify-between pl-16">
                 <Button
                     variant="contained"
@@ -385,8 +385,8 @@ class ContactDialog extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
       {
-        closeEditContactDialog: Actions.closeEditContactDialog,
-        closeNewContactDialog: Actions.closeNewContactDialog,
+        closeEditWarrantyRegistrationAttributeDialog: Actions.closeEditWarrantyRegistrationAttributeDialog,
+        closeNewWarrantyRegistrationAttributeDialog: Actions.closeNewWarrantyRegistrationAttributeDialog,
         addWarrantyRegistrationAttribute: Actions.addWarrantyRegistrationAttribute,
         updateWarrantyRegistrationAttribute: Actions.updateWarrantyRegistrationAttribute,
         removeWarrantyRegistrationAttribute: Actions.removeWarrantyRegistrationAttribute,
@@ -398,11 +398,11 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ warrantyRegistrationAttributeApp }) {
   return {
-    contactDialog: warrantyRegistrationAttributeApp.warrantyRegistrationAttribute.contactDialog
+    warrantyRegistrationAttributeDialog: warrantyRegistrationAttributeApp.warrantyRegistrationAttribute.warrantyRegistrationAttributeDialog
   };
 }
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(ContactDialog);
+)(WarrantyRegistrationAttributeDialog);

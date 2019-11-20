@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './ProductsList';
-import ContactsHeader from './ProductsHeader';
-import ContactDialog from './ProductsDialog';
+import ProductsList from './ProductsList';
+import ProductsHeader from './ProductsHeader';
+import ProductDialog from './ProductsDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -33,7 +33,7 @@ class ProductsApp extends Component {
   }
 
   render() {
-    const { classes, openNewContactDialog } = this.props;
+    const { classes, openNewProductDialog } = this.props;
       if(!localStorage.getItem('jwtToken'))
       {
           window.location = '/login';
@@ -46,8 +46,8 @@ class ProductsApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<ProductsHeader pageLayout={() => this.pageLayout} />}
+          content={<ProductsList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -59,12 +59,12 @@ class ProductsApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewProductDialog}
           >
             <Icon>add</Icon>
           </Fab>
         </FuseAnimate>
-        <ContactDialog />
+        <ProductDialog />
       </React.Fragment>
     );
   }
@@ -74,7 +74,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getProducts: Actions.getProducts,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewProductDialog: Actions.openNewProductDialog
     },
     dispatch
   );
@@ -82,8 +82,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ productsApp }) {
   return {
-    // contacts: brandsApp.brands.entities,
-    selectedContactIds: productsApp.products.selectedContactIds,
+    // products: brandsApp.brands.entities,
+    selectedProductIds: productsApp.products.selectedProductIds,
     searchText: productsApp.products.searchText,
     user: productsApp.user
   };

@@ -9,9 +9,9 @@ const initialState = {
   claimForms: [],
   brands: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedProductIds: [],
   routeParams: {},
-  contactDialog: {
+  productDialog: {
     type: 'new',
     props: {
       open: false
@@ -31,9 +31,9 @@ const productReducer = function(state = initialState, action) {
         claimForms: [],
         brands:  [],
         searchText: '',
-        selectedContactIds: [],
+        selectedProductIds: [],
         routeParams: {},
-        contactDialog: {
+        productDialog: {
           type: 'new',
           props: {
             open: false
@@ -96,42 +96,42 @@ const productReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_PRODUCTS: {
+      const productId = action.productId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedProductIds = [...state.selectedProductIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedProductIds.find(id => id === productId) !== undefined) {
+        selectedProductIds = selectedProductIds.filter(id => id !== productId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedProductIds = [...selectedProductIds, productId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedProductIds: selectedProductIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_PRODUCTS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedProductIds = arr.map(product => product.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedProductIds: selectedProductIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_PRODUCTS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedProductIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_PRODUCT_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        productDialog: {
           type: 'new',
           props: {
             open: true
@@ -140,10 +140,10 @@ const productReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_PRODUCT_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        productDialog: {
           type: 'new',
           props: {
             open: false
@@ -152,10 +152,10 @@ const productReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_PRODUCT_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        productDialog: {
           type: 'edit',
           props: {
             open: true
@@ -164,10 +164,10 @@ const productReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_PRODUCT_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        productDialog: {
           type: 'edit',
           props: {
             open: false

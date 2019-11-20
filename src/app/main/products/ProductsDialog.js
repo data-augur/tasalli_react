@@ -22,7 +22,7 @@ import Radio from '@material-ui/core/Radio';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 
 
-const newContactState = {
+const newProductState = {
   code: '',
   product_has_warranty: '',
   brandId: '',
@@ -34,27 +34,27 @@ const newContactState = {
   // id: ''
 };
 
-class ContactDialog extends Component {
-  state = { ...newContactState };
+class ProductDialog extends Component {
+  state = { ...newProductState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     /**
      * After Dialog Open
      */
     if (
-      !prevProps.contactDialog.props.open &&
-      this.props.contactDialog.props.open
+      !prevProps.productDialog.props.open &&
+      this.props.productDialog.props.open
     ) {
       /**
        * Dialog type: 'edit'
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'edit' &&
-        this.props.contactDialog.data &&
-        !_.isEqual(this.props.contactDialog.data, prevState)
+        this.props.productDialog.type === 'edit' &&
+        this.props.productDialog.data &&
+        !_.isEqual(this.props.productDialog.data, prevState)
       ) {
-        this.setState({ ...this.props.contactDialog.data });
+        this.setState({ ...this.props.productDialog.data });
       }
 
       /**
@@ -62,10 +62,10 @@ class ContactDialog extends Component {
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'new' &&
-        !_.isEqual(newContactState, prevState)
+        this.props.productDialog.type === 'new' &&
+        !_.isEqual(newProductState, prevState)
       ) {
-        this.setState({ ...newContactState });
+        this.setState({ ...newProductState });
       }
     }
   }
@@ -96,9 +96,9 @@ class ContactDialog extends Component {
   };
 
   closeComposeDialog = () => {
-    this.props.contactDialog.type === 'edit'
-      ? this.props.closeEditContactDialog()
-      : this.props.closeNewContactDialog();
+    this.props.productDialog.type === 'edit'
+      ? this.props.closeEditProductDialog()
+      : this.props.closeNewProductDialog();
   };
 
   canBeSubmitted() {
@@ -119,14 +119,14 @@ class ContactDialog extends Component {
   };
 
   render() {
-    const { contactDialog, addProduct, updateProduct, removeProduct } = this.props;
+    const { productDialog, addProduct, updateProduct, removeProduct } = this.props;
 
     return (
       <Dialog
         classes={{
           paper: 'm-24'
         }}
-        {...contactDialog.props}
+        {...productDialog.props}
         onClose={this.closeComposeDialog}
         fullWidth
         maxWidth="xs"
@@ -134,16 +134,16 @@ class ContactDialog extends Component {
         <AppBar position="static" elevation={1}>
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
-              {contactDialog.type === 'new' ? 'New Product' : 'Edit Product'}
+              {productDialog.type === 'new' ? 'New Product' : 'Edit Product'}
             </Typography>
           </Toolbar>
           <div className="flex flex-col items-center justify-center pb-24">
             {/* <Avatar
               className="w-96 h-96"
-              alt="contact avatar"
+              alt="product avatar"
               src={this.state.avatar}
             /> */}
-            {contactDialog.type === 'edit' && (
+            {productDialog.type === 'edit' && (
               <Typography variant="h6" color="inherit" className="pt-8">
                 {this.state.code}
               </Typography>
@@ -319,7 +319,7 @@ class ContactDialog extends Component {
 
         </DialogContent>
 
-        {contactDialog.type === 'new' ? (
+        {productDialog.type === 'new' ? (
           <DialogActions className="justify-between pl-16">
             <Button
               variant="contained"
@@ -365,8 +365,8 @@ class ContactDialog extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      closeEditContactDialog: Actions.closeEditContactDialog,
-      closeNewContactDialog: Actions.closeNewContactDialog,
+      closeEditProductDialog: Actions.closeEditProductDialog,
+      closeNewProductDialog: Actions.closeNewProductDialog,
       addProduct: Actions.addProduct,
       updateProduct: Actions.updateProduct,
       removeProduct: Actions.removeProduct
@@ -377,7 +377,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ productsApp }) {
   return {
-    contactDialog: productsApp.products.contactDialog,
+    productDialog: productsApp.products.productDialog,
     registrationForms: productsApp.products.registrationForms,
     completionForms: productsApp.products.completionForms,
     claimForms: productsApp.products.claimForms,
@@ -388,4 +388,4 @@ function mapStateToProps({ productsApp }) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ContactDialog);
+)(ProductDialog);

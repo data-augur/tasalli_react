@@ -12,23 +12,23 @@ export const ADD_PRODUCT = '[PRODUCTS APP] ADD PRODUCT';
 export const UPDATE_PRODUCT = '[PRODUCTS APP] UPDATE PRODUCT';
 export const REMOVE_PRODUCT = '[PRODUCTS APP] REMOVE PRODUCT';
 
-export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
-export const TOGGLE_IN_SELECTED_CONTACTS =
-  '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
-export const SELECT_ALL_CONTACTS = '[CONTACTS APP] SELECT ALL CONTACTS';
-export const DESELECT_ALL_CONTACTS = '[CONTACTS APP] DESELECT ALL CONTACTS';
-export const OPEN_NEW_CONTACT_DIALOG = '[CONTACTS APP] OPEN NEW CONTACT DIALOG';
-export const CLOSE_NEW_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE NEW CONTACT DIALOG';
-export const OPEN_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
-export const CLOSE_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
+export const SET_SEARCH_TEXT = '[PRODUCTS APP] SET SEARCH TEXT';
+export const TOGGLE_IN_SELECTED_PRODUCTS =
+  '[PRODUCTS APP] TOGGLE IN SELECTED PRODUCTS';
+export const SELECT_ALL_PRODUCTS = '[PRODUCTS APP] SELECT ALL PRODUCTS';
+export const DESELECT_ALL_PRODUCTS = '[PRODUCTS APP] DESELECT ALL PRODUCTS';
+export const OPEN_NEW_PRODUCT_DIALOG = '[PRODUCTS APP] OPEN NEW PRODUCT DIALOG';
+export const CLOSE_NEW_PRODUCT_DIALOG =
+  '[PRODUCTS APP] CLOSE NEW PRODUCT DIALOG';
+export const OPEN_EDIT_PRODUCT_DIALOG =
+  '[PRODUCTS APP] OPEN EDIT PRODUCT DIALOG';
+export const CLOSE_EDIT_PRODUCT_DIALOG =
+  '[PRODUCTS APP] CLOSE EDIT PRODUCT DIALOG';
 
-export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
-export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
-export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
-export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
+export const REMOVE_PRODUCTS = '[PRODUCTS APP] REMOVE PRODUCTS';
+export const TOGGLE_STARRED_PRODUCT = '[PRODUCTS APP] TOGGLE STARRED PRODUCT';
+export const TOGGLE_STARRED_PRODUCTS = '[PRODUCTS APP] TOGGLE STARRED PRODUCTS';
+export const SET_PRODUCTS_STARRED = '[PRODUCTS APP] SET PRODUCTS STARRED ';
 
 
 export const getAllWarrantyRegistration = () => dispatch => {
@@ -144,7 +144,7 @@ export const getProducts = () => dispatch => {
         payload: res.data
       });
     })
-    .then(() => dispatch(getProducts()))
+        .then(() => dispatch(getProducts()))
     .then(() => dispatch(getAllWarrantyRegistration()))
     .then(() => dispatch(getAllWarrantyCompletion()))
     .then(() => dispatch(getAllWarrantyClaim()))
@@ -157,11 +157,11 @@ export const getProducts = () => dispatch => {
       //   });
     });
 };
-export const addProduct = newContact => dispatch => {
+export const addProduct = newProduct => dispatch => {
 
     axios
-    // .post(Base_URL+'create-brand', newContact)
-    .post(Base_URL+'create-sku', newContact)
+    // .post(Base_URL+'create-brand', newProduct)
+    .post(Base_URL+'create-sku', newProduct)
     .then(res => {
         if(res.request.status===200)
         {
@@ -235,37 +235,37 @@ export const removeProduct = id => dispatch => {
     });
 };
 
-// export function updateContact(contact) {
+// export function updateProduct(product) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().productsApp.products;
 
 //     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
-//       contact
+//       product
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_PRODUCT
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getProducts(routeParams)))
 //     );
 //   };
 // }
-// export function addContact(newContact) {
+// export function addProduct(newProduct) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().productsApp.products;
 
 //     const request = axios.post(Base_URL+'create-brand-user', {
-//       newContact
+//       newProduct
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: ADD_CONTACT
+//           type: ADD_PRODUCT
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getProducts(routeParams)))
 //     );
 //   };
 // }
@@ -277,182 +277,182 @@ export function setSearchText(event) {
   };
 }
 
-export function toggleInSelectedContacts(contactId) {
+export function toggleInSelectedProducts(productId) {
   return {
-    type: TOGGLE_IN_SELECTED_CONTACTS,
-    contactId
+    type: TOGGLE_IN_SELECTED_PRODUCTS,
+    productId
   };
 }
 
-export function selectAllContacts() {
+export function selectAllProducts() {
   return {
-    type: SELECT_ALL_CONTACTS
+    type: SELECT_ALL_PRODUCTS
   };
 }
 
-export function deSelectAllContacts() {
+export function deSelectAllProducts() {
   return {
-    type: DESELECT_ALL_CONTACTS
+    type: DESELECT_ALL_PRODUCTS
   };
 }
 
-export function openNewContactDialog() {
+export function openNewProductDialog() {
   return {
-    type: OPEN_NEW_CONTACT_DIALOG
+    type: OPEN_NEW_PRODUCT_DIALOG
   };
 }
 
-export function closeNewContactDialog() {
+export function closeNewProductDialog() {
   return {
-    type: CLOSE_NEW_CONTACT_DIALOG
+    type: CLOSE_NEW_PRODUCT_DIALOG
   };
 }
 
-export function openEditContactDialog(data) {
+export function openEditProductDialog(data) {
   return {
-    type: OPEN_EDIT_CONTACT_DIALOG,
+    type: OPEN_EDIT_PRODUCT_DIALOG,
     data
   };
 }
 
-export function closeEditContactDialog() {
+export function closeEditProductDialog() {
   return {
-    type: CLOSE_EDIT_CONTACT_DIALOG
+    type: CLOSE_EDIT_PRODUCT_DIALOG
   };
 }
 
-// export function updateContact(contact) {
+// export function updateProduct(product) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().productsApp.products;
 
-//     const request = axios.post('/api/contacts-app/update-contact', {
-//       contact
+//     const request = axios.post('/api/products-app/update-product', {
+//       product
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_PRODUCT
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getProducts(routeParams)))
 //     );
 //   };
 // }
 
-// export function removeContact(contactId) {
+// export function removeProduct(productId) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().productsApp.products;
 
 //     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
-//       contactId
+//       productId
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: REMOVE_CONTACT
+//           type: REMOVE_PRODUCT
 //         })
-//       ]).then(() => dispatch(getContacts(routeParams)))
+//       ]).then(() => dispatch(getProducts(routeParams)))
 //     );
 //   };
 // }
 
-export function removeContacts(contactIds) {
+export function removeProducts(productIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().productsApp.products;
 
-    const request = axios.post('/api/contacts-app/remove-contacts', {
-      contactIds
+    const request = axios.post('/api/products-app/remove-products', {
+      productIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: REMOVE_CONTACTS
+          type: REMOVE_PRODUCTS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_PRODUCTS
         })
       ]).then(() => dispatch(getProducts(routeParams)))
     );
   };
 }
 
-export function toggleStarredContact(contactId) {
+export function toggleStarredProduct(productId) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().productsApp.products;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contact', {
-      contactId
+    const request = axios.post('/api/products-app/toggle-starred-product', {
+      productId
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACT
+          type: TOGGLE_STARRED_PRODUCT
         }),
       ]).then(() => dispatch(getProducts(routeParams)))
     );
   };
 }
 
-export function toggleStarredContacts(contactIds) {
+export function toggleStarredProducts(productIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().productsApp.products;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contacts', {
-      contactIds
+    const request = axios.post('/api/products-app/toggle-starred-products', {
+      productIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACTS
+          type: TOGGLE_STARRED_PRODUCTS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_PRODUCTS
         }),
       ]).then(() => dispatch(getProducts(routeParams)))
     );
   };
 }
 
-export function setContactsStarred(contactIds) {
+export function setProductsStarred(productIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().productsApp.products;
 
-    const request = axios.post('/api/contacts-app/set-contacts-starred', {
-      contactIds
+    const request = axios.post('/api/products-app/set-products-starred', {
+      productIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_PRODUCTS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_PRODUCTS
         }),
       ]).then(() => dispatch(getProducts(routeParams)))
     );
   };
 }
 
-export function setContactsUnstarred(contactIds) {
+export function setProductsUnstarred(productIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().productsApp.products;
 
-    const request = axios.post('/api/contacts-app/set-contacts-unstarred', {
-      contactIds
+    const request = axios.post('/api/products-app/set-products-unstarred', {
+      productIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_PRODUCTS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_PRODUCTS
         }),
       ]).then(() => dispatch(getProducts(routeParams)))
     );

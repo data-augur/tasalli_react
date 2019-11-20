@@ -87,7 +87,6 @@ export const getAllWarrantyClaim = () => dispatch => {
         query='get-all-warranty-claim-forms';
     }
     axios
-    // .get(Base_URL+'get-all-companies')
         .get(Base_URL+query)
         .then(res => {
 
@@ -111,7 +110,6 @@ export const getAllBrand = () => dispatch => {
         query='get-all-brands';
     }
     axios
-    // .get(Base_URL+'get-all-companies')
         .get(Base_URL+query)
         .then(res => {
 
@@ -144,23 +142,18 @@ export const getProducts = () => dispatch => {
         payload: res.data
       });
     })
-        .then(() => dispatch(getProducts()))
     .then(() => dispatch(getAllWarrantyRegistration()))
     .then(() => dispatch(getAllWarrantyCompletion()))
     .then(() => dispatch(getAllWarrantyClaim()))
     .then(() => dispatch(getAllBrand()))
     .catch(err => {
       console.log('err', err);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
+
     });
 };
 export const addProduct = newProduct => dispatch => {
 
     axios
-    // .post(Base_URL+'create-brand', newProduct)
     .post(Base_URL+'create-sku', newProduct)
     .then(res => {
         if(res.request.status===200)
@@ -179,14 +172,9 @@ export const addProduct = newProduct => dispatch => {
     .catch(err => {
         dispatch(showMessage({message: err,variant: "error"}));
         console.log('err', err);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
     });
 };
 export const updateProduct = (updateInfo, id) => dispatch => {
-
 
   axios
     .put(
@@ -206,10 +194,6 @@ export const updateProduct = (updateInfo, id) => dispatch => {
     .catch(err => {
         dispatch(showMessage({message: err,variant: "error"}));
         console.log('err', err.response);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
     });
 };
 export const removeProduct = id => dispatch => {
@@ -228,47 +212,9 @@ export const removeProduct = id => dispatch => {
     .catch(err => {
         dispatch(showMessage({message: err,variant: "error"}));
         console.log('err', err.response);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
     });
 };
 
-// export function updateProduct(product) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().productsApp.products;
-
-//     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
-//       product
-//     });
-
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: UPDATE_PRODUCT
-//         })
-//       ]).then(() => dispatch(getProducts(routeParams)))
-//     );
-//   };
-// }
-// export function addProduct(newProduct) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().productsApp.products;
-
-//     const request = axios.post(Base_URL+'create-brand-user', {
-//       newProduct
-//     });
-
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: ADD_PRODUCT
-//         })
-//       ]).then(() => dispatch(getProducts(routeParams)))
-//     );
-//   };
-// }
 
 export function setSearchText(event) {
   return {
@@ -321,41 +267,6 @@ export function closeEditProductDialog() {
   };
 }
 
-// export function updateProduct(product) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().productsApp.products;
-
-//     const request = axios.post('/api/products-app/update-product', {
-//       product
-//     });
-
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: UPDATE_PRODUCT
-//         })
-//       ]).then(() => dispatch(getProducts(routeParams)))
-//     );
-//   };
-// }
-
-// export function removeProduct(productId) {
-//   return (dispatch, getState) => {
-//     const { routeParams } = getState().productsApp.products;
-
-//     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
-//       productId
-//     });
-
-//     return request.then(response =>
-//       Promise.all([
-//         dispatch({
-//           type: REMOVE_PRODUCT
-//         })
-//       ]).then(() => dispatch(getProducts(routeParams)))
-//     );
-//   };
-// }
 
 export function removeProducts(productIds) {
   return (dispatch, getState) => {

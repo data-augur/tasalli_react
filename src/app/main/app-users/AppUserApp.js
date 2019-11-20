@@ -6,9 +6,9 @@ import { withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import ContactsList from './AppUsersList';
-import ContactsHeader from './AppUserHeader';
-import ContactDialog from './AppUserDialog';
+import AppusersList from './AppUsersList';
+import AppusersHeader from './AppUserHeader';
+import AppuserDialog from './AppUserDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -45,8 +45,8 @@ class BrandUserApp extends Component {
             leftSidebar: 'w-256 border-0',
             header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
           }}
-          header={<ContactsHeader pageLayout={() => this.pageLayout} />}
-          content={<ContactsList />}
+          header={<AppusersHeader pageLayout={() => this.pageLayout} />}
+          content={<AppusersList />}
           sidebarInner
           onRef={instance => {
             this.pageLayout = instance;
@@ -58,12 +58,12 @@ class BrandUserApp extends Component {
             color="primary"
             aria-label="add"
             className={classes.addButton}
-            onClick={openNewContactDialog}
+            onClick={openNewAppuserDialog}
           >
             <Icon>person_add</Icon>
           </Fab>
         </FuseAnimate> */}
-        <ContactDialog />
+        <AppuserDialog />
       </React.Fragment>
     );
   }
@@ -73,7 +73,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getAllAppUsers: Actions.getAllAppUsers,
-      openNewContactDialog: Actions.openNewContactDialog
+      openNewAppuserDialog: Actions.openNewAppuserDialog
     },
     dispatch
   );
@@ -81,8 +81,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ appUserApp }) {
   return {
-    contacts: appUserApp.appUser.entities,
-    selectedContactIds: appUserApp.appUser.selectedContactIds,
+    appusers: appUserApp.appUser.entities,
+    selectedAppuserIds: appUserApp.appUser.selectedAppuserIds,
     searchText: appUserApp.appUser.searchText,
     user: appUserApp.user
   };

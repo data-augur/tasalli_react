@@ -7,27 +7,27 @@ export const GET_ALL_APP_USERS = '[APP USERS APP] GET APPUSERS';
 export const UPDATE_APP_USER = '[APP USERS APP] UPDATE APPUSER';
 export const REMOVE_APP_USER = '[APP USERS APP] REMOVE APPUSER';
 
-export const SET_SEARCH_TEXT = '[CONTACTS APP] SET SEARCH TEXT';
-export const TOGGLE_IN_SELECTED_CONTACTS =
-  '[CONTACTS APP] TOGGLE IN SELECTED CONTACTS';
-export const SELECT_ALL_CONTACTS = '[CONTACTS APP] SELECT ALL CONTACTS';
-export const DESELECT_ALL_CONTACTS = '[CONTACTS APP] DESELECT ALL CONTACTS';
-export const OPEN_NEW_CONTACT_DIALOG = '[CONTACTS APP] OPEN NEW CONTACT DIALOG';
-export const CLOSE_NEW_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE NEW CONTACT DIALOG';
-export const OPEN_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] OPEN EDIT CONTACT DIALOG';
-export const CLOSE_EDIT_CONTACT_DIALOG =
-  '[CONTACTS APP] CLOSE EDIT CONTACT DIALOG';
-export const ADD_CONTACT = '[CONTACTS APP] ADD CONTACT';
-export const UPDATE_CONTACT = '[CONTACTS APP] UPDATE CONTACT';
-export const REMOVE_CONTACT = '[CONTACTS APP] REMOVE CONTACT';
-export const REMOVE_CONTACTS = '[CONTACTS APP] REMOVE CONTACTS';
-export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
-export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
-export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
+export const SET_SEARCH_TEXT = '[APPUSERS APP] SET SEARCH TEXT';
+export const TOGGLE_IN_SELECTED_APPUSERS =
+  '[APPUSERS APP] TOGGLE IN SELECTED APPUSERS';
+export const SELECT_ALL_APPUSERS = '[APPUSERS APP] SELECT ALL APPUSERS';
+export const DESELECT_ALL_APPUSERS = '[APPUSERS APP] DESELECT ALL APPUSERS';
+export const OPEN_NEW_APPUSER_DIALOG = '[APPUSERS APP] OPEN NEW APPUSER DIALOG';
+export const CLOSE_NEW_APPUSER_DIALOG =
+  '[APPUSERS APP] CLOSE NEW APPUSER DIALOG';
+export const OPEN_EDIT_APPUSER_DIALOG =
+  '[APPUSERS APP] OPEN EDIT APPUSER DIALOG';
+export const CLOSE_EDIT_APPUSER_DIALOG =
+  '[APPUSERS APP] CLOSE EDIT APPUSER DIALOG';
+export const ADD_APPUSER = '[APPUSERS APP] ADD APPUSER';
+export const UPDATE_APPUSER = '[APPUSERS APP] UPDATE APPUSER';
+export const REMOVE_APPUSER = '[APPUSERS APP] REMOVE APPUSER';
+export const REMOVE_APPUSERS = '[APPUSERS APP] REMOVE APPUSERS';
+export const TOGGLE_STARRED_APPUSER = '[APPUSERS APP] TOGGLE STARRED APPUSER';
+export const TOGGLE_STARRED_APPUSERS = '[APPUSERS APP] TOGGLE STARRED APPUSERS';
+export const SET_APPUSERS_STARRED = '[APPUSERS APP] SET APPUSERS STARRED ';
 
-// export function getContacts(routeParams) {
+// export function getAppusers(routeParams) {
 //   const token = localStorage.getItem('jwtToken');
 
 //   const headers = {
@@ -108,35 +108,35 @@ export const removeAppUser = id => dispatch => {
     });
 };
 
-// export function updateContact(contact) {
+// export function updateAppuser(appuser) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().appusersApp.appusers;
 
 //     const request = axios.post(Base_URL+`update-brand-user/${id}`, {
-//       contact
+//       appuser
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_APPUSER
 //         })
 //       ]).then(() => dispatch(getAllAppUsers(routeParams)))
 //     );
 //   };
 // }
-// export function addContact(newContact) {
+// export function addAppuser(newAppuser) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().appusersApp.appusers;
 
 //     const request = axios.post(Base_URL+'create-brand-user', {
-//       newContact
+//       newAppuser
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: ADD_CONTACT
+//           type: ADD_APPUSER
 //         })
 //       ]).then(() => dispatch(getAllAppUsers(routeParams)))
 //     );
@@ -150,182 +150,182 @@ export function setSearchText(event) {
   };
 }
 
-export function toggleInSelectedContacts(contactId) {
+export function toggleInSelectedAppusers(appuserId) {
   return {
-    type: TOGGLE_IN_SELECTED_CONTACTS,
-    contactId
+    type: TOGGLE_IN_SELECTED_APPUSERS,
+    appuserId
   };
 }
 
-export function selectAllContacts() {
+export function selectAllAppusers() {
   return {
-    type: SELECT_ALL_CONTACTS
+    type: SELECT_ALL_APPUSERS
   };
 }
 
-export function deSelectAllContacts() {
+export function deSelectAllAppusers() {
   return {
-    type: DESELECT_ALL_CONTACTS
+    type: DESELECT_ALL_APPUSERS
   };
 }
 
-export function openNewContactDialog() {
+export function openNewAppuserDialog() {
   return {
-    type: OPEN_NEW_CONTACT_DIALOG
+    type: OPEN_NEW_APPUSER_DIALOG
   };
 }
 
-export function closeNewContactDialog() {
+export function closeNewAppuserDialog() {
   return {
-    type: CLOSE_NEW_CONTACT_DIALOG
+    type: CLOSE_NEW_APPUSER_DIALOG
   };
 }
 
-export function openEditContactDialog(data) {
+export function openEditAppuserDialog(data) {
   return {
-    type: OPEN_EDIT_CONTACT_DIALOG,
+    type: OPEN_EDIT_APPUSER_DIALOG,
     data
   };
 }
 
-export function closeEditContactDialog() {
+export function closeEditAppuserDialog() {
   return {
-    type: CLOSE_EDIT_CONTACT_DIALOG
+    type: CLOSE_EDIT_APPUSER_DIALOG
   };
 }
 
-// export function updateContact(contact) {
+// export function updateAppuser(appuser) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().appusersApp.appusers;
 
-//     const request = axios.post('/api/contacts-app/update-contact', {
-//       contact
+//     const request = axios.post('/api/appusers-app/update-appuser', {
+//       appuser
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: UPDATE_CONTACT
+//           type: UPDATE_APPUSER
 //         })
 //       ]).then(() => dispatch(getAllAppUsers(routeParams)))
 //     );
 //   };
 // }
 
-// export function removeContact(contactId) {
+// export function removeAppuser(appuserId) {
 //   return (dispatch, getState) => {
-//     const { routeParams } = getState().contactsApp.contacts;
+//     const { routeParams } = getState().appusersApp.appusers;
 
 //     const request = axios.post(Base_URL+`delete-brand-user/${id}`, {
-//       contactId
+//       appuserId
 //     });
 
 //     return request.then(response =>
 //       Promise.all([
 //         dispatch({
-//           type: REMOVE_CONTACT
+//           type: REMOVE_APPUSER
 //         })
 //       ]).then(() => dispatch(getAllAppUsers(routeParams)))
 //     );
 //   };
 // }
 
-export function removeContacts(contactIds) {
+export function removeAppusers(appuserIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().appusersApp.appusers;
 
-    const request = axios.post('/api/contacts-app/remove-contacts', {
-      contactIds
+    const request = axios.post('/api/appusers-app/remove-appusers', {
+      appuserIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: REMOVE_CONTACTS
+          type: REMOVE_APPUSERS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_APPUSERS
         })
       ]).then(() => dispatch(getAllAppUsers(routeParams)))
     );
   };
 }
 
-export function toggleStarredContact(contactId) {
+export function toggleStarredAppuser(appuserId) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().appusersApp.appusers;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contact', {
-      contactId
+    const request = axios.post('/api/appusers-app/toggle-starred-appuser', {
+      appuserId
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACT
+          type: TOGGLE_STARRED_APPUSER
         }),
       ]).then(() => dispatch(getAllAppUsers(routeParams)))
     );
   };
 }
 
-export function toggleStarredContacts(contactIds) {
+export function toggleStarredAppusers(appuserIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().appusersApp.appusers;
 
-    const request = axios.post('/api/contacts-app/toggle-starred-contacts', {
-      contactIds
+    const request = axios.post('/api/appusers-app/toggle-starred-appusers', {
+      appuserIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: TOGGLE_STARRED_CONTACTS
+          type: TOGGLE_STARRED_APPUSERS
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_APPUSERS
         }),
       ]).then(() => dispatch(getAllAppUsers(routeParams)))
     );
   };
 }
 
-export function setContactsStarred(contactIds) {
+export function setAppusersStarred(appuserIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().appusersApp.appusers;
 
-    const request = axios.post('/api/contacts-app/set-contacts-starred', {
-      contactIds
+    const request = axios.post('/api/appusers-app/set-appusers-starred', {
+      appuserIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_APPUSERS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_APPUSERS
         }),
       ]).then(() => dispatch(getAllAppUsers(routeParams)))
     );
   };
 }
 
-export function setContactsUnstarred(contactIds) {
+export function setAppusersUnstarred(appuserIds) {
   return (dispatch, getState) => {
-    const { routeParams } = getState().contactsApp.contacts;
+    const { routeParams } = getState().appusersApp.appusers;
 
-    const request = axios.post('/api/contacts-app/set-contacts-unstarred', {
-      contactIds
+    const request = axios.post('/api/appusers-app/set-appusers-unstarred', {
+      appuserIds
     });
 
     return request.then(response =>
       Promise.all([
         dispatch({
-          type: SET_CONTACTS_STARRED
+          type: SET_APPUSERS_STARRED
         }),
         dispatch({
-          type: DESELECT_ALL_CONTACTS
+          type: DESELECT_ALL_APPUSERS
         }),
       ]).then(() => dispatch(getAllAppUsers(routeParams)))
     );

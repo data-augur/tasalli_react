@@ -26,7 +26,7 @@ const gender = [
     label: 'Female'
   }
 ];
-const newContactState = {
+const newAppuserState = {
   name: '',
   gender: '',
   address: '',
@@ -34,27 +34,27 @@ const newContactState = {
   city: ''
 };
 
-class ContactDialog extends Component {
-  state = { ...newContactState };
+class AppuserDialog extends Component {
+  state = { ...newAppuserState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
     /**
      * After Dialog Open
      */
     if (
-      !prevProps.contactDialog.props.open &&
-      this.props.contactDialog.props.open
+      !prevProps.appuserDialog.props.open &&
+      this.props.appuserDialog.props.open
     ) {
       /**
        * Dialog type: 'edit'
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'edit' &&
-        this.props.contactDialog.data &&
-        !_.isEqual(this.props.contactDialog.data, prevState)
+        this.props.appuserDialog.type === 'edit' &&
+        this.props.appuserDialog.data &&
+        !_.isEqual(this.props.appuserDialog.data, prevState)
       ) {
-        this.setState({ ...this.props.contactDialog.data });
+        this.setState({ ...this.props.appuserDialog.data });
       }
 
       /**
@@ -62,10 +62,10 @@ class ContactDialog extends Component {
        * Update State
        */
       if (
-        this.props.contactDialog.type === 'new' &&
-        !_.isEqual(newContactState, prevState)
+        this.props.appuserDialog.type === 'new' &&
+        !_.isEqual(newAppuserState, prevState)
       ) {
-        this.setState({ ...newContactState });
+        this.setState({ ...newAppuserState });
       }
     }
   }
@@ -83,9 +83,9 @@ class ContactDialog extends Component {
   };
 
   closeComposeDialog = () => {
-    this.props.contactDialog.type === 'edit'
-      ? this.props.closeEditContactDialog()
-      : this.props.closeNewContactDialog();
+    this.props.appuserDialog.type === 'edit'
+      ? this.props.closeEditAppuserDialog()
+      : this.props.closeNewAppuserDialog();
   };
 
   canBeSubmitted() {
@@ -93,13 +93,13 @@ class ContactDialog extends Component {
   }
 
   render() {
-    const { contactDialog, updateAppUser, removeAppUser } = this.props;
+    const { appuserDialog, updateAppUser, removeAppUser } = this.props;
     return (
       <Dialog
         classes={{
           paper: 'm-24'
         }}
-        {...contactDialog.props}
+        {...appuserDialog.props}
         onClose={this.closeComposeDialog}
         fullWidth
         maxWidth="xs"
@@ -107,7 +107,7 @@ class ContactDialog extends Component {
         <AppBar position="static" elevation={1}>
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
-              {contactDialog.type === 'new'
+              {appuserDialog.type === 'new'
                 ? 'New Brand User'
                 : 'Edit Brand User'}
             </Typography>
@@ -115,10 +115,10 @@ class ContactDialog extends Component {
           <div className="flex flex-col items-center justify-center pb-24">
             {/* <Avatar
               className="w-96 h-96"
-              alt="contact avatar"
+              alt="appuser avatar"
               src={this.state.avatar}
             /> */}
-            {contactDialog.type === 'edit' && (
+            {appuserDialog.type === 'edit' && (
               <Typography variant="h6" color="inherit" className="pt-8">
                 {this.state.name}
               </Typography>
@@ -248,8 +248,8 @@ class ContactDialog extends Component {
 function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
-      closeEditContactDialog: Actions.closeEditContactDialog,
-      closeNewContactDialog: Actions.closeNewContactDialog,
+      closeEditAppuserDialog: Actions.closeEditAppuserDialog,
+      closeNewAppuserDialog: Actions.closeNewAppuserDialog,
       updateAppUser: Actions.updateAppUser,
       removeAppUser: Actions.removeAppUser
     },
@@ -259,11 +259,11 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({ appUserApp }) {
   return {
-    contactDialog: appUserApp.appUser.contactDialog
+    appuserDialog: appUserApp.appUser.appuserDialog
   };
 }
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(ContactDialog);
+)(AppuserDialog);

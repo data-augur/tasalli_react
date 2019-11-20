@@ -5,9 +5,9 @@ import * as authActions from '../../../../auth/store/actions';
 const initialState = {
   entities: [],
   searchText: '',
-  selectedContactIds: [],
+  selectedAppuserIds: [],
   routeParams: {},
-  contactDialog: {
+  appuserDialog: {
     type: 'new',
     props: {
       open: false
@@ -23,9 +23,9 @@ const appUserReducer = function(state = initialState, action) {
         ...state,
         entities: [],
         searchText: '',
-        selectedContactIds: [],
+        selectedAppuserIds: [],
         routeParams: {},
-        contactDialog: {
+        appuserDialog: {
           type: 'new',
           props: {
             open: false
@@ -58,42 +58,42 @@ const appUserReducer = function(state = initialState, action) {
         searchText: action.searchText
       };
     }
-    case Actions.TOGGLE_IN_SELECTED_CONTACTS: {
-      const contactId = action.contactId;
+    case Actions.TOGGLE_IN_SELECTED_APPUSERS: {
+      const appuserId = action.appuserId;
 
-      let selectedContactIds = [...state.selectedContactIds];
+      let selectedAppuserIds = [...state.selectedAppuserIds];
 
-      if (selectedContactIds.find(id => id === contactId) !== undefined) {
-        selectedContactIds = selectedContactIds.filter(id => id !== contactId);
+      if (selectedAppuserIds.find(id => id === appuserId) !== undefined) {
+        selectedAppuserIds = selectedAppuserIds.filter(id => id !== appuserId);
       } else {
-        selectedContactIds = [...selectedContactIds, contactId];
+        selectedAppuserIds = [...selectedAppuserIds, appuserId];
       }
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedAppuserIds: selectedAppuserIds
       };
     }
-    case Actions.SELECT_ALL_CONTACTS: {
+    case Actions.SELECT_ALL_APPUSERS: {
       const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-      const selectedContactIds = arr.map(contact => contact.id);
+      const selectedAppuserIds = arr.map(appuser => appuser.id);
 
       return {
         ...state,
-        selectedContactIds: selectedContactIds
+        selectedAppuserIds: selectedAppuserIds
       };
     }
-    case Actions.DESELECT_ALL_CONTACTS: {
+    case Actions.DESELECT_ALL_APPUSERS: {
       return {
         ...state,
-        selectedContactIds: []
+        selectedAppuserIds: []
       };
     }
-    case Actions.OPEN_NEW_CONTACT_DIALOG: {
+    case Actions.OPEN_NEW_APPUSER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        appuserDialog: {
           type: 'new',
           props: {
             open: true
@@ -102,10 +102,10 @@ const appUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_NEW_CONTACT_DIALOG: {
+    case Actions.CLOSE_NEW_APPUSER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        appuserDialog: {
           type: 'new',
           props: {
             open: false
@@ -114,10 +114,10 @@ const appUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.OPEN_EDIT_CONTACT_DIALOG: {
+    case Actions.OPEN_EDIT_APPUSER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        appuserDialog: {
           type: 'edit',
           props: {
             open: true
@@ -126,10 +126,10 @@ const appUserReducer = function(state = initialState, action) {
         }
       };
     }
-    case Actions.CLOSE_EDIT_CONTACT_DIALOG: {
+    case Actions.CLOSE_EDIT_APPUSER_DIALOG: {
       return {
         ...state,
-        contactDialog: {
+        appuserDialog: {
           type: 'edit',
           props: {
             open: false

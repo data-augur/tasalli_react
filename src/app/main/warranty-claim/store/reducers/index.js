@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
 import warrantyClaim from './warrantyClaim.reducer';
-import user from './user.reducer';
 
 const reducer = combineReducers({
-  warrantyClaim,
-  user
+  warrantyClaim
 });
 
 export default reducer;

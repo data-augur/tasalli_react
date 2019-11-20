@@ -193,7 +193,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getContacts: Actions.getWarrantyCompletion,
-      getUserData: Actions.getUserData,
       toggleInSelectedContacts: Actions.toggleInSelectedContacts,
       selectAllContacts: Actions.selectAllContacts,
       deSelectAllContacts: Actions.deSelectAllContacts,

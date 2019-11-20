@@ -24,7 +24,6 @@ const styles = theme => ({
 class AdsApp extends Component {
   componentDidMount() {
     this.props.getAds(this.props.match.params);
-    this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -75,7 +74,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getAds: Actions.getAds,
-      getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
     dispatch

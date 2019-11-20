@@ -24,7 +24,6 @@ const styles = theme => ({
 class LogsApp extends Component {
   componentDidMount() {
     this.props.getLogs(this.props.match.params);
-    this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -75,7 +74,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getLogs: Actions.getLogs,
-      getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
     dispatch

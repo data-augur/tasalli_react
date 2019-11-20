@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
 
@@ -27,19 +26,7 @@ export const TOGGLE_STARRED_CONTACT = '[CONTACTS APP] TOGGLE STARRED CONTACT';
 export const TOGGLE_STARRED_CONTACTS = '[CONTACTS APP] TOGGLE STARRED CONTACTS';
 export const SET_CONTACTS_STARRED = '[CONTACTS APP] SET CONTACTS STARRED ';
 
-// export function getContacts(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
 
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
 export const getAllCompanies = () => dispatch => {
     let query;
     if(localStorage.getItem('companyId'))
@@ -328,7 +315,6 @@ export function toggleStarredContact(contactId) {
         dispatch({
           type: TOGGLE_STARRED_CONTACT
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getBrands(routeParams)))
     );
   };
@@ -350,7 +336,6 @@ export function toggleStarredContacts(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getBrands(routeParams)))
     );
   };
@@ -372,7 +357,6 @@ export function setContactsStarred(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getBrands(routeParams)))
     );
   };
@@ -394,7 +378,7 @@ export function setContactsUnstarred(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
+
       ]).then(() => dispatch(getBrands(routeParams)))
     );
   };

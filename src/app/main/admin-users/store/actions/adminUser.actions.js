@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
 export const GET_ALL_ADMIN_USERS = '[ADMIN USERS APP] GET ADMINUSERS';
@@ -289,7 +288,6 @@ export function toggleStarredContact(contactId) {
         dispatch({
           type: TOGGLE_STARRED_CONTACT
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
@@ -311,7 +309,6 @@ export function toggleStarredContacts(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
@@ -333,7 +330,6 @@ export function setContactsStarred(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };
@@ -355,7 +351,6 @@ export function setContactsUnstarred(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getAllAdminUsers(routeParams)))
     );
   };

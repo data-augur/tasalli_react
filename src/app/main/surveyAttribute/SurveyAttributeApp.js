@@ -24,7 +24,6 @@ const styles = theme => ({
 class SurveysApp extends Component {
   componentDidMount() {
     this.props.getSurveyAttribute(this.props.match.params);
-    this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -76,7 +75,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getSurveyAttribute: Actions.getSurveyAttribute,
-      getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
     dispatch

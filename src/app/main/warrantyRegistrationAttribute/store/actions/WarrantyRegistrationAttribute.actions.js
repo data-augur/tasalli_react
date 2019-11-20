@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
 // import {ADD_SURVEYATTRIBUTE} from "../../../surveyAttributes/store/actions";
 // import {GET_ALL_SURVEYS} from "../../../surveys/store/actions";
@@ -328,7 +327,6 @@ export function toggleStarredContact(contactId) {
         dispatch({
           type: TOGGLE_STARRED_CONTACT
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getWarrantyRegistrationAttribute(routeParams)))
     );
   };
@@ -350,7 +348,6 @@ export function toggleStarredContacts(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getWarrantyRegistrationAttribute(routeParams)))
     );
   };
@@ -372,7 +369,6 @@ export function setContactsStarred(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getWarrantyRegistrationAttribute(routeParams)))
     );
   };
@@ -394,7 +390,6 @@ export function setContactsUnstarred(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getWarrantyRegistrationAttribute(routeParams)))
     );
   };

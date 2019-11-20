@@ -25,7 +25,6 @@ const styles = theme => ({
 class CompaniesApp extends Component {
   componentDidMount() {
     this.props.getContacts(this.props.match.params);
-    this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -76,7 +75,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getContacts: Actions.getCompanies,
-      getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
     dispatch

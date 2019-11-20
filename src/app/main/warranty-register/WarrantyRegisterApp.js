@@ -24,7 +24,6 @@ const styles = theme => ({
 class WarrantyRegisterApp extends Component {
   componentDidMount() {
     this.props.getWarrantyRegister(this.props.match.params);
-    this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -75,7 +74,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getWarrantyRegister: Actions.getWarrantyRegister,
-      getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
     dispatch

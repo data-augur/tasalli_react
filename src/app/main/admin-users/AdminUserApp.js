@@ -24,7 +24,6 @@ const styles = theme => ({
 class AdminUserApp extends Component {
   componentDidMount() {
     this.props.getAllAdminUsers(this.props.match.params);
-    this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -75,7 +74,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getAllAdminUsers: Actions.getAllAdminUsers,
-      getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
     dispatch

@@ -1,10 +1,8 @@
 import { combineReducers } from 'redux';
 import companies from './company.reducer';
-import user from './user.reducer';
 
 const reducer = combineReducers({
-  companies,
-  user
+  companies
 });
 
 export default reducer;

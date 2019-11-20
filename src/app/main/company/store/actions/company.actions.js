@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { getUserData } from './user.actions';
 import { Base_URL } from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
 
@@ -288,7 +287,6 @@ export function toggleStarredContact(contactId) {
         dispatch({
           type: TOGGLE_STARRED_CONTACT
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getCompanies(routeParams)))
     );
   };
@@ -310,7 +308,6 @@ export function toggleStarredContacts(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getCompanies(routeParams)))
     );
   };
@@ -332,7 +329,6 @@ export function setContactsStarred(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getCompanies(routeParams)))
     );
   };
@@ -354,7 +350,6 @@ export function setContactsUnstarred(contactIds) {
         dispatch({
           type: DESELECT_ALL_CONTACTS
         }),
-        dispatch(getUserData())
       ]).then(() => dispatch(getCompanies(routeParams)))
     );
   };

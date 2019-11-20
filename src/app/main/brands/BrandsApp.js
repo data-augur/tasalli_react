@@ -24,7 +24,6 @@ const styles = theme => ({
 class BrandsApp extends Component {
   componentDidMount() {
     this.props.getBrands(this.props.match.params);
-    this.props.getUserData();
   }
 
   componentDidUpdate(prevProps, prevState) {
@@ -75,7 +74,6 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(
     {
       getBrands: Actions.getBrands,
-      getUserData: Actions.getUserData,
       openNewContactDialog: Actions.openNewContactDialog
     },
     dispatch

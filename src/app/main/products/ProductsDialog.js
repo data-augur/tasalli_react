@@ -348,7 +348,7 @@ class ContactDialog extends Component {
             </Button>
             <IconButton
               onClick={() => {
-                console.log("Remove",removeProduct(this.state.id));
+
                 removeProduct(this.state.id);
                 this.closeComposeDialog();
               }}

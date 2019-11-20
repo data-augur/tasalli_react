@@ -67,7 +67,7 @@ export const getWarrantyClaimAttribute = () => dispatch => {
     axios
         .get(Base_URL+`get-a-warranty-claim-form-attributes-with-options/${id}`)
     .then(res => {
-        console.log(res);
+
         localStorage.setItem('WarrantyClaimFormName', res.data[0].warrantyClaimForm_Name[0].formName);
       dispatch({
         type: GET_WARRANTYCLAIMATTRIBUTE,

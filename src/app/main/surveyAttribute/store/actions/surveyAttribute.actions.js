@@ -67,7 +67,7 @@ export const getSurveyAttribute = () => dispatch => {
     axios
         .get(Base_URL+`get-a-survey-attributes-with-options/${id}`)
     .then(res => {
-        console.log(res);
+
         localStorage.setItem('SurveyName', res.data[0].survey_Name[0].name);
       dispatch({
         type: GET_SURVEYATTRIBUTE,

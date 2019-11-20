@@ -83,7 +83,7 @@ export const getWarrantyClaim = () => dispatch => {
     // .get(Base_URL+'get-all-brands')
     .get(Base_URL+query)   //Admin brands  /${email}
     .then(res => {
-console.log(res);
+
       dispatch({
         type: GET_WARRANTYCLAIM,
         payload: res.data

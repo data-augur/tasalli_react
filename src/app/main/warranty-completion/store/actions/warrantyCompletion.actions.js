@@ -83,7 +83,7 @@ export const getWarrantyCompletion = () => dispatch => {
     // .get(Base_URL+'get-all-brands')
     .get(Base_URL+query)   //Admin brands  /${email}
     .then(res => {
-console.log(res);
+
         for (let j=0;j<res.data.length;j++) {
             let attrs = [];
             for (let i=0;i<res.data[j].attributes.length;i++) {

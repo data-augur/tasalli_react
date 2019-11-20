@@ -158,7 +158,7 @@ export const getProducts = () => dispatch => {
     });
 };
 export const addProduct = newContact => dispatch => {
-    console.log(newContact);
+
     axios
     // .post(Base_URL+'create-brand', newContact)
     .post(Base_URL+'create-sku', newContact)
@@ -186,7 +186,7 @@ export const addProduct = newContact => dispatch => {
     });
 };
 export const updateProduct = (updateInfo, id) => dispatch => {
-    console.log("Object",updateInfo);
+
 
   axios
     .put(

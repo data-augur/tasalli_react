@@ -186,7 +186,7 @@ class ContactsList extends Component {
                       hidden={localStorage.getItem('Role')!=='superAdmin'}
                       disabled= {localStorage.getItem('Role')!=='superAdmin'}
                     onClick={ev => {
-                        console.log("DELETED",row.original.id);
+
                       ev.stopPropagation();
                       removeWarrantyRegister(row.original.id);
                     }}

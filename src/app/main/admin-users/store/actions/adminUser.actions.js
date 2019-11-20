@@ -45,7 +45,7 @@ export const getAllAdminUsers = () => dispatch => {
     // .get(Base_URL+'get-all-app-users')
     .get(Base_URL+'get-all-tasali-admins')
     .then(res => {
-        console.log(res);
+
       dispatch({
         type: GET_ALL_ADMIN_USERS,
         payload: res.data

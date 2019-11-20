@@ -85,7 +85,6 @@ export const getAds = () => dispatch => {
     });
 };
 export const addAds = newContact => dispatch => {
-console.log(newContact);
 newContact.time_from = new Date(newContact.time_from);
 newContact.time_to = new Date(newContact.time_to);
 // newContact.ad_type = newContact.type;

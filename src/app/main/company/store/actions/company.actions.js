@@ -71,15 +71,10 @@ export const addCompany = newCompany => dispatch => {
       dispatch({
         type: ADD_COMPANY
       });
+        dispatch(getCompanies())
     })
-    .then(() => dispatch(getCompanies()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
-
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
     });
 };
 export const updateCompany = (updateInfo, id) => dispatch => {
@@ -100,7 +95,7 @@ export const updateCompany = (updateInfo, id) => dispatch => {
     })
     .then(() => dispatch(getCompanies()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -122,7 +117,7 @@ export const removeCompany = id => dispatch => {
     })
     .then(() => dispatch(getCompanies()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,

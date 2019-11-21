@@ -114,7 +114,7 @@ export const addWarrantyClaim = newWarrantyClaim => dispatch => {
     })
     .then(() => dispatch(getWarrantyClaim()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         console.log('err', err);
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -141,7 +141,7 @@ export const updateWarrantyClaim = (updateInfo, id) => dispatch => {
     .then(() => dispatch(getWarrantyClaim()))
     .catch(err => {
       console.log('err', err.response);
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -163,7 +163,7 @@ export const removeWarrantyClaim = id => dispatch => {
     .then(() => dispatch(getWarrantyClaim()))
     .catch(err => {
       console.log('err', err.response);
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data

@@ -96,7 +96,7 @@ export const addSurvey = newSurvey => dispatch => {
     })
     .then(() => dispatch(getAllSurveys()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         console.log('err', err);
       //   dispatch({
       //     type: LOGIN_ERROR,

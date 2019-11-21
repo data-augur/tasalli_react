@@ -170,7 +170,7 @@ export const addProduct = newProduct => dispatch => {
     })
     .then(() => dispatch(getProducts()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         console.log('err', err);
     });
 };
@@ -192,7 +192,7 @@ export const updateProduct = (updateInfo, id) => dispatch => {
     })
     .then(() => dispatch(getProducts()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         console.log('err', err.response);
     });
 };
@@ -210,7 +210,7 @@ export const removeProduct = id => dispatch => {
     })
     .then(() => dispatch(getProducts()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         console.log('err', err.response);
     });
 };

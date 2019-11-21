@@ -93,7 +93,7 @@ export const addBrand = newBrand => dispatch => {
     })
     .then(() => dispatch(getBrands()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         console.log('err', err);
 
     });
@@ -117,7 +117,7 @@ export const updateBrand = (updateInfo, id) => dispatch => {
     .then(() => dispatch(getBrands()))
     .catch(err => {
       console.log('err', err.response);
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
 
     });
 };
@@ -136,7 +136,7 @@ export const removeBrand = id => dispatch => {
     .then(() => dispatch(getBrands()))
     .catch(err => {
       console.log('err', err.response);
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
 
     });
 };

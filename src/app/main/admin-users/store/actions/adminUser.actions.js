@@ -76,7 +76,7 @@ export const addAdminUser = newAdmin => dispatch => {
         // .then(() => dispatch(getAllCompanies()))
         .then(() => dispatch(getAllAdminUsers()))
         .catch(err => {
-            dispatch(showMessage({message: err,variant: "error"}));
+            dispatch(showMessage({message: err.response.data.error,variant: "error"}));
             //   dispatch({
             //     type: LOGIN_ERROR,
             //     payload: err.response.data
@@ -101,7 +101,7 @@ export const updateAdminUser = (updateInfo, id) => dispatch => {
     })
     .then(() => dispatch(getAllAdminUsers()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         console.log('err', err.response);
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -123,7 +123,7 @@ export const removeAdminUser = id => dispatch => {
     })
     .then(() => dispatch(getAllAdminUsers()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         console.log('err', err.response);
       //   dispatch({
       //     type: LOGIN_ERROR,

@@ -92,7 +92,7 @@ export const getWarrantyRegistration = () => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .catch(err => {
       console.log('err', err);
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -115,7 +115,7 @@ export const addWarrantyRegistration = newWarrantyRegistration => dispatch => {
     })
     .then(() => dispatch(getWarrantyRegistration()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         console.log('err', err);
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -142,7 +142,7 @@ export const updateWarrantyRegistration = (updateInfo, id) => dispatch => {
     .then(() => dispatch(getWarrantyRegistration()))
     .catch(err => {
       console.log('err', err.response);
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data
@@ -165,7 +165,7 @@ export const removeWarrantyRegistration = id => dispatch => {
     .then(() => dispatch(getWarrantyRegistration()))
     .catch(err => {
       console.log('err', err.response);
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
         //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data

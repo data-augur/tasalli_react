@@ -118,7 +118,7 @@ export const addBrandUser = newBrandUser => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -145,7 +145,7 @@ export const updateBrandUser = (updateInfo, id) => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,
@@ -168,7 +168,7 @@ export const removeBrandUser = id => dispatch => {
     .then(() => dispatch(getAllCompanies()))
     .then(() => dispatch(getBrandUsers()))
     .catch(err => {
-        dispatch(showMessage({message: err,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
 
       //   dispatch({
       //     type: LOGIN_ERROR,

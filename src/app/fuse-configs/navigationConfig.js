@@ -142,7 +142,7 @@ const superAdminNavigationConfig = [
     children: [
       {
         id: 'companies-component',
-        title: 'Registers Warranty',
+        title: 'Registered Warranty',
         type: 'item',
         icon: 'note',
         url: '/warranty-register'
@@ -255,7 +255,7 @@ const companyAdminnavigationConfig = [
     children: [
       {
         id: 'companies-component',
-        title: 'Registers Warranty',
+        title: 'Registered Warranty',
         type: 'item',
         icon: 'note',
         url: '/warranty-register'

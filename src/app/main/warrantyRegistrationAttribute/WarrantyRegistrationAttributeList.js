@@ -217,7 +217,7 @@ class WarrantyRegistrationAttributesList extends Component {
                                 <div className="flex items-center justify-center">
                                     <IconButton
                                         onClick={ev => {
-                                            if (window.confirm('Are you sure to delete '+this.state.field_name+' warranty registration attribute with values?')) {
+                                            if (window.confirm('Are you sure to delete '+row.original.field_name+' warranty registration attribute with values?')) {
                                                 ev.stopPropagation();
                                                 removeWarrantyRegistrationAttribute(row.original.id);
                                             }

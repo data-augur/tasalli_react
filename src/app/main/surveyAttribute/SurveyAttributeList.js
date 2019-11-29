@@ -218,7 +218,7 @@ class SurveyAttributesList extends Component {
                                 <div className="flex items-center justify-center">
                                     <IconButton
                                         onClick={ev => {
-                                            if (window.confirm('Are you sure to delete '+this.state.field_name+' survey attribute with values?')) {
+                                            if (window.confirm('Are you sure to delete '+row.original.field_name+' survey attribute with values?')) {
                                                 ev.stopPropagation();
                                                 removeSurveyAttribute(row.original.id);
                                             }

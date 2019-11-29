@@ -46,7 +46,7 @@ class Register extends Component {
   };
 
   onSubmit = model => {
-    this.props.registerWithFirebase(model);
+    // this.props.registerWithFirebase(model);
   };
 
   componentDidUpdate(prevProps, prevState) {

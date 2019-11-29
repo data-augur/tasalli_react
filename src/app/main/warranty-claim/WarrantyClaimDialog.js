@@ -194,8 +194,10 @@ class WarrantyClaimDialog extends Component {
             </Button>
             <IconButton
               onClick={() => {
-                removeWarrantyClaim(this.state.id);
-                this.closeComposeDialog();
+                if (window.confirm('Are you sure to delete '+this.state.formName+' warranty claim?')) {
+                  removeWarrantyClaim(this.state.id);
+                  this.closeComposeDialog();
+                }
               }}
             >
               <Icon>delete</Icon>

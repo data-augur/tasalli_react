@@ -236,8 +236,10 @@ class AdminDialog extends Component {
                 </Button>
                 <IconButton
                     onClick={() => {
-                      removeAdminUser(this.state.id);
-                      this.closeComposeDialog();
+                      if (window.confirm('Are you sure to delete '+this.state.email+' Admin user?')) {
+                        removeAdminUser(this.state.id);
+                        this.closeComposeDialog();
+                      }
                     }}
                 >
                   <Icon>delete</Icon>

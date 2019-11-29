@@ -186,8 +186,10 @@ class AdsList extends Component {
                 <div className="flex items-center justify-center">
                   <IconButton
                     onClick={ev => {
-                      ev.stopPropagation();
-                      removeAds(row.original.id);
+                        if (window.confirm('Are you sure to delete Ad?')) {
+                            ev.stopPropagation();
+                            removeAds(row.original.id);
+                        }
                     }}
                   >
                     <Icon>delete</Icon>

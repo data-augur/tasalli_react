@@ -35,7 +35,7 @@ class WarrantyRegistersHeader extends Component {
             </FuseAnimate>
             <FuseAnimate animation="transition.slideLeftIn" delay={300}>
               <Typography variant="h6" className="hidden sm:flex">
-                Registers Warranty
+                Registered Warranty
               </Typography>
             </FuseAnimate>
           </div>

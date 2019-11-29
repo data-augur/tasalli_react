@@ -186,8 +186,10 @@ class SurveysList extends Component {
                                 <div className="flex items-center justify-center">
                                     <IconButton
                                         onClick={ev => {
-                                            ev.stopPropagation();
-                                            removeSurvey(row.original.id);
+                                            if (window.confirm('Are you sure to delete '+row.original.name+' Survey?')) {
+                                                ev.stopPropagation();
+                                                removeSurvey(row.original.id);
+                                            }
                                         }}
                                     >
                                         <Icon>delete</Icon>

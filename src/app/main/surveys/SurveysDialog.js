@@ -164,8 +164,10 @@ class SurveyDialog extends Component {
                 </Button>
                 <IconButton
                     onClick={() => {
-                      removeSurvey(this.state.id);
-                      this.closeComposeDialog();
+                      if (window.confirm('Are you sure to delete '+this.state.name+' survey?')) {
+                        removeSurvey(this.state.id);
+                        this.closeComposeDialog();
+                      }
                     }}
                 >
                   <Icon>delete</Icon>

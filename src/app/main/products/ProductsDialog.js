@@ -348,9 +348,10 @@ class ProductDialog extends Component {
             </Button>
             <IconButton
               onClick={() => {
-
-                removeProduct(this.state.id);
-                this.closeComposeDialog();
+                if (window.confirm('Are you sure to delete '+this.state.code+' product?')) {
+                  removeProduct(this.state.id);
+                  this.closeComposeDialog();
+                }
               }}
             >
               <Icon>delete</Icon>

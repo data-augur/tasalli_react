@@ -385,8 +385,10 @@ class SurveyAttributeDialog extends Component {
                 </Button>
                 <IconButton
                     onClick={() => {
-                      removeSurveyAttribute(this.state.id);
-                      this.closeComposeDialog();
+                      if (window.confirm('Are you sure to delete '+this.state.field_name+' survey attribute with values?')) {
+                        removeSurveyAttribute(this.state.id);
+                        this.closeComposeDialog();
+                      }
                     }}
                 >
                   <Icon>delete</Icon>

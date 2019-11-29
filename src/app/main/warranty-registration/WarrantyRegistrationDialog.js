@@ -194,8 +194,10 @@ class WarrantyRegistrationDialog extends Component {
             </Button>
             <IconButton
               onClick={() => {
-                removeWarrantyRegistration(this.state.id);
-                this.closeComposeDialog();
+                if (window.confirm('Are you sure to delete '+this.state.formName+' warranty registration?')) {
+                  removeWarrantyRegistration(this.state.id);
+                  this.closeComposeDialog();
+                }
               }}
             >
               <Icon>delete</Icon>

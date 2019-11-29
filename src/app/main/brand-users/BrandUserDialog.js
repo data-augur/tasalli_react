@@ -429,8 +429,10 @@ class BrandUserDialog extends Component {
                 hidden={localStorage.getItem('Role')!=='superAdmin'}
                 disabled= {localStorage.getItem('Role')!=='superAdmin'}
               onClick={() => {
-                removeBrandUser(this.state.id);
-                this.closeComposeDialog();
+                if (window.confirm('Are you sure to delete '+this.state.name+' company user?')) {
+                  removeBrandUser(this.state.id);
+                  this.closeComposeDialog();
+                }
               }}
             >
               <Icon>delete</Icon>

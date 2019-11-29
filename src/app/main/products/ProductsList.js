@@ -177,9 +177,10 @@ class ProductsList extends Component {
                 <div className="flex items-center justify-center">
                   <IconButton
                     onClick={ev => {
-
-                      ev.stopPropagation();
-                      removeProduct(row.original.id);
+                        if (window.confirm('Are you sure to delete '+row.original.code+' product?')) {
+                            ev.stopPropagation();
+                            removeProduct(row.original.id);
+                        }
                     }}
                   >
                     <Icon>delete</Icon>

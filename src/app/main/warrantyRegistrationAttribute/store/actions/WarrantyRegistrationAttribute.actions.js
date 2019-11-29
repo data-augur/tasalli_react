@@ -159,7 +159,7 @@ export const removeWarrantyRegistrationAttribute = id => dispatch => {
 
 export const getWarrantyRegistrationAttributeOptions = id => dispatch => {
     axios
-        .get(Base_URL+`get-a-survey-attribute-options/${id}`)
+        .get(Base_URL+`get-a-warranty-registration-form-attributes-with-options/${id}`)
         .then(res => {
             dispatch({
                 type: GET_WARRANTYREGISTRATIONATTRIBUTEOPTIONS

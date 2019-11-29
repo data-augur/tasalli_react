@@ -173,8 +173,10 @@ class BrandsList extends Component {
                       hidden={localStorage.getItem('Role')!=='superAdmin'}
                       disabled= {localStorage.getItem('Role')!=='superAdmin'}
                     onClick={ev => {
-                      ev.stopPropagation();
-                      removeBrand(row.original.id);
+                        if (window.confirm('Are you sure to delete '+row.original.name+' brand?')) {
+                            ev.stopPropagation();
+                            removeBrand(row.original.id);
+                        }
                     }}
                   >
                     <Icon>delete</Icon>

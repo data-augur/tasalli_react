@@ -186,9 +186,10 @@ class WarrantyRegistersList extends Component {
                       hidden={localStorage.getItem('Role')!=='superAdmin'}
                       disabled= {localStorage.getItem('Role')!=='superAdmin'}
                     onClick={ev => {
-
-                      ev.stopPropagation();
-                      removeWarrantyRegister(row.original.id);
+                        if (window.confirm('Are you sure to delete Registered Warranty?')) {
+                            ev.stopPropagation();
+                            removeWarrantyRegister(row.original.id);
+                        }
                     }}
                   >
                     <Icon>delete</Icon>

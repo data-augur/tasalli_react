@@ -45,7 +45,7 @@ export const SET_WARRANTYCLAIMATTRIBUTES_STARRED = '[WARRANTYCLAIMATTRIBUTES APP
 export const getAllWarrantyClaimAttribute = () => dispatch => {
   axios
     // .get(Base_URL+'get-all-surveys')
-    .get(Base_URL+'get-a-survey-attributes-with-options/${id}')
+    .get(Base_URL+'get-a-warranty-claim-form-attributes-with-options/${id}')
     .then(res => {
 
       dispatch({
@@ -158,7 +158,7 @@ export const removeWarrantyClaimAttribute = id => dispatch => {
 
 export const getWarrantyClaimAttributeOptions = id => dispatch => {
     axios
-        .get(Base_URL+`get-a-survey-attribute-options/${id}`)
+        .get(Base_URL+`get-a-warranty-claim-form-attributes-with-options/${id}`)
         .then(res => {
             dispatch({
                 type: GET_WARRANTYCLAIMATTRIBUTE

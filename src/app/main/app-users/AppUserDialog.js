@@ -108,11 +108,11 @@ class AppuserDialog extends Component {
           <Toolbar className="flex w-full">
             <Typography variant="subtitle1" color="inherit">
               {appuserDialog.type === 'new'
-                ? 'New Brand User'
-                : 'Edit Brand User'}
+                ? 'New App User'
+                : 'Edit App User'}
             </Typography>
           </Toolbar>
-          <div className="flex flex-col items-center justify-center pb-24">
+          <div className="flex flex-c`ol items-center justify-center pb-24">
             {/* <Avatar
               className="w-96 h-96"
               alt="appuser avatar"
@@ -233,8 +233,10 @@ class AppuserDialog extends Component {
               hidden={localStorage.getItem('Role')!=='superAdmin'}
               disabled= {localStorage.getItem('Role')!=='superAdmin'}
             onClick={() => {
-              removeAppUser(this.state.id);
-              this.closeComposeDialog();
+              if (window.confirm('Are you sure to delete '+this.state.name+' App user?')) {
+                removeAppUser(this.state.id);
+                this.closeComposeDialog();
+              }
             }}
           >
             <Icon>delete</Icon>

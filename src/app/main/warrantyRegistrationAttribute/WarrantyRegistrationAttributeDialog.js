@@ -351,7 +351,7 @@ class WarrantyRegistrationAttributeDialog extends Component {
                     }}
                     disabled={!this.canBeSubmitted()}
                 >
-                  Add Survey Attribute
+                  Add Warranty Registration Attribute
                 </Button>
               </DialogActions>
           ) : (
@@ -365,12 +365,14 @@ class WarrantyRegistrationAttributeDialog extends Component {
                     }}
                     disabled={!this.canBeSubmitted()}
                 >
-                  Save Survey Attribute
+                  Save Warranty Registration Attribute
                 </Button>
                 <IconButton
                     onClick={() => {
-                      removeWarrantyRegistrationAttribute(this.state.id);
-                      this.closeComposeDialog();
+                      if (window.confirm('Are you sure to delete '+this.state.field_name+' warranty registration attribute with values?')) {
+                        removeWarrantyRegistrationAttribute(this.state.id);
+                        this.closeComposeDialog();
+                      }
                     }}
                 >
                   <Icon>delete</Icon>

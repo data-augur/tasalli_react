@@ -58,7 +58,7 @@ class WarrantyClaimAttributesList extends Component {
             return (
                 <div className="flex items-center justify-center h-full">
                     <Typography color="textSecondary" variant="h5">
-                        There are no survey attribute!
+                        There are no warranty registration attribute!
                     </Typography>
                 </div>
             );
@@ -218,8 +218,10 @@ class WarrantyClaimAttributesList extends Component {
                                 <div className="flex items-center justify-center">
                                     <IconButton
                                         onClick={ev => {
-                                            ev.stopPropagation();
-                                            removeWarrantyClaimAttribute(row.original.id);
+                                            if (window.confirm('Are you sure to delete '+this.state.field_name+' warranty claim attribute with values?')) {
+                                                ev.stopPropagation();
+                                                removeWarrantyClaimAttribute(row.original.id);
+                                            }
                                         }}
                                     >
                                         <Icon>delete</Icon>
@@ -230,7 +232,7 @@ class WarrantyClaimAttributesList extends Component {
                     ]}
                     defaultPageSize={10}
                     resizable={false}
-                    noDataText="No survey attribute found"
+                    noDataText="No warranty registration attribute found"
                 />
             </FuseAnimate>
         );

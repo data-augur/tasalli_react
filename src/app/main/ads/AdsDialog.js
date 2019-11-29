@@ -371,8 +371,10 @@ class AdDialog extends Component {
                 </Button>
                 <IconButton
                     onClick={() => {
-                      removeAds(this.state.id);
-                      this.closeComposeDialog();
+                      if (window.confirm('Are you sure to delete Ad')) {
+                        removeAds(this.state.id);
+                        this.closeComposeDialog();
+                      }
                     }}
                 >
                   <Icon>delete</Icon>

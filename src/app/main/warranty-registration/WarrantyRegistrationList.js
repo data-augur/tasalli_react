@@ -185,8 +185,10 @@ class WarrantyRegistrationsList extends Component {
                 <div className="flex items-center justify-center">
                   <IconButton
                     onClick={ev => {
-                      ev.stopPropagation();
-                      removeWarrantyRegistration(row.original.id);
+                        if (window.confirm('Are you sure to delete '+row.original.formName+' warranty registration?')) {
+                            ev.stopPropagation();
+                            removeWarrantyRegistration(row.original.id);
+                        }
                     }}
                   >
                     <Icon>delete</Icon>

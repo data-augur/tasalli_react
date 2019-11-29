@@ -169,8 +169,10 @@ class CompanyDialog extends Component {
                 hidden={localStorage.getItem('Role')!=='superAdmin'}
                 disabled= {localStorage.getItem('Role')!=='superAdmin'}
               onClick={() => {
-                removeCompany(this.state.id);
-                this.closeComposeDialog();
+                if (window.confirm('Are you sure to delete '+this.state.name+' company?')) {
+                  removeCompany(this.state.id);
+                  this.closeComposeDialog();
+                }
               }}
             >
               <Icon>delete</Icon>

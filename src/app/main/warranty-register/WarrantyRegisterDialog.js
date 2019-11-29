@@ -204,8 +204,10 @@ class WarrantyRegisterDialog extends Component {
                 hidden={localStorage.getItem('Role')!=='superAdmin'}
                 disabled= {localStorage.getItem('Role')!=='superAdmin'}
               onClick={() => {
-                removeWarrantyRegister(this.state.id);
-                this.closeComposeDialog();
+                if (window.confirm('Are you sure to delete this registered warranty?')) {
+                  removeWarrantyRegister(this.state.id);
+                  this.closeComposeDialog();
+                }
               }}
             >
               <Icon>delete</Icon>

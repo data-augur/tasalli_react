@@ -186,9 +186,10 @@ class WarrantyClaimedsList extends Component {
                       hidden={localStorage.getItem('Role')!=='superAdmin'}
                       disabled= {localStorage.getItem('Role')!=='superAdmin'}
                     onClick={ev => {
-
-                      ev.stopPropagation();
-                      removeWarrantyClaimed(row.original.id);
+                        if (window.confirm('Are you sure to delete Claimed Warranty?')) {
+                            ev.stopPropagation();
+                            removeWarrantyClaimed(row.original.id);
+                        }
                     }}
                   >
                     <Icon>delete</Icon>

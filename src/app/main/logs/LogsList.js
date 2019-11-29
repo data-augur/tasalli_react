@@ -180,8 +180,10 @@ class LogsList extends Component {
             //     <div className="flex items-center justify-center">
             //       <IconButton
             //         onClick={ev => {
-            //           ev.stopPropagation();
-            //           removeBrand(row.original.id);
+            //          if (window.confirm('Are you sure to delete Log?')) {
+            //               ev.stopPropagation();
+            //              removeBrand(row.original.id);
+          //            }
             //         }}
             //       >
             //         <Icon>delete</Icon>

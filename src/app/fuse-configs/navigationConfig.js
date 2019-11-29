@@ -92,7 +92,7 @@ const superAdminNavigationConfig = [
   },
   {
     id: 'applications',
-    title: 'Products Management',
+    title: 'Warranty Management',
     type: 'group',
     icon: 'whatshot',
     children: [
@@ -102,15 +102,7 @@ const superAdminNavigationConfig = [
         type: 'item',
         icon: 'book',
         url: '/products'
-      }
-    ]
-  },
-  {
-    id: 'applications',
-    title: 'Warranty Management',
-    type: 'group',
-    icon: 'whatshot',
-    children: [
+      },
       {
         id: 'companies-component',
         title: 'Warranty Registration',
@@ -203,13 +195,6 @@ const companyAdminnavigationConfig = [
     icon: 'whatshot',
     children: [
       {
-        id: 'companies-component',
-        title: 'Products',
-        type: 'item',
-        icon: 'book',
-        url: '/products'
-      },
-      {
         id: 'brands-component',
         title: 'Brands',
         type: 'item',
@@ -224,6 +209,13 @@ const companyAdminnavigationConfig = [
     type: 'group',
     icon: 'whatshot',
     children: [
+      {
+        id: 'companies-component',
+        title: 'Products',
+        type: 'item',
+        icon: 'book',
+        url: '/products'
+      },
       {
         id: 'companies-component',
         title: 'Warranty Registration',

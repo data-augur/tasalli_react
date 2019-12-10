@@ -178,7 +178,13 @@ class NotificationsList extends Component {
                             // className: "justify-center",
                         },
                     ]}
-                    defaultPageSize={10}
+                    defaultSorted={[
+                        {
+                            id: "sendDate",
+                            desc: true
+                        }
+                    ]}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No notification found"
                 />

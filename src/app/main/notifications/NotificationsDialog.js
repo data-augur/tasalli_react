@@ -25,7 +25,6 @@ class NotificationDialog extends Component {
   state = { ...newNotificationState };
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    console.log(localStorage.getItem('id'));
     /**
      * After Dialog Open
      */

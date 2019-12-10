@@ -12,7 +12,7 @@ export const LOGOUT = 'LOGOUT';
 export const loginUser = userData => dispatch => {
   axios
     // .post(Base_URL+'su-admin/login', userData)
-    .post(Base_URL+'su-admin/login', userData)  
+    .post(Base_URL+'su-admin/login', userData)
     .then(res => {
       // Save to localStorage
       const { token } = res.data;
@@ -22,7 +22,7 @@ export const loginUser = userData => dispatch => {
       setAuthToken(token);
       // Decode token to get user data
       const decoded = jwt_decode(token);
-      console.log('Decoded', decoded);
+      localStorage.setItem('id', decoded.id);
       const userInfo ={
         ...decoded,
         companyId: res.data.companyId,

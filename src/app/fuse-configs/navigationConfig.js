@@ -70,6 +70,21 @@ const superAdminNavigationConfig = [
   },
   {
     id: 'applications',
+    title: 'Notifications',
+    type: 'group',
+    icon: 'whatshot',
+    children: [
+      {
+        id: 'notifications-component',
+        title: 'Notifications',
+        type: 'item',
+        icon: 'book',
+        url: '/notifications'
+      },
+    ]
+  },
+  {
+    id: 'applications',
     title: 'Ads',
     type: 'group',
     icon: 'whatshot',

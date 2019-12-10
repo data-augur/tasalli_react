@@ -20,6 +20,7 @@ import { WarrantyClaimAppConfig } from 'app/main/warranty-claim/WarrantyClaimApp
 import { WarrantyCompletionAppConfig } from 'app/main/warranty-completion/WarrantyCompletionAppConfig';
 import { AppUsersAppConfig } from 'app/main/app-users/AppUserAppConfig';
 import { CompaniesAppConfig } from 'app/main/company/CompaniesAppConfig';
+import { NotificationsAppConfig } from 'app/main/notifications/NotificationsAppConfig';
 import { LogsAppConfig } from 'app/main/logs/LogsAppConfig';
 import { WarrantyRegisterAppConfig } from 'app/main/warranty-register/WarrantyRegisterAppConfig';
 import { WarrantyClaimedAppConfig } from 'app/main/warranty-claimed/WarrantyClaimedAppConfig';
@@ -42,6 +43,7 @@ const routeConfigs = [
   BrandUsersAppConfig,
   BrandsAppConfig,
   CompaniesAppConfig,
+  NotificationsAppConfig,
   WarrantyRegistrationAppConfig,
   WarrantyClaimAppConfig,
   WarrantyCompletionAppConfig,

@@ -32,8 +32,9 @@ export const loginUser = userData => dispatch => {
       dispatch(setCurrentUser(userInfo));
     })
     .catch(err => {
+        console.log(err);
 
-      dispatch({
+        dispatch({
         type: LOGIN_ERROR,
         payload: err.response.data
       });
@@ -65,7 +66,8 @@ export const loginBrandUser = userData => dispatch => {
       dispatch(setCurrentUser(userInfo));
     })
     .catch(err => {
-      dispatch({
+        console.log(err);
+        dispatch({
         type: LOGIN_ERROR,
         payload: err.response.data
       });
@@ -83,8 +85,9 @@ export const verifyToken = token => dispatch => {
       dispatch(setCurrentUser(res.data));
     })
     .catch(err => {
+        console.log(err);
 
-      dispatch({
+        dispatch({
         type: LOGIN_ERROR,
         payload: err.response.data
       });

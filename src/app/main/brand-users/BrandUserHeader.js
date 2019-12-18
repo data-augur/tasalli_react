@@ -35,7 +35,7 @@ class BrandUsersHeader extends Component {
             </FuseAnimate>
             <FuseAnimate animation="transition.slideLeftIn" delay={300}>
               <Typography variant="h6" className="hidden sm:flex">
-                Company Users
+                Client Users
               </Typography>
             </FuseAnimate>
           </div>

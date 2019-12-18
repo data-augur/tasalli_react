@@ -69,7 +69,7 @@ export const updateAppUser = (updateInfo, id) => dispatch => {
     .then(res => {
         if(res.request.status===200)
         {
-            dispatch(showMessage({message: 'App User Updated',variant: "success"}));
+            dispatch(showMessage({message: 'App User Updated', variant: "success"}));
         }
       dispatch({
         type: UPDATE_APP_USER
@@ -78,7 +78,7 @@ export const updateAppUser = (updateInfo, id) => dispatch => {
     .then(() => dispatch(getAllAppUsers()))
     .catch(err => {
       console.log('err', err.response);
-        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
+        dispatch(showMessage({message: err.response.data.error,variant: "error", autoHideDuration: 5000}));
         //   dispatch({
       //     type: LOGIN_ERROR,
       //     payload: err.response.data

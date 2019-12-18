@@ -54,7 +54,7 @@ const superAdminNavigationConfig = [
       },
       {
         id: 'company-admin-component',
-        title: 'Company Users',
+        title: 'Client Users',
         type: 'item',
         icon: 'people',
         url: '/brand-users'

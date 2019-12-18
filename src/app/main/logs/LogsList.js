@@ -72,72 +72,78 @@ class LogsList extends Component {
                         };
                     }}
                     data={data}
+                    sorted={[
+                        {
+                            id: 'time',
+                            desc: true
+                        }
+                    ]}
                     columns={[
 
-                        {
-                            Header: () =>
-                                selectedLogIds.length > 0 && (
-                                    <React.Fragment>
-                                        <IconButton
-                                            aria-owns={
-                                                selectedLogsMenu ? 'selectedLogsMenu' : null
-                                            }
-                                            aria-haspopup="true"
-                                            onClick={this.openSelectedLogMenu}
-                                        >
-                                            <Icon>more_horiz</Icon>
-                                        </IconButton>
-                                        <Menu
-                                            id="selectedLogsMenu"
-                                            anchorEl={selectedLogsMenu}
-                                            open={Boolean(selectedLogsMenu)}
-                                            onClose={this.closeSelectedLogsMenu}
-                                        >
-                                            <MenuList>
-                                                <MenuItem
-
-                                                >
-
-                                                    <ListItemText inset primary="Remove"/>
-                                                </MenuItem>
-                                                <MenuItem
-                                                    onClick={() => {
-                                                        setLogsStarred(selectedLogIds);
-                                                        this.closeSelectedLogsMenu();
-                                                    }}
-                                                >
-                                                    <ListItemIcon>
-                                                        <Icon>star</Icon>
-                                                    </ListItemIcon>
-                                                    <ListItemText inset primary="Starred"/>
-                                                </MenuItem>
-                                                <MenuItem
-                                                    onClick={() => {
-                                                        setLogsUnstarred(selectedLogIds);
-                                                        this.closeSelectedLogsMenu();
-                                                    }}
-                                                >
-                                                    <ListItemIcon>
-                                                        <Icon>star_border</Icon>
-                                                    </ListItemIcon>
-                                                    <ListItemText inset primary="Unstarred"/>
-                                                </MenuItem>
-                                            </MenuList>
-                                        </Menu>
-                                    </React.Fragment>
-                                ),
-                            accessor: 'avatar',
-                            Cell: row => (
-                                <Avatar
-                                    className="mr-8"
-                                    alt={row.original.name}
-                                    src={row.value}
-                                />
-                            ),
-                            className: 'justify-center',
-                            width: 64,
-                            sortable: false
-                        },
+                        // {
+                        //     Header: () =>
+                        //         selectedLogIds.length > 0 && (
+                        //             <React.Fragment>
+                        //                 <IconButton
+                        //                     aria-owns={
+                        //                         selectedLogsMenu ? 'selectedLogsMenu' : null
+                        //                     }
+                        //                     aria-haspopup="true"
+                        //                     onClick={this.openSelectedLogMenu}
+                        //                 >
+                        //                     <Icon>more_horiz</Icon>
+                        //                 </IconButton>
+                        //                 <Menu
+                        //                     id="selectedLogsMenu"
+                        //                     anchorEl={selectedLogsMenu}
+                        //                     open={Boolean(selectedLogsMenu)}
+                        //                     onClose={this.closeSelectedLogsMenu}
+                        //                 >
+                        //                     <MenuList>
+                        //                         <MenuItem
+                        //
+                        //                         >
+                        //
+                        //                             <ListItemText inset primary="Remove"/>
+                        //                         </MenuItem>
+                        //                         <MenuItem
+                        //                             onClick={() => {
+                        //                                 setLogsStarred(selectedLogIds);
+                        //                                 this.closeSelectedLogsMenu();
+                        //                             }}
+                        //                         >
+                        //                             <ListItemIcon>
+                        //                                 <Icon>star</Icon>
+                        //                             </ListItemIcon>
+                        //                             <ListItemText inset primary="Starred"/>
+                        //                         </MenuItem>
+                        //                         <MenuItem
+                        //                             onClick={() => {
+                        //                                 setLogsUnstarred(selectedLogIds);
+                        //                                 this.closeSelectedLogsMenu();
+                        //                             }}
+                        //                         >
+                        //                             <ListItemIcon>
+                        //                                 <Icon>star_border</Icon>
+                        //                             </ListItemIcon>
+                        //                             <ListItemText inset primary="Unstarred"/>
+                        //                         </MenuItem>
+                        //                     </MenuList>
+                        //                 </Menu>
+                        //             </React.Fragment>
+                        //         ),
+                        //     accessor: 'avatar',
+                        //     Cell: row => (
+                        //         <Avatar
+                        //             className="mr-8"
+                        //             alt={row.original.name}
+                        //             src={row.value}
+                        //         />
+                        //     ),
+                        //     className: 'justify-center',
+                        //     width: 64,
+                        //     sortable: false
+                        // },
                         {
                             Header: 'Phone Number',
                             accessor: 'phoneNumber',
@@ -146,8 +152,8 @@ class LogsList extends Component {
                             // className: "justify-center",
                         },
                         {
-                            Header: 'Activity',
-                            accessor: 'activity',
+                            Header: 'SKU Code',
+                            accessor: 'code',
                             filterable: true,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
@@ -155,6 +161,7 @@ class LogsList extends Component {
                         {
                             Header: 'Status',
                             accessor: 'status',
+                            width: 220,
                             filterable: true,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
@@ -201,7 +208,7 @@ class LogsList extends Component {
                     ]}
                     defaultPageSize={10}
                     resizable={false}
-                    noDataText="No brand found"
+                    noDataText="No logs found"
                 />
             </FuseAnimate>
         );

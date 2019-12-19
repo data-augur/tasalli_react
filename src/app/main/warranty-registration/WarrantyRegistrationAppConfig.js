@@ -1,14 +1,15 @@
 import WarrantyRegistrationApp from "./WarrantyRegistrationApp";
+
 export const WarrantyRegistrationAppConfig = {
-  settings: {
-    layout: {
-      config: {}
-    }
-  },
-  routes: [
-    {
-      path: '/warranty-registration',
-      component: WarrantyRegistrationApp
-    }
-  ]
+    settings: {
+        layout: {
+            config: {}
+        }
+    },
+    routes: [
+        {
+            path: '/warranty-registration',
+            component: WarrantyRegistrationApp
+        }
+    ]
 };

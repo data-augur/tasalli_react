@@ -1,6 +1,7 @@
 import axios from 'axios';
-import { Base_URL } from '../../../../server'
+import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
+
 export const GET_ALL_ADMIN_USERS = '[ADMIN USERS APP] GET ADMINUSERS';
 
 export const UPDATE_ADMIN_USER = '[ADMIN USERS APP] UPDATE ADMINUSER';
@@ -9,16 +10,16 @@ export const REMOVE_ADMIN_USER = '[ADMIN USERS APP] REMOVE ADMINUSER';
 
 export const SET_SEARCH_TEXT = '[ADMINS APP] SET SEARCH TEXT';
 export const TOGGLE_IN_SELECTED_ADMINS =
-  '[ADMINS APP] TOGGLE IN SELECTED ADMINS';
+    '[ADMINS APP] TOGGLE IN SELECTED ADMINS';
 export const SELECT_ALL_ADMINS = '[ADMINS APP] SELECT ALL ADMINS';
 export const DESELECT_ALL_ADMINS = '[ADMINS APP] DESELECT ALL ADMINS';
 export const OPEN_NEW_ADMIN_DIALOG = '[ADMINS APP] OPEN NEW ADMIN DIALOG';
 export const CLOSE_NEW_ADMIN_DIALOG =
-  '[ADMINS APP] CLOSE NEW ADMIN DIALOG';
+    '[ADMINS APP] CLOSE NEW ADMIN DIALOG';
 export const OPEN_EDIT_ADMIN_DIALOG =
-  '[ADMINS APP] OPEN EDIT ADMIN DIALOG';
+    '[ADMINS APP] OPEN EDIT ADMIN DIALOG';
 export const CLOSE_EDIT_ADMIN_DIALOG =
-  '[ADMINS APP] CLOSE EDIT ADMIN DIALOG';
+    '[ADMINS APP] CLOSE EDIT ADMIN DIALOG';
 export const ADD_ADMIN = '[ADMINS APP] ADD ADMIN';
 export const UPDATE_ADMIN = '[ADMINS APP] UPDATE ADMIN';
 export const REMOVE_ADMIN = '[ADMINS APP] REMOVE ADMIN';
@@ -41,33 +42,32 @@ export const SET_ADMINS_STARRED = '[ADMINS APP] SET ADMINS STARRED ';
 //     headers
 //   });
 export const getAllAdminUsers = () => dispatch => {
-  axios
+    axios
     // .get(Base_URL+'get-all-app-users')
-    .get(Base_URL+'get-all-tasali-admins')
-    .then(res => {
+        .get(Base_URL + 'get-all-tasali-admins')
+        .then(res => {
 
-      dispatch({
-        type: GET_ALL_ADMIN_USERS,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-      console.log('err', err);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
-    });
+            dispatch({
+                type: GET_ALL_ADMIN_USERS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+            console.log('err', err);
+            //   dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: err.response.data
+            //   });
+        });
 };
 export const addAdminUser = newAdmin => dispatch => {
 
     axios
     // .post(Base_URL+'create-brand-user', newAdmin)
-        .post(Base_URL+'create-tasali-admin', newAdmin)
+        .post(Base_URL + 'create-tasali-admin', newAdmin)
         .then(res => {
-            if(res.request.status===200)
-            {
-                dispatch(showMessage({message: 'Admin User Created',variant: "success"}));
+            if (res.request.status === 200) {
+                dispatch(showMessage({message: 'Admin User Created', variant: "success"}));
             }
             dispatch({
                 type: ADD_ADMIN_USER
@@ -76,7 +76,7 @@ export const addAdminUser = newAdmin => dispatch => {
         // .then(() => dispatch(getAllCompanies()))
         .then(() => dispatch(getAllAdminUsers()))
         .catch(err => {
-            dispatch(showMessage({message: err.response.data.error,variant: "error"}));
+            dispatch(showMessage({message: err.response.data.error, variant: "error"}));
             //   dispatch({
             //     type: LOGIN_ERROR,
             //     payload: err.response.data
@@ -85,51 +85,49 @@ export const addAdminUser = newAdmin => dispatch => {
 };
 export const updateAdminUser = (updateInfo, id) => dispatch => {
 
-  axios
-    .put(
-        Base_URL+`update-tasali-admin/${updateInfo.id}`,
-      updateInfo
-    )
-    .then(res => {
-        if(res.request.status===200)
-        {
-            dispatch(showMessage({message: 'Admin User Updated',variant: "success"}));
-        }
-      dispatch({
-        type: UPDATE_ADMIN_USER
-      });
-    })
-    .then(() => dispatch(getAllAdminUsers()))
-    .catch(err => {
-        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
-        console.log('err', err.response);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
-    });
+    axios
+        .put(
+            Base_URL + `update-tasali-admin/${updateInfo.id}`,
+            updateInfo
+        )
+        .then(res => {
+            if (res.request.status === 200) {
+                dispatch(showMessage({message: 'Admin User Updated', variant: "success"}));
+            }
+            dispatch({
+                type: UPDATE_ADMIN_USER
+            });
+        })
+        .then(() => dispatch(getAllAdminUsers()))
+        .catch(err => {
+            dispatch(showMessage({message: err.response.data.error, variant: "error"}));
+            console.log('err', err.response);
+            //   dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: err.response.data
+            //   });
+        });
 };
 export const removeAdminUser = id => dispatch => {
-  axios
-    .delete(Base_URL+`delete-tasali-admin/${id}`)
-    .then(res => {
-        if(res.request.status===200)
-        {
-            dispatch(showMessage({message: 'Admin User Removed',variant: "success"}));
-        }
-      dispatch({
-        type: REMOVE_ADMIN_USER
-      });
-    })
-    .then(() => dispatch(getAllAdminUsers()))
-    .catch(err => {
-        dispatch(showMessage({message: err.response.data.error,variant: "error"}));
-        console.log('err', err.response);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
-    });
+    axios
+        .delete(Base_URL + `delete-tasali-admin/${id}`)
+        .then(res => {
+            if (res.request.status === 200) {
+                dispatch(showMessage({message: 'Admin User Removed', variant: "success"}));
+            }
+            dispatch({
+                type: REMOVE_ADMIN_USER
+            });
+        })
+        .then(() => dispatch(getAllAdminUsers()))
+        .catch(err => {
+            dispatch(showMessage({message: err.response.data.error, variant: "error"}));
+            console.log('err', err.response);
+            //   dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: err.response.data
+            //   });
+        });
 };
 
 // export function updateAdmin(admin) {
@@ -168,54 +166,54 @@ export const removeAdminUser = id => dispatch => {
 // }
 
 export function setSearchText(event) {
-  return {
-    type: SET_SEARCH_TEXT,
-    searchText: event.target.value
-  };
+    return {
+        type: SET_SEARCH_TEXT,
+        searchText: event.target.value
+    };
 }
 
 export function toggleInSelectedAdmins(adminId) {
-  return {
-    type: TOGGLE_IN_SELECTED_ADMINS,
-    adminId
-  };
+    return {
+        type: TOGGLE_IN_SELECTED_ADMINS,
+        adminId
+    };
 }
 
 export function selectAllAdmins() {
-  return {
-    type: SELECT_ALL_ADMINS
-  };
+    return {
+        type: SELECT_ALL_ADMINS
+    };
 }
 
 export function deSelectAllAdmins() {
-  return {
-    type: DESELECT_ALL_ADMINS
-  };
+    return {
+        type: DESELECT_ALL_ADMINS
+    };
 }
 
 export function openNewAdminDialog() {
-  return {
-    type: OPEN_NEW_ADMIN_DIALOG
-  };
+    return {
+        type: OPEN_NEW_ADMIN_DIALOG
+    };
 }
 
 export function closeNewAdminDialog() {
-  return {
-    type: CLOSE_NEW_ADMIN_DIALOG
-  };
+    return {
+        type: CLOSE_NEW_ADMIN_DIALOG
+    };
 }
 
 export function openEditAdminDialog(data) {
-  return {
-    type: OPEN_EDIT_ADMIN_DIALOG,
-    data
-  };
+    return {
+        type: OPEN_EDIT_ADMIN_DIALOG,
+        data
+    };
 }
 
 export function closeEditAdminDialog() {
-  return {
-    type: CLOSE_EDIT_ADMIN_DIALOG
-  };
+    return {
+        type: CLOSE_EDIT_ADMIN_DIALOG
+    };
 }
 
 // export function updateAdmin(admin) {
@@ -255,103 +253,103 @@ export function closeEditAdminDialog() {
 // }
 
 export function removeAdmins(adminIds) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().adminsApp.admins;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().adminsApp.admins;
 
-    const request = axios.post('/api/admins-app/remove-admins', {
-      adminIds
-    });
+        const request = axios.post('/api/admins-app/remove-admins', {
+            adminIds
+        });
 
-    return request.then(response =>
-      Promise.all([
-        dispatch({
-          type: REMOVE_ADMINS
-        }),
-        dispatch({
-          type: DESELECT_ALL_ADMINS
-        })
-      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
-    );
-  };
+        return request.then(response =>
+            Promise.all([
+                dispatch({
+                    type: REMOVE_ADMINS
+                }),
+                dispatch({
+                    type: DESELECT_ALL_ADMINS
+                })
+            ]).then(() => dispatch(getAllAdminUsers(routeParams)))
+        );
+    };
 }
 
 export function toggleStarredAdmin(adminId) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().adminsApp.admins;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().adminsApp.admins;
 
-    const request = axios.post('/api/admins-app/toggle-starred-admin', {
-      adminId
-    });
+        const request = axios.post('/api/admins-app/toggle-starred-admin', {
+            adminId
+        });
 
-    return request.then(response =>
-      Promise.all([
-        dispatch({
-          type: TOGGLE_STARRED_ADMIN
-        }),
-      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
-    );
-  };
+        return request.then(response =>
+            Promise.all([
+                dispatch({
+                    type: TOGGLE_STARRED_ADMIN
+                }),
+            ]).then(() => dispatch(getAllAdminUsers(routeParams)))
+        );
+    };
 }
 
 export function toggleStarredAdmins(adminIds) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().adminsApp.admins;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().adminsApp.admins;
 
-    const request = axios.post('/api/admins-app/toggle-starred-admins', {
-      adminIds
-    });
+        const request = axios.post('/api/admins-app/toggle-starred-admins', {
+            adminIds
+        });
 
-    return request.then(response =>
-      Promise.all([
-        dispatch({
-          type: TOGGLE_STARRED_ADMINS
-        }),
-        dispatch({
-          type: DESELECT_ALL_ADMINS
-        }),
-      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
-    );
-  };
+        return request.then(response =>
+            Promise.all([
+                dispatch({
+                    type: TOGGLE_STARRED_ADMINS
+                }),
+                dispatch({
+                    type: DESELECT_ALL_ADMINS
+                }),
+            ]).then(() => dispatch(getAllAdminUsers(routeParams)))
+        );
+    };
 }
 
 export function setAdminsStarred(adminIds) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().adminsApp.admins;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().adminsApp.admins;
 
-    const request = axios.post('/api/admins-app/set-admins-starred', {
-      adminIds
-    });
+        const request = axios.post('/api/admins-app/set-admins-starred', {
+            adminIds
+        });
 
-    return request.then(response =>
-      Promise.all([
-        dispatch({
-          type: SET_ADMINS_STARRED
-        }),
-        dispatch({
-          type: DESELECT_ALL_ADMINS
-        }),
-      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
-    );
-  };
+        return request.then(response =>
+            Promise.all([
+                dispatch({
+                    type: SET_ADMINS_STARRED
+                }),
+                dispatch({
+                    type: DESELECT_ALL_ADMINS
+                }),
+            ]).then(() => dispatch(getAllAdminUsers(routeParams)))
+        );
+    };
 }
 
 export function setAdminsUnstarred(adminIds) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().adminsApp.admins;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().adminsApp.admins;
 
-    const request = axios.post('/api/admins-app/set-admins-unstarred', {
-      adminIds
-    });
+        const request = axios.post('/api/admins-app/set-admins-unstarred', {
+            adminIds
+        });
 
-    return request.then(response =>
-      Promise.all([
-        dispatch({
-          type: SET_ADMINS_STARRED
-        }),
-        dispatch({
-          type: DESELECT_ALL_ADMINS
-        }),
-      ]).then(() => dispatch(getAllAdminUsers(routeParams)))
-    );
-  };
+        return request.then(response =>
+            Promise.all([
+                dispatch({
+                    type: SET_ADMINS_STARRED
+                }),
+                dispatch({
+                    type: DESELECT_ALL_ADMINS
+                }),
+            ]).then(() => dispatch(getAllAdminUsers(routeParams)))
+        );
+    };
 }

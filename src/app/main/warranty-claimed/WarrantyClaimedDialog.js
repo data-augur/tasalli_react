@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {
-    TextField,
+    AppBar,
     Button,
     Dialog,
     DialogActions,
     DialogContent,
     Icon,
     IconButton,
-    Typography,
+    TextField,
     Toolbar,
-    AppBar
+    Typography
 } from '@material-ui/core';
 import {bindActionCreators} from 'redux';
 import * as Actions from './store/actions';

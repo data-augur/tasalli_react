@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {Typography} from '@material-ui/core';
-import {FuseUtils, FuseAnimate} from '@fuse';
+import {FuseAnimate, FuseUtils} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';

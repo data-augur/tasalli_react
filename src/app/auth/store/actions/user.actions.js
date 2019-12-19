@@ -15,17 +15,16 @@ export const USER_LOGGED_OUT = '[USER] LOGGED OUT';
 /**
  * Set user data from Auth0 token data
  */
-export function setUserDataAuth0(tokenData)
-{
+export function setUserDataAuth0(tokenData) {
     const user = {
         role: 'admin',
         from: 'auth0',
         data: {
             displayName: tokenData.username,
-            photoURL   : tokenData.picture,
-            email      : tokenData.email,
-            settings   : (tokenData.user_metadata && tokenData.user_metadata.settings) ? tokenData.user_metadata.settings : {},
-            shortcuts  : (tokenData.user_metadata && tokenData.user_metadata.shortcuts) ? tokenData.user_metadata.shortcuts : []
+            photoURL: tokenData.picture,
+            email: tokenData.email,
+            settings: (tokenData.user_metadata && tokenData.user_metadata.settings) ? tokenData.user_metadata.settings : {},
+            shortcuts: (tokenData.user_metadata && tokenData.user_metadata.shortcuts) ? tokenData.user_metadata.shortcuts : []
         }
     };
 
@@ -88,8 +87,7 @@ export function setUserDataAuth0(tokenData)
 /**
  * Set User Data
  */
-export function setUserData(user)
-{
+export function setUserData(user) {
     return (dispatch) => {
 
         /*
@@ -101,7 +99,7 @@ export function setUserData(user)
         Set User Data
          */
         dispatch({
-            type   : SET_USER_DATA,
+            type: SET_USER_DATA,
             payload: user
         })
     }
@@ -110,8 +108,7 @@ export function setUserData(user)
 /**
  * Update User Settings
  */
-export function updateUserSettings(settings)
-{
+export function updateUserSettings(settings) {
     return (dispatch, getState) => {
         const oldUser = getState().auth.user;
         const user = _.merge({}, oldUser, {data: {settings}});
@@ -125,8 +122,7 @@ export function updateUserSettings(settings)
 /**
  * Update User Shortcuts
  */
-export function updateUserShortcuts(shortcuts)
-{
+export function updateUserShortcuts(shortcuts) {
     return (dispatch, getState) => {
         const user = getState().auth.user;
         const newUser = {
@@ -146,8 +142,7 @@ export function updateUserShortcuts(shortcuts)
 /**
  * Remove User Data
  */
-export function removeUserData()
-{
+export function removeUserData() {
     return {
         type: REMOVE_USER_DATA
     }
@@ -156,15 +151,13 @@ export function removeUserData()
 /**
  * Logout
  */
-export function logoutUser()
-{
+export function logoutUser() {
 
     return (dispatch, getState) => {
 
         const user = getState().auth.user;
 
-        if ( user.role === 'guest' )
-        {
+        if (user.role === 'guest') {
             return null;
         }
 
@@ -172,20 +165,16 @@ export function logoutUser()
             pathname: '/'
         });
 
-        switch ( user.from )
-        {
-            case 'firebase':
-            {
+        switch (user.from) {
+            case 'firebase': {
                 // firebaseService.signOut();
                 break;
             }
-            case 'auth0':
-            {
+            case 'auth0': {
                 auth0Service.logout();
                 break;
             }
-            default:
-            {
+            default: {
                 jwtService.logout();
             }
         }
@@ -201,17 +190,13 @@ export function logoutUser()
 /**
  * Update User Data
  */
-function updateUserData(user)
-{
-    if ( user.role === 'guest' )
-    {
+function updateUserData(user) {
+    if (user.role === 'guest') {
         return;
     }
 
-    switch ( user.from )
-    {
-        case 'firebase':
-        {
+    switch (user.from) {
+        case 'firebase': {
             // firebaseService.updateUserData(user)
             //     .then(() => {
             //         store.dispatch(Actions.showMessage({message: "User data saved to firebase"}));
@@ -221,10 +206,9 @@ function updateUserData(user)
             //     });
             break;
         }
-        case 'auth0':
-        {
+        case 'auth0': {
             auth0Service.updateUserData({
-                settings : user.data.settings,
+                settings: user.data.settings,
                 shortcuts: user.data.shortcuts
             })
                 .then(() => {
@@ -235,8 +219,7 @@ function updateUserData(user)
                 });
             break;
         }
-        default:
-        {
+        default: {
             jwtService.updateUserData(user)
                 .then(() => {
                     store.dispatch(Actions.showMessage({message: "User data saved with api"}));

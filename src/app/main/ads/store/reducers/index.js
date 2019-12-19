@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import ads from './ads.reducer';
 
 const reducer = combineReducers({
-  ads
+    ads
 });
 
 export default reducer;

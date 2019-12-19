@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    Avatar, 
+    Avatar,
     Icon,
     IconButton,
     ListItemIcon,
@@ -10,7 +10,7 @@ import {
     MenuList,
     Typography
 } from '@material-ui/core';
-import {FuseUtils, FuseAnimate} from '@fuse';
+import {FuseAnimate, FuseUtils} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
@@ -43,7 +43,7 @@ class WarrantyRegistrationAttributesList extends Component {
             warrantyRegistrationAttributes,
             searchText,
             selectedWarrantyRegistrationAttributeIds,
-            
+
             openEditWarrantyRegistrationAttributeDialog,
             removeWarrantyRegistrationAttributes,
             removeWarrantyRegistrationAttribute,
@@ -79,7 +79,7 @@ class WarrantyRegistrationAttributesList extends Component {
                     }}
                     data={data}
                     columns={[
-                       
+
                         {
                             Header: () =>
                                 selectedWarrantyRegistrationAttributeIds.length > 0 && (
@@ -217,7 +217,7 @@ class WarrantyRegistrationAttributesList extends Component {
                                 <div className="flex items-center justify-center">
                                     <IconButton
                                         onClick={ev => {
-                                            if (window.confirm('Are you sure to delete '+row.original.field_name+' warranty registration attribute with values?')) {
+                                            if (window.confirm('Are you sure to delete ' + row.original.field_name + ' warranty registration attribute with values?')) {
                                                 ev.stopPropagation();
                                                 removeWarrantyRegistrationAttribute(row.original.id);
                                             }

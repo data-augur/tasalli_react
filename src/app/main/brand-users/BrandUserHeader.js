@@ -1,13 +1,6 @@
 import React, {Component} from 'react';
-import {
-    MuiThemeProvider,
-    Icon,
-    Button,
-    Input,
-    Paper,
-    Typography
-} from '@material-ui/core';
-import {FuseUtils, FuseAnimate} from '@fuse';
+import {Button, Icon, Input, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
+import {FuseAnimate, FuseUtils} from '@fuse';
 import CsvDownloader from 'react-csv-downloader';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';

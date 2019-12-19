@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Base_URL } from '../../../../server'
+import {Base_URL} from '../../../../server'
 // import {ADD_SURVEYATTRIBUTE} from "../../../surveyAttributes/store/actions";
 // import {GET_ALL_SURVEYS} from "../../../surveys/store/actions";
 import {showMessage} from 'app/store/actions/fuse';
@@ -13,16 +13,16 @@ export const GET_WARRANTYCLAIMATTRIBUTEOPTIONS = '[WARRANTYCLAIMATTRIBUTE APP] G
 
 export const SET_SEARCH_TEXT = '[WARRANTYCLAIMATTRIBUTES APP] SET SEARCH TEXT';
 export const TOGGLE_IN_SELECTED_WARRANTYCLAIMATTRIBUTES =
-  '[WARRANTYCLAIMATTRIBUTES APP] TOGGLE IN SELECTED WARRANTYCLAIMATTRIBUTES';
+    '[WARRANTYCLAIMATTRIBUTES APP] TOGGLE IN SELECTED WARRANTYCLAIMATTRIBUTES';
 export const SELECT_ALL_WARRANTYCLAIMATTRIBUTES = '[WARRANTYCLAIMATTRIBUTES APP] SELECT ALL WARRANTYCLAIMATTRIBUTES';
 export const DESELECT_ALL_WARRANTYCLAIMATTRIBUTES = '[WARRANTYCLAIMATTRIBUTES APP] DESELECT ALL WARRANTYCLAIMATTRIBUTES';
 export const OPEN_NEW_WARRANTYCLAIMATTRIBUTE_DIALOG = '[WARRANTYCLAIMATTRIBUTES APP] OPEN NEW WARRANTYCLAIMATTRIBUTE DIALOG';
 export const CLOSE_NEW_WARRANTYCLAIMATTRIBUTE_DIALOG =
-  '[WARRANTYCLAIMATTRIBUTES APP] CLOSE NEW WARRANTYCLAIMATTRIBUTE DIALOG';
+    '[WARRANTYCLAIMATTRIBUTES APP] CLOSE NEW WARRANTYCLAIMATTRIBUTE DIALOG';
 export const OPEN_EDIT_WARRANTYCLAIMATTRIBUTE_DIALOG =
-  '[WARRANTYCLAIMATTRIBUTES APP] OPEN EDIT WARRANTYCLAIMATTRIBUTE DIALOG';
+    '[WARRANTYCLAIMATTRIBUTES APP] OPEN EDIT WARRANTYCLAIMATTRIBUTE DIALOG';
 export const CLOSE_EDIT_WARRANTYCLAIMATTRIBUTE_DIALOG =
-  '[WARRANTYCLAIMATTRIBUTES APP] CLOSE EDIT WARRANTYCLAIMATTRIBUTE DIALOG';
+    '[WARRANTYCLAIMATTRIBUTES APP] CLOSE EDIT WARRANTYCLAIMATTRIBUTE DIALOG';
 
 export const REMOVE_WARRANTYCLAIMATTRIBUTES = '[WARRANTYCLAIMATTRIBUTES APP] REMOVE WARRANTYCLAIMATTRIBUTES';
 export const TOGGLE_STARRED_WARRANTYCLAIMATTRIBUTE = '[WARRANTYCLAIMATTRIBUTES APP] TOGGLE STARRED WARRANTYCLAIMATTRIBUTE';
@@ -62,102 +62,102 @@ export const SET_WARRANTYCLAIMATTRIBUTES_STARRED = '[WARRANTYCLAIMATTRIBUTES APP
 //     });
 // };
 export const getWarrantyClaimAttribute = () => dispatch => {
-    const id=window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    const id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
     axios
-        .get(Base_URL+`get-a-warranty-claim-form-attributes-with-options/${id}`)
-    .then(res => {
+        .get(Base_URL + `get-a-warranty-claim-form-attributes-with-options/${id}`)
+        .then(res => {
 
-        localStorage.setItem('WarrantyClaimFormName', res.data[0].warrantyClaimForm_Name[0].formName);
-      dispatch({
-        type: GET_WARRANTYCLAIMATTRIBUTE,
-        payload: res.data
-      });
-    })
-    // .then(() => dispatch(getAllCompanies()))
-    .catch(err => {
-      console.log('err', err);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
-    });
+            localStorage.setItem('WarrantyClaimFormName', res.data[0].warrantyClaimForm_Name[0].formName);
+            dispatch({
+                type: GET_WARRANTYCLAIMATTRIBUTE,
+                payload: res.data
+            });
+        })
+        // .then(() => dispatch(getAllCompanies()))
+        .catch(err => {
+            console.log('err', err);
+            //   dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: err.response.data
+            //   });
+        });
 };
 export const addWarrantyClaimAttribute = newWarrantyClaimAttribute => dispatch => {
 
     axios
     // .post(Base_URL+'create-brand', newWarrantyClaimAttribute)
-    .post(Base_URL+'create-warranty-claim-form-attribute', newWarrantyClaimAttribute)
-    .then(res => {
-        if(res.request.status===200)
-        {
-            dispatch(showMessage({message: 'Warranty Claim Form Attribute Saved Successfully', variant: "success"}));
-        }
-        dispatch({
-        type: ADD_WARRANTYCLAIMATTRIBUTE
-      });
-    })
-    .then(() => dispatch(getWarrantyClaimAttribute()))
-    .catch(err => {
-        dispatch(showMessage({message: 'Error!'+err, variant: "error"}));
-        console.log('err', err);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
-    });
+        .post(Base_URL + 'create-warranty-claim-form-attribute', newWarrantyClaimAttribute)
+        .then(res => {
+            if (res.request.status === 200) {
+                dispatch(showMessage({
+                    message: 'Warranty Claim Form Attribute Saved Successfully',
+                    variant: "success"
+                }));
+            }
+            dispatch({
+                type: ADD_WARRANTYCLAIMATTRIBUTE
+            });
+        })
+        .then(() => dispatch(getWarrantyClaimAttribute()))
+        .catch(err => {
+            dispatch(showMessage({message: 'Error!' + err, variant: "error"}));
+            console.log('err', err);
+            //   dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: err.response.data
+            //   });
+        });
 };
 export const updateWarrantyClaimAttribute = (updateInfo) => dispatch => {
 
-  axios
-    .put(
-        Base_URL+`update-warranty-claim-form-attribute/${updateInfo.id}`,
-      updateInfo
-    )
-    .then(res => {
-        if(res.request.status===200)
-        {
-            dispatch(showMessage({message: 'Warranty Claim Form Attribute Updated', variant: "success"}));
-        }
-      dispatch({
-        type: UPDATE_WARRANTYCLAIMATTRIBUTE
-      });
-    })
-    .then(() => dispatch(getWarrantyClaimAttribute()))
-    .catch(err => {
-      console.log('err', err.response);
-        dispatch(showMessage({message: 'Error!'+err, variant: "error"}));
-        //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
-    });
+    axios
+        .put(
+            Base_URL + `update-warranty-claim-form-attribute/${updateInfo.id}`,
+            updateInfo
+        )
+        .then(res => {
+            if (res.request.status === 200) {
+                dispatch(showMessage({message: 'Warranty Claim Form Attribute Updated', variant: "success"}));
+            }
+            dispatch({
+                type: UPDATE_WARRANTYCLAIMATTRIBUTE
+            });
+        })
+        .then(() => dispatch(getWarrantyClaimAttribute()))
+        .catch(err => {
+            console.log('err', err.response);
+            dispatch(showMessage({message: 'Error!' + err, variant: "error"}));
+            //   dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: err.response.data
+            //   });
+        });
 };
 export const removeWarrantyClaimAttribute = id => dispatch => {
-  axios
-    .delete(Base_URL+`delete-warranty-claim-form-attribute/${id}`)
-    .then(res => {
-        if(res.request.status===200)
-        {
-            dispatch(showMessage({message: 'Warranty Claim Form Attribute Deleted', variant: "success"}));
-        }
-      dispatch({
-        type: REMOVE_WARRANTYCLAIMATTRIBUTE
-      });
-    })
-    .then(() => dispatch(getWarrantyClaimAttribute()))
-    .catch(err => {
-        dispatch(showMessage({message: 'Error!'+err, variant: "error"}));
-        console.log('err', err.response);
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
-    });
+    axios
+        .delete(Base_URL + `delete-warranty-claim-form-attribute/${id}`)
+        .then(res => {
+            if (res.request.status === 200) {
+                dispatch(showMessage({message: 'Warranty Claim Form Attribute Deleted', variant: "success"}));
+            }
+            dispatch({
+                type: REMOVE_WARRANTYCLAIMATTRIBUTE
+            });
+        })
+        .then(() => dispatch(getWarrantyClaimAttribute()))
+        .catch(err => {
+            dispatch(showMessage({message: 'Error!' + err, variant: "error"}));
+            console.log('err', err.response);
+            //   dispatch({
+            //     type: LOGIN_ERROR,
+            //     payload: err.response.data
+            //   });
+        });
 };
 
 export const getWarrantyClaimAttributeOptions = id => dispatch => {
     axios
-        .get(Base_URL+`get-a-warranty-claim-form-attributes-with-options/${id}`)
+        .get(Base_URL + `get-a-warranty-claim-form-attributes-with-options/${id}`)
         .then(() => {
             dispatch({
                 type: GET_WARRANTYCLAIMATTRIBUTE
@@ -205,54 +205,54 @@ export const getWarrantyClaimAttributeOptions = id => dispatch => {
 // }
 
 export function setSearchText(event) {
-  return {
-    type: SET_SEARCH_TEXT,
-    searchText: event.target.value
-  };
+    return {
+        type: SET_SEARCH_TEXT,
+        searchText: event.target.value
+    };
 }
 
 export function toggleInSelectedWarrantyClaimAttributes(warrantyClaimAttributeId) {
-  return {
-    type: TOGGLE_IN_SELECTED_WARRANTYCLAIMATTRIBUTES,
-    warrantyClaimAttributeId
-  };
+    return {
+        type: TOGGLE_IN_SELECTED_WARRANTYCLAIMATTRIBUTES,
+        warrantyClaimAttributeId
+    };
 }
 
 export function selectAllWarrantyClaimAttributes() {
-  return {
-    type: SELECT_ALL_WARRANTYCLAIMATTRIBUTES
-  };
+    return {
+        type: SELECT_ALL_WARRANTYCLAIMATTRIBUTES
+    };
 }
 
 export function deSelectAllWarrantyClaimAttributes() {
-  return {
-    type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
-  };
+    return {
+        type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
+    };
 }
 
 export function openNewWarrantyClaimAttributeDialog() {
-  return {
-    type: OPEN_NEW_WARRANTYCLAIMATTRIBUTE_DIALOG
-  };
+    return {
+        type: OPEN_NEW_WARRANTYCLAIMATTRIBUTE_DIALOG
+    };
 }
 
 export function closeNewWarrantyClaimAttributeDialog() {
-  return {
-    type: CLOSE_NEW_WARRANTYCLAIMATTRIBUTE_DIALOG
-  };
+    return {
+        type: CLOSE_NEW_WARRANTYCLAIMATTRIBUTE_DIALOG
+    };
 }
 
 export function openEditWarrantyClaimAttributeDialog(data) {
-  return {
-    type: OPEN_EDIT_WARRANTYCLAIMATTRIBUTE_DIALOG,
-    data
-  };
+    return {
+        type: OPEN_EDIT_WARRANTYCLAIMATTRIBUTE_DIALOG,
+        data
+    };
 }
 
 export function closeEditWarrantyClaimAttributeDialog() {
-  return {
-    type: CLOSE_EDIT_WARRANTYCLAIMATTRIBUTE_DIALOG
-  };
+    return {
+        type: CLOSE_EDIT_WARRANTYCLAIMATTRIBUTE_DIALOG
+    };
 }
 
 // export function updateWarrantyClaimAttribute(warrantyClaimAttribute) {
@@ -292,105 +292,105 @@ export function closeEditWarrantyClaimAttributeDialog() {
 // }
 
 export function removeWarrantyClaimAttributes(warrantyClaimAttributeIds) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
 
-    const request = axios.post('/api/warrantyClaimAttributes-app/remove-warrantyClaimAttributes', {
-      warrantyClaimAttributeIds
-    });
+        const request = axios.post('/api/warrantyClaimAttributes-app/remove-warrantyClaimAttributes', {
+            warrantyClaimAttributeIds
+        });
 
-    return request.then(() =>
-      Promise.all([
-        dispatch({
-          type: REMOVE_WARRANTYCLAIMATTRIBUTES
-        }),
-        dispatch({
-          type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
-        })
-      ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
-    );
-  };
+        return request.then(() =>
+            Promise.all([
+                dispatch({
+                    type: REMOVE_WARRANTYCLAIMATTRIBUTES
+                }),
+                dispatch({
+                    type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
+                })
+            ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
+        );
+    };
 }
 
 export function toggleStarredWarrantyClaimAttribute(warrantyClaimAttributeId) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
 
-    const request = axios.post('/api/warrantyClaimAttributes-app/toggle-starred-warrantyClaimAttribute', {
-      warrantyClaimAttributeId
-    });
+        const request = axios.post('/api/warrantyClaimAttributes-app/toggle-starred-warrantyClaimAttribute', {
+            warrantyClaimAttributeId
+        });
 
-    return request.then(() =>
-      Promise.all([
-        dispatch({
-          type: TOGGLE_STARRED_WARRANTYCLAIMATTRIBUTE
-        }),
-      ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
-    );
-  };
+        return request.then(() =>
+            Promise.all([
+                dispatch({
+                    type: TOGGLE_STARRED_WARRANTYCLAIMATTRIBUTE
+                }),
+            ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
+        );
+    };
 }
 
 export function toggleStarredWarrantyClaimAttributes(warrantyClaimAttributeIds) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
 
-    const request = axios.post('/api/warrantyClaimAttributes-app/toggle-starred-warrantyClaimAttributes', {
-      warrantyClaimAttributeIds
-    });
+        const request = axios.post('/api/warrantyClaimAttributes-app/toggle-starred-warrantyClaimAttributes', {
+            warrantyClaimAttributeIds
+        });
 
-    return request.then(() =>
-      Promise.all([
-        dispatch({
-          type: TOGGLE_STARRED_WARRANTYCLAIMATTRIBUTES
-        }),
-        dispatch({
-          type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
-        }),
-      ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
-    );
-  };
+        return request.then(() =>
+            Promise.all([
+                dispatch({
+                    type: TOGGLE_STARRED_WARRANTYCLAIMATTRIBUTES
+                }),
+                dispatch({
+                    type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
+                }),
+            ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
+        );
+    };
 }
 
 export function setWarrantyClaimAttributesStarred(warrantyClaimAttributeIds) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
 
-    const request = axios.post('/api/warrantyClaimAttributes-app/set-warrantyClaimAttributes-starred', {
-      warrantyClaimAttributeIds
-    });
+        const request = axios.post('/api/warrantyClaimAttributes-app/set-warrantyClaimAttributes-starred', {
+            warrantyClaimAttributeIds
+        });
 
-    return request.then(() =>
-      Promise.all([
-        dispatch({
-          type: SET_WARRANTYCLAIMATTRIBUTES_STARRED
-        }),
-        dispatch({
-          type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
-        }),
-      ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
-    );
-  };
+        return request.then(() =>
+            Promise.all([
+                dispatch({
+                    type: SET_WARRANTYCLAIMATTRIBUTES_STARRED
+                }),
+                dispatch({
+                    type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
+                }),
+            ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
+        );
+    };
 }
 
 export function setWarrantyClaimAttributesUnstarred(warrantyClaimAttributeIds) {
-  return (dispatch, getState) => {
-    const { routeParams } = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
+    return (dispatch, getState) => {
+        const {routeParams} = getState().warrantyClaimAttributesApp.warrantyClaimAttributes;
 
-    const request = axios.post('/api/warrantyClaimAttributes-app/set-warrantyClaimAttributes-unstarred', {
-      warrantyClaimAttributeIds
-    });
+        const request = axios.post('/api/warrantyClaimAttributes-app/set-warrantyClaimAttributes-unstarred', {
+            warrantyClaimAttributeIds
+        });
 
-    return request.then(() =>
-      Promise.all([
-        dispatch({
-          type: SET_WARRANTYCLAIMATTRIBUTES_STARRED
-        }),
-        dispatch({
-          type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
-        }),
-      ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
-    );
-  };
+        return request.then(() =>
+            Promise.all([
+                dispatch({
+                    type: SET_WARRANTYCLAIMATTRIBUTES_STARRED
+                }),
+                dispatch({
+                    type: DESELECT_ALL_WARRANTYCLAIMATTRIBUTES
+                }),
+            ]).then(() => dispatch(getWarrantyClaimAttribute(routeParams)))
+        );
+    };
 }
 
 

@@ -12,8 +12,7 @@ const QuickPanelToggleButton = ({toggleQuickPanel, children}) => {
     );
 };
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         toggleQuickPanel: quickPanelActions.toggleQuickPanel
     }, dispatch);

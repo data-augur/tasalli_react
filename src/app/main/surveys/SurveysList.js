@@ -10,7 +10,7 @@ import {
     MenuList,
     Typography
 } from '@material-ui/core';
-import {FuseUtils, FuseAnimate} from '@fuse';
+import {FuseAnimate, FuseUtils} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
@@ -78,7 +78,7 @@ class SurveysList extends Component {
                     }}
                     data={data}
                     columns={[
-                        
+
                         {
                             Header: () =>
                                 selectedSurveyIds.length > 0 && (
@@ -171,7 +171,7 @@ class SurveysList extends Component {
                                     <IconButton
                                         onClick={ev => {
                                             ev.stopPropagation();
-                                            window.location.href="surveyAttribute/"+(row.original.id);
+                                            window.location.href = "surveyAttribute/" + (row.original.id);
                                         }}
                                     >
                                         <Icon>edit</Icon>
@@ -186,7 +186,7 @@ class SurveysList extends Component {
                                 <div className="flex items-center justify-center">
                                     <IconButton
                                         onClick={ev => {
-                                            if (window.confirm('Are you sure to delete '+row.original.name+' Survey?')) {
+                                            if (window.confirm('Are you sure to delete ' + row.original.name + ' Survey?')) {
                                                 ev.stopPropagation();
                                                 removeSurvey(row.original.id);
                                             }

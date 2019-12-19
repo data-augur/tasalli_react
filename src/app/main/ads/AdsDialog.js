@@ -1,15 +1,15 @@
 import React, {Component} from 'react';
 import {
-    TextField,
+    AppBar,
     Button,
     Dialog,
     DialogActions,
     DialogContent,
     Icon,
     IconButton,
-    Typography,
+    TextField,
     Toolbar,
-    AppBar
+    Typography
 } from '@material-ui/core';
 import {bindActionCreators} from 'redux';
 import * as Actions from './store/actions';
@@ -21,7 +21,7 @@ import Select from "@material-ui/core/Select";
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
-import {MuiPickersUtilsProvider, TimePicker, DatePicker} from 'material-ui-pickers';
+import {DatePicker, MuiPickersUtilsProvider, TimePicker} from 'material-ui-pickers';
 
 const adsType = [
     {
@@ -296,8 +296,7 @@ class AdDialog extends Component {
                                     time_from: moment(new Date(this.state.time_from)).format('YYYY-MM-DD hh:mm:ss'),
                                     time_to: moment(new Date(this.state.time_to)).format('YYYY-MM-DD hh:mm:ss'),
                                 };
-                                if (dataToPass.time_to > dataToPass.time_from)
-                                {
+                                if (dataToPass.time_to > dataToPass.time_from) {
                                     let strDateTime = dataToPass.time_to;
                                     let myDate = new Date(strDateTime);
                                     dataToPass.time_to = myDate.toLocaleString();
@@ -327,8 +326,7 @@ class AdDialog extends Component {
                                     time_from: moment(new Date(this.state.time_from)).format('YYYY-MM-DD hh:mm:ss'),
                                     time_to: moment(new Date(this.state.time_to)).format('YYYY-MM-DD hh:mm:ss'),
                                 };
-                                if (dataToPass.time_to > dataToPass.time_from)
-                                {
+                                if (dataToPass.time_to > dataToPass.time_from) {
                                     let strDateTime = dataToPass.time_to;
                                     let myDate = new Date(strDateTime);
                                     dataToPass.time_to = myDate.toLocaleString();

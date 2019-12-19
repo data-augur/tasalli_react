@@ -1,81 +1,81 @@
 const config = {
-    title   : 'Layout 1 - Vertical',
+    title: 'Layout 1 - Vertical',
     defaults: {
-        mode          : 'fullwidth',
-        scroll        : 'content',
-        navbar        : {
-            display : true,
-            folded  : false,
+        mode: 'fullwidth',
+        scroll: 'content',
+        navbar: {
+            display: true,
+            folded: false,
             position: 'left'
         },
-        toolbar       : {
-            display : true,
-            style   : 'fixed',
+        toolbar: {
+            display: true,
+            style: 'fixed',
             position: 'below'
         },
-        footer        : {
-            display : true,
-        //    style   : 'fixed',
-        //    position: 'below'
+        footer: {
+            display: true,
+            //    style   : 'fixed',
+            //    position: 'below'
         },
-        leftSidePanel : {
+        leftSidePanel: {
             display: true
         },
         rightSidePanel: {
             display: true
         }
     },
-    form    : {
-        mode   : {
-            title  : 'Mode',
-            type   : 'radio',
+    form: {
+        mode: {
+            title: 'Mode',
+            type: 'radio',
             options: [
                 {
-                    name : 'Boxed',
+                    name: 'Boxed',
                     value: 'boxed'
                 },
                 {
-                    name : 'Full Width',
+                    name: 'Full Width',
                     value: 'fullwidth'
                 }
             ]
         },
-        scroll : {
-            title  : 'Scrollable Area',
-            type   : 'radio',
+        scroll: {
+            title: 'Scrollable Area',
+            type: 'radio',
             options: [
                 {
-                    name : 'Body',
+                    name: 'Body',
                     value: 'body'
                 },
                 {
-                    name : 'Content',
+                    name: 'Content',
                     value: 'content'
                 }
             ]
         },
-        navbar : {
-            type    : 'group',
-            title   : 'Navbar',
+        navbar: {
+            type: 'group',
+            title: 'Navbar',
             children: {
-                display : {
+                display: {
                     title: 'Display',
-                    type : 'switch'
+                    type: 'switch'
                 },
-                folded  : {
+                folded: {
                     title: 'Folded',
-                    type : 'switch'
+                    type: 'switch'
                 },
                 position: {
-                    title  : 'Position',
-                    type   : 'radio',
+                    title: 'Position',
+                    type: 'radio',
                     options: [
                         {
-                            name : 'Left',
+                            name: 'Left',
                             value: 'left'
                         },
                         {
-                            name : 'Right',
+                            name: 'Right',
                             value: 'right'
                         }
                     ]
@@ -83,75 +83,75 @@ const config = {
             }
         },
         toolbar: {
-            type    : 'group',
-            title   : 'Toolbar',
+            type: 'group',
+            title: 'Toolbar',
             children: {
-                display : {
+                display: {
                     title: 'Display',
-                    type : 'switch'
+                    type: 'switch'
                 },
-                style   : {
-                    title  : 'Style',
-                    type   : 'radio',
+                style: {
+                    title: 'Style',
+                    type: 'radio',
                     options: [
                         {
-                            name : 'Fixed',
+                            name: 'Fixed',
                             value: 'fixed'
                         },
                         {
-                            name : 'Static',
+                            name: 'Static',
                             value: 'static'
                         }
                     ]
                 },
                 position: {
-                    title  : 'Position',
-                    type   : 'radio',
+                    title: 'Position',
+                    type: 'radio',
                     options: [
                         {
-                            name : 'Above',
+                            name: 'Above',
                             value: 'above'
                         },
                         {
-                            name : 'Below',
+                            name: 'Below',
                             value: 'below'
                         }
                     ]
                 }
             }
         },
-        footer : {
-            type    : 'group',
-            title   : 'Footer',
+        footer: {
+            type: 'group',
+            title: 'Footer',
             children: {
-                display : {
+                display: {
                     title: 'Display',
-                    type : 'switch'
+                    type: 'switch'
                 },
-                style   : {
-                    title  : 'Style',
-                    type   : 'radio',
+                style: {
+                    title: 'Style',
+                    type: 'radio',
                     options: [
                         {
-                            name : 'Fixed',
+                            name: 'Fixed',
                             value: 'fixed'
                         },
                         {
-                            name : 'Static',
+                            name: 'Static',
                             value: 'static'
                         }
                     ]
                 },
                 position: {
-                    title  : 'Position',
-                    type   : 'radio',
+                    title: 'Position',
+                    type: 'radio',
                     options: [
                         {
-                            name : 'Above',
+                            name: 'Above',
                             value: 'above'
                         },
                         {
-                            name : 'Below',
+                            name: 'Below',
                             value: 'below'
                         }
                     ]

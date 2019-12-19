@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import brandUser from './brandUser.reducer';
 
 const reducer = combineReducers({
-  brandUser
+    brandUser
 });
 
 export default reducer;

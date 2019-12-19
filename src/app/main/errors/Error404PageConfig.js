@@ -1,4 +1,4 @@
- import Error404Page from './Error404Page';
+import Error404Page from './Error404Page';
 
 export const Error404PageConfig = {
     settings: {
@@ -6,9 +6,9 @@ export const Error404PageConfig = {
             config: {}
         }
     },
-    routes  : [
+    routes: [
         {
-            path     : '/404',
+            path: '/404',
             component: Error404Page
         }
     ]

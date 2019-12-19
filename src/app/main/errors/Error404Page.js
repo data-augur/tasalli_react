@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Typography} from '@material-ui/core';
+import React, {Component} from 'react';
+import {Typography} from '@material-ui/core';
 import {FuseAnimate} from '@fuse';
 import {Link} from 'react-router-dom';
 
@@ -26,7 +26,6 @@ class Error404Page extends Component {
                             Sorry but we could not find the page you are looking for
                         </Typography>
                     </FuseAnimate>
-
 
 
                     <Link className="font-medium" to="/dashboard">Go back to dashboard</Link>

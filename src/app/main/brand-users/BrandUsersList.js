@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
-import {Avatar,  Icon, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Typography} from '@material-ui/core';
-import {FuseUtils, FuseAnimate} from '@fuse';
+import {
+    Avatar,
+    Icon,
+    IconButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
+    MenuList,
+    Typography
+} from '@material-ui/core';
+import {FuseAnimate, FuseUtils} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
@@ -15,8 +25,7 @@ class BrandUsersList extends Component {
 
     getFilteredArray = (entities, searchText) => {
         const arr = Object.keys(entities).map((id) => entities[id]);
-        if ( searchText.length === 0 )
-        {
+        if (searchText.length === 0) {
             return arr;
         }
         return FuseUtils.filterArrayByString(arr, searchText);
@@ -30,14 +39,12 @@ class BrandUsersList extends Component {
         this.setState({selectedBrandUsersMenu: null});
     };
 
-    render()
-    {
-        const { brandUsers, searchText, selectedBrandUserIds,  openEditBrandUserDialog, removeBrandUsers, removeBrandUser, setBrandUsersUnstarred, setBrandUsersStarred} = this.props;
+    render() {
+        const {brandUsers, searchText, selectedBrandUserIds, openEditBrandUserDialog, removeBrandUsers, removeBrandUser, setBrandUsersUnstarred, setBrandUsersStarred} = this.props;
         const data = this.getFilteredArray(brandUsers, searchText);
         const {selectedBrandUsersMenu} = this.state;
 
-        if ( !data && data.length === 0 )
-        {
+        if (!data && data.length === 0) {
             return (
                 <div className="flex items-center justify-center h-full">
                     <Typography color="textSecondary" variant="h5">
@@ -54,9 +61,8 @@ class BrandUsersList extends Component {
                     getTrProps={(state, rowInfo, column) => {
                         return {
                             className: "cursor-pointer",
-                            onClick  : (e, handleOriginal) => {
-                                if ( rowInfo )
-                                {
+                            onClick: (e, handleOriginal) => {
+                                if (rowInfo) {
                                     openEditBrandUserDialog(rowInfo.original);
                                 }
                             }
@@ -64,9 +70,9 @@ class BrandUsersList extends Component {
                     }}
                     data={data}
                     columns={[
-                        
+
                         {
-                            Header   : () => (
+                            Header: () => (
                                 selectedBrandUserIds.length > 0 && (
                                     <React.Fragment>
                                         <IconButton
@@ -121,75 +127,75 @@ class BrandUsersList extends Component {
                                     </React.Fragment>
                                 )
                             ),
-                            accessor : "avatar",
-                            Cell     : row => (
-                                <Avatar className="mr-8" alt={row.original.name} src="/static/images/avatar/user.png" />
+                            accessor: "avatar",
+                            Cell: row => (
+                                <Avatar className="mr-8" alt={row.original.name} src="/static/images/avatar/user.png"/>
                             ),
                             className: "justify-center",
-                            width : 80,
-                            sortable : false
+                            width: 80,
+                            sortable: false
                         },
                         {
-                            width : 150,
-                            Header    : "Name",
-                            accessor  : "name",
+                            width: 150,
+                            Header: "Name",
+                            accessor: "name",
                             filterable: true,
-                            className : "font-bold",
+                            className: "font-bold",
                             // className: "justify-center",
                         },
                         {
-                            width : 150,
-                            Header    : "Email",
-                            accessor  : "email",
+                            width: 150,
+                            Header: "Email",
+                            accessor: "email",
                             filterable: true,
-                            className : " justify-center",
+                            className: " justify-center",
                         },
                         {
-                            width : 150,
-                            Header    : "Job Title",
-                            accessor  : "role",
+                            width: 150,
+                            Header: "Job Title",
+                            accessor: "role",
                             filterable: true,
-                            className : " justify-center",
+                            className: " justify-center",
                         },
                         {
-                            width : 150,
-                            Header    : "Brand",
-                            accessor  : "brand_Name",
-                            className : " justify-center",
+                            width: 150,
+                            Header: "Brand",
+                            accessor: "brand_Name",
+                            className: " justify-center",
                             // filterable: true
                         },
                         {
-                            width : 150,
-                            Header    : "Company",
-                            accessor  : "company_Name",
-                            className : " justify-center",
+                            width: 150,
+                            Header: "Company",
+                            accessor: "company_Name",
+                            className: " justify-center",
                             // filterable: true
                         },
                         {
-                            width : 150,
-                            Header    : "Gender",
-                            accessor  : "gender",
+                            width: 150,
+                            Header: "Gender",
+                            accessor: "gender",
                             filterable: true,
-                            className : "justify-center",
+                            className: "justify-center",
                         },
 
                         {
-                            width : 150,
-                            Header    : "Phone",
-                            accessor  : "phoneNumber",
-                            className : " justify-center",
+                            width: 150,
+                            Header: "Phone",
+                            accessor: "phoneNumber",
+                            className: " justify-center",
                             // filterable: true
                         },
                         {
                             Header: "",
-                            width : 50,
-                            Cell  : row => (
+                            width: 50,
+                            Cell: row => (
                                 <div className="flex items-center justify-center">
                                     <IconButton
-                                        hidden={localStorage.getItem('Role')!=='superAdmin'}
-                                        disabled= {localStorage.getItem('Role')!=='superAdmin'}
+                                        hidden={localStorage.getItem('Role') !== 'superAdmin'}
+                                        disabled={localStorage.getItem('Role') !== 'superAdmin'}
                                         onClick={(ev) => {
-                                            if (window.confirm('Are you sure to delete '+row.original.name+' Company user?')) {
+                                            if (window.confirm('Are you sure to delete ' + row.original.name + ' Company user?')) {
                                                 ev.stopPropagation();
                                                 removeBrandUser(row.original.id);
                                             }
@@ -211,30 +217,28 @@ class BrandUsersList extends Component {
 }
 
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         // getBrandUsers             : Actions.getBrandUsers,
         toggleInSelectedBrandUsers: Actions.toggleInSelectedBrandUsers,
-        selectAllBrandUsers       : Actions.selectAllBrandUsers,
-        deSelectAllBrandUsers     : Actions.deSelectAllBrandUsers,
-        openEditBrandUserDialog   : Actions.openEditBrandUserDialog,
-        removeBrandUsers          : Actions.removeBrandUsers,
-        removeBrandUser           : Actions.removeBrandUser,
-        toggleStarredBrandUser    : Actions.toggleStarredBrandUser,
-        toggleStarredBrandUsers   : Actions.toggleStarredBrandUsers,
-        setBrandUsersStarred      : Actions.setBrandUsersStarred,
-        setBrandUsersUnstarred    : Actions.setBrandUsersUnstarred
+        selectAllBrandUsers: Actions.selectAllBrandUsers,
+        deSelectAllBrandUsers: Actions.deSelectAllBrandUsers,
+        openEditBrandUserDialog: Actions.openEditBrandUserDialog,
+        removeBrandUsers: Actions.removeBrandUsers,
+        removeBrandUser: Actions.removeBrandUser,
+        toggleStarredBrandUser: Actions.toggleStarredBrandUser,
+        toggleStarredBrandUsers: Actions.toggleStarredBrandUsers,
+        setBrandUsersStarred: Actions.setBrandUsersStarred,
+        setBrandUsersUnstarred: Actions.setBrandUsersUnstarred
     }, dispatch);
 }
 
-function mapStateToProps({brandUserApp})
-{
+function mapStateToProps({brandUserApp}) {
     return {
-        brandUsers          : brandUserApp.brandUser.entities,
+        brandUsers: brandUserApp.brandUser.entities,
         selectedBrandUserIds: brandUserApp.brandUser.selectedBrandUserIds,
-        searchText        : brandUserApp.brandUser.searchText,
-        user              : brandUserApp.user
+        searchText: brandUserApp.brandUser.searchText,
+        user: brandUserApp.user
     }
 }
 

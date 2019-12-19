@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import warrantyRegister from './warrantyRegister.reducer';
 
 const reducer = combineReducers({
-  warrantyRegister
+    warrantyRegister
 });
 
 export default reducer;

@@ -2,7 +2,7 @@ import React from 'react';
 import {withRouter} from 'react-router-dom';
 import {renderRoutes} from 'react-router-config'
 import {withStyles} from '@material-ui/core';
-import {FuseScrollbars, FuseMessage, FuseDialog} from '@fuse';
+import {FuseDialog, FuseMessage, FuseScrollbars} from '@fuse';
 import {connect} from 'react-redux';
 import ToolbarLayout1 from './components/ToolbarLayout1';
 import FooterLayout1 from './components/FooterLayout1';
@@ -14,58 +14,58 @@ import classNames from 'classnames';
 import AppContext from 'app/AppContext';
 
 const styles = theme => ({
-    root          : {
-        position          : 'relative',
-        display           : 'flex',
-        flexDirection     : 'row',
-        width             : '100%',
-        height            : '100%',
-        overflow          : 'hidden',
-        backgroundColor   : theme.palette.background.default,
-        color             : theme.palette.text.primary,
-        '&.boxed'         : {
-            maxWidth : 1280,
-            margin   : '0 auto',
+    root: {
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'row',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        backgroundColor: theme.palette.background.default,
+        color: theme.palette.text.primary,
+        '&.boxed': {
+            maxWidth: 1280,
+            margin: '0 auto',
             boxShadow: theme.shadows[3]
         },
-        '&.scroll-body'   : {
-            '& $wrapper'       : {
-                height  : 'auto',
-                flex    : '0 0 auto',
+        '&.scroll-body': {
+            '& $wrapper': {
+                height: 'auto',
+                flex: '0 0 auto',
                 overflow: 'auto'
             },
             '& $contentWrapper': {},
-            '& $content'       : {}
+            '& $content': {}
         },
         '&.scroll-content': {
-            '& $wrapper'       : {},
+            '& $wrapper': {},
             '& $contentWrapper': {},
-            '& $content'       : {}
+            '& $content': {}
         }
     },
-    wrapper       : {
-        display : 'flex',
+    wrapper: {
+        display: 'flex',
         position: 'relative',
-        width   : '100%',
-        height  : '100%'
+        width: '100%',
+        height: '100%'
     },
     contentWrapper: {
-        display      : 'flex',
+        display: 'flex',
         flexDirection: 'column',
-        position     : 'relative',
-        zIndex       : 3,
-        overflow     : 'hidden',
-        flex         : '1 1 auto'
+        position: 'relative',
+        zIndex: 3,
+        overflow: 'hidden',
+        flex: '1 1 auto'
     },
-    content       : {
-        position                    : 'relative',
-        display                     : 'flex',
-        overflow                    : 'auto',
-        flex                        : '1 1 auto',
-        flexDirection               : 'column',
-        width                       : '100%',
+    content: {
+        position: 'relative',
+        display: 'flex',
+        overflow: 'auto',
+        flex: '1 1 auto',
+        flexDirection: 'column',
+        width: '100%',
         '-webkit-overflow-scrolling': 'touch',
-        zIndex       : 2
+        zIndex: 2
     }
 });
 
@@ -73,15 +73,14 @@ const Layout1 = ({classes, settings, children}) => {
 
     const layoutConfig = settings.layout.config;
 
-    switch ( layoutConfig.scroll )
-    {
-        case 'body':
-        {
+    switch (layoutConfig.scroll) {
+        case 'body': {
             return (
                 <AppContext.Consumer>
                     {({routes}) => (
 
-                        <div id="fuse-layout" className={classNames(classes.root, layoutConfig.mode, 'scroll-' + layoutConfig.scroll)}>
+                        <div id="fuse-layout"
+                             className={classNames(classes.root, layoutConfig.mode, 'scroll-' + layoutConfig.scroll)}>
 
                             {layoutConfig.leftSidePanel.display && (
                                 <LeftSideLayout1/>
@@ -154,12 +153,12 @@ const Layout1 = ({classes, settings, children}) => {
             );
         }
         case 'content':
-        default:
-        {
+        default: {
             return (
                 <AppContext.Consumer>
                     {({routes}) => (
-                        <div id="fuse-layout" className={classNames(classes.root, layoutConfig.mode, 'scroll-' + layoutConfig.scroll)}>
+                        <div id="fuse-layout"
+                             className={classNames(classes.root, layoutConfig.mode, 'scroll-' + layoutConfig.scroll)}>
                             {layoutConfig.leftSidePanel.display && (
                                 <LeftSideLayout1/>
                             )}
@@ -227,8 +226,7 @@ const Layout1 = ({classes, settings, children}) => {
     }
 };
 
-function mapStateToProps({fuse})
-{
+function mapStateToProps({fuse}) {
     return {
         settings: fuse.settings.current
     }

@@ -1,35 +1,31 @@
 import * as Actions from 'app/store/actions/fuse';
 
 const initialState = {
-    state  : false,
+    state: false,
     options: {
         children: 'Hi'
     }
 };
 
 const dialog = function (state = initialState, action) {
-    switch ( action.type )
-    {
-        case Actions.OPEN_DIALOG:
-        {
+    switch (action.type) {
+        case Actions.OPEN_DIALOG: {
             return {
                 ...state,
-                state  : true,
+                state: true,
                 options: {
                     ...state.options,
                     ...action.options
                 }
             };
         }
-        case Actions.CLOSE_DIALOG:
-        {
+        case Actions.CLOSE_DIALOG: {
             return {
                 ...state,
                 state: false
             };
         }
-        default:
-        {
+        default: {
             return state;
         }
     }

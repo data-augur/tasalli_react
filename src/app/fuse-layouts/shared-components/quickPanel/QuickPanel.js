@@ -1,20 +1,19 @@
 import React, {Component} from 'react';
-import {withStyles, Drawer, Typography} from '@material-ui/core/';
+import {Drawer, Typography, withStyles} from '@material-ui/core/';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from './store/actions/index'
 
 const styles = theme => ({
     root: {
-        width  : 280,
+        width: 280,
         padding: 24
     }
 });
 
 class QuickPanel extends Component {
 
-    render()
-    {
+    render() {
         const {classes, state, toggleQuickPanel} = this.props;
         return (
             <Drawer
@@ -29,15 +28,13 @@ class QuickPanel extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         toggleQuickPanel: Actions.toggleQuickPanel
     }, dispatch);
 }
 
-function mapStateToProps({quickPanel})
-{
+function mapStateToProps({quickPanel}) {
     return {
         state: quickPanel.state
     }

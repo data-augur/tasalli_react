@@ -12,8 +12,7 @@ const NavbarMobileToggleButton = ({navbarToggleMobile, children, className}) => 
     );
 };
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         navbarToggleMobile: Actions.navbarToggleMobile
     }, dispatch);

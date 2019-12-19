@@ -9,8 +9,7 @@ import jwtService from 'app/services/jwtService';
 
 class Auth extends Component {
     /*eslint-disable-next-line no-useless-constructor*/
-    constructor(props)
-    {
+    constructor(props) {
         super(props);
 
         /**
@@ -49,8 +48,7 @@ class Auth extends Component {
         });
 
         jwtService.on('onAutoLogout', (message) => {
-            if ( message )
-            {
+            if (message) {
                 this.props.showMessage({message});
             }
             this.props.logout();
@@ -63,8 +61,7 @@ class Auth extends Component {
 
         auth0Service.init();
 
-        if ( auth0Service.isAuthenticated() )
-        {
+        if (auth0Service.isAuthenticated()) {
             this.props.showMessage({message: 'Logging in with Auth0'});
 
             /**
@@ -101,8 +98,7 @@ class Auth extends Component {
     //     });
     // };
 
-    render()
-    {
+    render() {
         const {children} = this.props;
 
         return (
@@ -113,15 +109,14 @@ class Auth extends Component {
     }
 }
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
-            logout             : userActions.logoutUser,
-            setUserData        : userActions.setUserData,
-            setUserDataAuth0   : userActions.setUserDataAuth0,
+            logout: userActions.logoutUser,
+            setUserData: userActions.setUserData,
+            setUserDataAuth0: userActions.setUserDataAuth0,
             // setUserDataFirebase: userActions.setUserDataFirebase,
-            showMessage        : Actions.showMessage,
-            hideMessage        : Actions.hideMessage
+            showMessage: Actions.showMessage,
+            hideMessage: Actions.hideMessage
         },
         dispatch);
 }

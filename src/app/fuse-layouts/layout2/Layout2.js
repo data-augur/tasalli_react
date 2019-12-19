@@ -1,6 +1,6 @@
 import React from 'react';
 import {withStyles} from '@material-ui/core';
-import {FuseScrollbars, FuseMessage, FuseDialog} from '@fuse';
+import {FuseDialog, FuseMessage, FuseScrollbars} from '@fuse';
 import {withRouter} from 'react-router-dom';
 import {renderRoutes} from 'react-router-config'
 import {connect} from 'react-redux';
@@ -14,52 +14,52 @@ import RightSideLayout2 from './components/RightSideLayout2';
 import SettingsPanel from 'app/fuse-layouts/shared-components/SettingsPanel';
 
 const styles = theme => ({
-    root          : {
-        position     : 'relative',
-        display      : 'flex',
+    root: {
+        position: 'relative',
+        display: 'flex',
         flexDirection: 'row',
-        width        : '100%',
-        height       : '100%',
-        overflow     : 'hidden',
-        '&.boxed'    : {
-            maxWidth : 1280,
-            margin   : '0 auto',
+        width: '100%',
+        height: '100%',
+        overflow: 'hidden',
+        '&.boxed': {
+            maxWidth: 1280,
+            margin: '0 auto',
             boxShadow: theme.shadows[3]
         },
         '&.container': {
-            '& .container' : {
+            '& .container': {
                 maxWidth: 1120,
-                width   : '100%',
-                margin  : '0 auto'
+                width: '100%',
+                margin: '0 auto'
             },
             '& .navigation': {}
         }
     },
-    content       : {
-        display                     : 'flex',
-        overflow                    : 'auto',
-        flex                        : '1 1 auto',
-        flexDirection               : 'column',
-        width                       : '100%',
+    content: {
+        display: 'flex',
+        overflow: 'auto',
+        flex: '1 1 auto',
+        flexDirection: 'column',
+        width: '100%',
         '-webkit-overflow-scrolling': 'touch',
-        zIndex                      : 4
+        zIndex: 4
     },
     toolbarWrapper: {
-        display : 'flex',
-        position: 'relative',
-        zIndex  : 5
-    },
-    toolbar       : {
         display: 'flex',
-        flex   : '1 0 auto'
-    },
-    footerWrapper : {
         position: 'relative',
-        zIndex  : 5
+        zIndex: 5
     },
-    footer        : {
+    toolbar: {
         display: 'flex',
-        flex   : '1 0 auto'
+        flex: '1 0 auto'
+    },
+    footerWrapper: {
+        position: 'relative',
+        zIndex: 5
+    },
+    footer: {
+        display: 'flex',
+        flex: '1 0 auto'
     }
 });
 
@@ -122,8 +122,7 @@ const Layout2 = ({classes, settings, children}) => {
     );
 };
 
-function mapStateToProps({fuse})
-{
+function mapStateToProps({fuse}) {
     return {
         settings: fuse.settings.current
     }

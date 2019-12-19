@@ -82,24 +82,25 @@
 // }
 
 import axios from 'axios';
-import { Base_URL } from '../../../server';
+import {Base_URL} from '../../../server';
+
 export const REGISTER_ERROR = 'REGISTER_ERROR';
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 
 // Register User
 export const registerUser = (userData, history) => dispatch => {
-  axios
+    axios
     // .post(Base_URL+'su-admin/register', userData)
-    .post(Base_URL+'su-admin/register', userData)
-    .then(err =>
-      dispatch({
-        type: REGISTER_SUCCESS
-      })
-    )
-    .catch(err =>
-      dispatch({
-        type: REGISTER_ERROR,
-        payload: err.response.data
-      })
-    );
+        .post(Base_URL + 'su-admin/register', userData)
+        .then(err =>
+            dispatch({
+                type: REGISTER_SUCCESS
+            })
+        )
+        .catch(err =>
+            dispatch({
+                type: REGISTER_ERROR,
+                payload: err.response.data
+            })
+        );
 };

@@ -2,31 +2,27 @@ import * as Actions from '../actions';
 
 const initialState = {
     success: false,
-    error  : {
+    error: {
         username: null,
         password: null
     }
 };
 
 const register = function (state = initialState, action) {
-    switch ( action.type )
-    {
-        case Actions.REGISTER_SUCCESS:
-        {
+    switch (action.type) {
+        case Actions.REGISTER_SUCCESS: {
             return {
                 ...initialState,
                 success: true
             };
         }
-        case Actions.REGISTER_ERROR:
-        {
+        case Actions.REGISTER_ERROR: {
             return {
                 success: false,
-                error  : action.payload
+                error: action.payload
             };
         }
-        default:
-        {
+        default: {
             return state
         }
     }

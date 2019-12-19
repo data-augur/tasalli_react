@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import surveys from './surveys.reducer';
 
 const reducer = combineReducers({
-  surveys
+    surveys
 });
 
 export default reducer;

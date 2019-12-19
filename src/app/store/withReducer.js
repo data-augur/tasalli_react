@@ -4,14 +4,12 @@ import {ReactReduxContext} from "react-redux";
 
 const withReducer = (key, reducer) => WrappedComponent =>
     class extends React.PureComponent {
-        constructor(props)
-        {
+        constructor(props) {
             super(props);
             injectReducer(key, reducer);
         };
 
-        render()
-        {
+        render() {
             return (
                 <ReactReduxContext.Consumer>
                     {({store, storeState}) => {

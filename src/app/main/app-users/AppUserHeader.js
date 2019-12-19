@@ -1,14 +1,6 @@
 import React, {Component} from 'react';
-import {
-    MuiThemeProvider,
-    Hidden,
-    Icon,
-    IconButton,
-    Input,
-    Paper,
-    Typography, Button
-} from '@material-ui/core';
-import {FuseUtils, FuseAnimate} from '@fuse';
+import {Button, Hidden, Icon, IconButton, Input, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
+import {FuseAnimate, FuseUtils} from '@fuse';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from './store/actions';

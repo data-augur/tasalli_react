@@ -19,15 +19,13 @@ const NavbarFoldedToggleButton = ({settings, setDefaultSettings, children, class
     );
 };
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         setDefaultSettings: Actions.setDefaultSettings
     }, dispatch);
 }
 
-function mapStateToProps({fuse})
-{
+function mapStateToProps({fuse}) {
     return {
         settings: fuse.settings.current
     }

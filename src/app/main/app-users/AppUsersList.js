@@ -1,6 +1,16 @@
 import React, {Component} from 'react';
-import {Avatar,  Icon, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Typography} from '@material-ui/core';
-import {FuseUtils, FuseAnimate} from '@fuse';
+import {
+    Avatar,
+    Icon,
+    IconButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
+    MenuList,
+    Typography
+} from '@material-ui/core';
+import {FuseAnimate, FuseUtils} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
@@ -15,8 +25,7 @@ class AppusersList extends Component {
 
     getFilteredArray = (entities, searchText) => {
         const arr = Object.keys(entities).map((id) => entities[id]);
-        if ( searchText.length === 0 )
-        {
+        if (searchText.length === 0) {
             return arr;
         }
         return FuseUtils.filterArrayByString(arr, searchText);
@@ -30,14 +39,12 @@ class AppusersList extends Component {
         this.setState({selectedAppusersMenu: null});
     };
 
-    render()
-    {
-        const { appusers, searchText, selectedAppuserIds,  openEditAppuserDialog, removeAppusers, removeAppUser, setAppusersUnstarred, setAppusersStarred} = this.props;
+    render() {
+        const {appusers, searchText, selectedAppuserIds, openEditAppuserDialog, removeAppusers, removeAppUser, setAppusersUnstarred, setAppusersStarred} = this.props;
         const data = this.getFilteredArray(appusers, searchText);
         const {selectedAppusersMenu} = this.state;
 
-        if ( !data && data.length === 0 )
-        {
+        if (!data && data.length === 0) {
             return (
                 <div className="flex items-center justify-center h-full">
                     <Typography color="textSecondary" variant="h5">
@@ -54,9 +61,8 @@ class AppusersList extends Component {
                     getTrProps={(state, rowInfo, column) => {
                         return {
                             className: "cursor-pointer",
-                            onClick  : (e, handleOriginal) => {
-                                if ( rowInfo )
-                                {
+                            onClick: (e, handleOriginal) => {
+                                if (rowInfo) {
                                     openEditAppuserDialog(rowInfo.original);
                                 }
                             }
@@ -64,9 +70,9 @@ class AppusersList extends Component {
                     }}
                     data={data}
                     columns={[
-                       
+
                         {
-                            Header   : () => (
+                            Header: () => (
                                 selectedAppuserIds.length > 0 && (
                                     <React.Fragment>
                                         <IconButton
@@ -121,62 +127,62 @@ class AppusersList extends Component {
                                     </React.Fragment>
                                 )
                             ),
-                            accessor : "avatar",
-                            Cell     : row => (
+                            accessor: "avatar",
+                            Cell: row => (
                                 <Avatar className="mr-8" alt={row.original.name} src="/static/images/avatar/user.png"/>
                             ),
                             className: "justify-center",
-                            width    : 64,
-                            sortable : false
+                            width: 64,
+                            sortable: false
                         },
                         {
-                            Header    : "Name",
-                            accessor  : "name",
+                            Header: "Name",
+                            accessor: "name",
                             // filterable: true,
-                            className : "font-bold",
+                            className: "font-bold",
                             // className: "justify-center",
                         },
                         {
-                            Header    : "Phone",
-                            accessor  : "phoneNumber",
-                            className : " justify-center",
+                            Header: "Phone",
+                            accessor: "phoneNumber",
+                            className: " justify-center",
                             // filterable: true
                         },
                         {
-                            Header    : "Gender",
-                            accessor  : "gender",
+                            Header: "Gender",
+                            accessor: "gender",
                             // filterable: true,
-                            className : "justify-center",
+                            className: "justify-center",
                         },
                         {
-                            Header    : "Address",
-                            accessor  : "address",
+                            Header: "Address",
+                            accessor: "address",
                             // filterable: true,
-                            className : "justify-center",
+                            className: "justify-center",
                         },
                         {
-                            Header    : "CNIC",
-                            accessor  : "cnic",
+                            Header: "CNIC",
+                            accessor: "cnic",
                             // filterable: true,
-                            className : "justify-center",
+                            className: "justify-center",
                         },
                         {
-                            Header    : "City",
-                            accessor  : "city",
+                            Header: "City",
+                            accessor: "city",
                             // filterable: true,
-                            className : "justify-center",
+                            className: "justify-center",
                         },
 
                         {
                             Header: "",
-                            width : 128,
-                            Cell  : row => (
+                            width: 128,
+                            Cell: row => (
                                 <div className="flex items-center justify-center">
                                     <IconButton
-                                        hidden={localStorage.getItem('Role')!=='superAdmin'}
-                                        disabled= {localStorage.getItem('Role')!=='superAdmin'}
+                                        hidden={localStorage.getItem('Role') !== 'superAdmin'}
+                                        disabled={localStorage.getItem('Role') !== 'superAdmin'}
                                         onClick={(ev) => {
-                                            if (window.confirm('Are you sure to delete '+row.original.name+' App user?')) {
+                                            if (window.confirm('Are you sure to delete ' + row.original.name + ' App user?')) {
                                                 ev.stopPropagation();
                                                 removeAppUser(row.original.id);
                                             }
@@ -198,30 +204,28 @@ class AppusersList extends Component {
 }
 
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         // getAppusers             : Actions.getAppusers,
         toggleInSelectedAppusers: Actions.toggleInSelectedAppusers,
-        selectAllAppusers       : Actions.selectAllAppusers,
-        deSelectAllAppusers     : Actions.deSelectAllAppusers,
-        openEditAppuserDialog   : Actions.openEditAppuserDialog,
-        removeAppusers          : Actions.removeAppusers,
-        removeAppUser           : Actions.removeAppUser,
-        toggleStarredAppuser    : Actions.toggleStarredAppuser,
-        toggleStarredAppusers   : Actions.toggleStarredAppusers,
-        setAppusersStarred      : Actions.setAppusersStarred,
-        setAppusersUnstarred    : Actions.setAppusersUnstarred
+        selectAllAppusers: Actions.selectAllAppusers,
+        deSelectAllAppusers: Actions.deSelectAllAppusers,
+        openEditAppuserDialog: Actions.openEditAppuserDialog,
+        removeAppusers: Actions.removeAppusers,
+        removeAppUser: Actions.removeAppUser,
+        toggleStarredAppuser: Actions.toggleStarredAppuser,
+        toggleStarredAppusers: Actions.toggleStarredAppusers,
+        setAppusersStarred: Actions.setAppusersStarred,
+        setAppusersUnstarred: Actions.setAppusersUnstarred
     }, dispatch);
 }
 
-function mapStateToProps({appUserApp})
-{
+function mapStateToProps({appUserApp}) {
     return {
-        appusers          : appUserApp.appUser.entities,
+        appusers: appUserApp.appUser.entities,
         selectedAppuserIds: appUserApp.appUser.selectedAppuserIds,
-        searchText        : appUserApp.appUser.searchText,
-        user              : appUserApp.user
+        searchText: appUserApp.appUser.searchText,
+        user: appUserApp.user
     }
 }
 

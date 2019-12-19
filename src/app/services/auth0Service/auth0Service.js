@@ -6,20 +6,19 @@ import {AUTH_CONFIG} from './auth0ServiceConfig';
 class auth0Service {
     sdk = {auth0Manage: null};
 
-    init()
-    {
+    init() {
         this.lock = new Auth0Lock(
             AUTH_CONFIG.clientId,
             AUTH_CONFIG.domain,
             {
-                autoclose        : true,
+                autoclose: true,
                 socialButtonStyle: "big",
-                auth             : {
+                auth: {
                     // redirect: false,
-                    redirectUrl : AUTH_CONFIG.callbackUrl,
+                    redirectUrl: AUTH_CONFIG.callbackUrl,
                     responseType: 'token id_token',
-                    audience    : `https://${AUTH_CONFIG.domain}/api/v2/`,
-                    params      : {
+                    audience: `https://${AUTH_CONFIG.domain}/api/v2/`,
+                    params: {
                         scope: 'openid profile email user_metadata app_metadata picture update:current_user_metadata create:current_user_metadata read:current_user'
                     }
                 }
@@ -29,8 +28,7 @@ class auth0Service {
     }
 
     login = () => {
-        if ( !this.lock )
-        {
+        if (!this.lock) {
             return false;
         }
         // Call the show method to display the widget.
@@ -38,8 +36,7 @@ class auth0Service {
     };
 
     register = () => {
-        if ( !this.lock )
-        {
+        if (!this.lock) {
             return false;
         }
 
@@ -49,8 +46,7 @@ class auth0Service {
     };
 
     handleAuthentication = () => {
-        if ( !this.lock )
-        {
+        if (!this.lock) {
             return false;
         }
 
@@ -63,8 +59,7 @@ class auth0Service {
     };
 
     onAuthenticated = (callback) => {
-        if ( !this.lock )
-        {
+        if (!this.lock) {
             return false;
         }
         this.lock.on('authenticated', callback);
@@ -72,8 +67,7 @@ class auth0Service {
 
     setSession = (authResult) => {
 
-        if ( authResult && authResult.accessToken && authResult.idToken )
-        {
+        if (authResult && authResult.accessToken && authResult.idToken) {
             // Set the time that the access token will expire at
             let expiresAt = JSON.stringify((authResult.expiresIn * 1000) + new Date().getTime());
             localStorage.setItem('access_token', authResult.accessToken);
@@ -91,20 +85,16 @@ class auth0Service {
     };
 
     isAuthenticated = () => {
-        if ( !this.lock )
-        {
+        if (!this.lock) {
             return false;
         }
         // Check whether the current time is past the
         // access token's expiry time
         let expiresAt = JSON.parse(localStorage.getItem('expires_at'));
         const isNotExpired = new Date().getTime() < expiresAt;
-        if ( isNotExpired )
-        {
+        if (isNotExpired) {
             return true;
-        }
-        else
-        {
+        } else {
             this.logout();
             return false;
         }
@@ -120,7 +110,7 @@ class auth0Service {
 
             axios.get(auth0UserUrl, {
                 headers: {
-                    'Content-Type' : 'application/json',
+                    'Content-Type': 'application/json',
                     'Authorization': 'Bearer ' + this.getAccessToken()
                 }
             }).then(response => {
@@ -142,7 +132,7 @@ class auth0Service {
 
         return axios.patch(auth0UserUrl, dataObj, {
             headers: {
-                'Content-Type' : 'application/json',
+                'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + this.getAccessToken()
             }
         });
@@ -159,8 +149,7 @@ class auth0Service {
     getTokenData = () => {
         const token = this.getIdToken();
         const decoded = jwtDecode(token);
-        if ( !decoded )
-        {
+        if (!decoded) {
             return null;
         }
         return decoded;

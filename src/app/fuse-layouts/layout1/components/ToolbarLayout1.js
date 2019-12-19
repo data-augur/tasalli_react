@@ -8,8 +8,8 @@ import QuickPanelToggleButton from 'app/fuse-layouts/shared-components/quickPane
 
 const styles = theme => ({
     separator: {
-        width          : 1,
-        height         : 64,
+        width: 1,
+        height: 64,
         backgroundColor: theme.palette.divider
     }
 });
@@ -56,10 +56,9 @@ const ToolbarLayout1 = ({classes, settings, toolbarTheme}) => {
     );
 };
 
-function mapStateToProps({fuse})
-{
+function mapStateToProps({fuse}) {
     return {
-        settings    : fuse.settings.current,
+        settings: fuse.settings.current,
         toolbarTheme: fuse.settings.toolbarTheme
     }
 }

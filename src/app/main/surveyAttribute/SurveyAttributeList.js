@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    Avatar, 
+    Avatar,
     Icon,
     IconButton,
     ListItemIcon,
@@ -10,7 +10,7 @@ import {
     MenuList,
     Typography
 } from '@material-ui/core';
-import {FuseUtils, FuseAnimate} from '@fuse';
+import {FuseAnimate, FuseUtils} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
@@ -44,7 +44,7 @@ class SurveyAttributesList extends Component {
             surveyAttributes,
             searchText,
             selectedSurveyAttributeIds,
-            
+
             openEditSurveyAttributeDialog,
             removeSurveyAttributes,
             removeSurveyAttribute,
@@ -80,7 +80,7 @@ class SurveyAttributesList extends Component {
                     }}
                     data={data}
                     columns={[
-                        
+
                         {
                             Header: () =>
                                 selectedSurveyAttributeIds.length > 0 && (
@@ -218,7 +218,7 @@ class SurveyAttributesList extends Component {
                                 <div className="flex items-center justify-center">
                                     <IconButton
                                         onClick={ev => {
-                                            if (window.confirm('Are you sure to delete '+row.original.field_name+' survey attribute with values?')) {
+                                            if (window.confirm('Are you sure to delete ' + row.original.field_name + ' survey attribute with values?')) {
                                                 ev.stopPropagation();
                                                 removeSurveyAttribute(row.original.id);
                                             }

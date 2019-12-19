@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import companies from './company.reducer';
 
 const reducer = combineReducers({
-  companies
+    companies
 });
 
 export default reducer;

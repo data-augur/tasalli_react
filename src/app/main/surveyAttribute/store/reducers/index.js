@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux';
+import {combineReducers} from 'redux';
 import surveyAttribute from './surveyAttribute.reducer';
 
 const reducer = combineReducers({
-  surveyAttribute
+    surveyAttribute
 });
 
 export default reducer;

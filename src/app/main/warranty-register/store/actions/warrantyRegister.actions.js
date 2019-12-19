@@ -45,10 +45,6 @@ export const getWarrantyRegister = () => dispatch => {
     axios
         .get(Base_URL + query)
         .then(res => {
-            for (let i = 0; i < res.data.length; i++) {
-                res.data[i].date = moment(res.data[i].date).format('YYYY-MM-DD hh:mm');
-            }
-
             dispatch({
                 type: GET_WARRANTYREGISTER,
                 payload: res.data

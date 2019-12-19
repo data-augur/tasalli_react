@@ -143,18 +143,132 @@ class WarrantyRegisterDialog extends Component {
 
                     <div className="flex">
                         <div className="min-w-48 pt-20">
-                            <Icon color="action">date_range</Icon>
+                            <Icon color="action">account_circle</Icon>
                         </div>
 
                         <TextField
                             className="mb-24"
-                            label="Date"
+                            label="Name"
                             autoFocus
-                            id="date"
-                            name="date"
-                            value={this.state.date}
-                            variant="outlined"
+                            id="userName"
+                            name="userName"
                             disabled={true}
+                            value={this.state.userName}
+                            variant="outlined"
+                            required
+                            fullWidth
+                        />
+                    </div>
+
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">business</Icon>
+                        </div>
+
+                        <TextField
+                            className="mb-24"
+                            label="Address"
+                            autoFocus
+                            id="address"
+                            name="address"
+                            disabled={true}
+                            value={this.state.address}
+                            variant="outlined"
+                            required
+                            fullWidth
+                        />
+                    </div>
+
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">business</Icon>
+                        </div>
+
+                        <TextField
+                            className="mb-24"
+                            label="User City"
+                            autoFocus
+                            id="city"
+                            name="city"
+                            disabled={true}
+                            value={this.state.city}
+                            variant="outlined"
+                            required
+                            fullWidth
+                        />
+                    </div>
+
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">email</Icon>
+                        </div>
+
+                        <TextField
+                            className="mb-24"
+                            label="User Email"
+                            autoFocus
+                            id="email"
+                            name="email"
+                            disabled={true}
+                            value={this.state.email}
+                            variant="outlined"
+                            required
+                            fullWidth
+                        />
+                    </div>
+
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">business</Icon>
+                        </div>
+
+                        <TextField
+                            className="mb-24"
+                            label="User Office Address"
+                            autoFocus
+                            id="officeAddress"
+                            name="officeAddress"
+                            disabled={true}
+                            value={this.state.officeAddress}
+                            variant="outlined"
+                            required
+                            fullWidth
+                        />
+                    </div>
+
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">group</Icon>
+                        </div>
+
+                        <TextField
+                            className="mb-24"
+                            label="Age Group"
+                            autoFocus
+                            id="ageGroup"
+                            name="ageGroup"
+                            disabled={true}
+                            value={this.state.ageGroup}
+                            variant="outlined"
+                            required
+                            fullWidth
+                        />
+                    </div>
+
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">credit_card</Icon>
+                        </div>
+
+                        <TextField
+                            className="mb-24"
+                            label="User CNIC"
+                            autoFocus
+                            id="cnic"
+                            name="cnic"
+                            disabled={true}
+                            value={this.state.cnic}
+                            variant="outlined"
                             required
                             fullWidth
                         />
@@ -172,6 +286,25 @@ class WarrantyRegisterDialog extends Component {
                             id="phoneNumber"
                             name="phoneNumber"
                             value={this.state.phoneNumber}
+                            variant="outlined"
+                            disabled={true}
+                            required
+                            fullWidth
+                        />
+                    </div>
+
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">date_range</Icon>
+                        </div>
+
+                        <TextField
+                            className="mb-24"
+                            label="Date"
+                            autoFocus
+                            id="date"
+                            name="date"
+                            value={this.state.date}
                             variant="outlined"
                             disabled={true}
                             required

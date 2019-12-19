@@ -36,6 +36,34 @@ class WarrantyClaimedsHeader extends Component {
                 id: 'phoneNumber',
                 displayName: 'User Phone Number'
             },
+            {
+                id: 'cnic',
+                displayName: 'User CNIC'
+            },
+            {
+                id: 'userName',
+                displayName: 'User Full Name'
+            },
+            {
+                id: 'address',
+                displayName: 'Address'
+            },
+            {
+                id: 'city',
+                displayName: 'City'
+            },
+            {
+                id: 'email',
+                displayName: 'Email'
+            },
+            {
+                id: 'officeAddress',
+                displayName: 'Office Address'
+            },
+            {
+                id: 'ageGroup',
+                displayName: 'Age Group'
+            },
         ];
 
         return (

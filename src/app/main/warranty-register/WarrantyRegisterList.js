@@ -156,7 +156,7 @@ class WarrantyRegistersList extends Component {
                             // className: "justify-center",
                         },
                         {
-                            Header: 'Code',
+                            Header: 'Product Code',
                             accessor: 'code',
                             filterable: true,
                             className: 'font-bold'

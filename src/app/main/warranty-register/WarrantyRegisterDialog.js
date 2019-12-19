@@ -112,6 +112,25 @@ class WarrantyRegisterDialog extends Component {
                             className="mb-24"
                             label="SKU"
                             autoFocus
+                            id="sku_code"
+                            name="sku_code"
+                            disabled={true}
+                            value={this.state.sku_code}
+                            variant="outlined"
+                            required
+                            fullWidth
+                        />
+                    </div>
+
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">account_circle</Icon>
+                        </div>
+
+                        <TextField
+                            className="mb-24"
+                            label="Code"
+                            autoFocus
                             id="code"
                             name="code"
                             disabled={true}

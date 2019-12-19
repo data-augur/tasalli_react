@@ -1,5 +1,15 @@
 import React, {Component} from 'react';
-import {Avatar, Icon, IconButton, ListItemIcon, ListItemText, Menu, MenuItem, MenuList, Typography} from '@material-ui/core';
+import {
+    Avatar,
+    Icon,
+    IconButton,
+    ListItemIcon,
+    ListItemText,
+    Menu,
+    MenuItem,
+    MenuList,
+    Typography
+} from '@material-ui/core';
 import {FuseUtils, FuseAnimate} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -15,8 +25,7 @@ class AdminsList extends Component {
 
     getFilteredArray = (entities, searchText) => {
         const arr = Object.keys(entities).map((id) => entities[id]);
-        if ( searchText.length === 0 )
-        {
+        if (searchText.length === 0) {
             return arr;
         }
         return FuseUtils.filterArrayByString(arr, searchText);
@@ -30,14 +39,12 @@ class AdminsList extends Component {
         this.setState({selectedAdminsMenu: null});
     };
 
-    render()
-    {
-        const { admins, searchText, selectedAdminIds,  openEditAdminDialog, removeAdmins, removeAdminUser, setAdminsUnstarred, setAdminsStarred} = this.props;
+    render() {
+        const {admins, searchText, selectedAdminIds, openEditAdminDialog, removeAdmins, removeAdminUser, setAdminsUnstarred, setAdminsStarred} = this.props;
         const data = this.getFilteredArray(admins, searchText);
         const {selectedAdminsMenu} = this.state;
 
-        if ( !data && data.length === 0 )
-        {
+        if (!data && data.length === 0) {
             return (
                 <div className="flex items-center justify-center h-full">
                     <Typography color="textSecondary" variant="h5">
@@ -51,12 +58,11 @@ class AdminsList extends Component {
             <FuseAnimate animation="transition.slideUpIn" delay={300}>
                 <ReactTable
                     className="-striped -highlight border-0"
-                    getTrProps={(state, rowInfo, column) => {
+                    getTrProps={(state, rowInfo) => {
                         return {
                             className: "cursor-pointer",
-                            onClick  : (e, handleOriginal) => {
-                                if ( rowInfo )
-                                {
+                            onClick: () => {
+                                if (rowInfo) {
                                     openEditAdminDialog(rowInfo.original);
                                 }
                             }
@@ -64,36 +70,8 @@ class AdminsList extends Component {
                     }}
                     data={data}
                     columns={[
-                        // {
-                        //     Header   : () => (
-                        //         <Checkbox
-                        //             onClick={(event) => {
-                        //                 event.stopPropagation();
-                        //             }}
-                        //             onChange={(event) => {
-                        //                 event.target.checked ? selectAllAdmins() : deSelectAllAdmins();
-                        //             }}
-                        //             checked={selectedAdminIds.length === Object.keys(admins).length && selectedAdminIds.length > 0}
-                        //             indeterminate={selectedAdminIds.length !== Object.keys(admins).length && selectedAdminIds.length > 0}
-                        //         />
-                        //     ),
-                        //     accessor : "",
-                        //     Cell     : row => {
-                        //         return (<Checkbox
-                        //                 onClick={(event) => {
-                        //                     event.stopPropagation();
-                        //                 }}
-                        //                 checked={selectedAdminIds.includes(row.value.id)}
-                        //                 onChange={() => toggleInSelectedAdmins(row.value.id)}
-                        //             />
-                        //         )
-                        //     },
-                        //     className: "justify-center",
-                        //     sortable : false,
-                        //     width    : 64
-                        // },
                         {
-                            Header   : () => (
+                            Header: () => (
                                 selectedAdminIds.length > 0 && (
                                     <React.Fragment>
                                         <IconButton
@@ -148,35 +126,35 @@ class AdminsList extends Component {
                                     </React.Fragment>
                                 )
                             ),
-                            accessor : "avatar",
-                            Cell     : row => (
+                            accessor: "avatar",
+                            Cell: row => (
                                 <Avatar className="mr-8" alt={row.original.name} src="/static/images/avatar/user.png"/>
                             ),
                             className: "justify-center",
-                            width    : 64,
-                            sortable : false
+                            width: 64,
+                            sortable: false
                         },
                         {
-                            Header    : "Email",
-                            accessor  : "email",
+                            Header: "Email",
+                            accessor: "email",
                             // filterable: true,
-                            className : "font-bold",
+                            className: "font-bold",
                             // className: "justify-center",
                         },
                         {
-                            Header    : "Role",
-                            accessor  : "role",
-                            className : " justify-center",
+                            Header: "Role",
+                            accessor: "role",
+                            className: " justify-center",
                             // filterable: true
                         },
                         {
                             Header: "",
-                            width : 128,
-                            Cell  : row => (
+                            width: 128,
+                            Cell: row => (
                                 <div className="flex items-center justify-center">
                                     <IconButton
                                         onClick={(ev) => {
-                                            if (window.confirm('Are you sure to delete '+row.original.email+' Admin user?')) {
+                                            if (window.confirm('Are you sure to delete ' + row.original.email + ' Admin user?')) {
                                                 ev.stopPropagation();
                                                 removeAdminUser(row.original.id);
                                             }
@@ -198,30 +176,28 @@ class AdminsList extends Component {
 }
 
 
-function mapDispatchToProps(dispatch)
-{
+function mapDispatchToProps(dispatch) {
     return bindActionCreators({
         // getAdmins             : Actions.getAdmins,
         toggleInSelectedAdmins: Actions.toggleInSelectedAdmins,
-        selectAllAdmins       : Actions.selectAllAdmins,
-        deSelectAllAdmins     : Actions.deSelectAllAdmins,
-        openEditAdminDialog   : Actions.openEditAdminDialog,
-        removeAdmins          : Actions.removeAdmins,
-        removeAdminUser           : Actions.removeAdminUser,
-        toggleStarredAdmin    : Actions.toggleStarredAdmin,
-        toggleStarredAdmins   : Actions.toggleStarredAdmins,
-        setAdminsStarred      : Actions.setAdminsStarred,
-        setAdminsUnstarred    : Actions.setAdminsUnstarred
+        selectAllAdmins: Actions.selectAllAdmins,
+        deSelectAllAdmins: Actions.deSelectAllAdmins,
+        openEditAdminDialog: Actions.openEditAdminDialog,
+        removeAdmins: Actions.removeAdmins,
+        removeAdminUser: Actions.removeAdminUser,
+        toggleStarredAdmin: Actions.toggleStarredAdmin,
+        toggleStarredAdmins: Actions.toggleStarredAdmins,
+        setAdminsStarred: Actions.setAdminsStarred,
+        setAdminsUnstarred: Actions.setAdminsUnstarred
     }, dispatch);
 }
 
-function mapStateToProps({adminUserApp})
-{
+function mapStateToProps({adminUserApp}) {
     return {
-        admins          : adminUserApp.adminUser.entities,
+        admins: adminUserApp.adminUser.entities,
         selectedAdminIds: adminUserApp.adminUser.selectedAdminIds,
-        searchText        : adminUserApp.adminUser.searchText,
-        user              : adminUserApp.user
+        searchText: adminUserApp.adminUser.searchText,
+        user: adminUserApp.user
     }
 }
 

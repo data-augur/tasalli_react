@@ -107,6 +107,7 @@ class BrandUsersHeader extends Component {
                         </FuseAnimate>
                     </MuiThemeProvider>
                 </div>
+
                 {brandUsersArray && brandUsersArray.length > 0 ?
                     <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
                         <MuiThemeProvider theme={mainTheme}>

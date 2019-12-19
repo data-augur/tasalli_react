@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
-import moment from "moment";
+// import moment from "moment";
 
 export const GET_WARRANTYREGISTER = '[WARRANTYREGISTER APP] GET WARRANTYREGISTER';
 export const REMOVE_WARRANTYREGISTER = '[WARRANTYREGISTER APP] REMOVE WARRANTYREGISTER';

@@ -4701,6 +4701,11 @@ file-loader@2.0.0:
     loader-utils "^1.0.2"
     schema-utils "^1.0.0"
 
+file-saver@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.2.tgz#06d6e728a9ea2df2cce2f8d9e84dfcdc338ec17a"
+  integrity sha512-Wz3c3XQ5xroCxd1G8b7yL0Ehkf0TC9oYC6buPFkNnU9EnaPlifeAFCyCh+iewXTyFRcg0a6j3J7FmJsIhlhBdw==
+
 filename-regex@^2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/filename-regex/-/filename-regex-2.0.1.tgz#c1c4b9bee3e09725ddb106b75c1e301fe2f18b26"
@@ -9652,6 +9657,13 @@ react-clock@^2.3.0:
   dependencies:
     merge-class-names "^1.1.1"
     prop-types "^15.6.0"
+
+react-csv-downloader@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/react-csv-downloader/-/react-csv-downloader-1.5.0.tgz#fc253c9a6f6e98c25d080b2d2147367465ef7321"
+  integrity sha512-PDp/+JJfBogJRvDH4i7dRDDzOxpV5ZEFg0MXuFUgfUNaBWhRKYeHgu9gkFzzCsYplp8tKszGskGYdWwMIcBJFA==
+  dependencies:
+    file-saver "^2.0.2"
 
 react-date-picker@^7.8.0:
   version "7.8.2"

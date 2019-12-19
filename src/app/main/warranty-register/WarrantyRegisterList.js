@@ -16,7 +16,6 @@ import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
-import {removeWarrantyRegister} from "./store/actions";
 
 class WarrantyRegistersList extends Component {
     state = {
@@ -67,10 +66,10 @@ class WarrantyRegistersList extends Component {
             <FuseAnimate animation="transition.slideUpIn" delay={300}>
                 <ReactTable
                     className="-striped -highlight border-0"
-                    getTrProps={(state, rowInfo, column) => {
+                    getTrProps={(state, rowInfo) => {
                         return {
                             className: 'cursor-pointer',
-                            onClick: (e, handleOriginal) => {
+                            onClick: () => {
                                 if (rowInfo) {
                                     openEditWarrantyRegisterDialog(rowInfo.original);
                                 }

@@ -60,10 +60,11 @@ class WarrantyCompletionDialog extends Component {
   }
 
   handleAttributeChange(e,index){
-    this.state.attributes[index]=e.target.value;
+    let attributes = this.state.attributes;
+    attributes[index]=e.target.value;
 
     //set the changed state
-    this.setState({attributes: this.state.attributes})
+    this.setState({attributes: attributes})
   }
   handleRemove(index){
 
@@ -204,7 +205,7 @@ class WarrantyCompletionDialog extends Component {
                                 value={attribute} />
 
                             <IconButton
-                                onClick={(e)=>this.handleRemove(index)}
+                                onClick={()=>this.handleRemove(index)}
                             >
                               <Icon>delete</Icon>
                             </IconButton>

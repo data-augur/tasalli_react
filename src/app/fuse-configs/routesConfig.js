@@ -6,7 +6,6 @@ import { BrandUsersLoginConfig } from 'app/main/login/LoginConfig';
 import { LoginConfig } from 'app/main/super-login/LoginConfig';
 import { RegisterConfig } from 'app/main/register/RegisterConfig';
 import { Error404PageConfig } from 'app/main/errors/Error404PageConfig';
-// import { BrandAdminAppConfig } from 'app/main/brand-admin/BrandAdminAppConfig';
 import { BrandUsersAppConfig } from 'app/main/brand-users/BrandUserAppConfig';
 import { AdminUsersAppConfig } from 'app/main/admin-users/AdminUserAppConfig';
 import { AdsAppConfig } from 'app/main/ads/AdsAppConfig';

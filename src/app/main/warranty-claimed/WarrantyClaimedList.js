@@ -16,7 +16,6 @@ import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
-import {removeWarrantyClaimed} from "./store/actions";
 
 class WarrantyClaimedsList extends Component {
   state = {
@@ -67,10 +66,10 @@ class WarrantyClaimedsList extends Component {
       <FuseAnimate animation="transition.slideUpIn" delay={300}>
         <ReactTable
           className="-striped -highlight border-0"
-          getTrProps={(state, rowInfo, column) => {
+          getTrProps={(state, rowInfo) => {
             return {
               className: 'cursor-pointer',
-              onClick: (e, handleOriginal) => {
+              onClick: () => {
                 if (rowInfo) {
                   openEditWarrantyClaimedDialog(rowInfo.original);
                 }
@@ -79,7 +78,7 @@ class WarrantyClaimedsList extends Component {
           }}
           data={data}
           columns={[
-        
+
             {
               Header: () =>
                 selectedWarrantyClaimedIds.length > 0 && (

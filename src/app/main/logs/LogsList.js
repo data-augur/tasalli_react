@@ -1,15 +1,5 @@
 import React, {Component} from 'react';
-import {
-    Avatar,
-    Icon,
-    IconButton,
-    ListItemIcon,
-    ListItemText,
-    Menu,
-    MenuItem,
-    MenuList,
-    Typography
-} from '@material-ui/core';
+import {Typography} from '@material-ui/core';
 import {FuseUtils, FuseAnimate} from '@fuse';
 import {connect} from 'react-redux';
 import {withRouter} from 'react-router-dom';
@@ -30,26 +20,18 @@ class LogsList extends Component {
         return FuseUtils.filterArrayByString(arr, searchText);
     };
 
-    openSelectedLogMenu = event => {
-        this.setState({selectedLogsMenu: event.currentTarget});
-    };
-
-    closeSelectedLogsMenu = () => {
-        this.setState({selectedLogsMenu: null});
-    };
+    // openSelectedLogMenu = event => {
+    //     this.setState({selectedLogsMenu: event.currentTarget});
+    // };
+    //
+    // closeSelectedLogsMenu = () => {
+    //     this.setState({selectedLogsMenu: null});
+    // };
 
     render() {
-        const {
-            logs,
-            searchText,
-            selectedLogIds,
-
-            // removeBrand,
-            setLogsUnstarred,
-            setLogsStarred
-        } = this.props;
+        const {logs, searchText} = this.props;
         const data = this.getFilteredArray(logs, searchText);
-        const {selectedLogsMenu} = this.state;
+        // const {selectedLogsMenu} = this.state;
 
         if (!data && data.length === 0) {
             return (
@@ -65,10 +47,9 @@ class LogsList extends Component {
             <FuseAnimate animation="transition.slideUpIn" delay={300}>
                 <ReactTable
                     className="-striped -highlight border-0"
-                    getTrProps={(state, rowInfo, column) => {
+                    getTrProps={() => {
                         return {
                             className: 'cursor-pointer',
-
                         };
                     }}
                     data={data}

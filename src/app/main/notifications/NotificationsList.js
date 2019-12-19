@@ -47,7 +47,7 @@ class NotificationsList extends Component {
 
             openEditNotificationDialog,
             removeNotifications,
-            removeNotification,
+            // removeNotification,
             setNotificationsUnstarred,
             setNotificationsStarred
         } = this.props;
@@ -68,10 +68,10 @@ class NotificationsList extends Component {
             <FuseAnimate animation="transition.slideUpIn" delay={300}>
                 <ReactTable
                     className="-striped -highlight border-0"
-                    getTrProps={(state, rowInfo, column) => {
+                    getTrProps={(state, rowInfo) => {
                         return {
                             className: "cursor-pointer",
-                            onClick: (e, handleOriginal) => {
+                            onClick: () => {
                                 if (rowInfo) {
                                     openEditNotificationDialog(rowInfo.original);
                                 }

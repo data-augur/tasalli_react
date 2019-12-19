@@ -42,28 +42,27 @@ export const SET_WARRANTYCLAIMATTRIBUTES_STARRED = '[WARRANTYCLAIMATTRIBUTES APP
 //     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
-export const getAllWarrantyClaimAttribute = () => dispatch => {
-  axios
-    // .get(Base_URL+'get-all-surveys')
-    .get(Base_URL+'get-a-warranty-claim-form-attributes-with-options/${id}')
-    .then(res => {
-
-      dispatch({
-        type: GET_ALL_WARRANTYCLAIMATTRIBUTE,
-        payload: res.data
-      });
-    })
-    .catch(err => {
-
-      //   dispatch({
-      //     type: LOGIN_ERROR,
-      //     payload: err.response.data
-      //   });
-    });
-};
+// export const getAllWarrantyClaimAttribute = () => dispatch => {
+//   axios
+//     // .get(Base_URL+'get-all-surveys')
+//     .get(Base_URL+'get-a-warranty-claim-form-attributes-with-options/${id}')
+//     .then(res => {
+//
+//       dispatch({
+//         type: GET_ALL_WARRANTYCLAIMATTRIBUTE,
+//         payload: res.data
+//       });
+//     })
+//     .catch(err => {
+//
+//       //   dispatch({
+//       //     type: LOGIN_ERROR,
+//       //     payload: err.response.data
+//       //   });
+//     });
+// };
 export const getWarrantyClaimAttribute = () => dispatch => {
-    let id=0;
-    id=window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
+    const id=window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
     axios
         .get(Base_URL+`get-a-warranty-claim-form-attributes-with-options/${id}`)
     .then(res => {
@@ -107,7 +106,7 @@ export const addWarrantyClaimAttribute = newWarrantyClaimAttribute => dispatch =
       //   });
     });
 };
-export const updateWarrantyClaimAttribute = (updateInfo, id) => dispatch => {
+export const updateWarrantyClaimAttribute = (updateInfo) => dispatch => {
 
   axios
     .put(
@@ -159,7 +158,7 @@ export const removeWarrantyClaimAttribute = id => dispatch => {
 export const getWarrantyClaimAttributeOptions = id => dispatch => {
     axios
         .get(Base_URL+`get-a-warranty-claim-form-attributes-with-options/${id}`)
-        .then(res => {
+        .then(() => {
             dispatch({
                 type: GET_WARRANTYCLAIMATTRIBUTE
             });
@@ -300,7 +299,7 @@ export function removeWarrantyClaimAttributes(warrantyClaimAttributeIds) {
       warrantyClaimAttributeIds
     });
 
-    return request.then(response =>
+    return request.then(() =>
       Promise.all([
         dispatch({
           type: REMOVE_WARRANTYCLAIMATTRIBUTES
@@ -321,7 +320,7 @@ export function toggleStarredWarrantyClaimAttribute(warrantyClaimAttributeId) {
       warrantyClaimAttributeId
     });
 
-    return request.then(response =>
+    return request.then(() =>
       Promise.all([
         dispatch({
           type: TOGGLE_STARRED_WARRANTYCLAIMATTRIBUTE
@@ -339,7 +338,7 @@ export function toggleStarredWarrantyClaimAttributes(warrantyClaimAttributeIds) 
       warrantyClaimAttributeIds
     });
 
-    return request.then(response =>
+    return request.then(() =>
       Promise.all([
         dispatch({
           type: TOGGLE_STARRED_WARRANTYCLAIMATTRIBUTES
@@ -360,7 +359,7 @@ export function setWarrantyClaimAttributesStarred(warrantyClaimAttributeIds) {
       warrantyClaimAttributeIds
     });
 
-    return request.then(response =>
+    return request.then(() =>
       Promise.all([
         dispatch({
           type: SET_WARRANTYCLAIMATTRIBUTES_STARRED
@@ -381,7 +380,7 @@ export function setWarrantyClaimAttributesUnstarred(warrantyClaimAttributeIds) {
       warrantyClaimAttributeIds
     });
 
-    return request.then(response =>
+    return request.then(() =>
       Promise.all([
         dispatch({
           type: SET_WARRANTYCLAIMATTRIBUTES_STARRED

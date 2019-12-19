@@ -82,10 +82,11 @@ class WarrantyClaimAttributeDialog extends Component {
   }
 
   handleOptionChange(e,index){
-    this.state.options[index]=e.target.value;
+    let options = this.state.options;
+    options[index]=e.target.value;
 
     //set the changed state
-    this.setState({options: this.state.options})
+    this.setState({options})
   }
 
   handleChange = event => {
@@ -245,7 +246,7 @@ class WarrantyClaimAttributeDialog extends Component {
                                   value={option} />
 
                               <IconButton
-                                  onClick={(e)=>this.handleRemove(index)}
+                                  onClick={()=>this.handleRemove(index)}
                               >
                                 <Icon>delete</Icon>
                               </IconButton>

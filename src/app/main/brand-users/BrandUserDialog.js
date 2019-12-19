@@ -278,9 +278,6 @@ class BrandUserDialog extends Component {
                                 select
                                 value={this.state.companyId}
                                 onChange={this.handleChange}
-                                // defaultValue="Brand Admin"
-                                // onChange={handleChange('currency')}
-                                // helperText="Please select "
                                 margin="normal"
                                 fullWidth
                                 variant="outlined"
@@ -394,13 +391,15 @@ class BrandUserDialog extends Component {
                             variant="contained"
                             color="primary"
                             onClick={() => {
-                                if (this.state.role === 'brandAdmin' || this.state.role === 'brandSupplier') {
-                                    this.state.companyId = null;//=null;
-                                } else if (this.state.role === 'companyAdmin') {
-                                    this.state.brandId = null;
-                                    //  this.state.companyId= decoded.companyId;
+                                let newBrandUser = {
+                                    ...this.state
+                                };
+                                if (newBrandUser.role === 'brandAdmin' || newBrandUser.role === 'brandSupplier') {
+                                    newBrandUser.companyId = null;
+                                } else if (newBrandUser.role === 'companyAdmin') {
+                                    newBrandUser.brandId = null;
                                 }
-                                addBrandUser(this.state);
+                                addBrandUser(newBrandUser);
                                 this.closeComposeDialog();
                             }}
                             disabled={!this.canBeSubmitted()}

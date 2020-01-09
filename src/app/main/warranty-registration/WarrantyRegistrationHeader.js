@@ -12,15 +12,6 @@ class WarrantyRegistrationsHeader extends Component {
         return (
             <div className="flex flex-1 items-center justify-between p-8 sm:p-24">
                 <div className="flex flex-shrink items-center sm:w-224">
-                    <Hidden lgUp>
-                        <IconButton
-                            onClick={ev => pageLayout().toggleLeftSidebar()}
-                            aria-label="open left sidebar"
-                        >
-                            <Icon>menu</Icon>
-                        </IconButton>
-                    </Hidden>
-
                     <div className="flex items-center">
                         <FuseAnimate animation="transition.expandIn" delay={300}>
                             <Icon className="text-32 mr-12">account_box</Icon>

@@ -6,9 +6,10 @@ import * as quickPanelActions from './store/actions';
 
 const QuickPanelToggleButton = ({toggleQuickPanel, children}) => {
     return (
-        <IconButton className="w-64 h-64" onClick={toggleQuickPanel}>
+        //       <IconButton className="w-64 h-64" onClick={toggleQuickPanel}>
+        <div>
             {children}
-        </IconButton>
+        </div>
     );
 };
 
@@ -18,8 +19,8 @@ function mapDispatchToProps(dispatch) {
     }, dispatch);
 }
 
-QuickPanelToggleButton.defaultProps = {
-    children: <Icon>format_list_bulleted</Icon>
-};
+// QuickPanelToggleButton.defaultProps = {
+//     children: <Icon>format_list_bulleted</Icon>
+// };
 
 export default connect(null, mapDispatchToProps)(QuickPanelToggleButton);

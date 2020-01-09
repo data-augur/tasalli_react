@@ -18,11 +18,11 @@ import _ from '@lodash';
 
 const gender = [
     {
-        value: 'male',
+        value: 'MALE',
         label: 'Male'
     },
     {
-        value: 'female',
+        value: 'FEMALE',
         label: 'Female'
     }
 ];

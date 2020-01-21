@@ -48,7 +48,9 @@ class CompanysList extends Component {
             removeCompanys,
             removeCompany,
             setCompanysUnstarred,
-            setCompanysStarred
+            setCompanysStarred,
+            getCompaniesPaginationData,
+            totalPages,
         } = this.props;
         const data = this.getFilteredArray(companys, searchText);
         const {selectedCompanysMenu} = this.state;
@@ -152,7 +154,7 @@ class CompanysList extends Component {
                         {
                             Header: 'Name',
                             accessor: 'name',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
@@ -177,9 +179,21 @@ class CompanysList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No company found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getCompaniesPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -199,6 +213,7 @@ function mapDispatchToProps(dispatch) {
             toggleStarredCompany: Actions.toggleStarredCompany,
             toggleStarredCompanys: Actions.toggleStarredCompanys,
             setCompanysStarred: Actions.setCompanysStarred,
+            getCompaniesPaginationData: Actions.getCompaniesPaginationData,
             setCompanysUnstarred: Actions.setCompanysUnstarred
         },
         dispatch
@@ -208,6 +223,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({companiesApp}) {
     return {
         companys: companiesApp.companies.entities,
+        totalPages: companiesApp.companies.pages,
         selectedCompanyIds: companiesApp.companies.selectedCompanyIds,
         searchText: companiesApp.companies.searchText,
         user: companiesApp.user

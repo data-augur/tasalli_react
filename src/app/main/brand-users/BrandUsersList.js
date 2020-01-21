@@ -40,7 +40,7 @@ class BrandUsersList extends Component {
     };
 
     render() {
-        const {brandUsers, searchText, selectedBrandUserIds, openEditBrandUserDialog, removeBrandUsers, removeBrandUser, setBrandUsersUnstarred, setBrandUsersStarred} = this.props;
+        const {brandUsers, searchText, selectedBrandUserIds, openEditBrandUserDialog, removeBrandUsers, removeBrandUser, setBrandUsersUnstarred, setBrandUsersStarred, getBrandUsersPaginationData, totalPages} = this.props;
         const data = this.getFilteredArray(brandUsers, searchText);
         const {selectedBrandUsersMenu} = this.state;
 
@@ -139,7 +139,7 @@ class BrandUsersList extends Component {
                             width: 150,
                             Header: "Name",
                             accessor: "name",
-                            filterable: true,
+                            filterable: false,
                             className: "font-bold",
                             // className: "justify-center",
                         },
@@ -147,14 +147,14 @@ class BrandUsersList extends Component {
                             width: 150,
                             Header: "Email",
                             accessor: "email",
-                            filterable: true,
+                            filterable: false,
                             className: " justify-center",
                         },
                         {
                             width: 150,
                             Header: "Job Title",
                             accessor: "role",
-                            filterable: true,
+                            filterable: false,
                             className: " justify-center",
                         },
                         {
@@ -175,7 +175,7 @@ class BrandUsersList extends Component {
                             width: 150,
                             Header: "Gender",
                             accessor: "gender",
-                            filterable: true,
+                            filterable: false,
                             className: "justify-center",
                         },
 
@@ -207,9 +207,21 @@ class BrandUsersList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No BrandUser found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getBrandUsersPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -226,6 +238,7 @@ function mapDispatchToProps(dispatch) {
         openEditBrandUserDialog: Actions.openEditBrandUserDialog,
         removeBrandUsers: Actions.removeBrandUsers,
         removeBrandUser: Actions.removeBrandUser,
+        getBrandUsersPaginationData: Actions.getBrandUsersPaginationData,
         toggleStarredBrandUser: Actions.toggleStarredBrandUser,
         toggleStarredBrandUsers: Actions.toggleStarredBrandUsers,
         setBrandUsersStarred: Actions.setBrandUsersStarred,
@@ -236,6 +249,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({brandUserApp}) {
     return {
         brandUsers: brandUserApp.brandUser.entities,
+        totalPages: brandUserApp.brandUser.pages,
         selectedBrandUserIds: brandUserApp.brandUser.selectedBrandUserIds,
         searchText: brandUserApp.brandUser.searchText,
         user: brandUserApp.user

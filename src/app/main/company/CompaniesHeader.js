@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Hidden, Icon, IconButton, Input, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
+import {Icon, Input, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
 import {FuseAnimate} from '@fuse';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
@@ -7,7 +7,7 @@ import * as Actions from './store/actions';
 
 class CompanysHeader extends Component {
     render() {
-        const {setSearchText, searchText, pageLayout, mainTheme} = this.props;
+            const {setSearchText, searchText, mainTheme} = this.props;
 
         return (
             <div className="flex flex-1 items-center justify-between p-8 sm:p-24">

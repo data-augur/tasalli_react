@@ -47,7 +47,9 @@ class ProductsList extends Component {
             removeProducts,
             removeProduct,
             setProductsUnstarred,
-            setProductsStarred
+            setProductsStarred,
+            getProductsPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(products, searchText);
         const {selectedProductsMenu} = this.state;
@@ -151,21 +153,21 @@ class ProductsList extends Component {
                         {
                             Header: 'Product Code',
                             accessor: 'code',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Brand',
                             accessor: 'brandName',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Company',
                             accessor: 'companyName',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
@@ -188,9 +190,21 @@ class ProductsList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No product found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getProductsPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -207,6 +221,7 @@ function mapDispatchToProps(dispatch) {
             openEditProductDialog: Actions.openEditProductDialog,
             removeProducts: Actions.removeProducts,
             removeProduct: Actions.removeProduct,
+            getProductsPaginationData: Actions.getProductsPaginationData,
             toggleStarredProduct: Actions.toggleStarredProduct,
             toggleStarredProducts: Actions.toggleStarredProducts,
             setProductsStarred: Actions.setProductsStarred,
@@ -221,6 +236,7 @@ function mapStateToProps({productsApp}) {
         products: productsApp.products.entities,
         selectedProductIds: productsApp.products.selectedProductIds,
         searchText: productsApp.products.searchText,
+        totalPages: productsApp.products.pages,
         user: productsApp.user
     };
 }

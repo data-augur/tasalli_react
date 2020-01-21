@@ -48,7 +48,9 @@ class WarrantyCompletionsList extends Component {
             removeWarrantyCompletions,
             removeWarrantyCompletion,
             setWarrantyCompletionsUnstarred,
-            setWarrantyCompletionsStarred
+            setWarrantyCompletionsStarred,
+            getWarrantyCompletionPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(warrantyCompletions, searchText);
         const {selectedWarrantyCompletionsMenu} = this.state;
@@ -152,14 +154,14 @@ class WarrantyCompletionsList extends Component {
                         {
                             Header: 'Warranty Completion Form',
                             accessor: 'formName',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Company',
                             accessor: 'companyName',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
@@ -182,9 +184,21 @@ class WarrantyCompletionsList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No Warranty completion form found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getWarrantyCompletionPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -201,6 +215,7 @@ function mapDispatchToProps(dispatch) {
             openEditWarrantyCompletionDialog: Actions.openEditWarrantyCompletionDialog,
             removeWarrantyCompletions: Actions.removeWarrantyCompletions,
             removeWarrantyCompletion: Actions.removeWarrantyCompletion,
+            getWarrantyCompletionPaginationData: Actions.getWarrantyCompletionPaginationData,
             toggleStarredWarrantyCompletion: Actions.toggleStarredWarrantyCompletion,
             toggleStarredWarrantyCompletions: Actions.toggleStarredWarrantyCompletions,
             setWarrantyCompletionsStarred: Actions.setWarrantyCompletionsStarred,
@@ -213,6 +228,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({warrantyCompletionApp}) {
     return {
         warrantyCompletions: warrantyCompletionApp.warrantyCompletion.entities,
+        totalPages: warrantyCompletionApp.warrantyCompletion.pages,
         selectedWarrantyCompletionIds: warrantyCompletionApp.warrantyCompletion.selectedWarrantyCompletionIds,
         searchText: warrantyCompletionApp.warrantyCompletion.searchText,
         user: warrantyCompletionApp.user

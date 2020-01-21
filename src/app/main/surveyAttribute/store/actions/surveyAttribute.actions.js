@@ -25,31 +25,7 @@ export const TOGGLE_STARRED_SURVEYATTRIBUTE = '[SURVEYATTRIBUTES APP] TOGGLE STA
 export const TOGGLE_STARRED_SURVEYATTRIBUTES = '[SURVEYATTRIBUTES APP] TOGGLE STARRED SURVEYATTRIBUTES';
 export const SET_SURVEYATTRIBUTES_STARRED = '[SURVEYATTRIBUTES APP] SET SURVEYATTRIBUTES STARRED ';
 
-// export function getSurveyAttributes(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
 
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
-// export const getAllSurveyAttribute = () => dispatch => {
-//     axios
-//         .get(Base_URL + 'get-a-survey-attributes-with-options/${id}')
-//         .then(res => {
-//             dispatch({
-//                 type: GET_ALL_SURVEYATTRIBUTE,
-//                 payload: res.data
-//             });
-//         })
-//         .catch(err => {
-//         });
-// };
 export const getSurveyAttribute = () => dispatch => {
     const id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1);
     axios

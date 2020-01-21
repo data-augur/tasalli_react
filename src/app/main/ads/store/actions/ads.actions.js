@@ -27,62 +27,21 @@ export const TOGGLE_STARRED_AD = '[ADS APP] TOGGLE STARRED AD';
 export const TOGGLE_STARRED_ADS = '[ADS APP] TOGGLE STARRED ADS';
 export const SET_ADS_STARRED = '[ADS APP] SET ADS STARRED ';
 
-// export function getAds(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
-
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-ads',
-//     headers
-//   });
-// export const getAllCompanies = () => dispatch => {
-//   axios
-//     // .get(Base_URL+'get-all-companies')
-//     .get(Base_URL+'get-all-companies')
-//     .then(res => {
-//
-//       dispatch({
-//         type: GET_ALL_COMPANIES,
-//         payload: res.data
-//       });
-//     })
-//     .catch(err => {
-//
-//       //   dispatch({
-//       //     type: LOGIN_ERROR,
-//       //     payload: err.response.data
-//       //   });
-//     });
-// };
-export const getAds = () => dispatch => {
-    axios
-    // .get(Base_URL+'get-all-ads')
-        .get(Base_URL + 'get-all-ads')
-        .then(res => {
-            dispatch({
-                type: GET_ADS,
-                payload: res.data
-            });
-            // let data=JSON.parse(JSON.stringify(res.data))
-            for (let i = 0; i < res.data.length; i++) {
-                res.data[i].time_from = moment(res.data[i].time_from).format('YYYY-MM-DD hh:mm');
-                res.data[i].time_to = moment(res.data[i].time_to).format('YYYY-MM-DD hh:mm');
-            }
-        })
-        .then(() => dispatch(getAllSurveys()))
-        .catch(err => {
-            console.log('err', err);
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
-        });
+let selectedSearch= {
+    searchType:'Undefined',
+    fromSearch:'yyyy-mm-dd',
+    toSearch:'yyyy-mm-dd'
 };
+export function reset() {
+    selectedSearch.searchType='Undefined';
+    selectedSearch.fromSearch='yyyy-mm-dd';
+    selectedSearch.toSearch='yyyy-mm-dd';
+}
+export function getAds()  {
+    return (
+    getAdsPaginationData(0,20,'','')
+    );
+}
 export const addAds = newAd => dispatch => {
     newAd.time_from = new Date(newAd.time_from);
     newAd.time_to = new Date(newAd.time_to);
@@ -363,4 +322,57 @@ export function setAdsUnstarred(adIds) {
             ]).then(() => dispatch(getAds(routeParams)))
         );
     };
+}
+
+export const getAdsPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys;
+        if(selectedSearch.searchType!=='Undefined' || (selectedSearch.fromSearch!=='yyyy-mm-dd' && selectedSearch.fromSearch!=='') || (selectedSearch.toSearch!=='yyyy-mm-dd' && selectedSearch.toSearch!=='')){
+            if(selectedSearch.fromSearch==='yyyy-mm-dd'||selectedSearch.fromSearch===''){
+                selectedSearch.fromSearch=moment('1970-01-01').format('YYYY-MM-DD');
+            }
+            querys = 'get-all-ads-by-search-paging/' + selectedSearch.searchType + '/' + selectedSearch.fromSearch + '/' + selectedSearch.toSearch + '/' + page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+        } else {
+            querys = 'get-all-ads-by-paging/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+        }
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_ADS,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchAds(state) {
+
+    selectedSearch=state;
+
+    return (
+        getAdsPaginationData(0,20,'','')
+    );
 }

@@ -47,7 +47,9 @@ class WarrantyRegistrationsList extends Component {
             removeWarrantyRegistrations,
             removeWarrantyRegistration,
             setWarrantyRegistrationsUnstarred,
-            setWarrantyRegistrationsStarred
+            setWarrantyRegistrationsStarred,
+            getWarrantyRegistrationPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(warrantyRegistrations, searchText);
         const {selectedWarrantyRegistrationsMenu} = this.state;
@@ -151,14 +153,14 @@ class WarrantyRegistrationsList extends Component {
                         {
                             Header: 'Warranty Registration Form',
                             accessor: 'formName',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Company',
                             accessor: 'companyName',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
@@ -197,9 +199,21 @@ class WarrantyRegistrationsList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No Warranty Registration found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getWarrantyRegistrationPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -216,6 +230,7 @@ function mapDispatchToProps(dispatch) {
             openEditWarrantyRegistrationDialog: Actions.openEditWarrantyRegistrationDialog,
             removeWarrantyRegistrations: Actions.removeWarrantyRegistrations,
             removeWarrantyRegistration: Actions.removeWarrantyRegistration,
+            getWarrantyRegistrationPaginationData: Actions.getWarrantyRegistrationPaginationData,
             toggleStarredWarrantyRegistration: Actions.toggleStarredWarrantyRegistration,
             toggleStarredWarrantyRegistrations: Actions.toggleStarredWarrantyRegistrations,
             setWarrantyRegistrationsStarred: Actions.setWarrantyRegistrationsStarred,
@@ -228,6 +243,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({warrantyRegistrationApp}) {
     return {
         warrantyRegistrations: warrantyRegistrationApp.warrantyRegistration.entities,
+        totalPages: warrantyRegistrationApp.warrantyRegistration.pages,
         selectedWarrantyRegistrationIds: warrantyRegistrationApp.warrantyRegistration.selectedWarrantyRegistrationIds,
         searchText: warrantyRegistrationApp.warrantyRegistration.searchText,
         user: warrantyRegistrationApp.user

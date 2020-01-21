@@ -4,6 +4,9 @@ import {showMessage} from 'app/store/actions/fuse';
 // import moment from "moment";
 
 export const GET_WARRANTYREGISTER = '[WARRANTYREGISTER APP] GET WARRANTYREGISTER';
+export const GET_ALL_WARRANTYREGISTER_SKU_CODES = '[WARRANTYREGISTER APP] GET SKUCODES';
+export const GET_ALL_WARRANTYREGISTER_RETAILER_PHONE_NUMBERS = '[WARRANTYREGISTER APP] GET RETAILER PHONENUMBERS';
+export const GET_ALL_WARRANTYREGISTER_USER_PHONE_NUMBERS = '[WARRANTYREGISTER APP] GET USER PHONENUMBERS';
 export const REMOVE_WARRANTYREGISTER = '[WARRANTYREGISTER APP] REMOVE WARRANTYREGISTER';
 
 export const SET_SEARCH_TEXT = '[WARRANTYREGISTERS APP] SET SEARCH TEXT';
@@ -20,45 +23,69 @@ export const TOGGLE_STARRED_WARRANTYREGISTER = '[WARRANTYREGISTERS APP] TOGGLE S
 export const TOGGLE_STARRED_WARRANTYREGISTERS = '[WARRANTYREGISTERS APP] TOGGLE STARRED WARRANTYREGISTERS';
 export const SET_WARRANTYREGISTERS_STARRED = '[WARRANTYREGISTERS APP] SET WARRANTYREGISTERS STARRED ';
 
-// export function getWarrantyRegisters(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
-
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
-
-export const getWarrantyRegister = () => dispatch => {
-    let query;
-    if (localStorage.getItem('companyId')) {
-        let id = localStorage.getItem('companyId');
-        query = 'get-all-warranty-registrations-by-id/' + id;
-    } else {
-        query = 'get-all-warranty-registrations';
-    }
+let selectedSearch= {
+    userPhoneNumber:'Undefined',
+    searchDate:'yyyy-mm-dd',
+    retailerPhoneNumber:'Undefined',
+    skuCode:'Undefined'
+};
+export function reset() {
+    selectedSearch.userPhoneNumber='Undefined';
+    selectedSearch.searchDate='yyyy-mm-dd';
+    selectedSearch.retailerPhoneNumber='Undefined';
+    selectedSearch.skuCode='Undefined';
+}
+export const getAllWarrantyRegisterSKUCodes = () => dispatch => {
+    let query = 'get-all-warranty-register-sku-codes';
     axios
         .get(Base_URL + query)
         .then(res => {
+
             dispatch({
-                type: GET_WARRANTYREGISTER,
+                type: GET_ALL_WARRANTYREGISTER_SKU_CODES,
                 payload: res.data
             });
         })
         .catch(err => {
-            console.log('err', err);
-            dispatch(showMessage({message: err.response.data.error, variant: "error"}));
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
+
         });
 };
+export const getAllWarrantyRegisterRetailerPhoneNumbers = () => dispatch => {
+    let query = 'get-all-warranty-register-retailer-phone-numbers';
+    axios
+        .get(Base_URL + query)
+        .then(res => {
+
+            dispatch({
+                type: GET_ALL_WARRANTYREGISTER_RETAILER_PHONE_NUMBERS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+
+        });
+};
+export const getAllWarrantyRegisterUserPhoneNumbers = () => dispatch => {
+    let query = 'get-all-warranty-register-user-phone-numbers';
+    axios
+        .get(Base_URL + query)
+        .then(res => {
+
+            dispatch({
+                type: GET_ALL_WARRANTYREGISTER_USER_PHONE_NUMBERS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+
+        });
+};
+
+export function getWarrantyRegister() {
+    return (
+        getRegisteredWarrantyPaginationData(0,20,'','')
+    );
+}
 export const removeWarrantyRegister = id => dispatch => {
 
     axios
@@ -304,4 +331,74 @@ export function setWarrantyRegistersUnstarred(warrantyRegisterIds) {
             ]).then(() => dispatch(getWarrantyRegister(routeParams)))
         );
     };
+}
+
+export const getRegisteredWarrantyPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys;
+    if(selectedSearch.searchDate==='yyyy-mm-dd'||selectedSearch.searchDate===''){
+        selectedSearch.searchDate='Undefined';
+    }
+    if (localStorage.getItem('companyId')) {
+        let id = localStorage.getItem('companyId');
+        querys = 'get-all-warranty-registrations-by-search-paging/' + id+ '/'+ selectedSearch.retailerPhoneNumber + '/' + selectedSearch.userPhoneNumber + '/' + selectedSearch.skuCode + '/' + selectedSearch.searchDate +'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else {
+        querys = 'get-all-warranty-registrations-by-search-paging/Undefined/'+ selectedSearch.retailerPhoneNumber + '/' + selectedSearch.userPhoneNumber + '/' + selectedSearch.skuCode + '/' + selectedSearch.searchDate + '/' +page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    }
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_WARRANTYREGISTER,
+                payload: res.data.warrantyRegistration,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .then(() => dispatch(getAllWarrantyRegisterSKUCodes()))
+        .then(() => dispatch(getAllWarrantyRegisterRetailerPhoneNumbers()))
+        .then(() => dispatch(getAllWarrantyRegisterUserPhoneNumbers()))
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchWarrantyRegistration(state) {
+
+    if(state.retailerPhoneNumber===''){
+        state.retailerPhoneNumber='Undefined';
+    }
+    if(state.userPhoneNumber===''){
+        state.userPhoneNumber='Undefined';
+    }
+    if(state.skuCode===''){
+        state.skuCode='Undefined';
+    }
+    if(state.searchDate==='yyyy-mm-dd'||state.searchDate===''){
+        state.searchDate='Undefined';
+    }
+
+    selectedSearch=state;
+
+    return (
+        getRegisteredWarrantyPaginationData(0,20,'','')
+    );
 }

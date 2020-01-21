@@ -29,7 +29,9 @@ class LogsList extends Component {
     // };
 
     render() {
-        const {logs, searchText} = this.props;
+        const {logs, searchText ,
+            getLogsPaginationData,
+            totalPages} = this.props;
         const data = this.getFilteredArray(logs, searchText);
         // const {selectedLogsMenu} = this.state;
 
@@ -53,12 +55,12 @@ class LogsList extends Component {
                         };
                     }}
                     data={data}
-                    sorted={[
-                        {
-                            id: 'time',
-                            desc: true
-                        }
-                    ]}
+                    // sorted={[
+                    //     {
+                    //         id: 'time',
+                    //         desc: true
+                    //     }
+                    // ]}
                     columns={[
 
                         // {
@@ -128,14 +130,14 @@ class LogsList extends Component {
                         {
                             Header: 'Phone Number',
                             accessor: 'phoneNumber',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'SKU Code',
                             accessor: 'code',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
@@ -143,7 +145,7 @@ class LogsList extends Component {
                             Header: 'Status',
                             accessor: 'status',
                             width: 220,
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
@@ -187,9 +189,21 @@ class LogsList extends Component {
                         //   )
                         // }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No logs found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        // this.setState({loading: true});
+                        getLogsPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        // this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -204,6 +218,7 @@ function mapDispatchToProps(dispatch) {
             selectAllLogs: Actions.selectAllLogs,
             deSelectAllLogs: Actions.deSelectAllLogs,
             openEditLogDialog: Actions.openEditLogDialog,
+            getLogsPaginationData: Actions.getLogsPaginationData,
             toggleStarredLog: Actions.toggleStarredLog,
             toggleStarredLogs: Actions.toggleStarredLogs,
             setLogsStarred: Actions.setLogsStarred,
@@ -216,6 +231,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({logsApp}) {
     return {
         logs: logsApp.logs.entities,
+        totalPages: logsApp.logs.pages,
         selectedLogIds: logsApp.logs.selectedLogIds,
         searchText: logsApp.logs.searchText,
         user: logsApp.user

@@ -39,7 +39,8 @@ const warrantyRegistrationReducer = function (state = initialState, action) {
         case Actions.GET_WARRANTYREGISTRATION: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.ADD_WARRANTYREGISTRATION: {
@@ -71,6 +72,11 @@ const warrantyRegistrationReducer = function (state = initialState, action) {
                 ...state,
                 searchText: action.searchText
             };
+        }
+        case Actions.getWarrantyRegistrationPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.TOGGLE_IN_SELECTED_WARRANTYREGISTRATIONS: {
             const warrantyRegistrationId = action.warrantyRegistrationId;

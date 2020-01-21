@@ -1,8 +1,10 @@
 import axios from "axios";
 import {Base_URL} from "../../../../server";
 import {showMessage} from "app/store/actions/fuse";
+import moment from "moment";
 
 export const GET_NOTIFICATIONS = "[NOTIFICATIONS APP] GET NOTIFICATIONS";
+export const GET_ALL_DATE_HISTORY = '[APP USERS APP] GET DATE HISTORY';
 export const ADD_NOTIFICATION = "[NOTIFICATIONS APP] ADD NOTIFICATION";
 export const UPDATE_NOTIFICATION = "[NOTIFICATIONS APP] UPDATE NOTIFICATION";
 export const REMOVE_NOTIFICATION = "[NOTIFICATIONS APP] REMOVE NOTIFICATION";
@@ -31,37 +33,15 @@ export const TOGGLE_STARRED_NOTIFICATIONS =
 export const SET_NOTIFICATIONS_STARRED =
     "[NOTIFICATIONS APP] SET NOTIFICATIONS STARRED ";
 
-// export function getNotifications(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
-
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
-
-export const getNotifications = () => dispatch => {
-    axios
-    // .get(Base_URL+'get-all-notifications')
-        .get(Base_URL + "get-all-app-notifications")
-        .then(res => {
-            dispatch({
-                type: GET_NOTIFICATIONS,
-                payload: res.data
-            });
-        })
-        .catch(err => {
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
-        });
-};
+let selectedDate='Undefined';
+export function reset() {
+    selectedDate='Undefined';
+}
+export function getNotifications() {
+    return (
+        getNotificationsPaginationData(0,20,'','')
+    );
+}
 export const addNotification = newNotification => dispatch => {
     axios
     // .post(Base_URL+'create-notification', newNotification)
@@ -226,4 +206,53 @@ export function setNotificationsUnstarred(notificationIds) {
             ]).then(() => dispatch(getNotifications(routeParams)))
         );
     };
+}
+
+export const getNotificationsPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys = 'get-all-app-notifications-by-date-pagination/'+ selectedDate+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_NOTIFICATIONS,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchNotificationsByDate(selectedSearchDate) {
+
+    if(selectedSearchDate!==''){
+        var searchDate=moment(selectedSearchDate).format('YYYY-MM-DD');
+        selectedDate = searchDate;
+    } else {
+        selectedDate = 'Undefined';
+    }
+    return (
+        getNotificationsPaginationData(0,20,'','')
+    );
 }

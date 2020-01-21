@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component} from 'react';
 import {
     Avatar,
     Icon,
@@ -47,7 +47,9 @@ class BrandsList extends Component {
             removeBrands,
             removeBrand,
             setBrandsUnstarred,
-            setBrandsStarred
+            setBrandsStarred,
+            getBrandsPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(brands, searchText);
         const {selectedBrandsMenu} = this.state;
@@ -151,20 +153,21 @@ class BrandsList extends Component {
                         {
                             Header: 'Brand',
                             accessor: 'name',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Company',
                             accessor: 'companyName',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
 
                         {
                             Header: '',
+                            filterable: false,
                             width: 128,
                             Cell: row => (
                                 <div className="flex items-center justify-center">
@@ -184,9 +187,21 @@ class BrandsList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No brand found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getBrandsPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -203,6 +218,7 @@ function mapDispatchToProps(dispatch) {
             openEditBrandDialog: Actions.openEditBrandDialog,
             removeBrands: Actions.removeBrands,
             removeBrand: Actions.removeBrand,
+            getBrandsPaginationData: Actions.getBrandsPaginationData,
             toggleStarredBrand: Actions.toggleStarredBrand,
             toggleStarredBrands: Actions.toggleStarredBrands,
             setBrandsStarred: Actions.setBrandsStarred,
@@ -215,6 +231,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({brandsApp}) {
     return {
         brands: brandsApp.brands.entities,
+        totalPages: brandsApp.brands.pages,
         selectedBrandIds: brandsApp.brands.selectedBrandIds,
         searchText: brandsApp.brands.searchText,
         user: brandsApp.user

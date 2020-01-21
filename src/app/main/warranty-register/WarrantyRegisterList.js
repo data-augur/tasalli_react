@@ -47,7 +47,9 @@ class WarrantyRegistersList extends Component {
             removeWarrantyRegisters,
             removeWarrantyRegister,
             setWarrantyRegistersUnstarred,
-            setWarrantyRegistersStarred
+            setWarrantyRegistersStarred,
+            getRegisteredWarrantyPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(warrantyRegisters, searchText);
         const {selectedWarrantyRegistersMenu} = this.state;
@@ -151,35 +153,35 @@ class WarrantyRegistersList extends Component {
                         {
                             Header: 'SKU',
                             accessor: 'sku_code',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Product Code',
                             accessor: 'code',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'User Phone',
                             accessor: 'phoneNumber',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Retailer Phone',
                             accessor: 'retailerNumber',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Date',
                             accessor: 'date',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
@@ -204,9 +206,21 @@ class WarrantyRegistersList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No Warranty Register"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getRegisteredWarrantyPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -223,6 +237,7 @@ function mapDispatchToProps(dispatch) {
             openEditWarrantyRegisterDialog: Actions.openEditWarrantyRegisterDialog,
             removeWarrantyRegisters: Actions.removeWarrantyRegisters,
             removeWarrantyRegister: Actions.removeWarrantyRegister,
+            getRegisteredWarrantyPaginationData: Actions.getRegisteredWarrantyPaginationData,
             toggleStarredWarrantyRegister: Actions.toggleStarredWarrantyRegister,
             toggleStarredWarrantyRegisters: Actions.toggleStarredWarrantyRegisters,
             setWarrantyRegistersStarred: Actions.setWarrantyRegistersStarred,
@@ -235,6 +250,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({warrantyRegisterApp}) {
     return {
         warrantyRegisters: warrantyRegisterApp.warrantyRegister.entities,
+        totalPages: warrantyRegisterApp.warrantyRegister.pages,
         selectedWarrantyRegisterIds: warrantyRegisterApp.warrantyRegister.selectedWarrantyRegisterIds,
         searchText: warrantyRegisterApp.warrantyRegister.searchText,
         user: warrantyRegisterApp.user

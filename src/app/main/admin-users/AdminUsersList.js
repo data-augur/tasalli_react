@@ -40,7 +40,7 @@ class AdminsList extends Component {
     };
 
     render() {
-        const {admins, searchText, selectedAdminIds, openEditAdminDialog, removeAdmins, removeAdminUser, setAdminsUnstarred, setAdminsStarred} = this.props;
+        const {admins, searchText, selectedAdminIds, openEditAdminDialog, removeAdmins, removeAdminUser, setAdminsUnstarred, setAdminsStarred,getAdminsPaginationData, totalPages} = this.props;
         const data = this.getFilteredArray(admins, searchText);
         const {selectedAdminsMenu} = this.state;
 
@@ -166,9 +166,21 @@ class AdminsList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No AdminUser found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getAdminsPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -185,6 +197,7 @@ function mapDispatchToProps(dispatch) {
         openEditAdminDialog: Actions.openEditAdminDialog,
         removeAdmins: Actions.removeAdmins,
         removeAdminUser: Actions.removeAdminUser,
+        getAdminsPaginationData: Actions.getAdminsPaginationData,
         toggleStarredAdmin: Actions.toggleStarredAdmin,
         toggleStarredAdmins: Actions.toggleStarredAdmins,
         setAdminsStarred: Actions.setAdminsStarred,
@@ -195,6 +208,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({adminUserApp}) {
     return {
         admins: adminUserApp.adminUser.entities,
+        totalPages: adminUserApp.adminUser.pages,
         selectedAdminIds: adminUserApp.adminUser.selectedAdminIds,
         searchText: adminUserApp.adminUser.searchText,
         user: adminUserApp.user

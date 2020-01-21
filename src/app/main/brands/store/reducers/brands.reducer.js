@@ -5,6 +5,7 @@ import _ from '@lodash';
 const initialState = {
     entities: [],
     companies: [],
+    selectedCompanyId: '',
     searchText: '',
     selectedBrandIds: [],
     routeParams: {},
@@ -24,6 +25,7 @@ const brandReducer = function (state = initialState, action) {
                 ...state,
                 entities: [],
                 companies: [],
+                selectedCompanyId : '',
                 searchText: '',
                 selectedBrandIds: [],
                 routeParams: {},
@@ -39,7 +41,8 @@ const brandReducer = function (state = initialState, action) {
         case Actions.GET_BRANDS: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.ADD_BRAND: {
@@ -65,6 +68,11 @@ const brandReducer = function (state = initialState, action) {
                 ...state,
                 companies: action.payload
             };
+        }
+        case Actions.getBrandsPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.SET_SEARCH_TEXT: {
             return {

@@ -17,7 +17,7 @@ const styles = theme => ({
     addButton: {
         position: 'fixed',
         right: 12,
-        bottom: 12,
+        bottom: 52,
         zIndex: 99
     }
 });

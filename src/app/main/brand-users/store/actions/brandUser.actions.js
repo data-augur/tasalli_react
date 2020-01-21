@@ -22,6 +22,16 @@ export const TOGGLE_STARRED_BRANDUSER = '[BRANDUSERS APP] TOGGLE STARRED BRANDUS
 export const TOGGLE_STARRED_BRANDUSERS = '[BRANDUSERS APP] TOGGLE STARRED BRANDUSERS';
 export const SET_BRANDUSERS_STARRED = '[BRANDUSERS APP] SET BRANDUSERS STARRED ';
 
+let selectedSearch= {
+    brandId:'Undefined',
+    companyId:'Undefined',
+    jobTitle:'Undefined'
+};
+export function reset() {
+    selectedSearch.brandId='Undefined';
+    selectedSearch.companyId='Undefined';
+    selectedSearch.jobTitle='Undefined';
+}
 export const getAllCompanies = () => dispatch => {
     axios
         .get(Base_URL + 'get-all-companies')
@@ -52,22 +62,11 @@ export const getAllBrands = () => dispatch => {
         });
 };
 
-export const getBrandUsers = () => dispatch => {
-    axios
-        .get(Base_URL + 'get-all-brand-users')
-        .then(res => {
-
-            dispatch({
-                type: GET_BRAND_USERS,
-                payload: res.data
-            });
-        })
-        .then(() => dispatch(getAllCompanies()))
-        .then(() => dispatch(getAllBrands()))
-        .catch(err => {
-            console.log(err);
-        });
-};
+export function getBrandUsers () {
+    return (
+    getBrandUsersPaginationData(0,20,'','')
+    );
+}
 
 export const addBrandUser = newBrandUser => dispatch => {
 
@@ -279,4 +278,60 @@ export function setBrandUsersUnstarred(brandUserIds) {
             ]).then(() => dispatch(getBrandUsers(routeParams)))
         );
     };
+}
+
+export const getBrandUsersPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys = 'get-all-brand-users-by-search-pagination/'+ selectedSearch.companyId+'/'+ selectedSearch.brandId+'/'+ selectedSearch.jobTitle+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_BRAND_USERS,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .then(() => dispatch(getAllCompanies()))
+        .then(() => dispatch(getAllBrands()))
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchBrandUsers(state) {
+
+    if(state.companyId===''){
+        state.companyId='Undefined';
+    }
+    if(state.brandId===''){
+        state.brandId='Undefined';
+    }
+    if(state.jobTitle===''){
+        state.jobTitle='Undefined';
+    }
+    selectedSearch=state;
+
+    return (
+        getBrandUsersPaginationData(0,20,'','')
+    );
 }

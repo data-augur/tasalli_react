@@ -3,7 +3,7 @@ import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
 
 export const GET_ALL_APP_USERS = '[APP USERS APP] GET APPUSERS';
-
+export const GET_ALL_CITIES = '[APP USERS APP] GET CITIES';
 export const UPDATE_APP_USER = '[APP USERS APP] UPDATE APPUSER';
 export const REMOVE_APP_USER = '[APP USERS APP] REMOVE APPUSER';
 
@@ -27,38 +27,34 @@ export const TOGGLE_STARRED_APPUSER = '[APPUSERS APP] TOGGLE STARRED APPUSER';
 export const TOGGLE_STARRED_APPUSERS = '[APPUSERS APP] TOGGLE STARRED APPUSERS';
 export const SET_APPUSERS_STARRED = '[APPUSERS APP] SET APPUSERS STARRED ';
 
-// export function getAppusers(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
+let selectedSearch= {
+    city:'Undefined',
+    gender:'Undefined'
+};
+export function reset() {
+    selectedSearch.city='Undefined';
+    selectedSearch.gender='Undefined';
+}
+export const getAllCities = () => dispatch => {
+    let query = 'get-all-app-users-cities';
 
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
-export const getAllAppUsers = () => dispatch => {
     axios
-    // .get(Base_URL+'get-all-app-users')
-        .get(Base_URL + 'get-all-app-users')
+        .get(Base_URL + query)
         .then(res => {
-
             dispatch({
-                type: GET_ALL_APP_USERS,
+                type: GET_ALL_CITIES,
                 payload: res.data
             });
         })
         .catch(err => {
-            console.log('err', err);
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
+
         });
 };
+export function getAllAppUsers() {
+    return (
+    getAppUsersPaginationData(0,20,'','')
+    );
+}
 export const updateAppUser = (updateInfo, id) => dispatch => {
 
     axios
@@ -328,4 +324,56 @@ export function setAppusersUnstarred(appuserIds) {
             ]).then(() => dispatch(getAllAppUsers(routeParams)))
         );
     };
+}
+
+export const getAppUsersPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys = 'get-all-app-users-by-search-pagination/'+ selectedSearch.city+'/'+ selectedSearch.gender+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_ALL_APP_USERS,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .then(() => dispatch(getAllCities()))
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchAppUsers(search) {
+
+    if(search.city===''){
+        search.city='Undefined';
+    }
+    if(search.gender===''){
+        search.gender='Undefined';
+    }
+    selectedSearch=search;
+
+    return (
+        getAppUsersPaginationData(0,20,'','')
+    );
 }

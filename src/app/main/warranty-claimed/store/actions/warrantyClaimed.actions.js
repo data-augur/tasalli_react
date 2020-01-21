@@ -1,9 +1,11 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
-// import moment from "moment";
 
 export const GET_WARRANTYCLAIMED = '[GET_WARRANTYCLAIMED APP] GET GET_WARRANTYCLAIMED';
+export const GET_ALL_WARRANTYCLAIMED_SKU_CODES = '[WARRANTYCLAIMEDS APP] GET SKUCODES';
+export const GET_ALL_WARRANTYCLAIMED_CODES = '[WARRANTYCLAIMEDS APP] GET CODES';
+export const GET_ALL_WARRANTYCLAIMED_USER_PHONE_NUMBERS = '[WARRANTYCLAIMEDS APP] GET USER PHONENUMBERS';
 export const REMOVE_WARRANTYCLAIMED = '[GET_WARRANTYCLAIMED APP] REMOVE GET_WARRANTYCLAIMED';
 
 export const SET_SEARCH_TEXT = '[WARRANTYCLAIMEDS APP] SET SEARCH TEXT';
@@ -20,45 +22,69 @@ export const TOGGLE_STARRED_WARRANTYCLAIMED = '[WARRANTYCLAIMEDS APP] TOGGLE STA
 export const TOGGLE_STARRED_WARRANTYCLAIMEDS = '[WARRANTYCLAIMEDS APP] TOGGLE STARRED WARRANTYCLAIMEDS';
 export const SET_WARRANTYCLAIMEDS_STARRED = '[WARRANTYCLAIMEDS APP] SET WARRANTYCLAIMEDS STARRED ';
 
-// export function getWarrantyClaimeds(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
-
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
-
-export const getWarrantyClaimed = () => dispatch => {
-    let query;
-    if (localStorage.getItem('companyId')) {
-        let id = localStorage.getItem('companyId');
-        query = 'get-all-warranty-claimed-by-id/' + id;
-    } else {
-        query = 'get-all-warranty-claimed';
-    }
+let selectedSearch= {
+    userPhoneNumber:'Undefined',
+    searchDate:'yyyy-mm-dd',
+    searchCode:'Undefined',
+    skuCode:'Undefined'
+};
+export function reset() {
+    selectedSearch.userPhoneNumber='Undefined';
+    selectedSearch.searchDate='yyyy-mm-dd';
+    selectedSearch.searchCode='Undefined';
+    selectedSearch.skuCode='Undefined';
+}
+export const getAllWarrantyClaimedSKUCodes = () => dispatch => {
+    let query = 'get-all-warranty-claimed-sku-codes';
     axios
         .get(Base_URL + query)
         .then(res => {
+
             dispatch({
-                type: GET_WARRANTYCLAIMED,
+                type: GET_ALL_WARRANTYCLAIMED_SKU_CODES,
                 payload: res.data
             });
         })
         .catch(err => {
-            console.log('err', err);
-            dispatch(showMessage({message: err.response.data.error, variant: "error"}));
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
+
         });
 };
+export const getAllWarrantyClaimedCodes = () => dispatch => {
+    let query = 'get-all-warranty-claimed-codes';
+    axios
+        .get(Base_URL + query)
+        .then(res => {
+
+            dispatch({
+                type: GET_ALL_WARRANTYCLAIMED_CODES,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+
+        });
+};
+export const getAllWarrantyClaimedUserPhoneNumbers = () => dispatch => {
+    let query = 'get-all-warranty-claimed-user-phone-numbers';
+    axios
+        .get(Base_URL + query)
+        .then(res => {
+
+            dispatch({
+                type: GET_ALL_WARRANTYCLAIMED_USER_PHONE_NUMBERS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+
+        });
+};
+
+export function getWarrantyClaimed() {
+    return (
+        getClaimedWarrantyPaginationData(0,20,'','')
+    );
+}
 export const removeWarrantyClaimed = id => dispatch => {
 
     axios
@@ -304,4 +330,75 @@ export function setWarrantyClaimedsUnstarred(warrantyClaimedIds) {
             ]).then(() => dispatch(getWarrantyClaimed(routeParams)))
         );
     };
+}
+
+export const getClaimedWarrantyPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys;
+    if(selectedSearch.searchDate==='yyyy-mm-dd'||selectedSearch.searchDate===''){
+        selectedSearch.searchDate='Undefined';
+    }
+    if (localStorage.getItem('companyId')) {
+        let id = localStorage.getItem('companyId');
+        querys = 'get-all-warranty-claimed-by-search-paging/' + id+'/'+selectedSearch.searchCode+'/'+selectedSearch.userPhoneNumber + '/' + selectedSearch.skuCode + '/' + selectedSearch.searchDate +'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else {
+        querys = 'get-all-warranty-claimed-by-search-paging/Undefined/'+ selectedSearch.searchCode + '/'  + selectedSearch.userPhoneNumber + '/' + selectedSearch.skuCode + '/' + selectedSearch.searchDate + '/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    }
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+
+            dispatch({
+                type: GET_WARRANTYCLAIMED,
+                payload: res.data.warrantyClaimed,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .then(() => dispatch(getAllWarrantyClaimedSKUCodes()))
+        .then(() => dispatch(getAllWarrantyClaimedCodes()))
+        .then(() => dispatch(getAllWarrantyClaimedUserPhoneNumbers()))
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchWarrantyClaimed(state) {
+
+    if(state.searchCode===''){
+        state.searchCode='Undefined';
+    }
+    if(state.userPhoneNumber===''){
+        state.userPhoneNumber='Undefined';
+    }
+    if(state.skuCode===''){
+        state.skuCode='Undefined';
+    }
+    if(state.searchDate==='yyyy-mm-dd'||state.searchDate===''){
+        state.searchDate='Undefined';
+    }
+
+    selectedSearch=state;
+
+    return (
+        getClaimedWarrantyPaginationData(0,20,'','')
+    );
 }

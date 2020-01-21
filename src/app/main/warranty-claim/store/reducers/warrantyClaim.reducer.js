@@ -39,7 +39,8 @@ const warrantyClaimReducer = function (state = initialState, action) {
         case Actions.GET_WARRANTYCLAIM: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.ADD_WARRANTYCLAIM: {
@@ -59,6 +60,11 @@ const warrantyClaimReducer = function (state = initialState, action) {
                 ...state,
                 entities: _.keyBy(action.payload, 'id')
             };
+        }
+        case Actions.getWarrantyClaimPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.GET_ALL_COMPANIES: {
             return {

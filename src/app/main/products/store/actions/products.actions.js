@@ -30,7 +30,14 @@ export const TOGGLE_STARRED_PRODUCT = '[PRODUCTS APP] TOGGLE STARRED PRODUCT';
 export const TOGGLE_STARRED_PRODUCTS = '[PRODUCTS APP] TOGGLE STARRED PRODUCTS';
 export const SET_PRODUCTS_STARRED = '[PRODUCTS APP] SET PRODUCTS STARRED ';
 
-
+let selectedSearch= {
+    brandId:'Undefined',
+    companyId:'Undefined'
+};
+export function reset() {
+    selectedSearch.brandId='Undefined';
+    selectedSearch.companyId='Undefined';
+}
 export const getAllWarrantyRegistration = () => dispatch => {
     let query;
     if (localStorage.getItem('companyId')) {
@@ -109,33 +116,48 @@ export const getAllBrand = () => dispatch => {
         .catch(err => {
         });
 };
-export const getProducts = () => dispatch => {
-    let query;
-    if (localStorage.getItem('companyId')) {
-        let id = localStorage.getItem('companyId');
-        query = 'get-all-sku-by-id/' + id;
-    } else {
-        query = 'get-all-sku';
-    }
+export const getAllCompanies = () => dispatch => {
     axios
-    // .get(Base_URL+'get-all-brands')
-        .get(Base_URL + query)   //Admin products  /${email}
+        .get(Base_URL + 'get-all-companies')
         .then(res => {
 
             dispatch({
-                type: GET_PRODUCTS,
+                type: GET_ALL_COMPANIES,
                 payload: res.data
             });
         })
-        .then(() => dispatch(getAllWarrantyRegistration()))
-        .then(() => dispatch(getAllWarrantyCompletion()))
-        .then(() => dispatch(getAllWarrantyClaim()))
-        .then(() => dispatch(getAllBrand()))
         .catch(err => {
-            console.log('err', err);
-
+            console.log(err);
         });
 };
+export function getProducts()  {
+    return (
+        getProductsPaginationData(0,20,'','')
+    );
+    // let query;
+    // if (localStorage.getItem('companyId')) {
+    //     let id = localStorage.getItem('companyId');
+    //     query = 'get-all-sku-by-id/' + id;
+    // } else {
+    //     query = 'get-all-sku';
+    // }
+    // axios
+    //     .get(Base_URL + query)   //Admin products  /${email}
+    //     .then(res => {
+    //
+    //         dispatch({
+    //             type: GET_PRODUCTS,
+    //             payload: res.data
+    //         });
+    //     })
+    //     .then(() => dispatch(getAllWarrantyRegistration()))
+    //     .then(() => dispatch(getAllWarrantyCompletion()))
+    //     .then(() => dispatch(getAllWarrantyClaim()))
+    //     .then(() => dispatch(getAllBrand()))
+        // .catch(err => {
+        //
+        // });
+}
 export const addProduct = newProduct => dispatch => {
 
     axios
@@ -348,4 +370,66 @@ export function setProductsUnstarred(productIds) {
             ]).then(() => dispatch(getProducts(routeParams)))
         );
     };
+}
+
+export const getProductsPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys;
+    if (localStorage.getItem('companyId')) {
+        let id = localStorage.getItem('companyId');
+        querys = 'get-all-sku-by-search-pagination/' + id+'/'+selectedSearch.companyId+'/'+ selectedSearch.brandId+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else {
+        querys = 'get-all-sku-by-search-pagination/Undefined/'+ selectedSearch.companyId+'/'+ selectedSearch.brandId+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    }
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_PRODUCTS,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .then(() => dispatch(getAllWarrantyRegistration()))
+        .then(() => dispatch(getAllWarrantyCompletion()))
+        .then(() => dispatch(getAllWarrantyClaim()))
+        .then(() => dispatch(getAllBrand()))
+        .then(() => dispatch(getAllCompanies()))
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchProducts(state) {
+    if(state.companyId===''){
+        state.companyId='Undefined';
+    }
+    if(state.brandId===''){
+        state.brandId='Undefined';
+    }
+
+    selectedSearch=state;
+
+    return (
+        getProductsPaginationData(0,20,'','')
+    );
 }

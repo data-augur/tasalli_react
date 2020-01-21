@@ -39,25 +39,11 @@ export const SET_COMPANYS_STARRED = '[COMPANYS APP] SET COMPANYS STARRED ';
 //     headers
 //   });
 
-export const getCompanies = () => dispatch => {
-    axios
-    // .get(Base_URL+'get-all-companies')
-        .get(Base_URL + 'get-all-companies')
-        .then(res => {
-
-            dispatch({
-                type: GET_COMPANIES,
-                payload: res.data
-            });
-        })
-        .catch(err => {
-
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
-        });
-};
+export function getCompanies() {
+    return (
+    getCompaniesPaginationData(0,20,'','')
+    );
+}
 export const addCompany = newCompany => dispatch => {
 
     axios
@@ -346,3 +332,40 @@ export function setCompanysUnstarred(companyIds) {
         );
     };
 }
+
+export const getCompaniesPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys = 'get-all-companies-by-paging/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_COMPANIES,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .catch(err => {
+            console.log('err', err);
+        });
+};

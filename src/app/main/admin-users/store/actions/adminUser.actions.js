@@ -28,38 +28,15 @@ export const TOGGLE_STARRED_ADMIN = '[ADMINS APP] TOGGLE STARRED ADMIN';
 export const TOGGLE_STARRED_ADMINS = '[ADMINS APP] TOGGLE STARRED ADMINS';
 export const SET_ADMINS_STARRED = '[ADMINS APP] SET ADMINS STARRED ';
 
-// export function getAdmins(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
-
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
-export const getAllAdminUsers = () => dispatch => {
-    axios
-    // .get(Base_URL+'get-all-app-users')
-        .get(Base_URL + 'get-all-tasali-admins')
-        .then(res => {
-
-            dispatch({
-                type: GET_ALL_ADMIN_USERS,
-                payload: res.data
-            });
-        })
-        .catch(err => {
-            console.log('err', err);
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
-        });
-};
+let selectedRole='Undefined';
+export function reset() {
+    selectedRole='Undefined';
+}
+export function getAllAdminUsers(){
+    return (
+    getAdminsPaginationData(0,20,'','')
+    );
+}
 export const addAdminUser = newAdmin => dispatch => {
 
     axios
@@ -353,3 +330,54 @@ export function setAdminsUnstarred(adminIds) {
         );
     };
 }
+
+export const getAdminsPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+
+    let querys = 'get-all-admins-by-role-pagination/'+selectedRole+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_ALL_ADMIN_USERS,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchAdminsByRole (role) {
+
+    if(role===''){
+        selectedRole='Undefined';
+    } else {
+        selectedRole=role;
+    }
+    return (
+        getAdminsPaginationData(0,20,'','')
+    );
+
+};

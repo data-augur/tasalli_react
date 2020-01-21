@@ -47,7 +47,9 @@ class WarrantyClaimedsList extends Component {
             removeWarrantyClaimeds,
             removeWarrantyClaimed,
             setWarrantyClaimedsUnstarred,
-            setWarrantyClaimedsStarred
+            setWarrantyClaimedsStarred,
+            getClaimedWarrantyPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(warrantyClaimeds, searchText);
         const {selectedWarrantyClaimedsMenu} = this.state;
@@ -151,28 +153,28 @@ class WarrantyClaimedsList extends Component {
                         {
                             Header: 'SKU',
                             accessor: 'sku_code',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Code',
                             accessor: 'code',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'User Phone',
                             accessor: 'phoneNumber',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Date',
                             accessor: 'date',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
@@ -197,9 +199,21 @@ class WarrantyClaimedsList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No Warranty Claimed"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getClaimedWarrantyPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -216,6 +230,7 @@ function mapDispatchToProps(dispatch) {
             openEditWarrantyClaimedDialog: Actions.openEditWarrantyClaimedDialog,
             removeWarrantyClaimeds: Actions.removeWarrantyClaimeds,
             removeWarrantyClaimed: Actions.removeWarrantyClaimed,
+            getClaimedWarrantyPaginationData: Actions.getClaimedWarrantyPaginationData,
             toggleStarredWarrantyClaimed: Actions.toggleStarredWarrantyClaimed,
             toggleStarredWarrantyClaimeds: Actions.toggleStarredWarrantyClaimeds,
             setWarrantyClaimedsStarred: Actions.setWarrantyClaimedsStarred,
@@ -228,6 +243,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({warrantyClaimedApp}) {
     return {
         warrantyClaimeds: warrantyClaimedApp.warrantyClaimed.entities,
+        totalPages: warrantyClaimedApp.warrantyClaimed.pages,
         selectedWarrantyClaimedIds: warrantyClaimedApp.warrantyClaimed.selectedWarrantyClaimedIds,
         searchText: warrantyClaimedApp.warrantyClaimed.searchText,
         user: warrantyClaimedApp.user

@@ -40,7 +40,7 @@ class AppusersList extends Component {
     };
 
     render() {
-        const {appusers, searchText, selectedAppuserIds, openEditAppuserDialog, removeAppusers, removeAppUser, setAppusersUnstarred, setAppusersStarred} = this.props;
+        const {appusers, searchText, selectedAppuserIds, openEditAppuserDialog, removeAppusers, removeAppUser, setAppusersUnstarred, setAppusersStarred, getAppUsersPaginationData, totalPages} = this.props;
         const data = this.getFilteredArray(appusers, searchText);
         const {selectedAppusersMenu} = this.state;
 
@@ -194,9 +194,21 @@ class AppusersList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No BrandUser found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getAppUsersPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -213,6 +225,7 @@ function mapDispatchToProps(dispatch) {
         openEditAppuserDialog: Actions.openEditAppuserDialog,
         removeAppusers: Actions.removeAppusers,
         removeAppUser: Actions.removeAppUser,
+        getAppUsersPaginationData: Actions.getAppUsersPaginationData,
         toggleStarredAppuser: Actions.toggleStarredAppuser,
         toggleStarredAppusers: Actions.toggleStarredAppusers,
         setAppusersStarred: Actions.setAppusersStarred,
@@ -223,6 +236,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({appUserApp}) {
     return {
         appusers: appUserApp.appUser.entities,
+        totalPages: appUserApp.appUser.pages,
         selectedAppuserIds: appUserApp.appUser.selectedAppuserIds,
         searchText: appUserApp.appUser.searchText,
         user: appUserApp.user

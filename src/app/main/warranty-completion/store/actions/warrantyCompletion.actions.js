@@ -26,19 +26,11 @@ export const TOGGLE_STARRED_WARRANTYCOMPLETION = '[WARRANTYCOMPLETIONS APP] TOGG
 export const TOGGLE_STARRED_WARRANTYCOMPLETIONS = '[WARRANTYCOMPLETIONS APP] TOGGLE STARRED WARRANTYCOMPLETIONS';
 export const SET_WARRANTYCOMPLETIONS_STARRED = '[WARRANTYCOMPLETIONS APP] SET WARRANTYCOMPLETIONS STARRED ';
 
-// export function getWarrantyCompletions(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
+let selectedCompanyId='Undefined';
+export function reset() {
+    selectedCompanyId='Undefined';
+}
 
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
 export const getAllCompanies = () => dispatch => {
     let query;
     if (localStorage.getItem('companyId')) {
@@ -65,41 +57,11 @@ export const getAllCompanies = () => dispatch => {
             //   });
         });
 };
-export const getWarrantyCompletion = () => dispatch => {
-    let query;
-    if (localStorage.getItem('companyId')) {
-        let id = localStorage.getItem('companyId');
-        query = 'get-all-warranty-completion-forms-with-attributes-by-id/' + id;
-    } else {
-        query = 'get-all-warranty-completion-forms-with-attributes';
-    }
-    axios
-    // .get(Base_URL+'get-all-brands')
-        .get(Base_URL + query)   //Admin brands  /${email}
-        .then(res => {
-
-            for (let j = 0; j < res.data.length; j++) {
-                let attrs = [];
-                for (let i = 0; i < res.data[j].attributes.length; i++) {
-                    attrs.push(res.data[j].attributes[i].text);
-                }
-                res.data[j].attributes = attrs;
-            }
-
-            dispatch({
-                type: GET_WARRANTYCOMPLETION,
-                payload: res.data
-            });
-        })
-        .then(() => dispatch(getAllCompanies()))
-        .catch(err => {
-            console.log('err', err);
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
-        });
-};
+export function getWarrantyCompletion(){
+    return (
+        getWarrantyCompletionPaginationData(0,20,'','')
+    );
+}
 export const addWarrantyCompletion = newWarrantyCompletion => dispatch => {
     axios
     // .post(Base_URL+'create-brand', newWarrantyCompletion)
@@ -391,4 +353,61 @@ export function setWarrantyCompletionsUnstarred(warrantyCompletionIds) {
             ]).then(() => dispatch(getWarrantyCompletion(routeParams)))
         );
     };
+}
+
+export const getWarrantyCompletionPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys;
+    if (localStorage.getItem('companyId')) {
+        let id = localStorage.getItem('companyId');
+        querys = 'get-all-warranty-completion-forms-by-paging/' + id+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else if(selectedCompanyId !== 'Undefined'){
+        querys = 'get-all-warranty-completion-forms-by-paging/'+selectedCompanyId+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else {
+        querys = 'get-all-warranty-completion-forms-by-paging/Undefined/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    }
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+
+            dispatch({
+                type: GET_WARRANTYCOMPLETION,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .then(() => dispatch(getAllCompanies()))
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchWarrantyCompletionByCompany(companyId) {
+    if(companyId===''){
+        selectedCompanyId='Undefined';
+    } else {
+        selectedCompanyId=companyId
+    }
+    return (
+        getWarrantyCompletionPaginationData(0,20,'','')
+    );
 }

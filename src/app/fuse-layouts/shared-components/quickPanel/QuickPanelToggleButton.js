@@ -1,5 +1,5 @@
 import React from 'react';
-import {Icon, IconButton} from '@material-ui/core';
+// import {Icon, IconButton} from '@material-ui/core';
 import {bindActionCreators} from 'redux';
 import connect from 'react-redux/es/connect/connect';
 import * as quickPanelActions from './store/actions';

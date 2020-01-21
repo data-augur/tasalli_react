@@ -40,25 +40,12 @@ export const SET_SURVEYS_STARRED = '[SURVEYS APP] SET SURVEYS STARRED ';
 //     url: Base_URL+'get-all-brand-users',
 //     headers
 //   });
-export const getAllSurveys = () => dispatch => {
-    axios
-    // .get(Base_URL+'get-all-surveys')
-        .get(Base_URL + 'get-all-surveys')
-        .then(res => {
+export function getAllSurveys() {
 
-            dispatch({
-                type: GET_ALL_SURVEYS,
-                payload: res.data
-            });
-        })
-        .catch(err => {
-
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
-        });
-};
+    return (
+        getSurveysPaginationData(0,20,'','')
+    );
+}
 export const getSurveys = () => dispatch => {
     axios
     // .get(Base_URL+'get-all-brands')
@@ -377,3 +364,45 @@ export function setSurveysUnstarred(surveyIds) {
         );
     };
 }
+
+export const getSurveysPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys;
+    if (localStorage.getItem('companyId')) {
+        let id = localStorage.getItem('companyId');
+        querys = 'get-all-surveys-by-id-pagination/' + id+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else {
+        querys = 'get-all-surveys-by-paging/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    }
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_ALL_SURVEYS,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .catch(err => {
+            console.log('err', err);
+        });
+};

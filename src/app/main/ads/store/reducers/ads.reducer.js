@@ -39,7 +39,8 @@ const adsReducer = function (state = initialState, action) {
         case Actions.GET_ADS: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.ADD_ADS: {
@@ -71,6 +72,11 @@ const adsReducer = function (state = initialState, action) {
                 ...state,
                 searchText: action.searchText
             };
+        }
+        case Actions.getAdsPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.TOGGLE_IN_SELECTED_ADS: {
             const adId = action.adId;

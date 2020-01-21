@@ -8,6 +8,7 @@ const initialState = {
     completionForms: [],
     claimForms: [],
     brands: [],
+    companies: [],
     searchText: '',
     selectedProductIds: [],
     routeParams: {},
@@ -30,6 +31,7 @@ const productReducer = function (state = initialState, action) {
                 completionForms: [],
                 claimForms: [],
                 brands: [],
+                companies: [],
                 searchText: '',
                 selectedProductIds: [],
                 routeParams: {},
@@ -45,7 +47,8 @@ const productReducer = function (state = initialState, action) {
         case Actions.GET_PRODUCTS: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.ADD_PRODUCT: {
@@ -65,6 +68,11 @@ const productReducer = function (state = initialState, action) {
                 ...state,
                 entities: _.keyBy(action.payload, 'id')
             };
+        }
+        case Actions.getProductsPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.GET_ALL_WARRANTY_REGISTRATION_FORM: {
             return {
@@ -88,6 +96,12 @@ const productReducer = function (state = initialState, action) {
             return {
                 ...state,
                 brands: action.payload
+            };
+        }
+        case Actions.GET_ALL_COMPANIES: {
+            return {
+                ...state,
+                companies: action.payload
             };
         }
         case Actions.SET_SEARCH_TEXT: {

@@ -1,13 +1,16 @@
 import React, {Component} from 'react';
-import {Button, Hidden, Icon, IconButton, Input, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
+import {Button, Icon, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
 import {FuseAnimate, FuseUtils} from '@fuse';
 import CsvDownloader from 'react-csv-downloader';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from './store/actions';
+import _ from '@lodash';
 
 class AdminsHeader extends Component {
-
+    state = {
+        role:''
+    };
     getFilteredArray = (entities, searchText) => {
         const arr = Object.keys(entities).map((id) => entities[id]);
         if (searchText.length === 0) {
@@ -17,7 +20,7 @@ class AdminsHeader extends Component {
     };
 
     render() {
-        const {admins, setSearchText, searchText, pageLayout, mainTheme} = this.props;
+        const {admins, searchText, mainTheme, searchAdminsByRole} = this.props;
         const datas = this.getFilteredArray(admins, searchText);
         const columns = [
             {
@@ -45,31 +48,40 @@ class AdminsHeader extends Component {
                     </div>
                 </div>
 
-                <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
+                <div className="d-flex flex-column flex-1 items-center justify-center pr-8 sm:px-12">
+                    <label>Select Role</label>
                     <MuiThemeProvider theme={mainTheme}>
                         <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                             <Paper
                                 className="flex p-4 items-center w-full max-w-512 px-8 py-4"
                                 elevation={1}
                             >
-                                <Icon className="mr-8" color="action">
-                                    search
-                                </Icon>
-
-                                <Input
-                                    placeholder="Search for anything"
-                                    className="flex flex-1"
-                                    disableUnderline
-                                    fullWidth
-                                    value={searchText}
-                                    inputProps={{
-                                        'aria-label': 'Search'
-                                    }}
-                                    onChange={setSearchText}
-                                />
+                                <select
+                                    style={{width:'100%'}}
+                                    onChange={this.handleChange}
+                                    value={this.state.role}
+                                    id="role"
+                                    name="role"
+                                >
+                                    <option value="">All</option>
+                                    <option value="superAdmin">Super Admin</option>
+                                    <option value="tasaliAdmin">Tasali Admin</option>
+                                </select>
                             </Paper>
                         </FuseAnimate>
                     </MuiThemeProvider>
+                    <div className="flex flex-1 items-center float-right justify-center pr-8 sm:px-12">
+                        <Button
+                            style={{marginTop:5}}
+                            variant="contained"
+                            color="secondary"
+                            onClick={() => {
+                                searchAdminsByRole(this.state.role);
+                            }}
+                        >
+                            Apply
+                        </Button>
+                    </div>
                 </div>
 
                 {datas && datas.length > 0 ?
@@ -88,12 +100,25 @@ class AdminsHeader extends Component {
             </div>
         );
     }
+    handleChange = event => {
+        this.setState(
+            _.set(
+                {...this.state},
+                event.target.name,
+                event.target.type === 'checkbox'
+                    ? event.target.checked
+                    : event.target.value
+            )
+        );
+    };
 }
 
 function mapDispatchToProps(dispatch) {
+    Actions.reset();
     return bindActionCreators(
         {
-            setSearchText: Actions.setSearchText
+            setSearchText: Actions.setSearchText,
+            searchAdminsByRole: Actions.searchAdminsByRole
         },
         dispatch
     );

@@ -26,7 +26,11 @@ export const TOGGLE_STARRED_BRAND = '[BRANDS APP] TOGGLE STARRED BRANDS';
 export const TOGGLE_STARRED_BRANDS = '[BRANDS APP] TOGGLE STARRED BRANDS';
 export const SET_BRANDS_STARRED = '[BRANDS APP] SET BRANDS STARRED ';
 
+let selectedCompanyId='Undefined';
 
+export function reset() {
+    selectedCompanyId='Undefined';
+}
 export const getAllCompanies = () => dispatch => {
     let query;
     if (localStorage.getItem('companyId')) {
@@ -49,29 +53,12 @@ export const getAllCompanies = () => dispatch => {
 
         });
 };
-export const getBrands = () => dispatch => {
-    let query;
-    if (localStorage.getItem('companyId')) {
-        let id = localStorage.getItem('companyId');
-        query = 'get-all-brands-by-id/' + id;
-    } else {
-        query = 'get-all-brands';
-    }
-    axios
-        .get(Base_URL + query)
-        .then(res => {
+export function getBrands() {
 
-            dispatch({
-                type: GET_BRANDS,
-                payload: res.data
-            });
-        })
-        .then(() => dispatch(getAllCompanies()))
-        .catch(err => {
-            console.log('err', err);
-
-        });
-};
+    return (
+    getBrandsPaginationData(0,20,'','')
+    );
+}
 export const addBrand = newBrand => dispatch => {
 
     axios
@@ -286,4 +273,62 @@ export function setBrandsUnstarred(brandIds) {
             ]).then(() => dispatch(getBrands(routeParams)))
         );
     };
+}
+
+export const getBrandsPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys;
+    if (localStorage.getItem('companyId')) {
+        let id = localStorage.getItem('companyId');
+        querys = 'get-all-brands-by-id-pagination/' + id+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else if(selectedCompanyId !== 'Undefined'){
+        querys = 'get-all-brands-by-id-pagination/' + selectedCompanyId+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else {
+        querys = 'get-all-brands-by-paging/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    }
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_BRANDS,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .then(() => dispatch(getAllCompanies()))
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchBrandsByCompany(companyId) {
+
+    if(companyId===''){
+        selectedCompanyId='Undefined';
+    } else {
+        selectedCompanyId=companyId
+    }
+        return (
+            getBrandsPaginationData(0,20,'','')
+        );
 }

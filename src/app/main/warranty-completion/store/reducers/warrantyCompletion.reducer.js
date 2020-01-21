@@ -39,7 +39,8 @@ const warrantyCompletionReducer = function (state = initialState, action) {
         case Actions.GET_WARRANTYCOMPLETION: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.ADD_WARRANTYCOMPLETION: {
@@ -59,6 +60,11 @@ const warrantyCompletionReducer = function (state = initialState, action) {
                 ...state,
                 entities: _.keyBy(action.payload, 'id')
             };
+        }
+        case Actions.getWarrantyCompletionPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.GET_ALL_COMPANIES: {
             return {

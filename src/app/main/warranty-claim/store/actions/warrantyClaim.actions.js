@@ -26,19 +26,10 @@ export const TOGGLE_STARRED_WARRANTYCLAIM = '[WARRANTYCLAIMS APP] TOGGLE STARRED
 export const TOGGLE_STARRED_WARRANTYCLAIMS = '[WARRANTYCLAIMS APP] TOGGLE STARRED WARRANTYCLAIMS';
 export const SET_WARRANTYCLAIMS_STARRED = '[WARRANTYCLAIMS APP] SET WARRANTYCLAIMS STARRED ';
 
-// export function getWarrantyClaims(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
-
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
+let selectedCompanyId='Undefined';
+export function reset() {
+    selectedCompanyId='Undefined';
+}
 export const getAllCompanies = () => dispatch => {
     let query;
     if (localStorage.getItem('companyId')) {
@@ -65,33 +56,11 @@ export const getAllCompanies = () => dispatch => {
             //   });
         });
 };
-export const getWarrantyClaim = () => dispatch => {
-    let query;
-    if (localStorage.getItem('companyId')) {
-        let id = localStorage.getItem('companyId');
-        query = 'get-all-warranty-claim-forms-by-id/' + id;
-    } else {
-        query = 'get-all-warranty-claim-forms';
-    }
-    axios
-    // .get(Base_URL+'get-all-brands')
-        .get(Base_URL + query)   //Admin brands  /${email}
-        .then(res => {
-
-            dispatch({
-                type: GET_WARRANTYCLAIM,
-                payload: res.data
-            });
-        })
-        .then(() => dispatch(getAllCompanies()))
-        .catch(err => {
-            console.log('err', err);
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
-        });
-};
+export function getWarrantyClaim() {
+    return (
+        getWarrantyClaimPaginationData(0,20,'','')
+    );
+}
 export const addWarrantyClaim = newWarrantyClaim => dispatch => {
 
     axios
@@ -384,4 +353,61 @@ export function setWarrantyClaimsUnstarred(warrantyClaimIds) {
             ]).then(() => dispatch(getWarrantyClaim(routeParams)))
         );
     };
+}
+
+export const getWarrantyClaimPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys;
+    if (localStorage.getItem('companyId')) {
+        let id = localStorage.getItem('companyId');
+        querys = 'get-all-warranty-claim-forms-by-paging/' + id+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else if(selectedCompanyId !== 'Undefined'){
+        querys = 'get-all-warranty-claim-forms-by-paging/'+selectedCompanyId+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else {
+        querys = 'get-all-warranty-claim-forms-by-paging/Undefined/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    }
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_WARRANTYCLAIM,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .then(() => dispatch(getAllCompanies()))
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchWarrantyClaimByCompany(companyId) {
+
+    if(companyId===''){
+        selectedCompanyId='Undefined';
+    } else {
+        selectedCompanyId=companyId
+    }
+    return (
+        getWarrantyClaimPaginationData(0,20,'','')
+    );
 }

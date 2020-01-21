@@ -37,7 +37,8 @@ const adminUserReducer = function (state = initialState, action) {
         case Actions.GET_ALL_ADMIN_USERS: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.UPDATE_ADMIN_USER: {
@@ -51,6 +52,11 @@ const adminUserReducer = function (state = initialState, action) {
                 ...state,
                 entities: _.keyBy(action.payload, 'id')
             };
+        }
+        case Actions.getAdminsPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.SET_SEARCH_TEXT: {
             return {

@@ -40,7 +40,8 @@ const brandUserReducer = function (state = initialState, action) {
         case Actions.GET_BRAND_USERS: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.ADD_BRAND_USER: {
@@ -78,6 +79,11 @@ const brandUserReducer = function (state = initialState, action) {
                 ...state,
                 searchText: action.searchText
             };
+        }
+        case Actions.getBrandUsersPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.TOGGLE_IN_SELECTED_BRANDUSERS: {
             const brandUserId = action.brandUserId;

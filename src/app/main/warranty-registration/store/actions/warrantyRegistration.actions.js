@@ -26,19 +26,10 @@ export const TOGGLE_STARRED_WARRANTYREGISTRATION = '[WARRANTYREGISTRATIONS APP] 
 export const TOGGLE_STARRED_WARRANTYREGISTRATIONS = '[WARRANTYREGISTRATIONS APP] TOGGLE STARRED WARRANTYREGISTRATIONS';
 export const SET_WARRANTYREGISTRATIONS_STARRED = '[WARRANTYREGISTRATIONS APP] SET WARRANTYREGISTRATIONS STARRED ';
 
-// export function getWarrantyRegistrations(routeParams) {
-//   const token = localStorage.getItem('jwtToken');
-
-//   const headers = {
-//     'Content-Type': 'application/x-www-form-urlencoded',
-//     Authorization: token
-//   };
-
-//   const request = axios({
-//     method: 'get',
-//     url: Base_URL+'get-all-brand-users',
-//     headers
-//   });
+let selectedCompanyId='Undefined';
+export function reset() {
+    selectedCompanyId='Undefined';
+}
 export const getAllCompanies = () => dispatch => {
     let query;
     if (localStorage.getItem('companyId')) {
@@ -65,34 +56,11 @@ export const getAllCompanies = () => dispatch => {
             //   });
         });
 };
-export const getWarrantyRegistration = () => dispatch => {
-    let query;
-    if (localStorage.getItem('companyId')) {
-        let id = localStorage.getItem('companyId');
-        query = 'get-all-warranty-registration-forms-by-id/' + id;
-    } else {
-        query = 'get-all-warranty-registration-forms';
-    }
-    axios
-    // .get(Base_URL+'get-all-brands')
-        .get(Base_URL + query)   //Admin brands  /${email}
-        .then(res => {
-
-            dispatch({
-                type: GET_WARRANTYREGISTRATION,
-                payload: res.data
-            });
-        })
-        .then(() => dispatch(getAllCompanies()))
-        .catch(err => {
-            console.log('err', err);
-            dispatch(showMessage({message: err.response.data.error, variant: "error"}));
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
-        });
-};
+export function getWarrantyRegistration()  {
+    return (
+        getWarrantyRegistrationPaginationData(0,20,'','')
+    )
+}
 export const addWarrantyRegistration = newWarrantyRegistration => dispatch => {
 
     axios
@@ -386,4 +354,61 @@ export function setWarrantyRegistrationsUnstarred(warrantyRegistrationIds) {
             ]).then(() => dispatch(getWarrantyRegistration(routeParams)))
         );
     };
+}
+
+export const getWarrantyRegistrationPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+    if(isNaN(pageSize)|| pageSize===-1){
+        pageSize='All';
+        page=0;
+        sorted=[];
+    }
+    let sortingName;
+    let sortingOrder;
+    if(sorted.length===0 || sorted===''){
+        sortingName='Undefined';
+        sortingOrder='Undefined';
+    } else {
+        if(sorted[0].desc){
+            sortingName = sorted[0].id;
+            sortingOrder= 'DESC';
+        } else {
+            sortingName = sorted[0].id;
+            sortingOrder= 'ASC';
+        }
+    }
+    let querys;
+    if (localStorage.getItem('companyId')) {
+        let id = localStorage.getItem('companyId');
+        querys = 'get-all-warranty-registration-forms-by-paging/'+id+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else if(selectedCompanyId !== 'Undefined'){
+        querys = 'get-all-warranty-registration-forms-by-paging/'+selectedCompanyId+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    } else {
+        querys = 'get-all-warranty-registration-forms-by-paging/Undefined/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    }
+    axios
+        .get(Base_URL + querys)
+        .then(res => {
+            dispatch({
+                type: GET_WARRANTYREGISTRATION,
+                payload: res.data.records,
+                pages: res.data.pages
+            });
+            return({});
+        })
+        .then(() => dispatch(getAllCompanies()))
+        .catch(err => {
+            console.log('err', err);
+        });
+};
+
+export function searchWarrantyRegistrationByCompany(companyId) {
+
+    if(companyId===''){
+        selectedCompanyId='Undefined';
+    } else {
+        selectedCompanyId=companyId
+    }
+    return (
+        getWarrantyRegistrationPaginationData(0,20,'','')
+    );
 }

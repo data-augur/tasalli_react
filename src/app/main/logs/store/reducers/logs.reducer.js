@@ -4,7 +4,8 @@ import _ from '@lodash';
 
 const initialState = {
     entities: [],
-    companies: [],
+    skuCodes: [],
+    phoneNumbers: [],
     searchText: '',
     selectedLogIds: [],
     routeParams: {},
@@ -23,7 +24,8 @@ const logsReducer = function (state = initialState, action) {
             return {
                 ...state,
                 entities: [],
-                companies: [],
+                skuCodes: [],
+                phoneNumbers: [],
                 searchText: '',
                 selectedLogIds: [],
                 routeParams: {},
@@ -39,7 +41,25 @@ const logsReducer = function (state = initialState, action) {
         case Actions.GET_LOGS: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
+            };
+        }
+        case Actions.getLogsPaginationData: {
+            return {
+                ...state
+            }
+        }
+        case Actions.GET_ALL_LOGS_SKU_CODES: {
+            return {
+                ...state,
+                skuCodes: action.payload
+            };
+        }
+        case Actions.GET_ALL_LOGS_PHONE_NUMBERS: {
+            return {
+                ...state,
+                phoneNumbers: action.payload
             };
         }
         // case Actions.ADD_BRAND: {

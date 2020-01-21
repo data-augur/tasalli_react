@@ -4,6 +4,7 @@ import * as authActions from '../../../../auth/store/actions';
 
 const initialState = {
     entities: [],
+    cities: [],
     searchText: '',
     selectedAppuserIds: [],
     routeParams: {},
@@ -22,6 +23,7 @@ const appUserReducer = function (state = initialState, action) {
             return {
                 ...state,
                 entities: [],
+                cities: [],
                 searchText: '',
                 selectedAppuserIds: [],
                 routeParams: {},
@@ -37,7 +39,8 @@ const appUserReducer = function (state = initialState, action) {
         case Actions.GET_ALL_APP_USERS: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.UPDATE_APP_USER: {
@@ -57,6 +60,17 @@ const appUserReducer = function (state = initialState, action) {
                 ...state,
                 searchText: action.searchText
             };
+        }
+        case Actions.GET_ALL_CITIES: {
+            return {
+                ...state,
+                cities: action.payload
+            };
+        }
+        case Actions.getAppUsersPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.TOGGLE_IN_SELECTED_APPUSERS: {
             const appuserId = action.appuserId;

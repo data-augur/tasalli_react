@@ -1,13 +1,20 @@
 import React, {Component} from 'react';
-import {Hidden, Icon, IconButton, Input, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
+import {Button, Icon, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
 import {FuseAnimate} from '@fuse';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from './store/actions';
+import _ from '@lodash';
+import TextField from '@material-ui/core/TextField';
 
 class AdsHeader extends Component {
+    state = {
+        searchType:'',
+        fromSearch:"yyyy-mm-dd",
+        toSearch:"yyyy-mm-dd"
+    };
     render() {
-        const {setSearchText, searchText, pageLayout, mainTheme} = this.props;
+        const { searchAds, mainTheme} = this.props;
 
         return (
             <div className="flex flex-1 items-center justify-between p-8 sm:p-24">
@@ -24,41 +31,110 @@ class AdsHeader extends Component {
                     </div>
                 </div>
 
-                <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
-                    <MuiThemeProvider theme={mainTheme}>
-                        <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                            <Paper
-                                className="flex p-4 items-center w-full max-w-512 px-8 py-4"
-                                elevation={1}
-                            >
-                                <Icon className="mr-8" color="action">
-                                    search
-                                </Icon>
+                <div className="d-flex flex-column flex-1 items-center justify-center pr-6 sm:px-4">
+                    <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
+                        <div className="d-flex flex-column flex-1 items-center justify-center pr-6 sm:px-4">
+                            <label>Select Type</label>
+                            <MuiThemeProvider theme={mainTheme}>
+                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                    <Paper
+                                        className="flex p-4 items-center w-full max-w-512 px-8 py-4"
+                                        elevation={1}
+                                    >
+                                        <select
+                                            style={{width:'100%'}}
+                                            onChange={this.handleChange}
+                                            value={this.state.searchType}
+                                            id="searchType"
+                                            name="searchType"
+                                        >
+                                            <option value="">All</option>
+                                            <option value='video'> Video </option>
+                                            <option value='survey'> Survey </option>
+                                        </select>
+                                    </Paper>
+                                </FuseAnimate>
+                            </MuiThemeProvider>
+                        </div>
+                        <div className="d-flex flex-column flex-0 items-center justify-center pr-6 sm:px-4">
+                            <label>Select From Date</label>
+                            <MuiThemeProvider theme={mainTheme}>
+                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                    <Paper
+                                        className="flex p-4 items-center w-full max-w-512 px-8 py-4"
+                                        elevation={1}
+                                    >
 
-                                <Input
-                                    placeholder="Search for anything"
-                                    className="flex flex-1"
-                                    disableUnderline
-                                    fullWidth
-                                    value={searchText}
-                                    inputProps={{
-                                        'aria-label': 'Search'
-                                    }}
-                                    onChange={setSearchText}
-                                />
-                            </Paper>
-                        </FuseAnimate>
-                    </MuiThemeProvider>
+                                        <TextField
+                                            type="date"
+                                            // defaultValue={this.state.searchDate}
+                                            id="fromSearch"
+                                            name="fromSearch"
+                                            onChange={this.handleChange}
+                                            // disableUnderline={false}
+                                        />
+
+                                    </Paper>
+                                </FuseAnimate>
+                            </MuiThemeProvider>
+                        </div>
+                        <div className="d-flex flex-column flex-0 items-center justify-center pr-6 sm:px-4">
+                        <label>Select To Date</label>
+                            <MuiThemeProvider theme={mainTheme}>
+                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                    <Paper
+                                        className="flex p-4 items-center w-full max-w-512 px-8 py-4"
+                                        elevation={1}
+                                    >
+                                        <TextField
+                                            type="date"
+                                            // defaultValue={this.state.searchDate}
+                                            id="toSearch"
+                                            name="toSearch"
+                                            onChange={this.handleChange}
+                                            // disableUnderline={false}
+                                        />
+                                    </Paper>
+                                </FuseAnimate>
+                            </MuiThemeProvider>
+                        </div>
+                    </div>
+                    <div className="flex flex-1 items-center float-right justify-center pr-8 sm:px-12">
+                        <Button
+                            style={{marginTop:5}}
+                            variant="contained"
+                            color="secondary"
+                            onClick={() => {
+                                searchAds(this.state);
+                            }}
+                        >
+                            Apply
+                        </Button>
+                    </div>
                 </div>
             </div>
         );
     }
+
+    handleChange = event => {
+        this.setState(
+            _.set(
+                {...this.state},
+                event.target.name,
+                event.target.type === 'checkbox'
+                    ? event.target.checked
+                    : event.target.value
+            )
+        );
+    };
 }
 
 function mapDispatchToProps(dispatch) {
+    Actions.reset();
     return bindActionCreators(
         {
-            setSearchText: Actions.setSearchText
+            setSearchText: Actions.setSearchText,
+            searchAds: Actions.searchAds
         },
         dispatch
     );

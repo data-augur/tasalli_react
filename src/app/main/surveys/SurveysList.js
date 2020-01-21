@@ -47,7 +47,9 @@ class SurveysList extends Component {
             removeSurveys,
             removeSurvey,
             setSurveysUnstarred,
-            setSurveysStarred
+            setSurveysStarred,
+            getSurveysPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(surveys, searchText);
         const {selectedSurveysMenu} = this.state;
@@ -159,7 +161,7 @@ class SurveysList extends Component {
                         {
                             Header: 'Survey Name',
                             accessor: 'name',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold',
                             // className: "justify-center",
                         },
@@ -198,9 +200,21 @@ class SurveysList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No survey found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getSurveysPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -217,6 +231,7 @@ function mapDispatchToProps(dispatch) {
             openEditSurveyDialog: Actions.openEditSurveyDialog,
             removeSurveys: Actions.removeSurveys,
             removeSurvey: Actions.removeSurvey,
+            getSurveysPaginationData: Actions.getSurveysPaginationData,
             toggleStarredSurvey: Actions.toggleStarredSurvey,
             toggleStarredSurveys: Actions.toggleStarredSurveys,
             setSurveysStarred: Actions.setSurveysStarred,
@@ -230,6 +245,7 @@ function mapStateToProps({surveysApp}) {
     return {
         surveys: surveysApp.surveys.entities,
         selectedSurveyIds: surveysApp.surveys.selectedSurveyIds,
+        totalPages: surveysApp.surveys.pages,
         searchText: surveysApp.surveys.searchText,
         user: surveysApp.user
     };

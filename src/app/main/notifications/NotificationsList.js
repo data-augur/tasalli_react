@@ -49,7 +49,9 @@ class NotificationsList extends Component {
             removeNotifications,
             // removeNotification,
             setNotificationsUnstarred,
-            setNotificationsStarred
+            setNotificationsStarred,
+            getNotificationPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(notifications, searchText);
         const {selectedNotificationsMenu} = this.state;
@@ -154,39 +156,51 @@ class NotificationsList extends Component {
                         {
                             Header: "Title",
                             accessor: "title",
-                            filterable: true,
+                            filterable: false,
                             className: "font-bold"
                             // className: "justify-center",
                         },
                         {
-                            id: "sendDate",
+                            id: "send_date",
                             Header: "Send Date",
                             accessor: d => {
                                 return moment(d.send_date)
                                     .local()
                                     .format("DD-MM-YYYY hh:mm:ss a")
                             },
-                            filterable: true,
+                            filterable: false,
                             className: "font-bold justify-center"
                             // className: "justify-center",
                         },
                         {
                             Header: "Sender",
                             accessor: "sender",
-                            filterable: true,
+                            filterable: false,
                             className: "font-bold justify-center"
                             // className: "justify-center",
                         },
                     ]}
                     defaultSorted={[
                         {
-                            id: "sendDate",
+                            id: "send_Date",
                             desc: true
                         }
                     ]}
                     defaultPageSize={20}
                     resizable={false}
                     noDataText="No notification found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getNotificationPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -201,6 +215,7 @@ function mapDispatchToProps(dispatch) {
             selectAllNotifications: Actions.selectAllNotifications,
             deSelectAllNotifications: Actions.deSelectAllNotifications,
             openEditNotificationDialog: Actions.openEditNotificationDialog,
+            getNotificationPaginationData: Actions.getNotificationsPaginationData,
             toggleStarredNotification: Actions.toggleStarredNotification,
             toggleStarredNotifications: Actions.toggleStarredNotifications,
             setNotificationsStarred: Actions.setNotificationsStarred,
@@ -213,6 +228,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({notificationsApp}) {
     return {
         notifications: notificationsApp.notifications.entities,
+        totalPages: notificationsApp.notifications.pages,
         selectedNotificationIds:
         notificationsApp.notifications.selectedNotificationIds,
         searchText: notificationsApp.notifications.searchText,

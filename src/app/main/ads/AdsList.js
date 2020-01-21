@@ -48,7 +48,9 @@ class AdsList extends Component {
             removeAds,
             // removeAds,
             setAdsUnstarred,
-            setAdsStarred
+            setAdsStarred,
+            getAdsPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(ads, searchText);
         const {selectedAdsMenu} = this.state;
@@ -152,7 +154,7 @@ class AdsList extends Component {
                         {
                             Header: 'Type',
                             accessor: 'type',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
@@ -198,9 +200,21 @@ class AdsList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No ads found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getAdsPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -217,6 +231,7 @@ function mapDispatchToProps(dispatch) {
             openEditAdDialog: Actions.openEditAdDialog,
             removeAds: Actions.removeAds,
             // removeAds: Actions.removeAds,
+            getAdsPaginationData: Actions.getAdsPaginationData,
             toggleStarredAd: Actions.toggleStarredAd,
             toggleStarredAds: Actions.toggleStarredAds,
             setAdsStarred: Actions.setAdsStarred,
@@ -230,6 +245,7 @@ function mapStateToProps({adsApp}) {
     return {
         ads: adsApp.ads.entities,
         selectedAdIds: adsApp.ads.selectedAdIds,
+        totalPages: adsApp.ads.pages,
         searchText: adsApp.ads.searchText,
         user: adsApp.user
     };

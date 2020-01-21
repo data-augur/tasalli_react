@@ -37,7 +37,8 @@ const companiesReducer = function (state = initialState, action) {
         case Actions.GET_COMPANIES: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.ADD_COMPANY: {
@@ -63,6 +64,11 @@ const companiesReducer = function (state = initialState, action) {
                 ...state,
                 searchText: action.searchText
             };
+        }
+        case Actions.getCompaniesPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.TOGGLE_IN_SELECTED_COMPANYS: {
             const companyId = action.companyId;

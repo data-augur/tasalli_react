@@ -48,7 +48,9 @@ class WarrantyClaimsList extends Component {
             removeWarrantyClaims,
             removeWarrantyClaim,
             setWarrantyClaimsUnstarred,
-            setWarrantyClaimsStarred
+            setWarrantyClaimsStarred,
+            getWarrantyClaimPaginationData,
+            totalPages
         } = this.props;
         const data = this.getFilteredArray(warrantyClaims, searchText);
         const {selectedWarrantyClaimsMenu} = this.state;
@@ -152,14 +154,14 @@ class WarrantyClaimsList extends Component {
                         {
                             Header: 'Warranty Claim Forms',
                             accessor: 'formName',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold'
                             // className: "justify-center",
                         },
                         {
                             Header: 'Company',
                             accessor: 'companyName',
-                            filterable: true,
+                            filterable: false,
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
@@ -198,9 +200,21 @@ class WarrantyClaimsList extends Component {
                             )
                         }
                     ]}
-                    defaultPageSize={10}
+                    defaultPageSize={20}
                     resizable={false}
                     noDataText="No Warranty Claim found"
+                    loading={this.state.loading}
+                    showPagination={true}
+                    showPaginationTop={false}
+                    showPaginationBottom={true}
+                    pages={totalPages}
+                    pageSizeOptions={[ 20, 25, 50, 100, -1  ]}
+                    manual  // this would indicate that server side pagination has been enabled
+                    onFetchData={(state, instance) => {
+                        this.setState({loading: true});
+                        getWarrantyClaimPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        this.setState({loading: false});
+                    }}
                 />
             </FuseAnimate>
         );
@@ -217,6 +231,7 @@ function mapDispatchToProps(dispatch) {
             openEditWarrantyClaimDialog: Actions.openEditWarrantyClaimDialog,
             removeWarrantyClaims: Actions.removeWarrantyClaims,
             removeWarrantyClaim: Actions.removeWarrantyClaim,
+            getWarrantyClaimPaginationData: Actions.getWarrantyClaimPaginationData,
             toggleStarredWarrantyClaim: Actions.toggleStarredWarrantyClaim,
             toggleStarredWarrantyClaims: Actions.toggleStarredWarrantyClaims,
             setWarrantyClaimsStarred: Actions.setWarrantyClaimsStarred,
@@ -229,6 +244,7 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps({warrantyClaimApp}) {
     return {
         warrantyClaims: warrantyClaimApp.warrantyClaim.entities,
+        totalPages: warrantyClaimApp.warrantyClaim.pages,
         selectedWarrantyClaimIds: warrantyClaimApp.warrantyClaim.selectedWarrantyClaimIds,
         searchText: warrantyClaimApp.warrantyClaim.searchText,
         user: warrantyClaimApp.user

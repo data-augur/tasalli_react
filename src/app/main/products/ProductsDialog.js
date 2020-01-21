@@ -198,6 +198,7 @@ class ProductDialog extends Component {
 
                     </div>
 
+                    {this.state.product_has_warranty === 'yes' ? (
                     <div className="flex">
                         <div className="min-w-48 pt-20">
                             <Icon color="action">work</Icon>
@@ -227,6 +228,8 @@ class ProductDialog extends Component {
                             })}
                         </TextField>
                     </div>
+                    ) : null}
+                    {this.state.product_has_warranty === 'yes' ? (
 
                     <div className="flex">
                         <div className="min-w-48 pt-20">
@@ -257,7 +260,8 @@ class ProductDialog extends Component {
                             })}
                         </TextField>
                     </div>
-
+                    ) : null}
+                    {this.state.product_has_warranty === 'yes' ? (
                     <div className="flex">
                         <div className="min-w-48 pt-20">
                             <Icon color="action">work</Icon>
@@ -287,6 +291,7 @@ class ProductDialog extends Component {
                             })}
                         </TextField>
                     </div>
+                    ) : null}
 
                     <div className="flex">
                         <div className="min-w-48 pt-20">

@@ -4,7 +4,9 @@ import _ from '@lodash';
 
 const initialState = {
     entities: [],
-    companies: [],
+    skuCodes: [],
+    codes: [],
+    userPhoneNumbers: [],
     searchText: '',
     selectedWarrantyClaimedIds: [],
     routeParams: {},
@@ -23,7 +25,9 @@ const warrantyClaimedReducer = function (state = initialState, action) {
             return {
                 ...state,
                 entities: [],
-                companies: [],
+                skuCodes: [],
+                codes: [],
+                userPhoneNumbers: [],
                 searchText: '',
                 selectedWarrantyClaimedIds: [],
                 routeParams: {},
@@ -39,7 +43,8 @@ const warrantyClaimedReducer = function (state = initialState, action) {
         case Actions.GET_WARRANTYCLAIMED: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.REMOVE_WARRANTYCLAIMED: {
@@ -52,6 +57,29 @@ const warrantyClaimedReducer = function (state = initialState, action) {
             return {
                 ...state,
                 searchText: action.searchText
+            };
+        }
+        case Actions.getClaimedWarrantyPaginationData: {
+            return {
+                ...state
+            }
+        }
+        case Actions.GET_ALL_WARRANTYCLAIMED_SKU_CODES: {
+            return {
+                ...state,
+                skuCodes: action.payload
+            };
+        }
+        case Actions.GET_ALL_WARRANTYCLAIMED_CODES: {
+            return {
+                ...state,
+                codes: action.payload
+            };
+        }
+        case Actions.GET_ALL_WARRANTYCLAIMED_USER_PHONE_NUMBERS: {
+            return {
+                ...state,
+                userPhoneNumbers: action.payload
             };
         }
         case Actions.TOGGLE_IN_SELECTED_WARRANTYCLAIMEDS: {

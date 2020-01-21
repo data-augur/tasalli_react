@@ -4,7 +4,9 @@ import _ from '@lodash';
 
 const initialState = {
     entities: [],
-    companies: [],
+    skuCodes: [],
+    retailerPhoneNumbers: [],
+    userPhoneNumbers: [],
     searchText: '',
     selectedWarrantyRegisterIds: [],
     routeParams: {},
@@ -23,7 +25,9 @@ const warrantyRegisterReducer = function (state = initialState, action) {
             return {
                 ...state,
                 entities: [],
-                companies: [],
+                skuCodes: [],
+                retailerPhoneNumbers: [],
+                userPhoneNumbers: [],
                 searchText: '',
                 selectedWarrantyRegisterIds: [],
                 routeParams: {},
@@ -39,7 +43,8 @@ const warrantyRegisterReducer = function (state = initialState, action) {
         case Actions.GET_WARRANTYREGISTER: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.REMOVE_WARRANTYREGISTER: {
@@ -52,6 +57,29 @@ const warrantyRegisterReducer = function (state = initialState, action) {
             return {
                 ...state,
                 searchText: action.searchText
+            };
+        }
+        case Actions.getRegisteredWarrantyPaginationData: {
+            return {
+                ...state
+            }
+        }
+        case Actions.GET_ALL_WARRANTYREGISTER_SKU_CODES: {
+            return {
+                ...state,
+                skuCodes: action.payload
+            };
+        }
+        case Actions.GET_ALL_WARRANTYREGISTER_RETAILER_PHONE_NUMBERS: {
+            return {
+                ...state,
+                retailerPhoneNumbers: action.payload
+            };
+        }
+        case Actions.GET_ALL_WARRANTYREGISTER_USER_PHONE_NUMBERS: {
+            return {
+                ...state,
+                userPhoneNumbers: action.payload
             };
         }
         case Actions.TOGGLE_IN_SELECTED_WARRANTYREGISTERS: {

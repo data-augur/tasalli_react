@@ -39,7 +39,8 @@ const surveyReducer = function (state = initialState, action) {
         case Actions.GET_SURVEYS: {
             return {
                 ...state,
-                entities: _.keyBy(action.payload, 'id')
+                entities: _.keyBy(action.payload, 'id'),
+                pages: (action.pages)
             };
         }
         case Actions.ADD_SURVEY: {
@@ -65,6 +66,11 @@ const surveyReducer = function (state = initialState, action) {
                 ...state,
                 companies: action.payload
             };
+        }
+        case Actions.getSurveysPaginationData: {
+            return {
+                ...state
+            }
         }
         case Actions.SET_SEARCH_TEXT: {
             return {

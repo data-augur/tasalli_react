@@ -26,9 +26,9 @@ const newProductState = {
     code: '',
     product_has_warranty: '',
     brandId: '',
-    w_registration_form_Id: '',
-    w_completion_form_Id: '',
-    w_claim_form_Id: '',
+    w_registration_form_Id: null,
+    w_completion_form_Id: null,
+    w_claim_form_Id: null,
     isOpen: false
     // companyId: ''
     // id: ''
@@ -103,7 +103,16 @@ class ProductDialog extends Component {
 
     canBeSubmitted() {
         const {code} = this.state;
-        return code.length > 0;
+        const {brandId} = this.state;
+        const {product_has_warranty} = this.state;
+        if(product_has_warranty === 'yes') {
+            const {w_registration_form_Id} = this.state;
+            const {w_claim_form_Id} = this.state;
+            const {w_completion_form_Id} = this.state;
+            return code.length > 0 && brandId>0 && product_has_warranty.length>0 && w_registration_form_Id>0 && w_claim_form_Id>0 && w_completion_form_Id>0;
+        }else {
+            return code.length > 0 && brandId>0 && product_has_warranty.length>0;
+        }
     };
 
     openPopup = () => {
@@ -180,6 +189,7 @@ class ProductDialog extends Component {
                         <FormControl component="fieldset">
                             <FormLabel component="legend">Warranty</FormLabel>
                             <RadioGroup aria-label="warranty" name="product_has_warranty"
+                                        required
                                         value={this.state.product_has_warranty} onChange={this.handleChange} row>
                                 <FormControlLabel
                                     value="yes"
@@ -209,6 +219,7 @@ class ProductDialog extends Component {
                             id="w_registration_form_Id"
                             name="w_registration_form_Id"
                             select
+                            required={this.state.product_has_warranty}
                             value={this.state.w_registration_form_Id}
                             onChange={this.handleChange}
                             // defaultValue="Brand Admin"
@@ -230,7 +241,6 @@ class ProductDialog extends Component {
                     </div>
                     ) : null}
                     {this.state.product_has_warranty === 'yes' ? (
-
                     <div className="flex">
                         <div className="min-w-48 pt-20">
                             <Icon color="action">work</Icon>
@@ -241,6 +251,7 @@ class ProductDialog extends Component {
                             id="w_completion_form_Id"
                             name="w_completion_form_Id"
                             select
+                            required={this.state.product_has_warranty}
                             value={this.state.w_completion_form_Id}
                             onChange={this.handleChange}
                             // defaultValue="Brand Admin"
@@ -272,6 +283,7 @@ class ProductDialog extends Component {
                             id="w_claim_form_Id"
                             name="w_claim_form_Id"
                             select
+                            required={this.state.product_has_warranty}
                             value={this.state.w_claim_form_Id}
                             onChange={this.handleChange}
                             // defaultValue="Brand Admin"
@@ -303,6 +315,7 @@ class ProductDialog extends Component {
                             id="brandId"
                             name="brandId"
                             select
+                            required
                             value={this.state.brandId}
                             onChange={this.handleChange}
                             // defaultValue="Brand Admin"

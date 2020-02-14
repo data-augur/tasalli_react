@@ -103,6 +103,13 @@ const superAdminNavigationConfig = [
                 icon: 'book',
                 url: '/surveys'
             },
+            {
+                id: 'banner-ads-component',
+                title: 'Banner Ads',
+                type: 'item',
+                icon: 'book',
+                url: '/banner-ads'
+            }
         ]
     },
     {

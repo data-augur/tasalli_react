@@ -9,6 +9,7 @@ import {Error404PageConfig} from 'app/main/errors/Error404PageConfig';
 import {BrandUsersAppConfig} from 'app/main/brand-users/BrandUserAppConfig';
 import {AdminUsersAppConfig} from 'app/main/admin-users/AdminUserAppConfig';
 import {AdsAppConfig} from 'app/main/ads/AdsAppConfig';
+import {BannerAdsAppConfig} from 'app/main/banner-ads/BannerAdsAppConfig';
 import {SurveysAppConfig} from 'app/main/surveys/SurveysAppConfig';
 import {SurveyAttributeAppConfig} from 'app/main/surveyAttribute/SurveyAttributeAppConfig';
 import {WarrantyRegistrationAttributeAppConfig} from 'app/main/warrantyRegistrationAttribute/WarrantyRegistrationAttributeAppConfig';
@@ -34,6 +35,7 @@ const routeConfigs = [
     AppUsersAppConfig,
     AdminUsersAppConfig,
     AdsAppConfig,
+    BannerAdsAppConfig,
     SurveysAppConfig,
     SurveyAttributeAppConfig,
     WarrantyRegistrationAttributeAppConfig,

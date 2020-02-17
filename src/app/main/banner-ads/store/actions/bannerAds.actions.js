@@ -2,9 +2,7 @@ import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import moment from "moment";
 import {showMessage} from 'app/store/actions/fuse';
-// import Resizer from 'react-image-file-resizer';
-import Compressor from 'compressorjs';
-import {getAds, UPDATE_ADS} from "../../../ads/store/actions";
+
 
 
 export const GET_BANNER_ADS = '[BANNER ADS APP] GET BANNER ADS';
@@ -31,7 +29,6 @@ export const TOGGLE_STARRED_ADS = '[ADS APP] TOGGLE STARRED ADS';
 export const SET_ADS_STARRED = '[ADS APP] SET ADS STARRED ';
 
 let selectedSearch= {
-    searchType:'Undefined',
     fromSearch:'yyyy-mm-dd',
     toSearch:'yyyy-mm-dd'
 };
@@ -378,9 +375,12 @@ export const getBannerAdsPaginationData = (page, pageSize, sorted, filtered) => 
         }
     }
     let querys;
-        if(selectedSearch.searchType!=='Undefined' || (selectedSearch.fromSearch!=='yyyy-mm-dd' && selectedSearch.fromSearch!=='') || (selectedSearch.toSearch!=='yyyy-mm-dd' && selectedSearch.toSearch!=='')){
+        if( (selectedSearch.fromSearch!=='yyyy-mm-dd' && selectedSearch.fromSearch!=='') || (selectedSearch.toSearch!=='yyyy-mm-dd' && selectedSearch.toSearch!=='')){
             if(selectedSearch.fromSearch==='yyyy-mm-dd'||selectedSearch.fromSearch===''){
                 selectedSearch.fromSearch=moment('1970-01-01').format('YYYY-MM-DD');
+            }
+            if(selectedSearch.toSearch==='yyyy-mm-dd'||selectedSearch.toSearch===''){
+                selectedSearch.toSearch=moment(new Date()).format('YYYY-MM-DD');
             }
             querys = 'get-all-banner-ads-by-search-paging/' + selectedSearch.fromSearch + '/' + selectedSearch.toSearch + '/' + page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
         } else {
@@ -402,7 +402,7 @@ export const getBannerAdsPaginationData = (page, pageSize, sorted, filtered) => 
         });
 };
 
-export function searchAds(state) {
+export function searchBannerAds(state) {
 
     selectedSearch=state;
 

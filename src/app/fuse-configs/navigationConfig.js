@@ -182,6 +182,13 @@ const superAdminNavigationConfig = [
                 type: 'item',
                 icon: 'book',
                 url: '/logs'
+            },
+            {
+                id: 'qrCode-component',
+                title: 'QR Code',
+                type: 'item',
+                icon: 'book',
+                url: '/qrcodes'
             }
         ]
     },

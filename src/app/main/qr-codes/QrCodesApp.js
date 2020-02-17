@@ -6,9 +6,8 @@ import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import BannerAdsList from './BannerAdsList';
-import BannerAdsHeader from './BannerAdsHeader';
-import BannerAdDialog from './BannerAdsDialog';
+import QrCodesList from './QrCodesList';
+import QrCodesHeader from './QrCodesHeader';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -17,24 +16,24 @@ const styles = theme => ({
     addButton: {
         position: 'fixed',
         right: 12,
-        bottom: 12,
+        bottom: 52,
         zIndex: 99
     }
 });
 
-class BannerAdsApp extends Component {
+class QrCodesApp extends Component {
     componentDidMount() {
-        this.props.getBannerAds(this.props.match.params);
+        this.props.getQrCodes(this.props.match.params);
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (!_.isEqual(this.props.location, prevProps.location)) {
-            this.props.getBannerAds(this.props.match.params);
+            this.props.getQrCodes(this.props.match.params);
         }
     }
 
     render() {
-        const {classes, openNewBannerAdDialog} = this.props;
+        const {classes, openNewQrCodeDialog} = this.props;
         if (!localStorage.getItem('jwtToken')) {
             window.location = '/login';
         }
@@ -46,25 +45,15 @@ class BannerAdsApp extends Component {
                         leftSidebar: 'w-256 border-0',
                         header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
                     }}
-                    header={<BannerAdsHeader pageLayout={() => this.pageLayout}/>}
-                    content={<BannerAdsList/>}
+                    header={<QrCodesHeader pageLayout={() => this.pageLayout}/>}
+                    content={<QrCodesList/>}
                     sidebarInner
                     onRef={instance => {
                         this.pageLayout = instance;
                     }}
                     innerScroll
                 />
-                <FuseAnimate animation="transition.expandIn" delay={300}>
-                    <Fab
-                        color="primary"
-                        aria-label="add"
-                        className={classes.addButton}
-                        onClick={openNewBannerAdDialog}
-                    >
-                        <Icon>add</Icon>
-                    </Fab>
-                </FuseAnimate>
-                <BannerAdDialog/>
+
             </React.Fragment>
         );
     }
@@ -73,29 +62,28 @@ class BannerAdsApp extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
-            getBannerAds: Actions.getBannerAds,
-            openNewBannerAdDialog: Actions.openNewBannerAdDialog
+            getQrCodes: Actions.getQrCodes,
+            openNewQrCodeDialog: Actions.openNewQrCodeDialog
         },
         dispatch
     );
 }
 
-function mapStateToProps({bannerAdsApp}) {
+function mapStateToProps({qrcodesApp}) {
     return {
-        // ads: adsApp.ads.entities,
-        selectedBannerAdIds: bannerAdsApp.bannerAds.selectedAdIds,
-        searchText: bannerAdsApp.bannerAds.searchText,
-        user: bannerAdsApp.user
+        selectedQrCodeIds: qrcodesApp.qrcodes.selectedQrCodeIds,
+        searchText: qrcodesApp.qrcodes.searchText,
+        user: qrcodesApp.user
     };
 }
 
-export default withReducer('bannerAdsApp', reducer)(
+export default withReducer('qrcodesApp', reducer)(
     withStyles(styles, {withTheme: true})(
         withRouter(
             connect(
                 mapStateToProps,
                 mapDispatchToProps
-            )(BannerAdsApp)
+            )(QrCodesApp)
         )
     )
 );

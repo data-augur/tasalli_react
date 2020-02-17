@@ -14,7 +14,7 @@ class BannerAdsHeader extends Component {
         toSearch:"yyyy-mm-dd"
     };
     render() {
-        const { searchAds, mainTheme} = this.props;
+        const { searchBannerAds, mainTheme} = this.props;
 
         return (
             <div className="flex flex-1 items-center justify-between p-8 sm:p-24">
@@ -82,7 +82,7 @@ class BannerAdsHeader extends Component {
                             variant="contained"
                             color="secondary"
                             onClick={() => {
-                                searchAds(this.state);
+                                searchBannerAds(this.state);
                             }}
                         >
                             Apply
@@ -111,7 +111,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
             setSearchText: Actions.setSearchText,
-            searchAds: Actions.searchAds
+            searchBannerAds: Actions.searchBannerAds
         },
         dispatch
     );
@@ -119,7 +119,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({bannerAdsApp, fuse}) {
     return {
-        searchText: bannerAdsApp.ads.searchText,
+        searchText: bannerAdsApp.bannerAds.searchText,
         mainTheme: fuse.settings.mainTheme
     };
 }

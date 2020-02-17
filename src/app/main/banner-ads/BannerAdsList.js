@@ -41,7 +41,7 @@ class BannerAdsList extends Component {
 
     render() {
         const {
-            ads,
+            bannerAds,
             searchText,
             selectedAdIds,
 
@@ -53,14 +53,14 @@ class BannerAdsList extends Component {
             getBannerAdsPaginationData,
             totalPages
         } = this.props;
-        const data = this.getFilteredArray(ads, searchText);
+        const data = this.getFilteredArray(bannerAds, searchText);
         const {selectedAdsMenu} = this.state;
 
         if (!data && data.length === 0) {
             return (
                 <div className="flex items-center justify-center h-full">
                     <Typography color="textSecondary" variant="h5">
-                        There are no ads!
+                        There are no banner Ads!
                     </Typography>
                 </div>
             );
@@ -237,7 +237,7 @@ class BannerAdsList extends Component {
                     ]}
                     defaultPageSize={20}
                     resizable={false}
-                    noDataText="No banner ads found"
+                    noDataText="No banner  ads found"
                     loading={this.state.loading}
                     showPagination={true}
                     showPaginationTop={false}
@@ -278,10 +278,10 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({bannerAdsApp}) {
     return {
-        ads: bannerAdsApp.ads.entities,
-        selectedAdIds: bannerAdsApp.ads.selectedAdIds,
-        totalPages: bannerAdsApp.ads.pages,
-        searchText: bannerAdsApp.ads.searchText,
+        bannerAds: bannerAdsApp.bannerAds.entities,
+        selectedAdIds: bannerAdsApp.bannerAds.selectedAdIds,
+        totalPages: bannerAdsApp.bannerAds.pages,
+        searchText: bannerAdsApp.bannerAds.searchText,
         user: bannerAdsApp.user
     };
 }

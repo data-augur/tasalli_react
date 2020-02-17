@@ -150,7 +150,7 @@ class BannerAdsDialog extends Component {
 
                     {/*{adDialog.type === 'edit' ? (*/}
                     {/*<div className="flex" >*/}
-                 git    {/*    <div className="min-w-48 pt-20">*/}
+                    {/*    <div className="min-w-48 pt-20">*/}
                     {/*        <Icon color="action">image</Icon>*/}
                     {/*    </div>*/}
                     {/*     <Avatar*/}
@@ -390,10 +390,9 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps({bannerAdsApp}) {
-    console.log(bannerAdsApp.ads);
     return {
-        adDialog: bannerAdsApp.ads.adDialog,
-        notifications: bannerAdsApp.ads.notifications
+        adDialog: bannerAdsApp.bannerAds.adDialog,
+        notifications: bannerAdsApp.bannerAds.notifications
     };
 }
 

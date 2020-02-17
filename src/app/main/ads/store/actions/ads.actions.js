@@ -349,6 +349,9 @@ export const getAdsPaginationData = (page, pageSize, sorted, filtered) => dispat
             if(selectedSearch.fromSearch==='yyyy-mm-dd'||selectedSearch.fromSearch===''){
                 selectedSearch.fromSearch=moment('1970-01-01').format('YYYY-MM-DD');
             }
+            if(selectedSearch.toSearch==='yyyy-mm-dd'||selectedSearch.toSearch===''){
+                selectedSearch.toSearch=moment(new Date()).format('YYYY-MM-DD');
+            }
             querys = 'get-all-ads-by-search-paging/' + selectedSearch.searchType + '/' + selectedSearch.fromSearch + '/' + selectedSearch.toSearch + '/' + page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
         } else {
             querys = 'get-all-ads-by-paging/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;

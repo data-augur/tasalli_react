@@ -22,6 +22,7 @@ import {AppUsersAppConfig} from 'app/main/app-users/AppUserAppConfig';
 import {CompaniesAppConfig} from 'app/main/company/CompaniesAppConfig';
 import {NotificationsAppConfig} from 'app/main/notifications/NotificationsAppConfig';
 import {LogsAppConfig} from 'app/main/logs/LogsAppConfig';
+import {QrCodesAppConfig} from 'app/main/qr-codes/QrCodesAppConfig';
 import {WarrantyRegisterAppConfig} from 'app/main/warranty-register/WarrantyRegisterAppConfig';
 import {WarrantyClaimedAppConfig} from 'app/main/warranty-claimed/WarrantyClaimedAppConfig';
 import {BrandsAppConfig} from 'app/main/brands/BrandsAppConfig';
@@ -49,6 +50,7 @@ const routeConfigs = [
     WarrantyClaimAppConfig,
     WarrantyCompletionAppConfig,
     LogsAppConfig,
+    QrCodesAppConfig,
     WarrantyRegisterAppConfig,
     WarrantyClaimedAppConfig,
     LogoutConfig,

@@ -1,8 +1,8 @@
 import {combineReducers} from 'redux';
-import bannerAds from './banerAds.reducer';
+import qrcodes from './qrCodes.reducer';
 
 const reducer = combineReducers({
-    bannerAds
+    qrcodes
 });
 
 export default reducer;

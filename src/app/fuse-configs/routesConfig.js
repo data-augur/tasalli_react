@@ -10,6 +10,7 @@ import {BrandUsersAppConfig} from 'app/main/brand-users/BrandUserAppConfig';
 import {AdminUsersAppConfig} from 'app/main/admin-users/AdminUserAppConfig';
 import {AdsAppConfig} from 'app/main/ads/AdsAppConfig';
 import {BannerAdsAppConfig} from 'app/main/banner-ads/BannerAdsAppConfig';
+import {PopUpsAppConfig} from 'app/main/popup/PopupsAppConfig';
 import {SurveysAppConfig} from 'app/main/surveys/SurveysAppConfig';
 import {SurveyAttributeAppConfig} from 'app/main/surveyAttribute/SurveyAttributeAppConfig';
 import {WarrantyRegistrationAttributeAppConfig} from 'app/main/warrantyRegistrationAttribute/WarrantyRegistrationAttributeAppConfig';
@@ -37,6 +38,7 @@ const routeConfigs = [
     AdminUsersAppConfig,
     AdsAppConfig,
     BannerAdsAppConfig,
+    PopUpsAppConfig,
     SurveysAppConfig,
     SurveyAttributeAppConfig,
     WarrantyRegistrationAttributeAppConfig,

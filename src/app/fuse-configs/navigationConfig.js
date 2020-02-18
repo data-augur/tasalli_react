@@ -109,6 +109,13 @@ const superAdminNavigationConfig = [
                 type: 'item',
                 icon: 'book',
                 url: '/banner-ads'
+            },
+            {
+                id: 'popup-component',
+                title: 'Pop up',
+                type: 'item',
+                icon: 'book',
+                url: '/popups'
             }
         ]
     },

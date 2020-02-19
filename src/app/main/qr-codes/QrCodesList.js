@@ -17,10 +17,9 @@ import {bindActionCreators} from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
 import moment from "moment";
-
-class QrCodesList extends Component {
+class QrcodesList extends Component {
     state = {
-        selectedQrCodesMenu: null
+        selectedQrcodesMenu: null
     };
 
     getFilteredArray = (entities, searchText) => {
@@ -31,27 +30,28 @@ class QrCodesList extends Component {
         return FuseUtils.filterArrayByString(arr, searchText);
     };
 
-    openSelectedQrCodeMenu = event => {
-        this.setState({selectedQrCodesMenu: event.currentTarget});
+    openSelectedQrcodeMenu = event => {
+        this.setState({selectedQrcodesMenu: event.currentTarget});
     };
 
-    closeSelectedQrCodesMenu = () => {
-        this.setState({selectedQrCodesMenu: null});
+    closeSelectedQrcodesMenu = () => {
+        this.setState({selectedQrcodesMenu: null});
     };
 
     render() {
         const {
             qrcodes,
             searchText,
-            selectedQrCodeIds,
-            openEditQrCodeDialog,
-            setQrCodesUnstarred,
-            setQrCodesStarred,
-            getQrCodesPaginationData,
+            selectedQrcodeIds,
+            openEditQrcodeDialog,
+            removeQrcodes,
+            setQrcodesUnstarred,
+            setQrcodesStarred,
+            getQrcodesPaginationData,
             totalPages
         } = this.props;
         const data = this.getFilteredArray(qrcodes, searchText);
-        const {selectedQrCodesMenu} = this.state;
+        const {selectedQrcodesMenu} = this.state;
 
         if (!data && data.length === 0) {
             return (
@@ -72,38 +72,49 @@ class QrCodesList extends Component {
                             className: 'cursor-pointer',
                             onClick: () => {
                                 if (rowInfo) {
-                                    openEditQrCodeDialog(rowInfo.original);
+                                    openEditQrcodeDialog(rowInfo.original);
                                 }
                             }
                         };
                     }}
                     data={data}
                     columns={[
+
                         {
                             Header: () =>
-                                selectedQrCodeIds.length > 0 && (
+                                selectedQrcodeIds.length > 0 && (
                                     <React.Fragment>
                                         <IconButton
                                             aria-owns={
-                                                selectedQrCodesMenu ? 'selectedBrandsMenu' : null
+                                                selectedQrcodesMenu ? 'selectedQrcodesMenu' : null
                                             }
                                             aria-haspopup="true"
-                                            onClick={this.openSelectedQrCodeMenu}
+                                            onClick={this.openSelectedQrcodeMenu}
                                         >
                                             <Icon>more_horiz</Icon>
                                         </IconButton>
                                         <Menu
-                                            id="selectedBrandsMenu"
-                                            anchorEl={selectedQrCodesMenu}
-                                            open={Boolean(selectedQrCodesMenu)}
-                                            onClose={this.closeSelectedBrandsMenu}
+                                            id="selectedQrcodesMenu"
+                                            anchorEl={selectedQrcodesMenu}
+                                            open={Boolean(selectedQrcodesMenu)}
+                                            onClose={this.closeSelectedQrcodesMenu}
                                         >
                                             <MenuList>
-
                                                 <MenuItem
                                                     onClick={() => {
-                                                        // setBrandsStarred(selectedBrandIds);
-                                                        this.closeSelectedQrCodesMenu();
+                                                        removeQrcodes(selectedQrcodeIds);
+                                                        this.closeSelectedQrcodesMenu();
+                                                    }}
+                                                >
+                                                    <ListItemIcon>
+                                                        <Icon>delete</Icon>
+                                                    </ListItemIcon>
+                                                    <ListItemText inset primary="Remove"/>
+                                                </MenuItem>
+                                                <MenuItem
+                                                    onClick={() => {
+                                                        setQrcodesStarred(selectedQrcodeIds);
+                                                        this.closeSelectedQrcodesMenu();
                                                     }}
                                                 >
                                                     <ListItemIcon>
@@ -113,8 +124,8 @@ class QrCodesList extends Component {
                                                 </MenuItem>
                                                 <MenuItem
                                                     onClick={() => {
-                                                        // setBrandsUnstarred(selectedBrandIds);
-                                                        this.closeSelectedQrCodesMenu();
+                                                        setQrcodesUnstarred(selectedQrcodeIds);
+                                                        this.closeSelectedQrcodesMenu();
                                                     }}
                                                 >
                                                     <ListItemIcon>
@@ -171,14 +182,14 @@ class QrCodesList extends Component {
                             className: 'font-bold justify-center'
                             // className: "justify-center",
                         },
-                        {
-                            Header: 'Data',
-                            accessor: 'data',
-                            width: 250,
-                            filterable: false,
-                            className: 'justify-center'
-                            // className: "justify-center",
-                        },
+                        // {
+                        //     Header: 'Data',
+                        //     accessor: 'data',
+                        //     width: 250,
+                        //     filterable: false,
+                        //     className: 'justify-center'
+                        //     // className: "justify-center",
+                        // },
                         {
                             Header: 'Latitude',
                             accessor: 'latitude',
@@ -221,7 +232,7 @@ class QrCodesList extends Component {
                     manual  // this would indicate that server side pagination has been enabled
                     onFetchData={(state, instance) => {
                         this.setState({loading: true});
-                        getQrCodesPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
+                        getQrcodesPaginationData(state.page, state.pageSize, state.sorted, state.filtered);
                         this.setState({loading: false});
                     }}
                 />
@@ -233,16 +244,18 @@ class QrCodesList extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
-            getQrCodes: Actions.getQrCodes,
-            toggleInSelectedQrCodes: Actions.toggleInSelectedQrCodes,
-            selectAllQrCodes: Actions.selectAllQrCodes,
-            deSelectAllQrCodes: Actions.deSelectAllQrCodes,
-            openEditQrCodeDialog: Actions.openEditQrCodeDialog,
-            getQrCodesPaginationData: Actions.getQrCodesPaginationData,
-            toggleStarredQrCode: Actions.toggleStarredQrCode,
-            toggleStarredQrCodes: Actions.toggleStarredQrCodes,
-            setQrCodesStarred: Actions.setQrCodesStarred,
-            setQrCodesUnstarred: Actions.setQrCodesUnstarred
+            getQrcodes: Actions.getQrcodes,
+            toggleInSelectedQrcodes: Actions.toggleInSelectedQrcodes,
+            selectAllQrcodes: Actions.selectAllQrcodes,
+            deSelectAllQrcodes: Actions.deSelectAllQrcodes,
+            openEditQrcodeDialog: Actions.openEditQrcodeDialog,
+            removeQrcodes: Actions.removeQrcodes,
+            removeQrcode: Actions.removeQrcode,
+            getQrcodesPaginationData: Actions.getQrcodesPaginationData,
+            toggleStarredQrcode: Actions.toggleStarredQrcode,
+            toggleStarredQrcodes: Actions.toggleStarredQrcodes,
+            setQrcodesStarred: Actions.setQrcodesStarred,
+            setQrcodesUnstarred: Actions.setQrcodesUnstarred
         },
         dispatch
     );
@@ -252,7 +265,7 @@ function mapStateToProps({qrcodesApp}) {
     return {
         qrcodes: qrcodesApp.qrcodes.entities,
         totalPages: qrcodesApp.qrcodes.pages,
-        selectedQrCodeIds: qrcodesApp.qrcodes.selectedQrCodeIds,
+        selectedQrcodeIds: qrcodesApp.qrcodes.selectedQrcodeIds,
         searchText: qrcodesApp.qrcodes.searchText,
         user: qrcodesApp.user
     };
@@ -262,5 +275,5 @@ export default withRouter(
     connect(
         mapStateToProps,
         mapDispatchToProps
-    )(QrCodesList)
+    )(QrcodesList)
 );

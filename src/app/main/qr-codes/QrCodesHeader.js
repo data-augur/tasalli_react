@@ -1,14 +1,12 @@
 import React, {Component} from 'react';
 import {Button, Icon, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
 import {FuseAnimate, FuseUtils} from '@fuse';
-import CsvDownloader from 'react-csv-downloader';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
 import * as Actions from './store/actions';
 import _ from '@lodash';
 import TextField from "@material-ui/core/TextField";
-
-class QrCodesHeader extends Component {
+class QrcodesHeader extends Component {
     state = {
         searchDate:"yyyy-mm-dd",
         phoneNumber:'',
@@ -23,18 +21,8 @@ class QrCodesHeader extends Component {
     };
 
     render() {
-        const {qrcodes, searchText, searchQrCodes, mainTheme} = this.props;
-        const datas = this.getFilteredArray(qrcodes, searchText);
-        const columns = [
-            {
-                id: 'name',
-                displayName: 'QrCode'
-            },
-            {
-                id: 'companyName',
-                displayName: 'Company Name'
-            },
-        ];
+        const { searchQrCodes, mainTheme} = this.props;
+
 
         return (
             <div className="flex flex-1 items-center justify-between p-8 sm:p-12">
@@ -45,7 +33,7 @@ class QrCodesHeader extends Component {
                         </FuseAnimate>
                         <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                             <Typography variant="h6" className="hidden sm:flex">
-                                QR Codes
+                                Qrcodes
                             </Typography>
                         </FuseAnimate>
                     </div>
@@ -144,9 +132,10 @@ class QrCodesHeader extends Component {
                     </div>
                 </div>
 
-                    <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
+                <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
 
-                    </div>
+                </div>
+
             </div>
         );
     }
@@ -186,4 +175,4 @@ function mapStateToProps({qrcodesApp, fuse}) {
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(QrCodesHeader);
+)(QrcodesHeader);

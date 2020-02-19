@@ -1,7 +1,6 @@
 import axios from "axios";
 import {Base_URL} from "../../../../server";
 import {showMessage} from "app/store/actions/fuse";
-import moment from "moment";
 
 export const GET_NOTIFICATIONS = "[NOTIFICATIONS APP] GET NOTIFICATIONS";
 export const GET_ALL_DATE_HISTORY = '[APP USERS APP] GET DATE HISTORY';
@@ -33,9 +32,14 @@ export const TOGGLE_STARRED_NOTIFICATIONS =
 export const SET_NOTIFICATIONS_STARRED =
     "[NOTIFICATIONS APP] SET NOTIFICATIONS STARRED ";
 
-let selectedDate='Undefined';
+
+let selectedSearch= {
+    notificationType:'Undefined',
+    selectedDate:'Undefined'
+};
 export function reset() {
-    selectedDate='Undefined';
+    selectedSearch.notificationType='Undefined';
+    selectedSearch.selectedDate='Undefined';
 }
 export function getNotifications() {
     return (
@@ -43,24 +47,31 @@ export function getNotifications() {
     );
 }
 export const addNotification = newNotification => dispatch => {
-    axios
-    // .post(Base_URL+'create-notification', newNotification)
-        .post(Base_URL + "create-app-notification", newNotification)
+    let file= newNotification.images;
+    let formdata= new FormData();
+    formdata.append('image', file);
+    formdata.append('title', newNotification.title);
+    formdata.append('message', newNotification.message);
+    formdata.append('notification_type', newNotification.notification_type);
+    formdata.append('sender', newNotification.sender);
+
+    axios({
+        url: Base_URL+'create-app-notification',
+        method: "POST",
+        data: formdata
+    })
         .then(res => {
             if (res.request.status === 200) {
-                dispatch(
-                    showMessage({message: "Notification Created", variant: "success"})
-                );
+                dispatch(showMessage({message: 'Notification Created', variant: "success"}));
             }
             dispatch({
                 type: ADD_NOTIFICATION
             });
-            dispatch(getNotifications());
         })
+        .then(() => dispatch(getNotifications()))
         .catch(err => {
-            dispatch(
-                showMessage({message: err.response.data.error, variant: "error"})
-            );
+            console.log('err', err);
+            dispatch(showMessage({message: 'Error!' + err, variant: "error"}));
         });
 };
 
@@ -228,7 +239,7 @@ export const getNotificationsPaginationData = (page, pageSize, sorted, filtered)
             sortingOrder= 'ASC';
         }
     }
-    let querys = 'get-all-app-notifications-by-date-pagination/'+ selectedDate+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+    let querys = 'get-all-app-notifications-by-search-pagination/'+ selectedSearch.notificationType+'/'+ selectedSearch.selectedDate+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
     axios
         .get(Base_URL + querys)
         .then(res => {
@@ -244,14 +255,15 @@ export const getNotificationsPaginationData = (page, pageSize, sorted, filtered)
         });
 };
 
-export function searchNotificationsByDate(selectedSearchDate) {
+export function searchNotifications(state) {
 
-    if(selectedSearchDate!==''){
-        var searchDate=moment(selectedSearchDate).format('YYYY-MM-DD');
-        selectedDate = searchDate;
-    } else {
-        selectedDate = 'Undefined';
+    if(state.selectedDate==='yyyy-mm-dd'||state.selectedDate===''){
+        state.selectedDate='Undefined';
     }
+    if(state.notificationType===''){
+        state.notificationType='Undefined';
+    }
+    selectedSearch=state;
     return (
         getNotificationsPaginationData(0,20,'','')
     );

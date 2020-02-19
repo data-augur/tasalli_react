@@ -6,7 +6,6 @@ import {
     DialogActions,
     DialogContent,
     Icon,
-    IconButton,
     TextField,
     Toolbar,
     Typography
@@ -15,9 +14,8 @@ import {bindActionCreators} from 'redux';
 import * as Actions from './store/actions';
 import {connect} from 'react-redux';
 import _ from '@lodash';
-import qrcodes from "./store/reducers/qrCodes.reducer";
 
-const newQrCodeState = {
+const newQrcodeState = {
     latitude: '',
     longitude: '',
     code_type: '',
@@ -28,27 +26,27 @@ const newQrCodeState = {
     id: ''
 };
 
-class QrCodeDialog extends Component {
-    state = {...newQrCodeState};
+class QrcodeDialog extends Component {
+    state = {...newQrcodeState};
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         /**
          * After Dialog Open
          */
         if (
-            !prevProps.qrCodeDialog.props.open &&
-            this.props.qrCodeDialog.props.open
+            !prevProps.qrcodeDialog.props.open &&
+            this.props.qrcodeDialog.props.open
         ) {
             /**
              * Dialog type: 'edit'
              * Update State
              */
             if (
-                this.props.qrCodeDialog.type === 'edit' &&
-                this.props.qrCodeDialog.data &&
-                !_.isEqual(this.props.qrCodeDialog.data, prevState)
+                this.props.qrcodeDialog.type === 'edit' &&
+                this.props.qrcodeDialog.data &&
+                !_.isEqual(this.props.qrcodeDialog.data, prevState)
             ) {
-                this.setState({...this.props.qrCodeDialog.data});
+                this.setState({...this.props.qrcodeDialog.data});
             }
 
             /**
@@ -56,10 +54,10 @@ class QrCodeDialog extends Component {
              * Update State
              */
             if (
-                this.props.qrCodeDialog.type === 'new' &&
-                !_.isEqual(newQrCodeState, prevState)
+                this.props.qrcodeDialog.type === 'new' &&
+                !_.isEqual(newQrcodeState, prevState)
             ) {
-                this.setState({...newQrCodeState});
+                this.setState({...newQrcodeState});
             }
         }
     }
@@ -77,36 +75,37 @@ class QrCodeDialog extends Component {
     };
 
     closeComposeDialog = () => {
-        this.props.qrCodeDialog.type === 'edit'
-            ? this.props.closeEditQrCodeDialog()
-            : this.props.closeNewQrCodeDialog();
+        this.props.qrcodeDialog.type === 'edit'
+            ? this.props.closeEditQrcodeDialog()
+            : this.props.closeNewQrcodeDialog();
     };
 
+
+
     render() {
-        const {qrCodeDialog} = this.props;
-        console.log('l0l8jy6h6')
+        const {qrcodeDialog} = this.props;
 
         return (
             <Dialog
                 classes={{
                     paper: 'm-24'
                 }}
-                {...qrCodeDialog.props}
+                {...qrcodeDialog.props}
                 onClose={this.closeComposeDialog}
                 fullWidth
-                maxWidth="xs"
+                maxWidth="md"
             >
                 <AppBar position="static" elevation={1}>
                     <Toolbar className="flex w-full">
                         <Typography variant="subtitle1" color="inherit">
-                            {qrCodeDialog.type === 'new' ? 'New QrCode' : 'QrCode Details'}
+                            {qrcodeDialog.type === 'new' ? '' : 'Qrcode Details'}
                         </Typography>
                     </Toolbar>
                     <div className="flex flex-col items-center justify-center pb-24">
 
-                        {qrCodeDialog.type === 'edit' && (
+                        {qrcodeDialog.type === 'edit' && (
                             <Typography variant="h6" color="inherit" className="pt-8">
-                                {this.state.phoneNumber}
+                                {this.state.name}
                             </Typography>
                         )}
                     </div>
@@ -115,7 +114,7 @@ class QrCodeDialog extends Component {
                 <DialogContent classes={{root: 'p-24'}}>
                     <div className="flex">
                         <div className="min-w-48 pt-20">
-                            <Icon color="action">account_circle</Icon>
+                            <Icon color="action">Area</Icon>
                         </div>
 
                         <TextField
@@ -126,6 +125,7 @@ class QrCodeDialog extends Component {
                             name="latitude"
                             value={this.state.latitude}
                             onChange={this.handleChange}
+                            disabled={true}
                             variant="outlined"
                             required
                             fullWidth
@@ -134,7 +134,7 @@ class QrCodeDialog extends Component {
 
                     <div className="flex">
                         <div className="min-w-48 pt-20">
-                            <Icon color="action">account_circle</Icon>
+                            <Icon color="action">Area</Icon>
                         </div>
 
                         <TextField
@@ -143,6 +143,7 @@ class QrCodeDialog extends Component {
                             autoFocus
                             id="longitude"
                             name="longitude"
+                            disabled={true}
                             value={this.state.longitude}
                             onChange={this.handleChange}
                             variant="outlined"
@@ -153,7 +154,7 @@ class QrCodeDialog extends Component {
 
                     <div className="flex">
                         <div className="min-w-48 pt-20">
-                            <Icon color="action">account_circle</Icon>
+                            <Icon color="action">Type</Icon>
                         </div>
 
                         <TextField
@@ -164,6 +165,7 @@ class QrCodeDialog extends Component {
                             name="code_type"
                             value={this.state.code_type}
                             onChange={this.handleChange}
+                            disabled={true}
                             variant="outlined"
                             required
                             fullWidth
@@ -171,7 +173,7 @@ class QrCodeDialog extends Component {
                     </div>
                     <div className="flex">
                         <div className="min-w-48 pt-20">
-                            <Icon color="action">account_circle</Icon>
+                            <Icon color="action">Type</Icon>
                         </div>
 
                         <TextField
@@ -182,6 +184,7 @@ class QrCodeDialog extends Component {
                             name="data_type"
                             value={this.state.data_type}
                             onChange={this.handleChange}
+                            disabled={true}
                             variant="outlined"
                             required
                             fullWidth
@@ -189,7 +192,7 @@ class QrCodeDialog extends Component {
                     </div>
                     <div className="flex">
                         <div className="min-w-48 pt-20">
-                            <Icon color="action">account_circle</Icon>
+                            <Icon color="action">Time</Icon>
                         </div>
 
                         <TextField
@@ -200,6 +203,7 @@ class QrCodeDialog extends Component {
                             name="scan_time"
                             value={this.state.scan_time}
                             onChange={this.handleChange}
+                            disabled={true}
                             variant="outlined"
                             required
                             fullWidth
@@ -207,7 +211,7 @@ class QrCodeDialog extends Component {
                     </div>
                     <div className="flex">
                         <div className="min-w-48 pt-20">
-                            <Icon color="action">account_circle</Icon>
+                            <Icon color="action">Data</Icon>
                         </div>
 
                         <TextField
@@ -216,8 +220,10 @@ class QrCodeDialog extends Component {
                             autoFocus
                             id="data"
                             name="data"
+                            multiline
                             value={this.state.data}
                             onChange={this.handleChange}
+                            disabled={true}
                             variant="outlined"
                             required
                             fullWidth
@@ -226,7 +232,7 @@ class QrCodeDialog extends Component {
 
                 </DialogContent>
 
-                {qrCodeDialog.type === 'new' ? (
+                {qrcodeDialog.type === 'new' ? (
                     <DialogActions className="justify-between pl-16">
 
                     </DialogActions>
@@ -248,21 +254,24 @@ class QrCodeDialog extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
-            closeEditQrCodeDialog: Actions.closeEditQrCodeDialog,
-            closeNewQrCodeDialog: Actions.closeNewQrCodeDialog
+            closeEditQrcodeDialog: Actions.closeEditQrcodeDialog,
+            closeNewQrcodeDialog: Actions.closeNewQrcodeDialog,
+            addQrcode: Actions.addQrcode,
+            updateQrcode: Actions.updateQrcode,
+            removeQrcode: Actions.removeQrcode
         },
         dispatch
     );
 }
 
-function mapStateToProps({qrCodesApp}) {
-    console.log('kjhgfghj')
+function mapStateToProps({qrcodesApp}) {
     return {
-        qrCodeDialog: qrCodesApp.qrcodes.qrCodeDialog
+        qrcodeDialog: qrcodesApp.qrcodes.qrcodeDialog,
+        companies: qrcodesApp.qrcodes.companies
     };
 }
 
 export default connect(
     mapStateToProps,
     mapDispatchToProps
-)(QrCodeDialog);
+)(QrcodeDialog);

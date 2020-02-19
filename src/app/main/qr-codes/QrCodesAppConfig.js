@@ -1,4 +1,4 @@
-import QrCodesApp from './QrCodesApp';
+import QrcodesApp from './QrCodesApp';
 
 export const QrCodesAppConfig = {
     settings: {
@@ -9,7 +9,7 @@ export const QrCodesAppConfig = {
     routes: [
         {
             path: '/qrcodes',
-            component: QrCodesApp
+            component: QrcodesApp
         }
     ]
 };

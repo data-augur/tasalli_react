@@ -18,6 +18,8 @@ import _ from "@lodash";
 const newNotificationState = {
     title: "",
     message: "",
+    notification_type: "",
+    images: '',
     sender: localStorage.getItem('id')
 };
 
@@ -74,10 +76,13 @@ class NotificationDialog extends Component {
             ? this.props.closeEditNotificationDialog()
             : this.props.closeNewNotificationDialog();
     };
-
+    handleFile(e){
+        let file=e.target.files[0]
+        this.setState({images: file})
+    }
     canBeSubmitted() {
         const {title} = this.state;
-        return title.length > 0;
+        return title.length > 0 ;
     }
 
     render() {
@@ -109,7 +114,7 @@ class NotificationDialog extends Component {
                 <DialogContent classes={{root: "p-24"}}>
                     <div className="flex">
                         <div className="min-w-48 pt-20">
-                            <Icon color="action">account_circle</Icon>
+                            <Icon color="action">Title</Icon>
                         </div>
 
                         <TextField
@@ -128,7 +133,7 @@ class NotificationDialog extends Component {
                     </div>
                     <div className="flex">
                         <div className="min-w-48 pt-20">
-                            <Icon color="action">account_circle</Icon>
+                            <Icon color="action">Message</Icon>
                         </div>
 
                         <TextField
@@ -145,6 +150,38 @@ class NotificationDialog extends Component {
                             fullWidth
                         />
                     </div>
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">work</Icon>
+                        </div>
+                        <TextField
+                            className="mb-24"
+                            label="Select Notification Type"
+                            id="notification_type"
+                            name="notification_type"
+                            select
+                            value={this.state.notification_type}
+                            onChange={this.handleChange}
+                            disabled={notificationDialog.type === "new" ? false : true}
+                            margin="normal"
+                            fullWidth
+                            variant="outlined"
+                        >
+                            <option key='Simple' value='Simple'>Simple</option>
+                            <option key='EnlargedBanner' value='EnlargedBanner'>Enlarged Banner</option>
+
+                        </TextField>
+                    </div>
+                    {notificationDialog.type === "new" ? (
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">image</Icon>
+                        </div>
+                        <input title="Image" type="file" name="images" onChange={(e)=>this.handleFile(e)}
+                        />
+
+                    </div>
+                    ): null}
                 </DialogContent>
 
                 {notificationDialog.type === "new" ? (
@@ -156,7 +193,11 @@ class NotificationDialog extends Component {
                                 addNotification(this.state);
                                 this.closeComposeDialog();
                             }}
-                            disabled={!this.canBeSubmitted()}
+                            disabled={
+                                this.state.title<0 ||
+                                this.state.images==='' ||
+                                this.state.notification_type===''
+                            }
                         >
                             Send Notification
                         </Button>

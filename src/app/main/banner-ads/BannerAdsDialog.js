@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {
-    AppBar, Avatar,
+    AppBar,
     Button,
     Dialog,
     DialogActions,
@@ -22,16 +22,6 @@ import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {DatePicker, MuiPickersUtilsProvider, TimePicker} from 'material-ui-pickers';
 
-const adsType = [
-    {
-        value: 'video',
-        label: 'Video'
-    },
-    {
-        value: 'survey',
-        label: 'Survey'
-    }
-];
 const newAdState = {
     id: '',
     name: '',

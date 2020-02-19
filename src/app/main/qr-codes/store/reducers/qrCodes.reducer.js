@@ -7,7 +7,7 @@ const initialState = {
     phoneNumbers: [],
     selectedCompanyId: '',
     searchText: '',
-    selectedQrCodeIds: [],
+    selectedQrcodeIds: [],
     routeParams: {},
     qrcodeDialog: {
         type: 'new',
@@ -27,7 +27,7 @@ const qrcodeReducer = function (state = initialState, action) {
                 phoneNumbers: [],
                 selectedCompanyId : '',
                 searchText: '',
-                selectedQrCodeIds: [],
+                selectedQrcodeIds: [],
                 routeParams: {},
                 qrcodeDialog: {
                     type: 'new',
@@ -45,14 +45,31 @@ const qrcodeReducer = function (state = initialState, action) {
                 pages: (action.pages)
             };
         }
-
         case Actions.GET_ALL_QR_CODES_PHONE_NUMBERS: {
             return {
                 ...state,
                 phoneNumbers: action.payload
             };
         }
-        case Actions.getQrCodesPaginationData: {
+        case Actions.ADD_QRCODE: {
+            return {
+                ...state,
+                entities: _.keyBy(action.payload, 'id')
+            };
+        }
+        case Actions.UPDATE_QRCODE: {
+            return {
+                ...state,
+                entities: _.keyBy(action.payload, 'id')
+            };
+        }
+        case Actions.REMOVE_QRCODE: {
+            return {
+                ...state,
+                entities: _.keyBy(action.payload, 'id')
+            };
+        }
+        case Actions.getQrcodesPaginationData: {
             return {
                 ...state
             }
@@ -66,33 +83,33 @@ const qrcodeReducer = function (state = initialState, action) {
         case Actions.TOGGLE_IN_SELECTED_QRCODES: {
             const qrcodeId = action.qrcodeId;
 
-            let selectedQrCodeIds = [...state.selectedQrCodeIds];
+            let selectedQrcodeIds = [...state.selectedQrcodeIds];
 
-            if (selectedQrCodeIds.find(id => id === qrcodeId) !== undefined) {
-                selectedQrCodeIds = selectedQrCodeIds.filter(id => id !== qrcodeId);
+            if (selectedQrcodeIds.find(id => id === qrcodeId) !== undefined) {
+                selectedQrcodeIds = selectedQrcodeIds.filter(id => id !== qrcodeId);
             } else {
-                selectedQrCodeIds = [...selectedQrCodeIds, qrcodeId];
+                selectedQrcodeIds = [...selectedQrcodeIds, qrcodeId];
             }
 
             return {
                 ...state,
-                selectedQrCodeIds: selectedQrCodeIds
+                selectedQrcodeIds: selectedQrcodeIds
             };
         }
         case Actions.SELECT_ALL_QRCODES: {
             const arr = Object.keys(state.entities).map(k => state.entities[k]);
 
-            const selectedQrCodeIds = arr.map(qrcode => qrcode.id);
+            const selectedQrcodeIds = arr.map(qrcode => qrcode.id);
 
             return {
                 ...state,
-                selectedQrCodeIds: selectedQrCodeIds
+                selectedQrcodeIds: selectedQrcodeIds
             };
         }
         case Actions.DESELECT_ALL_QRCODES: {
             return {
                 ...state,
-                selectedQrCodeIds: []
+                selectedQrcodeIds: []
             };
         }
         case Actions.OPEN_NEW_QRCODE_DIALOG: {

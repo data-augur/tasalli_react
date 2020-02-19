@@ -1,12 +1,12 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
-import {GET_ALL_LOGS_PHONE_NUMBERS} from "../../../logs/store/actions";
 
 export const GET_QRCODES = '[QRCODES APP] GET QRCODES';
-export const GET_ALL_COMPANIES = '[QRCODES APP] GET COMPANIES';
 export const GET_ALL_QR_CODES_PHONE_NUMBERS = '[QRCODES APP] GET PHONENUMBERS';
-
+export const ADD_QRCODE = '[QRCODES APP] ADD QRCODE';
+export const UPDATE_QRCODE = '[QRCODES APP] UPDATE QRCODE';
+export const REMOVE_QRCODE = '[QRCODES APP] REMOVE QRCODE';
 
 export const SET_SEARCH_TEXT = '[QRCODES APP] SET SEARCH TEXT';
 export const TOGGLE_IN_SELECTED_QRCODES =
@@ -21,6 +21,7 @@ export const OPEN_EDIT_QRCODE_DIALOG =
 export const CLOSE_EDIT_QRCODE_DIALOG =
     '[QRCODES APP] CLOSE EDIT QRCODE DIALOG';
 
+export const REMOVE_QRCODES = '[QRCODES APP] REMOVE QRCODES';
 export const TOGGLE_STARRED_QRCODE = '[QRCODES APP] TOGGLE STARRED QRCODES';
 export const TOGGLE_STARRED_QRCODES = '[QRCODES APP] TOGGLE STARRED QRCODES';
 export const SET_QRCODES_STARRED = '[QRCODES APP] SET QRCODES STARRED ';
@@ -30,13 +31,11 @@ let selectedSearch= {
     code_type:'Undefined',
     searchDate:'Undefined'
 };
-
 export function reset() {
     selectedSearch.phoneNumber='Undefined';
     selectedSearch.code_type='Undefined';
     selectedSearch.searchDate='Undefined';
 }
-
 export const getAllQRCodePhoneNumbers = () => dispatch => {
     let query = 'get-all-qr-codes-phone-numbers';
     axios
@@ -52,13 +51,71 @@ export const getAllQRCodePhoneNumbers = () => dispatch => {
 
         });
 };
-export function getQrCodes() {
+export function getQrcodes() {
 
     return (
-    getQrCodesPaginationData(0,20,'','')
+    getQrcodesPaginationData(0,20,'','')
     );
 }
+export const addQrcode = newQrcode => dispatch => {
 
+    axios
+        .post(Base_URL + 'create-qrcode', newQrcode)
+        .then(res => {
+            if (res.request.status === 200) {
+                dispatch(showMessage({message: 'Qrcode Created', variant: "success"}));
+            }
+            dispatch({
+                type: ADD_QRCODE
+            });
+        })
+        .then(() => dispatch(getQrcodes()))
+        .catch(err => {
+            dispatch(showMessage({message: err.response.data.error, variant: "error"}));
+            console.log('err', err);
+
+        });
+};
+export const updateQrcode = (updateInfo, id) => dispatch => {
+
+    axios
+        .put(
+            Base_URL + `update-qrcode/${updateInfo.id}`,
+            updateInfo
+        )
+        .then(res => {
+            if (res.request.status === 200) {
+                dispatch(showMessage({message: 'Qrcode Updated', variant: "success"}));
+            }
+            dispatch({
+                type: UPDATE_QRCODE
+            });
+        })
+        .then(() => dispatch(getQrcodes()))
+        .catch(err => {
+            console.log('err', err.response);
+            dispatch(showMessage({message: err.response.data.error, variant: "error"}));
+
+        });
+};
+export const removeQrcode = id => dispatch => {
+    axios
+        .delete(Base_URL + `delete-qrcode/${id}`)
+        .then(res => {
+            if (res.request.status === 200) {
+                dispatch(showMessage({message: 'Qrcode Removed', variant: "success"}));
+            }
+            dispatch({
+                type: REMOVE_QRCODE
+            });
+        })
+        .then(() => dispatch(getQrcodes()))
+        .catch(err => {
+            console.log('err', err.response);
+            dispatch(showMessage({message: err.response.data.error, variant: "error"}));
+
+        });
+};
 
 
 export function setSearchText(event) {
@@ -68,53 +125,73 @@ export function setSearchText(event) {
     };
 }
 
-export function toggleInSelectedQrCodes(qrcodeId) {
+export function toggleInSelectedQrcodes(qrcodeId) {
     return {
         type: TOGGLE_IN_SELECTED_QRCODES,
         qrcodeId
     };
 }
 
-export function selectAllQrCodes() {
+export function selectAllQrcodes() {
     return {
         type: SELECT_ALL_QRCODES
     };
 }
 
-export function deSelectAllQrCodes() {
+export function deSelectAllQrcodes() {
     return {
         type: DESELECT_ALL_QRCODES
     };
 }
 
-export function openNewQrCodeDialog() {
+export function openNewQrcodeDialog() {
     return {
         type: OPEN_NEW_QRCODE_DIALOG
     };
 }
 
-export function closeNewQrCodeDialog() {
+export function closeNewQrcodeDialog() {
     return {
         type: CLOSE_NEW_QRCODE_DIALOG
     };
 }
 
-export function openEditQrCodeDialog(data) {
+export function openEditQrcodeDialog(data) {
     return {
         type: OPEN_EDIT_QRCODE_DIALOG,
         data
     };
 }
 
-export function closeEditQrCodeDialog() {
+export function closeEditQrcodeDialog() {
     return {
         type: CLOSE_EDIT_QRCODE_DIALOG
     };
 }
 
 
+export function removeQrcodes(qrcodeIds) {
+    return (dispatch, getState) => {
+        const {routeParams} = getState().qrcodesApp.qrcodes;
 
-export function toggleStarredQrCode(qrcodeId) {
+        const request = axios.post('/api/qrcodes-app/remove-qrcodes', {
+            qrcodeIds
+        });
+
+        return request.then(response =>
+            Promise.all([
+                dispatch({
+                    type: REMOVE_QRCODES
+                }),
+                dispatch({
+                    type: DESELECT_ALL_QRCODES
+                })
+            ]).then(() => dispatch(getQrcodes(routeParams)))
+        );
+    };
+}
+
+export function toggleStarredQrcode(qrcodeId) {
     return (dispatch, getState) => {
         const {routeParams} = getState().qrcodesApp.qrcodes;
 
@@ -127,12 +204,12 @@ export function toggleStarredQrCode(qrcodeId) {
                 dispatch({
                     type: TOGGLE_STARRED_QRCODE
                 }),
-            ]).then(() => dispatch(getQrCodes(routeParams)))
+            ]).then(() => dispatch(getQrcodes(routeParams)))
         );
     };
 }
 
-export function toggleStarredQrCodes(qrcodeIds) {
+export function toggleStarredQrcodes(qrcodeIds) {
     return (dispatch, getState) => {
         const {routeParams} = getState().qrcodesApp.qrcodes;
 
@@ -148,12 +225,12 @@ export function toggleStarredQrCodes(qrcodeIds) {
                 dispatch({
                     type: DESELECT_ALL_QRCODES
                 }),
-            ]).then(() => dispatch(getQrCodes(routeParams)))
+            ]).then(() => dispatch(getQrcodes(routeParams)))
         );
     };
 }
 
-export function setQrCodesStarred(qrcodeIds) {
+export function setQrcodesStarred(qrcodeIds) {
     return (dispatch, getState) => {
         const {routeParams} = getState().qrcodesApp.qrcodes;
 
@@ -169,12 +246,12 @@ export function setQrCodesStarred(qrcodeIds) {
                 dispatch({
                     type: DESELECT_ALL_QRCODES
                 }),
-            ]).then(() => dispatch(getQrCodes(routeParams)))
+            ]).then(() => dispatch(getQrcodes(routeParams)))
         );
     };
 }
 
-export function setQrCodesUnstarred(qrcodeIds) {
+export function setQrcodesUnstarred(qrcodeIds) {
     return (dispatch, getState) => {
         const {routeParams} = getState().qrcodesApp.qrcodes;
 
@@ -191,12 +268,12 @@ export function setQrCodesUnstarred(qrcodeIds) {
                     type: DESELECT_ALL_QRCODES
                 }),
 
-            ]).then(() => dispatch(getQrCodes(routeParams)))
+            ]).then(() => dispatch(getQrcodes(routeParams)))
         );
     };
 }
 
-export const getQrCodesPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
+export const getQrcodesPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
 
     if(isNaN(pageSize)|| pageSize===-1){
         pageSize='All';
@@ -247,7 +324,7 @@ export function searchQrCodes(state) {
         state.searchDate='Undefined';
     }
     selectedSearch=state;
-        return (
-            getQrCodesPaginationData(0,20,'','')
-        );
+    return (
+        getQrcodesPaginationData(0,20,'','')
+    );
 }

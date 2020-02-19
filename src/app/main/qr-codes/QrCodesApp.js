@@ -1,13 +1,14 @@
 import React, {Component} from 'react';
-import {Fab, Icon, withStyles} from '@material-ui/core';
-import {FuseAnimate, FusePageSimple} from '@fuse';
+import { withStyles} from '@material-ui/core';
+import { FusePageSimple} from '@fuse';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import withReducer from 'app/store/withReducer';
 import _ from '@lodash';
-import QrCodesList from './QrCodesList';
-import QrCodesHeader from './QrCodesHeader';
+import QrcodesList from './QrCodesList';
+import QrcodesHeader from './QrCodesHeader';
+import QrcodeDialog from './QrCodesDialog';
 import * as Actions from './store/actions';
 import reducer from './store/reducers';
 import './style.css';
@@ -21,19 +22,18 @@ const styles = theme => ({
     }
 });
 
-class QrCodesApp extends Component {
+class QrcodesApp extends Component {
     componentDidMount() {
-        this.props.getQrCodes(this.props.match.params);
+        this.props.getQrcodes(this.props.match.params);
     }
 
     componentDidUpdate(prevProps, prevState) {
         if (!_.isEqual(this.props.location, prevProps.location)) {
-            this.props.getQrCodes(this.props.match.params);
+            this.props.getQrcodes(this.props.match.params);
         }
     }
 
     render() {
-        const {classes, openNewQrCodeDialog} = this.props;
         if (!localStorage.getItem('jwtToken')) {
             window.location = '/login';
         }
@@ -45,15 +45,15 @@ class QrCodesApp extends Component {
                         leftSidebar: 'w-256 border-0',
                         header: 'min-h-72 h-72 sm:h-136 sm:min-h-136'
                     }}
-                    header={<QrCodesHeader pageLayout={() => this.pageLayout}/>}
-                    content={<QrCodesList/>}
+                    header={<QrcodesHeader pageLayout={() => this.pageLayout}/>}
+                    content={<QrcodesList/>}
                     sidebarInner
                     onRef={instance => {
                         this.pageLayout = instance;
                     }}
                     innerScroll
                 />
-
+                <QrcodeDialog/>
             </React.Fragment>
         );
     }
@@ -62,8 +62,8 @@ class QrCodesApp extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
-            getQrCodes: Actions.getQrCodes,
-            openNewQrCodeDialog: Actions.openNewQrCodeDialog
+            getQrcodes: Actions.getQrcodes,
+            openNewQrcodeDialog: Actions.openNewQrcodeDialog
         },
         dispatch
     );
@@ -71,7 +71,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({qrcodesApp}) {
     return {
-        selectedQrCodeIds: qrcodesApp.qrcodes.selectedQrCodeIds,
+        selectedQrcodeIds: qrcodesApp.qrcodes.selectedQrcodeIds,
         searchText: qrcodesApp.qrcodes.searchText,
         user: qrcodesApp.user
     };
@@ -83,7 +83,7 @@ export default withReducer('qrcodesApp', reducer)(
             connect(
                 mapStateToProps,
                 mapDispatchToProps
-            )(QrCodesApp)
+            )(QrcodesApp)
         )
     )
 );

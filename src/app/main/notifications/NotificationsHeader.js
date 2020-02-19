@@ -9,10 +9,11 @@ import TextField from "@material-ui/core/TextField";
 
 class NotificationsHeader extends Component {
     state = {
-        selectedDate:"yyyy-mm-dd"
+        selectedDate:"yyyy-mm-dd",
+        notificationType:''
     };
     render() {
-        const { searchNotificationsByDate, mainTheme} = this.props;
+        const { searchNotifications, mainTheme} = this.props;
 
         return (
             <div className="flex flex-1 items-center justify-between p-8 sm:p-24">
@@ -29,33 +30,60 @@ class NotificationsHeader extends Component {
                     </div>
                 </div>
 
-                <div className="d-flex flex-column flex-0 items-center justify-center pr-8 sm:px-12">
-                    <label>Select Date</label>
-                    <MuiThemeProvider theme={mainTheme}>
-                        <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                            <Paper
-                                className="flex p-4 items-center w-full max-w-512 px-8 py-4"
-                                elevation={1}
-                            >
+                <div className="d-flex flex-column flex-2 items-center justify-center pr-6 sm:px-4">
+                    <div className="flex flex-0 items-center justify-center pr-8 sm:px-6">
+                        <div className="d-flex flex-column flex-1 items-center justify-center pr-6 sm:px-4">
+                            <label>Select Date</label>
+                            <MuiThemeProvider theme={mainTheme}>
+                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                    <Paper
+                                        className="flex p-4 items-center w-full max-w-512 px-8 py-4"
+                                        elevation={1}
+                                    >
 
-                                <TextField
-                                    type="date"
-                                    // defaultValue={this.state.searchDate}
-                                    id="selectedDate"
-                                    name="selectedDate"
-                                    onChange={this.handleChange}
-                                    // disableUnderline={false}
-                                />
-                            </Paper>
-                        </FuseAnimate>
-                    </MuiThemeProvider>
+                                        <TextField
+                                            type="date"
+                                            // defaultValue={this.state.searchDate}
+                                            id="selectedDate"
+                                            name="selectedDate"
+                                            onChange={this.handleChange}
+                                            // disableUnderline={false}
+                                        />
+                                    </Paper>
+                                </FuseAnimate>
+                            </MuiThemeProvider>
+                        </div>
+                        <div className="d-flex flex-column flex-1 items-center justify-center pr-6 sm:px-4">
+                            <label>Select Notification Type</label>
+                            <MuiThemeProvider theme={mainTheme}>
+                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                    <Paper
+                                        className="flex p-4 items-center w-full max-w-512 px-8 py-4"
+                                        elevation={1}
+                                    >
+                                        <select
+                                            style={{width:'100%'}}
+                                            onChange={this.handleChange}
+                                            value={this.state.notificationType}
+                                            id="notificationType"
+                                            name="notificationType"
+                                        >
+                                            <option value="">All</option>
+                                            <option value="Simple">Simple</option>
+                                            <option value="EnlargedBanner">Enlarged Banner</option>
+                                        </select>
+                                    </Paper>
+                                </FuseAnimate>
+                            </MuiThemeProvider>
+                        </div>
+                    </div>
                     <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
                         <Button
                             style={{marginTop:5}}
                             variant="contained"
                             color="secondary"
                             onClick={() => {
-                                searchNotificationsByDate(this.state.selectedDate);
+                                searchNotifications(this.state);
                             }}
                         >
                             Apply
@@ -88,7 +116,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
             setSearchText: Actions.setSearchText,
-            searchNotificationsByDate: Actions.searchNotificationsByDate
+            searchNotifications: Actions.searchNotifications
         },
         dispatch
     );

@@ -152,13 +152,6 @@ class AdsList extends Component {
                             sortable: false
                         },
                         {
-                            Header: 'Type',
-                            accessor: 'type',
-                            filterable: false,
-                            className: 'font-bold'
-                            // className: "justify-center",
-                        },
-                        {
                             Header: 'From',
                             accessor: 'time_from',
                             // filterable: true,  moment('time_from').format('YYYY-MM-DD hh:mm')

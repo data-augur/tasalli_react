@@ -33,29 +33,6 @@ class AdsHeader extends Component {
 
                 <div className="d-flex flex-column flex-1 items-center justify-center pr-6 sm:px-4">
                     <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
-                        <div className="d-flex flex-column flex-1 items-center justify-center pr-6 sm:px-4">
-                            <label>Select Type</label>
-                            <MuiThemeProvider theme={mainTheme}>
-                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
-                                    <Paper
-                                        className="flex p-4 items-center w-full max-w-512 px-8 py-4"
-                                        elevation={1}
-                                    >
-                                        <select
-                                            style={{width:'100%'}}
-                                            onChange={this.handleChange}
-                                            value={this.state.searchType}
-                                            id="searchType"
-                                            name="searchType"
-                                        >
-                                            <option value="">All</option>
-                                            <option value='video'> Video </option>
-                                            <option value='survey'> Survey </option>
-                                        </select>
-                                    </Paper>
-                                </FuseAnimate>
-                            </MuiThemeProvider>
-                        </div>
                         <div className="d-flex flex-column flex-0 items-center justify-center pr-6 sm:px-4">
                             <label>Select From Date</label>
                             <MuiThemeProvider theme={mainTheme}>
@@ -111,6 +88,9 @@ class AdsHeader extends Component {
                             Apply
                         </Button>
                     </div>
+                </div>
+                <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
+
                 </div>
             </div>
         );

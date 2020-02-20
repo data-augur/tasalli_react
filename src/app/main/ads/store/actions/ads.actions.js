@@ -28,12 +28,10 @@ export const TOGGLE_STARRED_ADS = '[ADS APP] TOGGLE STARRED ADS';
 export const SET_ADS_STARRED = '[ADS APP] SET ADS STARRED ';
 
 let selectedSearch= {
-    searchType:'Undefined',
     fromSearch:'yyyy-mm-dd',
     toSearch:'yyyy-mm-dd'
 };
 export function reset() {
-    selectedSearch.searchType='Undefined';
     selectedSearch.fromSearch='yyyy-mm-dd';
     selectedSearch.toSearch='yyyy-mm-dd';
 }
@@ -45,7 +43,6 @@ export function getAds()  {
 export const addAds = newAd => dispatch => {
     newAd.time_from = new Date(newAd.time_from);
     newAd.time_to = new Date(newAd.time_to);
-// newAd.ad_type = newAd.type;
     axios
     // .post(Base_URL+'create-ads', newAd)
         .post(Base_URL + 'create-ad', newAd)
@@ -345,14 +342,14 @@ export const getAdsPaginationData = (page, pageSize, sorted, filtered) => dispat
         }
     }
     let querys;
-        if(selectedSearch.searchType!=='Undefined' || (selectedSearch.fromSearch!=='yyyy-mm-dd' && selectedSearch.fromSearch!=='') || (selectedSearch.toSearch!=='yyyy-mm-dd' && selectedSearch.toSearch!=='')){
+        if((selectedSearch.fromSearch!=='yyyy-mm-dd' && selectedSearch.fromSearch!=='') || (selectedSearch.toSearch!=='yyyy-mm-dd' && selectedSearch.toSearch!=='')){
             if(selectedSearch.fromSearch==='yyyy-mm-dd'||selectedSearch.fromSearch===''){
                 selectedSearch.fromSearch=moment('1970-01-01').format('YYYY-MM-DD');
             }
             if(selectedSearch.toSearch==='yyyy-mm-dd'||selectedSearch.toSearch===''){
                 selectedSearch.toSearch=moment(new Date()).format('YYYY-MM-DD');
             }
-            querys = 'get-all-ads-by-search-paging/' + selectedSearch.searchType + '/' + selectedSearch.fromSearch + '/' + selectedSearch.toSearch + '/' + page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+            querys = 'get-all-ads-by-search-paging/' + selectedSearch.fromSearch + '/' + selectedSearch.toSearch + '/' + page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
         } else {
             querys = 'get-all-ads-by-paging/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
         }

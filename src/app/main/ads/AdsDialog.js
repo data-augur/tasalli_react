@@ -23,20 +23,9 @@ import Grid from '@material-ui/core/Grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {DatePicker, MuiPickersUtilsProvider, TimePicker} from 'material-ui-pickers';
 
-const adsType = [
-    {
-        value: 'video',
-        label: 'Video'
-    },
-    {
-        value: 'survey',
-        label: 'Survey'
-    }
-];
 const newAdState = {
-    type: '',
+    id: '',
     video_link: '',
-    survey_Id: '',
     time_from: moment(new Date()).format('YYYY-MM-DDThh:mm'),
     time_to: moment(new Date()).format('YYYY-MM-DDThh:mm')
 };
@@ -116,8 +105,8 @@ class AdDialog extends Component {
 
 
     canBeSubmitted() {
-        const {type} = this.state;
-        return type.length > 0;
+        const {video_link} = this.state;
+        return video_link.length > 0;
     }
 
     handleDateChange = date => {
@@ -155,33 +144,6 @@ class AdDialog extends Component {
                 </AppBar>
 
                 <DialogContent classes={{root: 'p-24'}}>
-                    <div className="flex">
-                        <div className="min-w-48 pt-20">
-                            <Icon color="action">account_circle</Icon>
-                        </div>
-
-                        <Select
-                            className="mb-24"
-                            label="Type"
-                            id="type"
-                            name="type"
-                            value={this.state.type}
-                            onChange={this.handleChange}
-                            // margin="normal"
-                            fullWidth
-                            variant="outlined"
-                            // defaultValue={''}
-                        >
-                            {adsType.map(option => (
-                                <option value={option.value.toString()}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </Select>
-
-                    </div>
-
-                    {this.state.type === 'videoLink' || this.state.type === 'video' ? (
                         <div className="flex">
                             <div className="min-w-48 pt-20">
                                 <Icon color="action">link</Icon>
@@ -189,7 +151,7 @@ class AdDialog extends Component {
 
                             <TextField
                                 className="mb-24"
-                                label="Link"
+                                label="Video Link"
                                 autoFocus
                                 id="video_link"
                                 placeholder="Paste Youtube Link here"
@@ -202,36 +164,6 @@ class AdDialog extends Component {
                                 fullWidth
                             />
                         </div>
-                    ) : null}
-
-                    {this.state.type === 'survey' ? (
-                        <div className="flex">
-                            <div className="min-w-48 pt-20">
-                                <Icon color="action">work</Icon>
-                            </div>
-                            <TextField
-                                className="mb-24"
-                                label="Select Survey"
-                                id="survey_Id"
-                                name="survey_Id"
-                                select
-                                value={this.state.survey_Id}
-                                onChange={this.handleChange}
-                                margin="normal"
-                                fullWidth
-                                variant="outlined"
-                            >
-                                {this.props.surveys.map(option => {
-
-                                    return (
-                                        <option key={option.id} value={option.id}>
-                                            {option.name}
-                                        </option>
-                                    );
-                                })}
-                            </TextField>
-                        </div>
-                    ) : null}
 
 
                     <div className="flex">
@@ -291,8 +223,7 @@ class AdDialog extends Component {
                             color="primary"
                             onClick={() => {
                                 let dataToPass = {
-                                    video_link: this.state.type === 'survey' ? this.state.video_link : null,
-                                    survey_Id: this.state.type === 'video' ? this.state.survey_Id : null,
+                                    video_link: this.state.video_link,
                                     time_from: moment(new Date(this.state.time_from)).format('YYYY-MM-DD hh:mm:ss'),
                                     time_to: moment(new Date(this.state.time_to)).format('YYYY-MM-DD hh:mm:ss'),
                                 };
@@ -321,8 +252,8 @@ class AdDialog extends Component {
                             color="primary"
                             onClick={() => {
                                 let dataToPass = {
-                                    video_link: this.state.type === 'survey' ? this.state.video_link : null,
-                                    survey_Id: this.state.type === 'video' ? this.state.survey_Id : null,
+                                    id: this.state.id,
+                                    video_link: this.state.video_link,
                                     time_from: moment(new Date(this.state.time_from)).format('YYYY-MM-DD hh:mm:ss'),
                                     time_to: moment(new Date(this.state.time_to)).format('YYYY-MM-DD hh:mm:ss'),
                                 };

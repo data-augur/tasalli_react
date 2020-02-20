@@ -5,6 +5,7 @@ import * as authActions from "../../../../auth/store/actions";
 const initialState = {
     entities: [],
     searchText: "",
+    surveys: [],
     selectedNotificationIds: [],
     routeParams: {},
     notificationDialog: {
@@ -23,6 +24,7 @@ const notificationsReducer = function (state = initialState, action) {
                 ...state,
                 entities: [],
                 searchText: "",
+                surveys: [],
                 selectedNotificationIds: [],
                 routeParams: {},
                 notificationDialog: {
@@ -86,6 +88,12 @@ const notificationsReducer = function (state = initialState, action) {
             return {
                 ...state,
                 selectedNotificationIds: []
+            };
+        }
+        case Actions.GET_ALL_SURVEYS: {
+            return {
+                ...state,
+                surveys: action.payload
             };
         }
         case Actions.OPEN_NEW_NOTIFICATION_DIALOG: {

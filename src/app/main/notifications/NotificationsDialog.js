@@ -19,6 +19,7 @@ const newNotificationState = {
     title: "",
     message: "",
     notification_type: "",
+    survey_Id: "",
     images: '',
     sender: localStorage.getItem('id')
 };
@@ -131,25 +132,7 @@ class NotificationDialog extends Component {
                             fullWidth
                         />
                     </div>
-                    <div className="flex">
-                        <div className="min-w-48 pt-20">
-                            <Icon color="action">Message</Icon>
-                        </div>
 
-                        <TextField
-                            className="mb-24"
-                            label="Message"
-                            multiline
-                            id="message"
-                            name="message"
-                            value={this.state.message}
-                            onChange={this.handleChange}
-                            disabled={notificationDialog.type === "new" ? false : true}
-                            variant="outlined"
-                            required
-                            fullWidth
-                        />
-                    </div>
                     <div className="flex">
                         <div className="min-w-48 pt-20">
                             <Icon color="action">work</Icon>
@@ -169,9 +152,60 @@ class NotificationDialog extends Component {
                         >
                             <option key='Simple' value='Simple'>Simple</option>
                             <option key='EnlargedBanner' value='EnlargedBanner'>Enlarged Banner</option>
+                            <option key='Survey' value='Survey'>Survey</option>
 
                         </TextField>
                     </div>
+
+                    {this.state.notification_type === 'Survey' ? (
+                        <div className="flex">
+                            <div className="min-w-48 pt-20">
+                                <Icon color="action">work</Icon>
+                            </div>
+                            <TextField
+                                className="mb-24"
+                                label="Select Survey"
+                                id="survey_Id"
+                                name="survey_Id"
+                                select
+                                value={this.state.survey_Id}
+                                disabled={notificationDialog.type === "new" ? false : true}
+                                onChange={this.handleChange}
+                                margin="normal"
+                                fullWidth
+                                variant="outlined"
+                            >
+                                {this.props.surveys.map(option => {
+
+                                    return (
+                                        <option key={option.id} value={option.id}>
+                                            {option.name}
+                                        </option>
+                                    );
+                                })}
+                            </TextField>
+                        </div>
+                    ) : (
+                        <div className="flex">
+                            <div className="min-w-48 pt-20">
+                                <Icon color="action">Message</Icon>
+                            </div>
+
+                            <TextField
+                                className="mb-24"
+                                label="Message"
+                                multiline
+                                id="message"
+                                name="message"
+                                value={this.state.message}
+                                onChange={this.handleChange}
+                                disabled={notificationDialog.type === "new" ? false : true}
+                                variant="outlined"
+                                required
+                                fullWidth
+                            />
+                        </div>
+                    )}
                     {notificationDialog.type === "new" ? (
                     <div className="flex">
                         <div className="min-w-48 pt-20">
@@ -222,7 +256,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({notificationsApp}) {
     return {
-        notificationDialog: notificationsApp.notifications.notificationDialog
+        notificationDialog: notificationsApp.notifications.notificationDialog,
+        surveys: notificationsApp.notifications.surveys
     };
 }
 

@@ -71,6 +71,7 @@ class NotificationsHeader extends Component {
                                             <option value="">All</option>
                                             <option value="Simple">Simple</option>
                                             <option value="EnlargedBanner">Enlarged Banner</option>
+                                            <option key='Survey' value='Survey'>Survey</option>
                                         </select>
                                     </Paper>
                                 </FuseAnimate>

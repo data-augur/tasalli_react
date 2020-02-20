@@ -7,6 +7,7 @@ export const GET_ALL_DATE_HISTORY = '[APP USERS APP] GET DATE HISTORY';
 export const ADD_NOTIFICATION = "[NOTIFICATIONS APP] ADD NOTIFICATION";
 export const UPDATE_NOTIFICATION = "[NOTIFICATIONS APP] UPDATE NOTIFICATION";
 export const REMOVE_NOTIFICATION = "[NOTIFICATIONS APP] REMOVE NOTIFICATION";
+export const GET_ALL_SURVEYS = '[NOTIFICATION APP] GET NOTIFICATION';
 
 export const SET_SEARCH_TEXT = "[NOTIFICATIONS APP] SET SEARCH TEXT";
 export const TOGGLE_IN_SELECTED_NOTIFICATIONS =
@@ -41,6 +42,24 @@ export function reset() {
     selectedSearch.notificationType='Undefined';
     selectedSearch.selectedDate='Undefined';
 }
+
+export const getAllSurveys = () => dispatch => {
+    axios
+    // .get(Base_URL+'get-all-companies')
+        .get(Base_URL + 'get-all-surveys')
+        .then(res => {
+
+            dispatch({
+                type: GET_ALL_SURVEYS,
+                payload: res.data
+            });
+        })
+        .catch(err => {
+
+
+        });
+};
+
 export function getNotifications() {
     return (
         getNotificationsPaginationData(0,20,'','')
@@ -52,6 +71,7 @@ export const addNotification = newNotification => dispatch => {
     formdata.append('image', file);
     formdata.append('title', newNotification.title);
     formdata.append('message', newNotification.message);
+    formdata.append('survey_Id', newNotification.survey_Id);
     formdata.append('notification_type', newNotification.notification_type);
     formdata.append('sender', newNotification.sender);
 
@@ -250,6 +270,7 @@ export const getNotificationsPaginationData = (page, pageSize, sorted, filtered)
             });
             return({});
         })
+        .then(() => dispatch(getAllSurveys()))
         .catch(err => {
             console.log('err', err);
         });

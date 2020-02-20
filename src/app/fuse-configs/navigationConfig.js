@@ -65,6 +65,13 @@ const superAdminNavigationConfig = [
                 type: 'item',
                 icon: 'people',
                 url: '/app-users'
+            },
+            {
+                id: 'app-user-component',
+                title: 'Retailers',
+                type: 'item',
+                icon: 'people',
+                url: '/retailers'
             }
         ]
     },

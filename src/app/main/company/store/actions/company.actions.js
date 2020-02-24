@@ -101,11 +101,6 @@ export const removeCompany = id => dispatch => {
         .then(() => dispatch(getCompanies()))
         .catch(err => {
             dispatch(showMessage({message: err.response.data.error, variant: "error"}));
-
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
         });
 };
 

@@ -28,6 +28,7 @@ import {QrCodesAppConfig} from 'app/main/qr-codes/QrCodesAppConfig';
 import {WarrantyRegisterAppConfig} from 'app/main/warranty-register/WarrantyRegisterAppConfig';
 import {WarrantyClaimedAppConfig} from 'app/main/warranty-claimed/WarrantyClaimedAppConfig';
 import {BrandsAppConfig} from 'app/main/brands/BrandsAppConfig';
+import {UploadPicturesAppConfig} from 'app/main/upload-picture/UploadPictureAppConfig';
 import {LogoutConfig} from 'app/main/logout/LogoutConfig';
 
 const routeConfigs = [
@@ -57,6 +58,7 @@ const routeConfigs = [
     QrCodesAppConfig,
     WarrantyRegisterAppConfig,
     WarrantyClaimedAppConfig,
+    UploadPicturesAppConfig,
     LogoutConfig,
     Error404PageConfig
 ];

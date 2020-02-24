@@ -16,7 +16,6 @@ import * as Actions from './store/actions';
 import {connect} from 'react-redux';
 import _ from '@lodash';
 import moment from "moment";
-import Select from "@material-ui/core/Select";
 
 import 'date-fns';
 import Grid from '@material-ui/core/Grid';

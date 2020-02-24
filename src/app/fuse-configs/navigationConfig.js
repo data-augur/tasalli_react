@@ -91,6 +91,21 @@ const superAdminNavigationConfig = [
         ]
     },
     {
+        id: 'cyphemecode',
+        title: 'Cypheme Code',
+        type: 'group',
+        icon: 'whatshot',
+        children: [
+            {
+                id: 'cyphemeCode-component',
+                title: 'Verify Code',
+                type: 'item',
+                icon: 'search',
+                url: '/uploadPictures'
+            },
+        ]
+    },
+    {
         id: 'ads-group',
         title: 'Ads',
         type: 'group',

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
-
+import {showMessage} from 'app/store/actions/fuse';
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_RETAILERS = '[RETAILERS APP] GET RETAILERS';
 export const GET_ALL_RETAILER_PHONE_NUMBERS = '[RETAILERS APP] GET RETAILER PHONENUMBERS';
 export const GET_ALL_USER_PHONE_NUMBERS = '[RETAILERS APP] GET USER PHONENUMBERS';
@@ -329,6 +331,10 @@ export const getRetailersPaginationData = (page, pageSize, sorted, filtered) => 
         .then(() => dispatch(getAllUserPhoneNumbers()))
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 

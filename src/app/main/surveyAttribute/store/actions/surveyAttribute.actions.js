@@ -3,7 +3,8 @@ import {Base_URL} from '../../../../server'
 // import {ADD_SURVEYATTRIBUTE} from "../../../surveyAttributes/store/actions";
 // import {GET_ALL_SURVEYS} from "../../../surveys/store/actions";
 import {showMessage} from 'app/store/actions/fuse';
-
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] GET SURVEYATTRIBUTE';
 export const GET_ALL_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] GET SURVEYATTRIBUTE';
 export const ADD_SURVEYATTRIBUTE = '[SURVEYATTRIBUTE APP] ADD SURVEYATTRIBUTE';
@@ -41,10 +42,10 @@ export const getSurveyAttribute = () => dispatch => {
         // .then(() => dispatch(getAllCompanies()))
         .catch(err => {
             console.log('err', err);
-            //   dispatch({
-            //     type: LOGIN_ERROR,
-            //     payload: err.response.data
-            //   });
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 export const addSurveyAttribute = newSurveyAttribute => dispatch => {

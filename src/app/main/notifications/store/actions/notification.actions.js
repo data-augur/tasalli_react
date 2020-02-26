@@ -1,6 +1,8 @@
 import axios from "axios";
 import {Base_URL} from "../../../../server";
 import {showMessage} from "app/store/actions/fuse";
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 
 export const GET_NOTIFICATIONS = "[NOTIFICATIONS APP] GET NOTIFICATIONS";
 export const GET_ALL_DATE_HISTORY = '[APP USERS APP] GET DATE HISTORY';
@@ -273,6 +275,10 @@ export const getNotificationsPaginationData = (page, pageSize, sorted, filtered)
         .then(() => dispatch(getAllSurveys()))
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 

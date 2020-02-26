@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
-
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_ALL_APP_USERS = '[APP USERS APP] GET APPUSERS';
 export const GET_ALL_CITIES = '[APP USERS APP] GET CITIES';
 export const UPDATE_APP_USER = '[APP USERS APP] UPDATE APPUSER';
@@ -360,6 +361,10 @@ export const getAppUsersPaginationData = (page, pageSize, sorted, filtered) => d
         .then(() => dispatch(getAllCities()))
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 

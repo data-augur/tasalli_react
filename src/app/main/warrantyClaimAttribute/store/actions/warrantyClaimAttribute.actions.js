@@ -3,7 +3,8 @@ import {Base_URL} from '../../../../server'
 // import {ADD_SURVEYATTRIBUTE} from "../../../surveyAttributes/store/actions";
 // import {GET_ALL_SURVEYS} from "../../../surveys/store/actions";
 import {showMessage} from 'app/store/actions/fuse';
-
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_WARRANTYCLAIMATTRIBUTE = '[WARRANTYCLAIMATTRIBUTE APP] GET WARRANTYCLAIMATTRIBUTE';
 export const GET_ALL_WARRANTYCLAIMATTRIBUTE = '[WARRANTYCLAIMATTRIBUTE APP] GET WARRANTYCLAIMATTRIBUTE';
 export const ADD_WARRANTYCLAIMATTRIBUTE = '[WARRANTYCLAIMATTRIBUTE APP] ADD WARRANTYCLAIMATTRIBUTE';
@@ -76,6 +77,10 @@ export const getWarrantyClaimAttribute = () => dispatch => {
         // .then(() => dispatch(getAllCompanies()))
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
             //   dispatch({
             //     type: LOGIN_ERROR,
             //     payload: err.response.data

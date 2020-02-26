@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
-
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_ALL_ADMIN_USERS = '[ADMIN USERS APP] GET ADMINUSERS';
 
 export const UPDATE_ADMIN_USER = '[ADMIN USERS APP] UPDATE ADMINUSER';
@@ -366,6 +367,10 @@ export const getAdminsPaginationData = (page, pageSize, sorted, filtered) => dis
         })
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 

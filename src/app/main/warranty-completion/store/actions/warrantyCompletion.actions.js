@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
-
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_WARRANTYCOMPLETION = '[WARRANTYCOMPLETION APP] GET WARRANTYCOMPLETION';
 export const GET_ALL_COMPANIES = '[WARRANTYCOMPLETION APP] GET COMPANIES';
 export const ADD_WARRANTYCOMPLETION = '[WARRANTYCOMPLETION APP] ADD WARRANTYCOMPLETION';
@@ -398,6 +399,10 @@ export const getWarrantyCompletionPaginationData = (page, pageSize, sorted, filt
         .then(() => dispatch(getAllCompanies()))
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 

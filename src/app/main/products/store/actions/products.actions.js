@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
-
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_PRODUCTS = '[PRODUCTS APP] GET PRODUCTS';
 export const GET_ALL_WARRANTY_REGISTRATION_FORM = '[PRODUCTS APP] GET WARRANTYREGISTRATIONFORM';
 export const GET_ALL_WARRANTY_COMPLETION_FORM = '[PRODUCTS APP] GET WARRANTYCOMPLETIONFORM';
@@ -416,6 +417,10 @@ export const getProductsPaginationData = (page, pageSize, sorted, filtered) => d
         .then(() => dispatch(getAllCompanies()))
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 

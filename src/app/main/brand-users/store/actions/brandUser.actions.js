@@ -1,7 +1,8 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
-
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_BRAND_USERS = '[BRAND USERS APP] GET BRANDUSERS';
 export const GET_ALL_COMPANIES = '[BRAND USERS APP] GET COMPANIES';
 export const GET_ALL_BRANDS = '[BRAND USERS APP] GET ALLBRANDS';
@@ -315,6 +316,10 @@ export const getBrandUsersPaginationData = (page, pageSize, sorted, filtered) =>
         .then(() => dispatch(getAllBrands()))
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 

@@ -1,6 +1,8 @@
 import axios from 'axios';
 import {Base_URL} from '../../../../server'
-
+import {showMessage} from 'app/store/actions/fuse';
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_LOGS = '[LOGS APP] GET LOGS';
 export const GET_ALL_LOGS_SKU_CODES = '[LOGS APP] GET SKUCODES';
 export const GET_ALL_LOGS_PHONE_NUMBERS = '[LOGS APP] GET PHONENUMBERS';
@@ -243,6 +245,10 @@ export const getLogsPaginationData = (page, pageSize, sorted, filtered) => dispa
         .then(() => dispatch(getAllLogsPhoneNumbers()))
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 

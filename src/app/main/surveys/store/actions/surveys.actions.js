@@ -2,7 +2,8 @@ import axios from 'axios';
 import {Base_URL} from '../../../../server'
 // import {GET_ALL_SURVEYS} from "../../../surveys/store/actions";
 import {showMessage} from 'app/store/actions/fuse';
-
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 export const GET_SURVEYS = '[SURVEYS APP] GET SURVEYS';
 export const GET_ALL_SURVEYS = '[SURVEYS APP] GET SURVEYS';
 export const ADD_SURVEY = '[SURVEYS APP] ADD SURVEY';
@@ -404,5 +405,9 @@ export const getSurveysPaginationData = (page, pageSize, sorted, filtered) => di
         })
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };

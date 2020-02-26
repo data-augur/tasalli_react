@@ -2,7 +2,8 @@ import axios from 'axios';
 import {Base_URL} from '../../../../server'
 import moment from "moment";
 import {showMessage} from 'app/store/actions/fuse';
-
+import store from 'app/store';
+import {logoutUser} from 'app/auth/store/actions/login.actions';
 
 
 export const GET_BANNER_ADS = '[BANNER ADS APP] GET BANNER ADS';
@@ -399,6 +400,10 @@ export const getBannerAdsPaginationData = (page, pageSize, sorted, filtered) => 
         .then(() => dispatch(getAllNotifications()))
         .catch(err => {
             console.log('err', err);
+            if (err.request.status === 401) {
+                dispatch(showMessage({message: 'Your session expired. Please login again.', variant: "error"}));
+                store.dispatch(logoutUser());
+            }
         });
 };
 

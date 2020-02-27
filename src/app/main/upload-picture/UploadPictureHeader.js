@@ -1,11 +1,20 @@
 import React, {Component} from 'react';
-import {Icon, Typography} from '@material-ui/core';
+import {Button, Icon, MuiThemeProvider, Paper, Typography} from '@material-ui/core';
 import {FuseAnimate} from '@fuse';
 import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import * as Actions from "../upload-picture/store/actions";
 
 class UploadPicturesHeader extends Component {
+    state = {
+        images: ''
+    };
+    handleFile(e){
+        let file=e.target.files[0];
+        this.setState({images: file})
+    }
     render() {
+        const { addUploadPicture, isProcess, mainTheme} = this.props;
 
         return (
             <div className="flex flex-1 items-center justify-between p-8 sm:p-24">
@@ -22,6 +31,39 @@ class UploadPicturesHeader extends Component {
                     </div>
                 </div>
 
+                <div className="d-flex flex-column flex-1 items-center justify-center pr-6 sm:px-4">
+                    <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
+                        <div className="d-flex flex-column flex-1 items-center justify-center pr-6 sm:px-4">
+                            <MuiThemeProvider theme={mainTheme} >
+                                <FuseAnimate animation="transition.slideLeftIn" delay={300}>
+                                    <Paper
+                                        className="flex p-4 items-center w-full max-w-512 px-8 py-4 text-black"
+                                        // elevation={0}
+                                        variant="outlined"
+                                    >
+                                        <input title="Image" type="file" name="images" onChange={(e)=>this.handleFile(e)}
+                                        />
+                                    </Paper>
+                                </FuseAnimate>
+                            </MuiThemeProvider>
+                        </div>
+                    </div>
+                    <div className="flex flex-1 items-center float-right justify-center pr-8 sm:px-12">
+                        <Button
+                            style={{marginTop:5}}
+                            variant="contained"
+                            color="secondary"
+                            disabled={
+                                this.state.images==='' || isProcess
+                            }
+                            onClick={() => {
+                                addUploadPicture(this.state);
+                            }}
+                        >
+                            Upload
+                        </Button>
+                    </div>
+                </div>
                 <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
 
                 </div>
@@ -33,6 +75,7 @@ class UploadPicturesHeader extends Component {
 function mapDispatchToProps(dispatch) {
     return bindActionCreators(
         {
+            addUploadPicture: Actions.addUploadPicture
         },
         dispatch
     );
@@ -40,7 +83,8 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps({uploadPicturesApp, fuse}) {
     return {
-        mainTheme: fuse.settings.mainTheme
+        mainTheme: fuse.settings.mainTheme,
+        isProcess: uploadPicturesApp.uploadPictures.isProcess,
     };
 }
 

@@ -45,14 +45,14 @@ class UploadPicturesList extends Component {
                     <div>
 
                         <h3>
-                            {data.msg} {data.tag ? ' and image cypheme code is '+data.tag : ''}
+                            {data.msg} {data.tag ? ' and image cypheme code : '+data.tag : ''}
                         </h3>
 
                         <br />
 
                         <div>
                             {data.productExists==='productExists' ? '' : ''}
-                            {data.productExists==='productDoesNotExists' ? 'The product not exsists.' : ''}
+                            {data.productExists==='productDoesNotExists' ? 'The product does not exsists.' : ''}
                         </div>
 
                         <br />

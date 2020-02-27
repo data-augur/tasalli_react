@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {Fab, Icon, withStyles} from '@material-ui/core';
-import {FuseAnimate, FusePageSimple} from '@fuse';
+import { withStyles} from '@material-ui/core';
+import { FusePageSimple} from '@fuse';
 import {bindActionCreators} from 'redux';
 import {withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
@@ -33,7 +33,6 @@ class UploadPicturesApp extends Component {
     }
 
     render() {
-        const {classes, isProcess, openNewUploadPictureDialog} = this.props;
         if (!localStorage.getItem('jwtToken')) {
             window.location = '/login';
         }
@@ -53,17 +52,17 @@ class UploadPicturesApp extends Component {
                     }}
                     innerScroll
                 />
-                <FuseAnimate animation="transition.expandIn" delay={300}>
-                    <Fab
-                        color="primary"
-                        aria-label="add"
-                        className={classes.addButton}
-                        onClick={openNewUploadPictureDialog}
-                        disabled={isProcess}
-                    >
-                        <Icon>add</Icon>
-                    </Fab>
-                </FuseAnimate>
+                {/*<FuseAnimate animation="transition.expandIn" delay={300}>*/}
+                    {/*<Fab*/}
+                    {/*    color="primary"*/}
+                    {/*    aria-label="add"*/}
+                    {/*    className={classes.addButton}*/}
+                    {/*    onClick={openNewUploadPictureDialog}*/}
+                    {/*    disabled={isProcess}*/}
+                    {/*>*/}
+                    {/*    <Icon>add</Icon>*/}
+                    {/*</Fab>*/}
+                {/*</FuseAnimate>*/}
                 <UploadPictureDialog/>
             </React.Fragment>
         );

@@ -1,14 +1,4 @@
-import React, {Component} from 'react';
-import {
-    AppBar,
-    Button,
-    Dialog,
-    DialogActions,
-    DialogContent,
-    Icon,
-    Toolbar,
-    Typography
-} from '@material-ui/core';
+import {Component} from 'react';
 import {bindActionCreators} from 'redux';
 import * as Actions from './store/actions';
 import {connect} from 'react-redux';
@@ -81,74 +71,8 @@ class UploadPictureDialog extends Component {
     }
 
     render() {
-        let {
-            uploadPictureDialog,
-            addUploadPicture,
-        } = this.props;
 
-        return (
-            <Dialog
-                classes={{
-                    paper: 'm-24'
-                }}
-                {...uploadPictureDialog.props}
-                onClose={this.closeComposeDialog}
-                fullWidth
-                maxWidth="xs"
-            >
-                <AppBar position="static" elevation={1}>
-                    <Toolbar className="flex w-full">
-                        <Typography variant="subtitle1" color="inherit">
-                            {uploadPictureDialog.type === 'new' ? 'Upload Picture' : 'Edit UploadPicture'}
-                        </Typography>
-                    </Toolbar>
-                    <div className="flex flex-col items-center justify-center pb-24">
-                        {/* <Avatar
-              className="w-96 h-96"
-              alt="uploadPicture avatar"
-              src={this.state.avatar}
-            /> */}
-                        {uploadPictureDialog.type === 'edit' && (
-                            <Typography variant="h6" color="inherit" className="pt-8">
-
-                            </Typography>
-                        )}
-                    </div>
-                </AppBar>
-
-                <DialogContent classes={{root: 'p-24'}}>
-                    <div className="flex">
-                        <div className="min-w-48 pt-20">
-                            <Icon color="action">image</Icon>
-                        </div>
-                        <input title="Image" type="file" name="images" onChange={(e)=>this.handleFile(e)}
-                        />
-                    </div>
-                </DialogContent>
-
-                {uploadPictureDialog.type === 'new' ? (
-                    <DialogActions className="justify-between pl-16">
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={() => {
-                                addUploadPicture(this.state);
-                                this.closeComposeDialog();
-                            }}
-                            disabled={
-                                this.state.images===''
-                            }
-                        >
-                            Upload
-                        </Button>
-                    </DialogActions>
-                ) : (
-                    <DialogActions className="justify-between pl-16">
-
-                    </DialogActions>
-                )}
-            </Dialog>
-        );
+        return null;
     }
 }
 

@@ -42,6 +42,10 @@ export const addUploadPicture = newUploadPicture => dispatch => {
         .catch(err => {
             console.log('err', err);
             dispatch(showMessage({message: 'Error!' + err, variant: "error"}));
+            dispatch({
+                type: SET_PROCESS,
+                isProcess: false
+            });
         });
 
 };

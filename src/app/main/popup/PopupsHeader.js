@@ -34,7 +34,7 @@ class POPUPSHeader extends Component {
                 <div className="d-flex flex-column flex-1 items-center justify-center pr-6 sm:px-4">
                     <div className="flex flex-1 items-center justify-center pr-8 sm:px-12">
                         <div className="d-flex flex-column flex-0 items-center justify-center pr-6 sm:px-4">
-                            <label>Start Time</label>
+                            <label>Start Date</label>
                             <MuiThemeProvider theme={mainTheme}>
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Paper
@@ -56,7 +56,7 @@ class POPUPSHeader extends Component {
                             </MuiThemeProvider>
                         </div>
                         <div className="d-flex flex-column flex-0 items-center justify-center pr-6 sm:px-4">
-                        <label>End Time</label>
+                        <label>End Date</label>
                             <MuiThemeProvider theme={mainTheme}>
                                 <FuseAnimate animation="transition.slideLeftIn" delay={300}>
                                     <Paper

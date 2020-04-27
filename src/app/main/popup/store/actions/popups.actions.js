@@ -59,12 +59,16 @@ export function getPOPUPS()  {
 }
 
 export const addPOPUPS = newPopup => dispatch => {
+    newPopup.startDate = new Date(newPopup.startDate);
+    newPopup.endDate = new Date(newPopup.endDate);
     newPopup.startTime = new Date(newPopup.startTime);
     newPopup.endTime = new Date(newPopup.endTime);
     let file= newPopup.images;
     let formdata= new FormData();
     formdata.append('image', file);
     formdata.append('name', newPopup.name);
+    formdata.append('startDate', newPopup.startDate);
+    formdata.append('endDate', newPopup.endDate);
     formdata.append('startTime', newPopup.startTime);
     formdata.append('endTime', newPopup.endTime);
     formdata.append('duration', newPopup.duration);
@@ -90,6 +94,8 @@ export const addPOPUPS = newPopup => dispatch => {
         })
 };
 export const updatePOPUPS = (updateInfo) => dispatch => {
+    updateInfo.startDate = new Date(updateInfo.startDate);
+    updateInfo.endDate = new Date(updateInfo.endDate);
     updateInfo.startTime = new Date(updateInfo.startTime);
     updateInfo.endTime = new Date(updateInfo.endTime);
     let formdata= new FormData();
@@ -97,6 +103,8 @@ export const updatePOPUPS = (updateInfo) => dispatch => {
         let file= updateInfo.images;
         formdata.append('image', file);
         formdata.append('name', updateInfo.name);
+        formdata.append('startDate', updateInfo.startDate);
+        formdata.append('endDate', updateInfo.endDate);
         formdata.append('startTime', updateInfo.startTime);
         formdata.append('endTime', updateInfo.endTime);
         formdata.append('duration', updateInfo.duration);

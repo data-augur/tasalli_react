@@ -59,12 +59,16 @@ export function getBannerAds()  {
 }
 
 export const addBannerAds = newBannerAd => dispatch => {
+    newBannerAd.startDate = new Date(newBannerAd.startDate);
+    newBannerAd.endDate = new Date(newBannerAd.endDate);
     newBannerAd.startTime = new Date(newBannerAd.startTime);
     newBannerAd.endTime = new Date(newBannerAd.endTime);
     let file= newBannerAd.images;
     let formdata= new FormData();
     formdata.append('image', file);
     formdata.append('name', newBannerAd.name);
+    formdata.append('startDate', newBannerAd.startDate);
+    formdata.append('endDate', newBannerAd.endDate);
     formdata.append('startTime', newBannerAd.startTime);
     formdata.append('endTime', newBannerAd.endTime);
     formdata.append('duration', newBannerAd.duration);
@@ -90,6 +94,8 @@ export const addBannerAds = newBannerAd => dispatch => {
         })
 };
 export const updateBannerAds = (updateInfo) => dispatch => {
+    updateInfo.startDate = new Date(updateInfo.startDate);
+    updateInfo.endDate = new Date(updateInfo.endDate);
     updateInfo.startTime = new Date(updateInfo.startTime);
     updateInfo.endTime = new Date(updateInfo.endTime);
     let formdata= new FormData();
@@ -97,6 +103,8 @@ export const updateBannerAds = (updateInfo) => dispatch => {
         let file= updateInfo.images;
         formdata.append('image', file);
         formdata.append('name', updateInfo.name);
+        formdata.append('startDate', updateInfo.startDate);
+        formdata.append('endDate', updateInfo.endDate);
         formdata.append('startTime', updateInfo.startTime);
         formdata.append('endTime', updateInfo.endTime);
         formdata.append('duration', updateInfo.duration);

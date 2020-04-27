@@ -29,6 +29,8 @@ const newAdState = {
     duration: 3,
     // pictures: [],
     images: '',
+    startDate: moment(new Date()).format('YYYY-MM-DD'),
+    endDate: moment(new Date()).format('YYYY-MM-DD'),
     startTime: moment(new Date()).format('YYYY-MM-DDThh:mm'),
     endTime: moment(new Date()).format('YYYY-MM-DDThh:mm')
 };
@@ -82,8 +84,10 @@ class BannerAdsDialog extends Component {
     };
 
 
-    onEndChange = endTime => this.setState({endTime});
-    onStartChange = startTime => this.setState({startTime});
+    onEndDateChange = endDate => this.setState({endDate});
+    onStartDateChange = startDate => this.setState({startDate});
+    onEndTimeChange = endTime => this.setState({endTime});
+    onStartTimeChange = startTime => this.setState({startTime});
 
     handleFile(e){
         let file=e.target.files[0]
@@ -179,15 +183,9 @@ class BannerAdsDialog extends Component {
                                     margin="normal"
                                     className="mb-24"
                                     label="Start Date"
-                                    value={moment(new Date(this.state.startTime)).format('YYYY-MM-DDThh:mm')}
-                                    onChange={this.onStartChange}
+                                    value={moment(new Date(this.state.startDate)).format('YYYY-MM-DD')}
+                                    onChange={this.onStartDateChange}
                                     autoOk={true}
-                                />
-                                <TimePicker
-                                    margin="normal"
-                                    label="Starting Time"
-                                    value={moment(new Date(this.state.startTime)).format('YYYY-MM-DDThh:mm')}
-                                    onChange={this.onStartChange}
                                 />
                             </Grid>
                         </MuiPickersUtilsProvider>
@@ -202,15 +200,39 @@ class BannerAdsDialog extends Component {
                                     margin="normal"
                                     className="mb-24"
                                     label="End Date"
-                                    value={moment(new Date(this.state.endTime)).format('YYYY-MM-DDThh:mm')}
-                                    onChange={this.onEndChange}
+                                    value={moment(new Date(this.state.endDate)).format('YYYY-MM-DD')}
+                                    onChange={this.onEndDateChange}
                                     autoOk={true}
                                 />
+                            </Grid>
+                        </MuiPickersUtilsProvider>
+                    </div>
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">Time</Icon>
+                        </div>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <Grid container justify="space-around">
+                                <TimePicker
+                                    margin="normal"
+                                    label="Starting Time"
+                                    value={moment(new Date(this.state.startTime)).format('YYYY-MM-DDThh:mm')}
+                                    onChange={this.onStartTimeChange}
+                                />
+                            </Grid>
+                        </MuiPickersUtilsProvider>
+                    </div>
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">Time</Icon>
+                        </div>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <Grid container justify="space-around">
                                 <TimePicker
                                     margin="normal"
                                     label="Ending Time"
                                     value={moment(new Date(this.state.endTime)).format('YYYY-MM-DDThh:mm')}
-                                    onChange={this.onEndChange}
+                                    onChange={this.onEndTimeChange}
                                 />
                             </Grid>
                         </MuiPickersUtilsProvider>
@@ -281,6 +303,8 @@ class BannerAdsDialog extends Component {
                             color="primary"
                             onClick={() => {
                                 let dataToPass = {
+                                    startDate: moment(new Date(this.state.startDate)).format('YYYY-MM-DD '),
+                                    endDate: moment(new Date(this.state.endDate)).format('YYYY-MM-DD'),
                                     startTime: moment(new Date(this.state.startTime)).format('YYYY-MM-DD hh:mm:ss'),
                                     endTime: moment(new Date(this.state.endTime)).format('YYYY-MM-DD hh:mm:ss'),
                                     name: this.state.name,
@@ -288,16 +312,27 @@ class BannerAdsDialog extends Component {
                                     duration: this.state.duration,
                                     notification_id: this.state.notification_id
                                 };
-                                if (dataToPass.endTime > dataToPass.startTime) {
-                                    let strDateTime = dataToPass.startTime;
-                                    let myDate = new Date(strDateTime);
-                                    dataToPass.startTime = myDate.toLocaleString();
-                                    let strDateTimes = dataToPass.endTime;
-                                    let myDates = new Date(strDateTimes);
-                                    dataToPass.endTime = myDates.toLocaleString();
+                                if (dataToPass.endDate > dataToPass.startDate) {
+                                    if (dataToPass.endTime > dataToPass.startTime) {
+                                        let startDate = dataToPass.startDate;
+                                        let myStartDate = new Date(startDate);
+                                        dataToPass.startDate = myStartDate.toLocaleString();
+                                        let endDate = dataToPass.endDate;
+                                        let myEndDate = new Date(endDate);
+                                        dataToPass.endDate = myEndDate.toLocaleString();
 
-                                    addBannerAds(dataToPass);
-                                    this.closeComposeDialog();
+                                        let startTime = dataToPass.startTime;
+                                        let myStartTime = new Date(startTime);
+                                        dataToPass.startTime = myStartTime.toLocaleString();
+                                        let endTimes = dataToPass.endTime;
+                                        let myEndTime = new Date(endTimes);
+                                        dataToPass.endTime = myEndTime.toLocaleString();
+
+                                        addBannerAds(dataToPass);
+                                        this.closeComposeDialog();
+                                    } else {
+                                        alert("Start Time should be greater than End Time!");
+                                    }
                                 } else {
                                     alert("Start Date should be greater than End Date!");
                                 }

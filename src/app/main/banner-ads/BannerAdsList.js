@@ -179,25 +179,38 @@ class BannerAdsList extends Component {
                             // className: "justify-center",
                         },
                         {
-                            Header: 'Start Time',
-                            id: 'startTime',
+                            Header: 'Start Date',
+                            id: 'startDate',
                             // accessor: 'startTime',
                             accessor: d => {
-                                return moment(d.startTime)
+                                return moment(d.startDate)
                                     .local()
-                                    .format("DD-MM-YYYY hh:mm:ss a")
+                                    .format("DD-MM-YYYY")
                             },
                             filterable: false,
                             className: 'justify-center',
                         },
                         {
+                            Header: 'End Date',
+                            id: 'endDate',
+                            accessor: d => {
+                                return moment(d.endDate)
+                                    .local()
+                                    .format("DD-MM-YYYY")
+                            },
+                            filterable: false,
+                            className: 'justify-center'
+                        },
+                        {
+                            Header: 'Start Time',
+                            id: 'startTime',
+                            accessor: 'startTime',
+                            filterable: false,
+                            className: 'justify-center'
+                        },{
                             Header: 'End Time',
                             id: 'endTime',
-                            accessor: d => {
-                                return moment(d.endTime)
-                                    .local()
-                                    .format("DD-MM-YYYY hh:mm:ss a")
-                            },
+                            accessor: 'endTime',
                             filterable: false,
                             className: 'justify-center'
                         },

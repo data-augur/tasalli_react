@@ -16,6 +16,7 @@ import {withRouter} from 'react-router-dom';
 import {bindActionCreators} from 'redux';
 import ReactTable from 'react-table';
 import * as Actions from './store/actions';
+import moment from "moment";
 
 class AdsList extends Component {
     state = {
@@ -74,6 +75,9 @@ class AdsList extends Component {
                             className: 'cursor-pointer',
                             onClick: (e, handleOriginal) => {
                                 if (rowInfo) {
+                                    rowInfo.original.startTime=moment(new Date()).format('1970-10-10T'+rowInfo.original.startTime);
+
+                                    rowInfo.original.endTime=moment(new Date()).format('1970-10-10T'+rowInfo.original.endTime);
                                     openEditAdDialog(rowInfo.original);
                                 }
                             }
@@ -152,16 +156,31 @@ class AdsList extends Component {
                             sortable: false
                         },
                         {
-                            Header: 'From',
-                            accessor: 'time_from',
+                            Header: 'From Date',
+                            accessor: 'startDate',
                             // filterable: true,  moment('time_from').format('YYYY-MM-DD hh:mm')
                             className: 'justify-center',
                             sortDirection: 'ascending'
                             // className: "justify-center",
                         },
                         {
-                            Header: 'To',
-                            accessor: 'time_to',
+                            Header: 'To Date',
+                            accessor: 'endDate',
+                            // filterable: true,
+                            className: 'justify-center'
+                            // className: "justify-center",
+                        },
+                        {
+                            Header: 'From Time',
+                            accessor: 'startTime',
+                            // filterable: true,  moment('time_from').format('YYYY-MM-DD hh:mm')
+                            className: 'justify-center',
+                            sortDirection: 'ascending'
+                            // className: "justify-center",
+                        },
+                        {
+                            Header: 'To Time',
+                            accessor: 'endTime',
                             // filterable: true,
                             className: 'justify-center'
                             // className: "justify-center",

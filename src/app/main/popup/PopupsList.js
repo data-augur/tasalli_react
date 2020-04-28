@@ -75,6 +75,9 @@ class POPUPSList extends Component {
                             className: 'cursor-pointer',
                             onClick: (e, handleOriginal) => {
                                 if (rowInfo) {
+                                    rowInfo.original.startTime=moment(new Date()).format('1970-10-10T'+rowInfo.original.startTime);
+
+                                    rowInfo.original.endTime=moment(new Date()).format('1970-10-10T'+rowInfo.original.endTime);
                                     openEditPopupDialog(rowInfo.original);
                                 }
                             }

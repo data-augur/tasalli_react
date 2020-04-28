@@ -25,8 +25,10 @@ import {DatePicker, MuiPickersUtilsProvider, TimePicker} from 'material-ui-picke
 const newAdState = {
     id: '',
     video_link: '',
-    time_from: moment(new Date()).format('YYYY-MM-DDThh:mm'),
-    time_to: moment(new Date()).format('YYYY-MM-DDThh:mm')
+    startDate: moment(new Date()).format('YYYY-MM-DD'),
+    endDate: moment(new Date()).format('YYYY-MM-DD'),
+    startTime: moment(new Date()).format('1970-10-10Thh:mm'),
+    endTime: moment(new Date()).format('1970-10-10Thh:mm')
 };
 
 class AdDialog extends Component {
@@ -92,8 +94,10 @@ class AdDialog extends Component {
     };
 
 
-    onToChange = time_to => this.setState({time_to});
-    onFromChange = time_from => this.setState({time_from});
+    onEndDateChange = endDate => this.setState({endDate});
+    onStartDateChange = startDate => this.setState({startDate});
+    onEndTimeChange = endTime => this.setState({endTime});
+    onStartTimeChange = startTime => this.setState({startTime});
 
 
     closeComposeDialog = () => {
@@ -174,16 +178,10 @@ class AdDialog extends Component {
                                 <DatePicker
                                     margin="normal"
                                     className="mb-24"
-                                    label="From Date"
-                                    value={moment(new Date(this.state.time_from)).format('YYYY-MM-DDThh:mm')}
-                                    onChange={this.onFromChange}
+                                    label="Start Date"
+                                    value={moment(new Date(this.state.startDate)).format('YYYY-MM-DD')}
+                                    onChange={this.onStartDateChange}
                                     autoOk={true}
-                                />
-                                <TimePicker
-                                    margin="normal"
-                                    label="Starting Time"
-                                    value={moment(new Date(this.state.time_from)).format('YYYY-MM-DDThh:mm')}
-                                    onChange={this.onFromChange}
                                 />
                             </Grid>
                         </MuiPickersUtilsProvider>
@@ -197,21 +195,45 @@ class AdDialog extends Component {
                                 <DatePicker
                                     margin="normal"
                                     className="mb-24"
-                                    label="To Date"
-                                    value={moment(new Date(this.state.time_to)).format('YYYY-MM-DDThh:mm')}
-                                    onChange={this.onToChange}
+                                    label="End Date"
+                                    value={moment(new Date(this.state.endDate)).format('YYYY-MM-DD')}
+                                    onChange={this.onEndDateChange}
                                     autoOk={true}
-                                />
-                                <TimePicker
-                                    margin="normal"
-                                    label="Ending Time"
-                                    value={moment(new Date(this.state.time_to)).format('YYYY-MM-DDThh:mm')}
-                                    onChange={this.onToChange}
                                 />
                             </Grid>
                         </MuiPickersUtilsProvider>
-
                     </div>
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">Time</Icon>
+                        </div>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <Grid container justify="space-around">
+                                <TimePicker
+                                    margin="normal"
+                                    label="Starting Time"
+                                    value={moment(new Date(this.state.startTime)).format('1970-10-10Thh:mm')}
+                                    onChange={this.onStartTimeChange}
+                                />
+                            </Grid>
+                        </MuiPickersUtilsProvider>
+                    </div>
+                    <div className="flex">
+                        <div className="min-w-48 pt-20">
+                            <Icon color="action">Time</Icon>
+                        </div>
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <Grid container justify="space-around">
+                                <TimePicker
+                                    margin="normal"
+                                    label="Ending Time"
+                                    value={moment(new Date(this.state.endTime)).format('1970-10-10Thh:mm')}
+                                    onChange={this.onEndTimeChange}
+                                />
+                            </Grid>
+                        </MuiPickersUtilsProvider>
+                    </div>
+
 
                 </DialogContent>
 
@@ -223,18 +245,30 @@ class AdDialog extends Component {
                             onClick={() => {
                                 let dataToPass = {
                                     video_link: this.state.video_link,
-                                    time_from: moment(new Date(this.state.time_from)).format('YYYY-MM-DD hh:mm:ss'),
-                                    time_to: moment(new Date(this.state.time_to)).format('YYYY-MM-DD hh:mm:ss'),
+                                    startDate: moment(new Date(this.state.startDate)).format('YYYY-MM-DD '),
+                                    endDate: moment(new Date(this.state.endDate)).format('YYYY-MM-DD'),
+                                    startTime: moment(new Date(this.state.startTime)).format('YYYY-MM-DD hh:mm:ss'),
+                                    endTime: moment(new Date(this.state.endTime)).format('YYYY-MM-DD hh:mm:ss')
                                 };
-                                if (dataToPass.time_to > dataToPass.time_from) {
-                                    let strDateTime = dataToPass.time_to;
-                                    let myDate = new Date(strDateTime);
-                                    dataToPass.time_to = myDate.toLocaleString();
-                                    let strDateTimes = dataToPass.time_from;
-                                    let myDates = new Date(strDateTimes);
-                                    dataToPass.time_from = myDates.toLocaleString();
-                                    addAds(dataToPass);
-                                    this.closeComposeDialog();
+                                if (dataToPass.endDate > dataToPass.startDate) {
+                                    if (dataToPass.endTime > dataToPass.startTime) {
+                                        let startDate = dataToPass.startDate;
+                                        let myStartDate = new Date(startDate);
+                                        dataToPass.startDate = myStartDate.toLocaleString();
+                                        let endDate = dataToPass.endDate;
+                                        let myEndDate = new Date(endDate);
+                                        dataToPass.endDate = myEndDate.toLocaleString();
+                                        let startTime = dataToPass.startTime;
+                                        let myStartTime = new Date(startTime);
+                                        dataToPass.startTime = myStartTime.toLocaleString();
+                                        let endTimes = dataToPass.endTime;
+                                        let myEndTime = new Date(endTimes);
+                                        dataToPass.endTime = myEndTime.toLocaleString();
+                                        addAds(dataToPass);
+                                        this.closeComposeDialog();
+                                    } else {
+                                        alert("To Time should be greater than From Time!");
+                                    }
                                 } else {
                                     alert("To Date should be greater than From Date!");
                                 }

@@ -42,8 +42,10 @@ export function getAds()  {
     );
 }
 export const addAds = newAd => dispatch => {
-    newAd.time_from = new Date(newAd.time_from);
-    newAd.time_to = new Date(newAd.time_to);
+    newAd.startDate = new Date(newAd.startDate);
+    newAd.endDate = new Date(newAd.endDate);
+    newAd.startTime = new Date(newAd.startTime);
+    newAd.endTime = new Date(newAd.endTime);
     axios
     // .post(Base_URL+'create-ads', newAd)
         .post(Base_URL + 'create-ad', newAd)
@@ -69,7 +71,10 @@ export const addAds = newAd => dispatch => {
 };
 export const updateAds = (updateInfo, id) => dispatch => {
 // .put(Base_URL+'update-ad/${updateInfo.id}`,updateInfo)
-
+    updateInfo.startDate = new Date(updateInfo.startDate);
+    updateInfo.endDate = new Date(updateInfo.endDate);
+    updateInfo.startTime = new Date(updateInfo.startTime);
+    updateInfo.endTime = new Date(updateInfo.endTime);
     axios
         .put(Base_URL + `update-ad/${updateInfo.id}`, updateInfo)
         .then(res => {

@@ -142,8 +142,8 @@ class BrandsList extends Component {
                             Cell: row => (
                                 <Avatar
                                     className="mr-8"
-                                    alt={row.original.name}
-                                    src={row.value}
+                                    alt={row.name}
+                                    src={row.image_url}
                                 />
                             ),
                             className: 'justify-center',

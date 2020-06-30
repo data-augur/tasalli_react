@@ -3,6 +3,7 @@ import {Base_URL} from '../../../../server'
 import {showMessage} from 'app/store/actions/fuse';
 import store from 'app/store';
 import {logoutUser} from 'app/auth/store/actions/login.actions';
+
 export const GET_BRANDS = '[BRANDS APP] GET BRANDS';
 export const GET_ALL_COMPANIES = '[BRANDS APP] GET COMPANIES';
 export const ADD_BRAND = '[BRANDS APP] ADD BRAND';
@@ -27,11 +28,12 @@ export const TOGGLE_STARRED_BRAND = '[BRANDS APP] TOGGLE STARRED BRANDS';
 export const TOGGLE_STARRED_BRANDS = '[BRANDS APP] TOGGLE STARRED BRANDS';
 export const SET_BRANDS_STARRED = '[BRANDS APP] SET BRANDS STARRED ';
 
-let selectedCompanyId='Undefined';
+let selectedCompanyId = 'Undefined';
 
 export function reset() {
-    selectedCompanyId='Undefined';
+    selectedCompanyId = 'Undefined';
 }
+
 export const getAllCompanies = () => dispatch => {
     let query;
     if (localStorage.getItem('companyId')) {
@@ -54,16 +56,25 @@ export const getAllCompanies = () => dispatch => {
 
         });
 };
+
 export function getBrands() {
 
     return (
-    getBrandsPaginationData(0,20,'','')
+        getBrandsPaginationData(0, 20, '', '')
     );
 }
+
 export const addBrand = newBrand => dispatch => {
+    let file = newBrand.image;
+    let formdata = new FormData();
+    formdata.append('image', file);
+    formdata.append('companyId', newBrand.companyId);
+    formdata.append('companyName', newBrand.companyName);
+    formdata.append('name', newBrand.name);
+    formdata.append('id', newBrand.id);
 
     axios
-        .post(Base_URL + 'create-brand', newBrand)
+        .post(Base_URL + 'create-brand', formdata)
         .then(res => {
             if (res.request.status === 200) {
                 dispatch(showMessage({message: 'Brand Created', variant: "success"}));
@@ -80,11 +91,18 @@ export const addBrand = newBrand => dispatch => {
         });
 };
 export const updateBrand = (updateInfo, id) => dispatch => {
+    let file = updateInfo.image;
+    let formdata = new FormData();
+    formdata.append('image', file);
+    formdata.append('companyId', updateInfo.companyId);
+    formdata.append('companyName', updateInfo.companyName);
+    formdata.append('name', updateInfo.name);
+    formdata.append('id', updateInfo.id);
 
     axios
         .put(
             Base_URL + `update-brand/${updateInfo.id}`,
-            updateInfo
+            formdata
         )
         .then(res => {
             if (res.request.status === 200) {
@@ -278,33 +296,33 @@ export function setBrandsUnstarred(brandIds) {
 
 export const getBrandsPaginationData = (page, pageSize, sorted, filtered) => dispatch => {
 
-    if(isNaN(pageSize)|| pageSize===-1){
-        pageSize='All';
-        page=0;
-        sorted=[];
+    if (isNaN(pageSize) || pageSize === -1) {
+        pageSize = 'All';
+        page = 0;
+        sorted = [];
     }
     let sortingName;
     let sortingOrder;
-    if(sorted.length===0 || sorted===''){
-        sortingName='Undefined';
-        sortingOrder='Undefined';
+    if (sorted.length === 0 || sorted === '') {
+        sortingName = 'Undefined';
+        sortingOrder = 'Undefined';
     } else {
-        if(sorted[0].desc){
+        if (sorted[0].desc) {
             sortingName = sorted[0].id;
-            sortingOrder= 'DESC';
+            sortingOrder = 'DESC';
         } else {
             sortingName = sorted[0].id;
-            sortingOrder= 'ASC';
+            sortingOrder = 'ASC';
         }
     }
     let querys;
     if (localStorage.getItem('companyId')) {
         let id = localStorage.getItem('companyId');
-        querys = 'get-all-brands-by-id-pagination/' + id+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
-    } else if(selectedCompanyId !== 'Undefined'){
-        querys = 'get-all-brands-by-id-pagination/' + selectedCompanyId+'/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+        querys = 'get-all-brands-by-id-pagination/' + id + '/' + page + '/' + pageSize + '/' + sortingName + '/' + sortingOrder;
+    } else if (selectedCompanyId !== 'Undefined') {
+        querys = 'get-all-brands-by-id-pagination/' + selectedCompanyId + '/' + page + '/' + pageSize + '/' + sortingName + '/' + sortingOrder;
     } else {
-        querys = 'get-all-brands-by-paging/'+page+'/'+pageSize+'/'+sortingName+'/'+sortingOrder;
+        querys = 'get-all-brands-by-paging/' + page + '/' + pageSize + '/' + sortingName + '/' + sortingOrder;
     }
     axios
         .get(Base_URL + querys)
@@ -314,7 +332,7 @@ export const getBrandsPaginationData = (page, pageSize, sorted, filtered) => dis
                 payload: res.data.records,
                 pages: res.data.pages
             });
-            return({});
+            return ({});
         })
         .then(() => dispatch(getAllCompanies()))
         .catch(err => {
@@ -328,12 +346,12 @@ export const getBrandsPaginationData = (page, pageSize, sorted, filtered) => dis
 
 export function searchBrandsByCompany(companyId) {
 
-    if(companyId===''){
-        selectedCompanyId='Undefined';
+    if (companyId === '') {
+        selectedCompanyId = 'Undefined';
     } else {
-        selectedCompanyId=companyId
+        selectedCompanyId = companyId
     }
-        return (
-            getBrandsPaginationData(0,20,'','')
-        );
+    return (
+        getBrandsPaginationData(0, 20, '', '')
+    );
 }

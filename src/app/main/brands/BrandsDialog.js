@@ -18,8 +18,8 @@ import _ from '@lodash';
 
 const newBrandState = {
     name: '',
-    companyId: ''
-    // id: ''
+    companyId: '',
+    image: ''
 };
 
 class BrandDialog extends Component {
@@ -69,6 +69,11 @@ class BrandDialog extends Component {
             )
         );
     };
+
+    handleFile(e){
+        let file=e.target.files[0]
+        this.setState({image: file})
+    }
 
     closeComposeDialog = () => {
         this.props.brandDialog.type === 'edit'
@@ -156,6 +161,14 @@ class BrandDialog extends Component {
                                 );
                             })}
                         </TextField>
+                    </div>
+                    <div className="flex">
+                        <div className="min-w-48">
+                            <Icon color="action">image</Icon>
+                        </div>
+                        <input title="Image" type="file" name="image" onChange={(e)=>this.handleFile(e)}
+                        />
+
                     </div>
                 </DialogContent>
 

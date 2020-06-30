@@ -3,11 +3,6 @@ import {
     Avatar,
     Icon,
     IconButton,
-    ListItemIcon,
-    ListItemText,
-    Menu,
-    MenuItem,
-    MenuList,
     Typography
 } from '@material-ui/core';
 import {FuseAnimate, FuseUtils} from '@fuse';
@@ -30,35 +25,22 @@ class BrandsList extends Component {
         return FuseUtils.filterArrayByString(arr, searchText);
     };
 
-    openSelectedBrandMenu = event => {
-        this.setState({selectedBrandsMenu: event.currentTarget});
-    };
-
-    closeSelectedBrandsMenu = () => {
-        this.setState({selectedBrandsMenu: null});
-    };
-
     render() {
         const {
             brands,
             searchText,
-            selectedBrandIds,
             openEditBrandDialog,
-            removeBrands,
             removeBrand,
-            setBrandsUnstarred,
-            setBrandsStarred,
             getBrandsPaginationData,
             totalPages
         } = this.props;
         const data = this.getFilteredArray(brands, searchText);
-        const {selectedBrandsMenu} = this.state;
 
         if (!data && data.length === 0) {
             return (
                 <div className="flex items-center justify-center h-full">
                     <Typography color="textSecondary" variant="h5">
-                        There are no brand users!
+                        There are no brands!
                     </Typography>
                 </div>
             );
@@ -80,70 +62,13 @@ class BrandsList extends Component {
                     }}
                     data={data}
                     columns={[
-
                         {
-                            Header: () =>
-                                selectedBrandIds.length > 0 && (
-                                    <React.Fragment>
-                                        <IconButton
-                                            aria-owns={
-                                                selectedBrandsMenu ? 'selectedBrandsMenu' : null
-                                            }
-                                            aria-haspopup="true"
-                                            onClick={this.openSelectedBrandMenu}
-                                        >
-                                            <Icon>more_horiz</Icon>
-                                        </IconButton>
-                                        <Menu
-                                            id="selectedBrandsMenu"
-                                            anchorEl={selectedBrandsMenu}
-                                            open={Boolean(selectedBrandsMenu)}
-                                            onClose={this.closeSelectedBrandsMenu}
-                                        >
-                                            <MenuList>
-                                                <MenuItem
-                                                    onClick={() => {
-                                                        removeBrands(selectedBrandIds);
-                                                        this.closeSelectedBrandsMenu();
-                                                    }}
-                                                >
-                                                    <ListItemIcon>
-                                                        <Icon>delete</Icon>
-                                                    </ListItemIcon>
-                                                    <ListItemText inset primary="Remove"/>
-                                                </MenuItem>
-                                                <MenuItem
-                                                    onClick={() => {
-                                                        setBrandsStarred(selectedBrandIds);
-                                                        this.closeSelectedBrandsMenu();
-                                                    }}
-                                                >
-                                                    <ListItemIcon>
-                                                        <Icon>star</Icon>
-                                                    </ListItemIcon>
-                                                    <ListItemText inset primary="Starred"/>
-                                                </MenuItem>
-                                                <MenuItem
-                                                    onClick={() => {
-                                                        setBrandsUnstarred(selectedBrandIds);
-                                                        this.closeSelectedBrandsMenu();
-                                                    }}
-                                                >
-                                                    <ListItemIcon>
-                                                        <Icon>star_border</Icon>
-                                                    </ListItemIcon>
-                                                    <ListItemText inset primary="Unstarred"/>
-                                                </MenuItem>
-                                            </MenuList>
-                                        </Menu>
-                                    </React.Fragment>
-                                ),
-                            accessor: 'avatar',
+                            accessor: 'image_url',
                             Cell: row => (
                                 <Avatar
                                     className="mr-8"
-                                    alt={row.name}
-                                    src={row.image_url}
+                                    alt={row.original.name}
+                                    src={row.original.image_url}
                                 />
                             ),
                             className: 'justify-center',
